@@ -1,7 +1,9 @@
 ﻿@layout AdminLayout
 @page "/admin"
 @using Company_Site.Data
+@using Company_Site.Enum
 @using Company_Site.Services
+@using System.Linq
 @inject UserManager userManager
 
 <PageTitle>Admin Dashboard</PageTitle>
@@ -34,19 +36,125 @@
 	<div class="row my-3">
 		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
 			<tr class="border-bottom-1">
-				<th scope="col">#</th>
-				<th scope="col" >First Name</th>
-				<th scope="col" >Last Name</th>
-				<th scope="col" >Date of Joining</th>
-				<th scope="col" >Email</th>
-				<th scope="col" >Department</th>
-				<th scope="col" >Role</th>
-				<th scope="col" >Designation</th>
-				<th scope="col" >Position</th>
-				<th scope="col" >Mobile</th>
+				<th scope="col">
+					<a class="btn-sortable" @onclick='(() => Sort("Id"))'>
+						#
+						@if(Sortings["Id"] == Sorting.Ascending){
+								<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if(Sortings["Id"] == Sorting.Descending)
+						{
+								<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("First Name"))'>
+						First Name
+						@if (Sortings["First Name"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["First Name"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Last Name"))'>
+						Last Name
+						@if (Sortings["Last Name"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Last Name"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Date of Joining"))'>
+						Date of Joining
+						@if (Sortings["Date of Joining"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Date of Joining"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Email"))'>
+						Email
+						@if (Sortings["Email"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Email"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Department"))'>
+						Department
+						@if (Sortings["Department"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Department"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Role"))'>
+						Role
+						@if (Sortings["Role"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Role"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Designation"))'>
+						Designation
+						@if (Sortings["Designation"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Designation"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
+				<th scope="col" >
+					<a class="btn-sortable" @onclick='(() => Sort("Mobile"))'>
+						Mobile
+						@if (Sortings["Mobile"] == Sorting.Ascending)
+						{
+									<i class="ms-1 fa fa-arrow-up d-inline"></i>
+						}
+						else if (Sortings["Mobile"] == Sorting.Descending)
+						{
+									<i class="ms-1 fa fa-arrow-down d-inline"></i>
+						}
+					</a>
+				</th>
 				<th scope="col" ></th>
 			</tr>
-			@foreach (User user in CurrentUsers)
+			@foreach (User user in Users)
 			{
 			<tr>
 				<th scope="row">@user.Id</th>
@@ -57,8 +165,7 @@
 				<td >@user.Department</td>
 				<td >@user.Role</td>
 				<td >@user.Designation</td>
-				<td ></td>
-				<td ></td>
+				<td >@user.Mobile</td>
 				<td >
 						<a class=""><i class="fa fa-trash btn btn-outline-danger"></i></a>
 				</td>
@@ -97,11 +204,105 @@
 
 
 @code {
-	public List<User> CurrentUsers = new List<User>();
+	public List<User> Users = new List<User>();
+
+	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>()
+	{
+		["Id"] = Sorting.None,
+		["First Name"]= Sorting.None,
+		["Last Name"] = Sorting.None,
+		["Date of Joining"] = Sorting.None,
+		["Email"] = Sorting.None,
+		["Department"] = Sorting.None,
+		["Role"] = Sorting.None,
+		["Designation"] = Sorting.None,
+		["Mobile"] = Sorting.None,
+	};
 
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-		CurrentUsers = userManager.GetUsers();
+		Users = userManager.GetUsers();
 	}
+
+	private void ResetSorting(string toSkip = null){
+		foreach(string key in Sortings.Keys){
+			if (key == toSkip)
+				continue;
+			Sortings[key] = Sorting.None;
+		}
+	}
+
+	///Sorts the table with the specified column
+	private void Sort(string name){
+		ResetSorting(name);
+		if (Sortings[name] == Sorting.None)
+			Sortings[name] = Sorting.Ascending;
+		else if (Sortings[name] == Sorting.Ascending)
+			Sortings[name] = Sorting.Descending;
+		else
+			Sortings[name] = Sorting.Ascending;
+
+		SortRecords(name);
+	}
+
+	private void SortRecords(string name){
+		switch(name){
+			case "Id":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.Id).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.Id).ToList();
+				return;
+			case "First Name":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.FirstName).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.FirstName).ToList();
+				return;
+			case "Last Name":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.LastName).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.LastName).ToList();
+				return;
+			case "Date of Joining":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.DateOfJoining).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.DateOfJoining).ToList();
+				return;
+				case "Email":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.Email).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.Email).ToList();
+				return;
+			case "Department":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.Department).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.Department).ToList();
+				return;
+			case "Role":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.Role).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.Role).ToList();
+				return;
+				case "Designation":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.Designation).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.Designation).ToList();
+				return;
+			case "Mobile":
+				if (Sortings[name] == Sorting.Ascending)
+					Users = Users.OrderBy(func => func.Mobile).ToList();
+				else
+					Users = Users.OrderByDescending(func => func.Mobile).ToList();
+				return;
+		}
+	}
+
 }

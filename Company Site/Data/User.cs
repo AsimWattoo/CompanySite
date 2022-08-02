@@ -16,5 +16,6 @@
         public string? OfficeLocation { get; set; }
         public string? Status { get; set; }
         public string? Access { get; set; }
+        public string? Mobile { get; set; }
     }
 }

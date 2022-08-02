@@ -18,6 +18,10 @@
 .roundedTextBox:focus[b-li00p3aabm]{
     outline: none;
 }
+
+td[b-li00p3aabm], th[b-li00p3aabm]{
+    text-align: center;
+}
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
 .page[b-y3fmicphz7] {
     position: relative;

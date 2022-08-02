@@ -23,18 +23,20 @@ namespace Company_Site.Services
                 LastLogin = DateTime.Now,
                 OfficeLocation = "Office",
                 Status = "Active",
-                Access = "All"
+                Access = "All",
+                Mobile = "03117995371"
                 },
-                new User(){ Id = 2, FirstName = "Muhammad", LastName="Asim", Designation="CEO", Department="Finance",
-                Email="asimwattoo6@gmail.com",
+                new User(){ Id = 2, FirstName = "Muhammad", LastName="Asim", Designation="CTO", Department="Finance",
+                Email="asimwattoo@gmail.com",
                 Password = "asimwattoo123",
                 Role="Business Head",
                 DateOfJoining = DateTime.Now.AddDays(-100),
                 DOB=new DateTime(2003, 03, 13),
                 LastLogin = DateTime.Now,
                 OfficeLocation = "Office",
-                Status = "Active",
-                Access = "All"
+                Status = "On Vacation",
+                Access = "All",
+                Mobile = "03117995371"
                 }
             };
         }

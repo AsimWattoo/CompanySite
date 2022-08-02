@@ -17,3 +17,7 @@
 .roundedTextBox:focus{
     outline: none;
 }
+
+td, th{
+    text-align: center;
+}
