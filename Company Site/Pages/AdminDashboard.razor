@@ -1,0 +1,107 @@
+﻿@layout AdminLayout
+@page "/admin"
+@using Company_Site.Data
+@using Company_Site.Services
+@inject UserManager userManager
+
+<PageTitle>Admin Dashboard</PageTitle>
+
+<h3 class="mt-3">Users</h3>
+
+<div class="container-fluid mt-4">
+	<!--Table Header-->
+	<div class="row">
+		<div class="col-3">
+			Show 
+			<select id="enteriesSelection" class="select-box">
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="50">50</option>
+			</select>
+			enteries
+		</div>
+		<div class="col-8 d-flex justify-content-end">
+			<div>
+				<label for="searchBox">Search</label>
+				<input type="text" class="roundedTextBox w-50"/>
+				<a class="btn btn-outline-dark">Print</a>
+				<a class="btn btn-outline-dark">CSV</a>
+			</div>
+		</div>
+	</div>
+	<!--Table-->
+	<div class="row my-3">
+		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
+			<tr class="border-bottom-1">
+				<th scope="col">#</th>
+				<th scope="col" >First Name</th>
+				<th scope="col" >Last Name</th>
+				<th scope="col" >Date of Joining</th>
+				<th scope="col" >Email</th>
+				<th scope="col" >Department</th>
+				<th scope="col" >Role</th>
+				<th scope="col" >Designation</th>
+				<th scope="col" >Position</th>
+				<th scope="col" >Mobile</th>
+				<th scope="col" ></th>
+			</tr>
+			@foreach (User user in CurrentUsers)
+			{
+			<tr>
+				<th scope="row">@user.Id</th>
+				<td >@user.FirstName</td>
+				<td >@user.LastName</td>
+				<td >@user.DateOfJoining.ToShortDateString()</td>
+				<td >@user.Email</td>
+				<td >@user.Department</td>
+				<td >@user.Role</td>
+				<td >@user.Designation</td>
+				<td ></td>
+				<td ></td>
+				<td >
+						<a class=""><i class="fa fa-trash btn btn-outline-danger"></i></a>
+				</td>
+			</tr>
+			}
+		</table>
+	</div>
+	<!--Table Footer-->
+	<div class="row">
+		<div class="col-4">
+			<p class="lead fs-small">Showing 1 to 10 out of 57 enteries</p>
+		</div>
+		<div class="col-8">
+			<nav>
+			  <ul class="pagination d-flex justify-content-end">
+				<li class="page-item">
+				  <a class="page-link" href="#" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+					<span class="sr-only">Previous</span>
+				  </a>
+				</li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item">
+				  <a class="page-link" href="#" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+				  </a>
+				</li>
+			  </ul>
+			</nav>
+		</div>
+	</div>
+</div>
+
+
+@code {
+	public List<User> CurrentUsers = new List<User>();
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		CurrentUsers = userManager.GetUsers();
+	}
+}

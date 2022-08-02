@@ -1,0 +1,288 @@
+/* _content/Company Site/Pages/AdminDashboard.razor.rz.scp.css */
+.border-bottom-1[b-li00p3aabm]{
+    border-bottom: 1px solid black;
+}
+
+.select-box[b-li00p3aabm]{
+    border-radius: 5px;
+    margin: 0px 5px;
+    padding: 5px 10px;
+}
+
+.roundedTextBox[b-li00p3aabm]{
+    border-radius: 5px !important;
+    border: 1px solid lightgray !important;
+    padding: 5px;
+}
+
+.roundedTextBox:focus[b-li00p3aabm]{
+    outline: none;
+}
+/* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
+.page[b-y3fmicphz7] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-y3fmicphz7] {
+    flex: 1;
+}
+
+.sidebar[b-y3fmicphz7] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-y3fmicphz7] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-y3fmicphz7]  a, .top-row .btn-link[b-y3fmicphz7] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-y3fmicphz7] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-y3fmicphz7] {
+        display: none;
+    }
+
+    .top-row.auth[b-y3fmicphz7] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-y3fmicphz7], .top-row .btn-link[b-y3fmicphz7] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-y3fmicphz7] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-y3fmicphz7] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-y3fmicphz7] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-y3fmicphz7], article[b-y3fmicphz7] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/Company Site/Shared/AdminNavMenu.razor.rz.scp.css */
+.navbar-toggler[b-4vej1re2mv] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-4vej1re2mv] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-4vej1re2mv] {
+    font-size: 1.1rem;
+}
+
+.oi[b-4vej1re2mv] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-4vej1re2mv] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-4vej1re2mv] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-4vej1re2mv] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-4vej1re2mv]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-4vej1re2mv]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-4vej1re2mv]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-4vej1re2mv] {
+        display: none;
+    }
+
+    .collapse[b-4vej1re2mv] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}
+/* _content/Company Site/Shared/MainLayout.razor.rz.scp.css */
+.page[b-cddauckdx4] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-cddauckdx4] {
+    flex: 1;
+}
+
+.sidebar[b-cddauckdx4] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-cddauckdx4] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-cddauckdx4]  a, .top-row .btn-link[b-cddauckdx4] {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+    }
+
+    .top-row a:first-child[b-cddauckdx4] {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row:not(.auth)[b-cddauckdx4] {
+        display: none;
+    }
+
+    .top-row.auth[b-cddauckdx4] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-cddauckdx4], .top-row .btn-link[b-cddauckdx4] {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-cddauckdx4] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-cddauckdx4] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-cddauckdx4] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row[b-cddauckdx4], article[b-cddauckdx4] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+/* _content/Company Site/Shared/NavMenu.razor.rz.scp.css */
+.navbar-toggler[b-madu8pitlo] {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.top-row[b-madu8pitlo] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-madu8pitlo] {
+    font-size: 1.1rem;
+}
+
+.oi[b-madu8pitlo] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.nav-item[b-madu8pitlo] {
+    font-size: 0.9rem;
+    padding-bottom: 0.5rem;
+}
+
+    .nav-item:first-of-type[b-madu8pitlo] {
+        padding-top: 1rem;
+    }
+
+    .nav-item:last-of-type[b-madu8pitlo] {
+        padding-bottom: 1rem;
+    }
+
+    .nav-item[b-madu8pitlo]  a {
+        color: #d7d7d7;
+        border-radius: 4px;
+        height: 3rem;
+        display: flex;
+        align-items: center;
+        line-height: 3rem;
+    }
+
+.nav-item[b-madu8pitlo]  a.active {
+    background-color: rgba(255,255,255,0.25);
+    color: white;
+}
+
+.nav-item[b-madu8pitlo]  a:hover {
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-madu8pitlo] {
+        display: none;
+    }
+
+    .collapse[b-madu8pitlo] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

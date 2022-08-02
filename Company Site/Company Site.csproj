@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Company_Site</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Pages\AdminDashboard.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Pages\AdminDashboard.razor.css" />
+  </ItemGroup>
+
+</Project>
