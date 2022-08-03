@@ -1,0 +1,144 @@
+﻿@page "/admin/adduser"
+@layout Company_Site.Shared.AdminLayout
+@using Company_Site.Data
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedSessionStorage sessionStorage
+@inject NavigationManager navManager
+
+<PageTitle>@Title | Admin</PageTitle>
+
+<div class="px-lg-5">
+	<h3>@Title</h3>
+	<EditForm Model="@newUser">
+
+		<div class="form-floating mb-3">
+		  <input type="text" class="form-control" id="firstname" placeholder="First Name">
+		  <label for="firstname">First Name</label>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+		  <label for="lastname">Last Name</label>
+		</div>
+
+		<div class="input-group mb-3 d-flex align-items-center">
+			<label for="designation" class="me-1">Designation</label>
+			<select id="designation" class="form-select">
+				<option value="CEO" selected>CEO</option>
+				<option value="CFO">CFO</option>
+				<option value="Vice President">Vice President</option>
+				<option value="Assistance Vice President">Assistance Vice President</option>
+				<option value="Cheif Manager">Cheif Manager</option>
+				<option value="Manager">Manager</option>
+				<option value="Assistance Manager">Assistance Manager</option>
+				<option value="Management Trainee">Management Trainee</option>
+				<option value="Auditor">Auditor</option>
+			</select>
+		</div>
+
+		<div class="input-group mb-3 d-flex align-items-center">
+			<label for="department" class="me-1">Department</label>
+			<select id="department" class="form-select">
+				<option value="Acquisition" selected>Acquisition</option>
+				<option value="Finance">Finance</option>
+				<option value="Legal">Legal</option>
+				<option value="Retail">Retail</option>
+				<option value="Resolution">Resolution</option>
+				<option value="HR">HR</option>
+				<option value="Compliance">Compliance</option>
+				<option value="Office Support">Office Support</option>
+			</select>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <input type="email" class="form-control" id="email" placeholder="email">
+		  <label for="email">Email</label>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <input type="password" class="form-control" id="password" placeholder="password">
+		  <label for="password">Password</label>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password">
+		  <label for="confirm-password">Confirm Password</label>
+		</div>
+
+		<div class="input-group mb-3 d-flex align-items-center">
+			<label for="role" class="me-1">Role</label>
+			<select id="role" class="form-select">
+				<option value="Management" selected>Management</option>
+				<option value="Business Head">Business Head</option>
+				<option value="Group Head">Group Head</option>
+				<option value="Dealing Officer">Dealing Officer</option>
+				<option value="Legal Officer">Legal Officer</option>
+				<option value="Officer">Officer</option>
+				<option value="Internal Auditor">Internal Auditor</option>
+				<option value="External Auditor">External Auditor</option>
+			</select>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <input type="date" class="form-control" id="date-of-joining" placeholder="Date of Joining">
+		  <label for="date-of-joining">Date of joining</label>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <input type="date" class="form-control" id="date-of-birth" placeholder="Date of Birth">
+		  <label for="date-of-birth">Date of Birth</label>
+		</div>
+
+		<div class="input-group mb-3 d-flex align-items-center">
+			<label for="office-location" class="me-1">Office Location</label>
+			<select id="office-location" class="form-select">
+				<option value="Office" selected>Office</option>
+				<option value="Site">Site</option>
+				<option value="Warehouse">Warehouse</option>
+			</select>
+		</div>
+
+		<div class="input-group mb-3 d-flex align-items-center">
+			<label for="status" class="me-1">Status</label>
+			<select id="status" class="form-select">
+				<option value="Active" selected>Active</option>
+				<option value="Deactive">Deactivate</option>
+			</select>
+		</div>
+
+		<div class="input-group d-flex justify-content-end">
+			<div>
+				<input type="submit" class="btn btn-primary me-1" value="Submit"/>
+				<a class="btn btn-danger">Cancel</a>
+			</div>
+		</div>
+
+	</EditForm>
+</div>
+
+@code {
+
+	private string? Title;
+
+	private string PageMode;
+
+	private User newUser = new User();
+
+	protected async override void OnInitialized()
+	{
+		base.OnInitialized();
+		string? pageMode = (await sessionStorage.GetAsync<string>("UserPageMode")).Value;
+		if(pageMode == null)
+		{
+			navManager.NavigateTo("/admin");
+		}
+		else{
+			PageMode = pageMode;
+			if (pageMode == "add")
+				Title = "Add User";
+			else
+				Title = "Edit User";
+			StateHasChanged();
+		}
+	}
+}

@@ -11,8 +11,4 @@
     <None Remove="Pages\AdminDashboard.razor.css" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Include="Pages\AdminDashboard.razor.css" />
-  </ItemGroup>
-
 </Project>
