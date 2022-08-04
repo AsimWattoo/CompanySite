@@ -13,6 +13,24 @@
 
 <PageTitle>Admin Dashboard</PageTitle>
 
+<div class="modal" id="deleteConfirmModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Confirmation</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<p>Are you sure you want to delete the record?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" @onclick="DeleteRecord"  data-bs-dismiss="modal"  class="btn btn-danger">Confirm</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-11">
@@ -181,8 +199,8 @@
 				<td >@user.Designation</td>
 				<td >@user.Mobile</td>
 				<td >
-						<a class=""><i class="fa fa-edit btn btn-outline-primary"></i></a>
-						<a class=""><i class="fa fa-trash btn btn-outline-danger"></i></a>
+							<a @onclick='@(() => EditRecord(user.Id))'><i class="fa fa-edit btn btn-outline-primary"></i></a>
+							<a @onclick='@(() => DeleteRecordId(user.Id))' data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
 				</td>
 			</tr>
 			}
@@ -221,6 +239,8 @@
 @code {
 	public List<User> Users = new List<User>();
 
+	private int userIdToDelete;
+
 	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>()
 	{
 		["Id"] = Sorting.None,
@@ -252,6 +272,21 @@
 
 	private void AddUser(){
 		sessionStorage.SetAsync("UserPageMode", "add");
+		navigationManager.NavigateTo("/admin/adduser");
+	}
+
+	private void DeleteRecordId(int id){
+		userIdToDelete = id;
+	}
+
+	private void DeleteRecord(){
+		userManager.RemoveUser(userIdToDelete);
+		Users = userManager.GetUsers();
+	}
+
+	private void EditRecord(int id){
+		sessionStorage.SetAsync("UserPageMode", "edit");
+		sessionStorage.SetAsync("UserId", id);
 		navigationManager.NavigateTo("/admin/adduser");
 	}
 

@@ -1,30 +1,41 @@
 ﻿@page "/admin/adduser"
 @layout Company_Site.Shared.AdminLayout
 @using Company_Site.Data
+@using Company_Site.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage sessionStorage
 @inject NavigationManager navManager
+@inject UserManager userManager
 
 <PageTitle>@Title | Admin</PageTitle>
 
 <div class="px-lg-5">
 	<h3>@Title</h3>
-	<EditForm Model="@newUser">
+	<EditForm Model="@newUser" OnValidSubmit="@FormSubmit">
+
+		@if(!string.IsNullOrEmpty(Error) && !string.IsNullOrWhiteSpace(Error)){
+				<ul class="text-danger">
+						<li><p class="text-danger">@Error</p></li>
+				</ul>
+		}
+		<DataAnnotationsValidator/>
+		<ValidationSummary/>
 
 		<div class="form-floating mb-3">
-		  <input type="text" class="form-control" id="firstname" placeholder="First Name">
+		  <InputText type="text" class="form-control" id="firstname" placeholder="First Name" @bind-Value="newUser.FirstName"/>
 		  <label for="firstname">First Name</label>
 		</div>
 
 		<div class="form-floating mb-3">
-		  <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+		  <InputText type="text" class="form-control" id="lastname" placeholder="Last Name" @bind-Value="newUser.LastName"/>
 		  <label for="lastname">Last Name</label>
 		</div>
 
 		<div class="input-group mb-3 d-flex align-items-center">
 			<label for="designation" class="me-1">Designation</label>
-			<select id="designation" class="form-select">
-				<option value="CEO" selected>CEO</option>
+			<InputSelect @bind-Value="newUser.Designation" class="form-control" id="designation">
+				<option selected>--- Select Designation ---</option>
+				<option value="CEO">CEO</option>
 				<option value="CFO">CFO</option>
 				<option value="Vice President">Vice President</option>
 				<option value="Assistance Vice President">Assistance Vice President</option>
@@ -33,13 +44,14 @@
 				<option value="Assistance Manager">Assistance Manager</option>
 				<option value="Management Trainee">Management Trainee</option>
 				<option value="Auditor">Auditor</option>
-			</select>
+			</InputSelect>
 		</div>
 
 		<div class="input-group mb-3 d-flex align-items-center">
 			<label for="department" class="me-1">Department</label>
-			<select id="department" class="form-select">
-				<option value="Acquisition" selected>Acquisition</option>
+			<InputSelect @bind-Value="newUser.Department" id="department" class="form-select" >
+				<option selected>--- Select Department ---</option>
+				<option value="Acquisition">Acquisition</option>
 				<option value="Finance">Finance</option>
 				<option value="Legal">Legal</option>
 				<option value="Retail">Retail</option>
@@ -47,28 +59,29 @@
 				<option value="HR">HR</option>
 				<option value="Compliance">Compliance</option>
 				<option value="Office Support">Office Support</option>
-			</select>
+			</InputSelect>
 		</div>
 
 		<div class="form-floating mb-3">
-		  <input type="email" class="form-control" id="email" placeholder="email">
+		  <InputText type="email" class="form-control" id="email" placeholder="email" @bind-Value="newUser.Email"/>
 		  <label for="email">Email</label>
 		</div>
 
 		<div class="form-floating mb-3">
-		  <input type="password" class="form-control" id="password" placeholder="password">
+		  <InputText type="password" class="form-control" id="password" placeholder="password" @bind-Value="newUser.Password"/>
 		  <label for="password">Password</label>
 		</div>
 
 		<div class="form-floating mb-3">
-		  <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password">
+		  <InputText type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" @bind-Value="confirmPassword"/>
 		  <label for="confirm-password">Confirm Password</label>
 		</div>
 
 		<div class="input-group mb-3 d-flex align-items-center">
 			<label for="role" class="me-1">Role</label>
-			<select id="role" class="form-select">
-				<option value="Management" selected>Management</option>
+			<InputSelect @bind-Value="newUser.Role"  id="role" class="form-select">
+				<option selected>--- Select Role ---</option>
+				<option value="Management">Management</option>
 				<option value="Business Head">Business Head</option>
 				<option value="Group Head">Group Head</option>
 				<option value="Dealing Officer">Dealing Officer</option>
@@ -76,34 +89,41 @@
 				<option value="Officer">Officer</option>
 				<option value="Internal Auditor">Internal Auditor</option>
 				<option value="External Auditor">External Auditor</option>
-			</select>
+			</InputSelect>
 		</div>
 
 		<div class="form-floating mb-3">
-		  <input type="date" class="form-control" id="date-of-joining" placeholder="Date of Joining">
+		  <input type="date" class="form-control" id="date-of-joining" placeholder="Date of Joining" @bind-value="newUser.DateOfJoining">
 		  <label for="date-of-joining">Date of joining</label>
 		</div>
 
 		<div class="form-floating mb-3">
-		  <input type="date" class="form-control" id="date-of-birth" placeholder="Date of Birth">
+		  <input type="date" class="form-control" id="date-of-birth" placeholder="Date of Birth" @bind-value="newUser.DOB">
 		  <label for="date-of-birth">Date of Birth</label>
 		</div>
 
 		<div class="input-group mb-3 d-flex align-items-center">
 			<label for="office-location" class="me-1">Office Location</label>
-			<select id="office-location" class="form-select">
-				<option value="Office" selected>Office</option>
+			<InputSelect @bind-Value="newUser.OfficeLocation" id="office-location" class="form-select">
+				<option selected>--- Select Office Location ---</option>
+				<option value="Office">Office</option>
 				<option value="Site">Site</option>
 				<option value="Warehouse">Warehouse</option>
-			</select>
+			</InputSelect>
 		</div>
 
 		<div class="input-group mb-3 d-flex align-items-center">
 			<label for="status" class="me-1">Status</label>
-			<select id="status" class="form-select">
-				<option value="Active" selected>Active</option>
+			<InputSelect @bind-Value="newUser.Status" id="status" class="form-select">
+				<option selected>--- Select Status ---</option>
+				<option value="Active">Active</option>
 				<option value="Deactive">Deactivate</option>
-			</select>
+			</InputSelect>
+		</div>
+
+		<div class="form-floating mb-3">
+		  <InputText type="text" class="form-control" id="mobile" placeholder="Mobile" @bind-Value="newUser.Mobile"/>
+		  <label for="mobile">Mobile</label>
 		</div>
 
 		<div class="input-group d-flex justify-content-end">
@@ -122,7 +142,11 @@
 
 	private string PageMode;
 
+	private string Error;
+
 	private User newUser = new User();
+
+	private string? confirmPassword { get; set; }
 
 	protected async override void OnInitialized()
 	{
@@ -137,8 +161,35 @@
 			if (pageMode == "add")
 				Title = "Add User";
 			else
+			{
 				Title = "Edit User";
+				int userId = (await sessionStorage.GetAsync<int>("UserId")).Value;
+				newUser = userManager.GetUsers().Where(u => u.Id == userId).First();
+				confirmPassword = newUser.Password;
+			}
 			StateHasChanged();
+		}
+	}
+
+	//Either adds or edits a user
+	private void FormSubmit(){
+		if(PageMode == "add"){
+
+			if(newUser.Password.CompareTo(confirmPassword) != 0){
+				Error = "Passwords do not match";
+				return;
+			}
+			newUser.Id = userManager.GetUsers().Last().Id + 1;
+			userManager.AddUser(newUser);
+			navManager.NavigateTo("/admin");
+		}
+		else if(PageMode == "edit"){
+			if (newUser.Password.CompareTo(confirmPassword) != 0)
+			{
+				Error = "Passwords do not match";
+				return;
+			}
+			navManager.NavigateTo("/admin");
 		}
 	}
 }
