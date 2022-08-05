@@ -167,7 +167,7 @@
 			else
 			{
 				Title = "Edit User";
-				int userId = (await sessionStorage.GetAsync<int>("UserId")).Value;
+				string userId = (await sessionStorage.GetAsync<string>("UserId")).Value;
 				newUser = dbContext.Users.Where(u => u.Id == userId).First();
 			}
 			StateHasChanged();
@@ -191,8 +191,8 @@
 				Error = "Passwords do not match";
 				return;
 			}
-			newUser.Id = dbContext.Users.Last().Id + 1;
 			dbContext.Users.Add(newUser);
+			dbContext.SaveChanges();
 			navManager.NavigateTo("/admin");
 		}
 		else if(PageMode == "edit"){
@@ -209,7 +209,7 @@
 				}
 				//TODO: Update the password via user manager
 			}
-
+			dbContext.SaveChanges();
 			navManager.NavigateTo("/admin");
 		}
 	}

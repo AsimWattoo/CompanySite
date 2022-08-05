@@ -61,7 +61,7 @@
 			<div class="col-8 d-flex justify-content-end">
 				<div>
 					<label for="searchBox">Search</label>
-					<input type="text" class="roundedTextBox w-50"/>
+					<input type="text" class="roundedTextBox"/>
 				</div>
 			</div>
 		</div>
@@ -213,7 +213,7 @@
 	<!--Table Footer-->
 	<div class="row">
 		<div class="col-4">
-			<p class="lead fs-small">Showing @((currentPage - 1) * rowsToShow + 1) to @(DisplayedUsers.Count + ((currentPage - 1) * rowsToShow)) out of @Users.Count enteries</p>
+			<p class="lead fs-small">Showing @((currentPage - 1) * rowsToShow > 0 ? (currentPage - 1) * rowsToShow + 1 : 0) to @(DisplayedUsers.Count + ((currentPage - 1) * rowsToShow)) out of @Users.Count enteries</p>
 		</div>
 		<div class="col-8">
 			<nav>
@@ -268,7 +268,7 @@
 
 	public List<User> DisplayedUsers = new List<User>();
 
-	private int userIdToDelete;
+	private string userIdToDelete;
 
 	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>()
 	{
@@ -286,6 +286,7 @@
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
+		dbContext.Database.EnsureCreated();
 		Users = dbContext.Users.ToList();
 		numberOfPages = (Users.Count / rowsToShow) + 1;
 		DisplayedUsers = Users.Take(rowsToShow * currentPage).ToList();
@@ -321,16 +322,18 @@
 		navigationManager.NavigateTo("/admin/adduser");
 	}
 
-	private void DeleteRecordId(int id){
+	private void DeleteRecordId(string id){
 		userIdToDelete = id;
 	}
 
 	private void DeleteRecord(){
 		dbContext.Users.Remove(dbContext.Users.First(u => u.Id == userIdToDelete));
+		dbContext.SaveChanges();
 		Users = dbContext.Users.ToList();
+		UpdateUsers();
 	}
 
-	private void EditRecord(int id){
+	private void EditRecord(string id){
 		sessionStorage.SetAsync("UserPageMode", "edit");
 		sessionStorage.SetAsync("UserId", id);
 		navigationManager.NavigateTo("/admin/adduser");

@@ -20,6 +20,5 @@ namespace Company_Site.DB
 		}
 
 		#endregion
-
 	}
 }
