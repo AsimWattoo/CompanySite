@@ -7,7 +7,7 @@
 @using System.Linq
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
-@inject UserManager userManager
+@inject ApplicationUserManager applicationUserManager
 @inject ProtectedSessionStorage sessionStorage
 @inject NavigationManager navigationManager
 
@@ -44,26 +44,30 @@
 
 <div class="container-fluid mt-4">
 	<!--Table Header-->
-	<div class="row">
-		<div class="col-3">
-			Show 
-			<select id="enteriesSelection" class="select-box">
-				<option value="10">10</option>
-				<option value="20">20</option>
-				<option value="30">30</option>
-				<option value="50">50</option>
-			</select>
-			enteries
-		</div>
-		<div class="col-8 d-flex justify-content-end">
-			<div>
-				<label for="searchBox">Search</label>
-				<input type="text" class="roundedTextBox w-50"/>
-				<a class="btn btn-outline-dark">Print</a>
-				<a class="btn btn-outline-dark">CSV</a>
+
+	<EditForm Model="this">
+
+		<div class="row">
+			<div class="col-3">
+				Show 
+				<select id="enteriesSelection" class="select-box" @onchange="@RowsToShowChange">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="50">50</option>
+				</select>
+				enteries
+			</div>
+			<div class="col-8 d-flex justify-content-end">
+				<div>
+					<label for="searchBox">Search</label>
+					<input type="text" class="roundedTextBox w-50"/>
+				</div>
 			</div>
 		</div>
-	</div>
+
+	</EditForm>
+
 	<!--Table-->
 	<div class="row my-3">
 		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
@@ -186,7 +190,7 @@
 				</th>
 				<th scope="col" ></th>
 			</tr>
-			@foreach (User user in Users)
+			@foreach (User user in DisplayedUsers)
 			{
 			<tr>
 				<th scope="row">@user.Id</th>
@@ -209,22 +213,23 @@
 	<!--Table Footer-->
 	<div class="row">
 		<div class="col-4">
-			<p class="lead fs-small">Showing 1 to 10 out of 57 enteries</p>
+			<p class="lead fs-small">Showing @((currentPage - 1) * rowsToShow + 1) to @(DisplayedUsers.Count + ((currentPage - 1) * rowsToShow)) out of @Users.Count enteries</p>
 		</div>
 		<div class="col-8">
 			<nav>
 			  <ul class="pagination d-flex justify-content-end">
 				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Previous">
+				  <a class="page-link" @onclick='@(() => ChangePage(1))' aria-label="Previous">
 					<span aria-hidden="true">&laquo;</span>
 					<span class="sr-only">Previous</span>
 				  </a>
 				</li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				@foreach(int p in Pages)
+				{
+					<li class="page-item"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
+				}
 				<li class="page-item">
-				  <a class="page-link" href="#" aria-label="Next">
+				  <a class="page-link" @onclick='@(() => ChangePage(numberOfPages))' aria-label="Next">
 					<span aria-hidden="true">&raquo;</span>
 					<span class="sr-only">Next</span>
 				  </a>
@@ -237,7 +242,31 @@
 
 
 @code {
+
+	///The number of rows to show
+	private int rowsToShow { get; set; } = 10;
+
+	///the number of pages to show
+	private int numberOfPages { get; set; } = 1;
+
+	private List<int> Pages
+	{
+		get
+		{
+			{
+				List<int> pages = new List<int>();
+				for (int p = 1; p <= numberOfPages; p++)
+					pages.Add(p);
+				return pages;
+			}
+		}
+	}
+
+	private int currentPage { get; set; } = 1;
+
 	public List<User> Users = new List<User>();
+
+	public List<User> DisplayedUsers = new List<User>();
 
 	private int userIdToDelete;
 
@@ -257,7 +286,24 @@
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-		Users = userManager.GetUsers();
+		Users = applicationUserManager.GetUsers();
+		numberOfPages = (Users.Count / rowsToShow) + 1;
+		DisplayedUsers = Users.Take(rowsToShow * currentPage).ToList();
+	}
+
+	private void ChangePage(int page){
+		currentPage = page;
+		UpdateUsers();
+	}
+
+	//Fires when selected rows to show changes
+	private void RowsToShowChange(ChangeEventArgs e){
+		rowsToShow = int.Parse(e.Value.ToString());
+		UpdateUsers();
+	}
+
+	private void UpdateUsers(){
+		DisplayedUsers = Users.Take(currentPage * rowsToShow).Skip((currentPage - 1) * rowsToShow).ToList();
 	}
 
 	private void ResetSorting(string toSkip = null)
@@ -280,8 +326,8 @@
 	}
 
 	private void DeleteRecord(){
-		userManager.RemoveUser(userIdToDelete);
-		Users = userManager.GetUsers();
+		applicationUserManager.RemoveUser(userIdToDelete);
+		Users = applicationUserManager.GetUsers();
 	}
 
 	private void EditRecord(int id){

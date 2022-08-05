@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class User
+    public class User : IdentityUser
     {
         [Key]
         [Required]
@@ -19,14 +21,6 @@ namespace Company_Site.Data
 
         [Required]
         public string? Department { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string? Email { get; set; }
-
-        [Required]
-        [MinLength(8, ErrorMessage = "Password must be minimum 8 characters")]
-        public string? Password { get; set; }
 
         [Required]
         public string? Role { get; set; }

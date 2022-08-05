@@ -22,6 +22,11 @@
 td[b-hscf0vogua], th[b-hscf0vogua] {
     text-align: center;
 }
+/* _content/Company Site/Pages/Authentication/Login.razor.rz.scp.css */
+
+.login-shadow[b-mmem2221r8] {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
 .page[b-y3fmicphz7] {
     position: relative;

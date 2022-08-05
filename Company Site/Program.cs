@@ -1,13 +1,21 @@
 using Company_Site.Data;
+using Company_Site.DB;
 using Company_Site.Services;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddSingleton<ApplicationUserManager>();
+builder.Services.AddIdentity<User, IdentityRole>();
+
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSession();
-builder.Services.AddSingleton<UserManager>();
 
 var app = builder.Build();
 

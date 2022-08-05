@@ -5,7 +5,7 @@
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage sessionStorage
 @inject NavigationManager navManager
-@inject UserManager userManager
+@inject ApplicationUserManager applicationUserManager
 
 <PageTitle>@Title | Admin</PageTitle>
 
@@ -68,7 +68,7 @@
 		</div>
 
 		<div class="form-floating mb-3">
-		  <InputText type="password" class="form-control" id="password" placeholder="password" @bind-Value="newUser.Password"/>
+		  <InputText type="password" class="form-control" id="password" placeholder="password" @bind-Value="Password"/>
 		  <label for="password">Password</label>
 		</div>
 
@@ -89,6 +89,7 @@
 				<option value="Officer">Officer</option>
 				<option value="Internal Auditor">Internal Auditor</option>
 				<option value="External Auditor">External Auditor</option>
+				<option value="Admin">Admin</option>
 			</InputSelect>
 		</div>
 
@@ -148,6 +149,9 @@
 
 	private string? confirmPassword { get; set; }
 
+	///The password for the user
+	private string? Password { get; set; }
+
 	protected async override void OnInitialized()
 	{
 		base.OnInitialized();
@@ -164,8 +168,7 @@
 			{
 				Title = "Edit User";
 				int userId = (await sessionStorage.GetAsync<int>("UserId")).Value;
-				newUser = userManager.GetUsers().Where(u => u.Id == userId).First();
-				confirmPassword = newUser.Password;
+				newUser = applicationUserManager.GetUsers().Where(u => u.Id == userId).First();
 			}
 			StateHasChanged();
 		}
@@ -175,20 +178,38 @@
 	private void FormSubmit(){
 		if(PageMode == "add"){
 
-			if(newUser.Password.CompareTo(confirmPassword) != 0){
+			if(string.IsNullOrEmpty(Password))
+			{
+				Error = "Password is required";
+				return;
+			}else if(Password.Length <= 8)
+			{
+				Error = "Password must be of minimum 8 characters long";
+				return;
+			}
+			else if(Password.CompareTo(confirmPassword) != 0){
 				Error = "Passwords do not match";
 				return;
 			}
-			newUser.Id = userManager.GetUsers().Last().Id + 1;
-			userManager.AddUser(newUser);
+			newUser.Id = applicationUserManager.GetUsers().Last().Id + 1;
+			applicationUserManager.AddUser(newUser);
 			navManager.NavigateTo("/admin");
 		}
 		else if(PageMode == "edit"){
-			if (newUser.Password.CompareTo(confirmPassword) != 0)
-			{
-				Error = "Passwords do not match";
-				return;
+
+			if(!string.IsNullOrEmpty(Password)){
+				if(Password.Length <= 8){
+					Error = "Password must be of mimimum 8 characters long";
+					return;
+				}
+				else if(Password.CompareTo(confirmPassword) != 0)
+				{
+					Error = "Passwords do not match";
+					return;
+				}
+				//TODO: Update the password via user manager
 			}
+
 			navManager.NavigateTo("/admin");
 		}
 	}
