@@ -1,13 +1,13 @@
 ﻿@layout Company_Site.Shared.AdminLayout
 @page "/admin"
 
+@using Company_Site.DB
 @using Company_Site.Data
 @using Company_Site.Enum
-@using Company_Site.Services
 @using System.Linq
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 
-@inject ApplicationUserManager applicationUserManager
+@inject ApplicationDbContext dbContext
 @inject ProtectedSessionStorage sessionStorage
 @inject NavigationManager navigationManager
 
@@ -286,7 +286,7 @@
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-		Users = applicationUserManager.GetUsers();
+		Users = dbContext.Users.ToList();
 		numberOfPages = (Users.Count / rowsToShow) + 1;
 		DisplayedUsers = Users.Take(rowsToShow * currentPage).ToList();
 	}
@@ -326,8 +326,8 @@
 	}
 
 	private void DeleteRecord(){
-		applicationUserManager.RemoveUser(userIdToDelete);
-		Users = applicationUserManager.GetUsers();
+		dbContext.Users.Remove(dbContext.Users.First(u => u.Id == userIdToDelete));
+		Users = dbContext.Users.ToList();
 	}
 
 	private void EditRecord(int id){

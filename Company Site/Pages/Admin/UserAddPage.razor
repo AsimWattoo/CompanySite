@@ -1,11 +1,11 @@
 ﻿@page "/admin/adduser"
 @layout Company_Site.Shared.AdminLayout
+@using Company_Site.DB
 @using Company_Site.Data
-@using Company_Site.Services
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inject ProtectedSessionStorage sessionStorage
 @inject NavigationManager navManager
-@inject ApplicationUserManager applicationUserManager
+@inject ApplicationDbContext dbContext
 
 <PageTitle>@Title | Admin</PageTitle>
 
@@ -168,7 +168,7 @@
 			{
 				Title = "Edit User";
 				int userId = (await sessionStorage.GetAsync<int>("UserId")).Value;
-				newUser = applicationUserManager.GetUsers().Where(u => u.Id == userId).First();
+				newUser = dbContext.Users.Where(u => u.Id == userId).First();
 			}
 			StateHasChanged();
 		}
@@ -191,8 +191,8 @@
 				Error = "Passwords do not match";
 				return;
 			}
-			newUser.Id = applicationUserManager.GetUsers().Last().Id + 1;
-			applicationUserManager.AddUser(newUser);
+			newUser.Id = dbContext.Users.Last().Id + 1;
+			dbContext.Users.Add(newUser);
 			navManager.NavigateTo("/admin");
 		}
 		else if(PageMode == "edit"){

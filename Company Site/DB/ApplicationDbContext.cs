@@ -8,15 +8,6 @@ namespace Company_Site.DB
 	public class ApplicationDbContext : IdentityDbContext<User>
 	{
 
-		#region DB Sets
-
-		/// <summary>
-		/// The data table for the user
-		/// </summary>
-		public DbSet<User> Users { get; set; }
-
-		#endregion
-
 		#region Constructor
 
 		/// <summary>
