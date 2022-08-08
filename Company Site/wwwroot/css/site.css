@@ -89,3 +89,17 @@ a, .btn-link {
 .color-black{
     color: black;
 }
+
+.full-screen{
+    width: 100vw;
+    height: 100vh;
+}
+
+.login-shadow {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

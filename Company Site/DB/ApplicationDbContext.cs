@@ -1,13 +1,13 @@
 ﻿using Company_Site.Data;
 
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company_Site.DB
 {
-	public class ApplicationDbContext : IdentityDbContext<User>
+	public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
 	{
-
 		#region Constructor
 
 		/// <summary>

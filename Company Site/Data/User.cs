@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class User : IdentityUser
+    public class User : IdentityUser<int>
     {
         [Required]
         public string? FirstName { get; set; }

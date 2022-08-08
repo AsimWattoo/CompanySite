@@ -11,7 +11,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
-builder.Services.AddDefaultIdentity<User>()
+builder.Services.AddIdentity<User, UserRole>(options =>
+{
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredUniqueChars = 0;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+})
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();
@@ -37,5 +44,13 @@ app.UseRouting();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 app.UseAuthentication();
+
+app.UseAuthorization();
+
+//Ensuring that database has been created by using migrations
+using(IServiceScope scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetService<ApplicationDbContext>()?.Database.EnsureCreated();
+}
 
 app.Run();
