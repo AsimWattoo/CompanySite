@@ -6,67 +6,13 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Company Site.runtimeconfig.json
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Company Site.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Company Site.pdb
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.csproj.AssemblyReference.cache
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.GeneratedMSBuildEditorConfig.editorconfig
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.AssemblyInfoInputs.cache
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.AssemblyInfo.cs
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.csproj.CoreCompileInputs.cache
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.MvcApplicationPartsAssemblyInfo.cache
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.RazorAssemblyInfo.cache
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.RazorAssemblyInfo.cs
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\staticwebassets.build.json
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\staticwebassets.development.json
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\Admin\AdminDashboard.razor.rz.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\AdminLayout.razor.rz.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\AdminNavMenu.razor.rz.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\bundle\Company Site.styles.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\projectbundle\Company Site.bundle.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\refint\Company Site.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.pdb
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.genruntimeconfig.cache
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\ref\Company Site.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Identity.Client.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Drawing.Common.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Runtime.Caching.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Security.Permissions.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Windows.Extensions.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.csproj.CopyComplete
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.MvcApplicationPartsAssemblyInfo.cs
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Humanizer.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\MessagePack.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\MessagePack.Annotations.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.UI.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Build.Locator.dll
@@ -84,8 +30,24 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.CodeAnalysis.Workspaces.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.DiaSymReader.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.FileProviders.Embedded.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -94,6 +56,7 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\NuGet.Common.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\NuGet.Configuration.dll
@@ -109,6 +72,13 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Composition.Hosting.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Composition.Runtime.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Composition.TypedParts.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Drawing.Common.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Runtime.Caching.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Security.Permissions.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\System.Windows.Extensions.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\cs\Microsoft.CodeAnalysis.resources.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\de\Microsoft.CodeAnalysis.resources.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\es\Microsoft.CodeAnalysis.resources.dll
@@ -265,9 +235,39 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.csproj.AssemblyReference.cache
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.GeneratedMSBuildEditorConfig.editorconfig
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.AssemblyInfoInputs.cache
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.AssemblyInfo.cs
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.csproj.CoreCompileInputs.cache
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.MvcApplicationPartsAssemblyInfo.cs
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.MvcApplicationPartsAssemblyInfo.cache
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.RazorAssemblyInfo.cache
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.RazorAssemblyInfo.cs
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\staticwebassets.build.json
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\staticwebassets.development.json
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\Admin\AdminDashboard.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\AdminLayout.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\AdminNavMenu.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\bundle\Company Site.styles.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\projectbundle\Company Site.bundle.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.csproj.CopyComplete
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\refint\Company Site.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.pdb
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.genruntimeconfig.cache
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\ref\Company Site.dll

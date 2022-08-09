@@ -11,6 +11,10 @@
 
 			<form method="post">
 
+				<div class="d-flex justify-content-center">
+					@Html.ValidationSummary("", new { @class="text-danger" })
+				</div>
+
 				<div>
 					<input type="text" asp-for="@Model.returnUrl" class="d-none"/>
 				</div>

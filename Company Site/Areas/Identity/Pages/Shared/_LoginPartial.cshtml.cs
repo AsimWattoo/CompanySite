@@ -58,7 +58,7 @@ namespace Company_Site.Areas.Identity.Pages
 
                 if(user == null)
                 {
-                    ModelState.AddModelError("Incorrect", "Username or password is incorrect");
+                    ModelState.AddModelError("Incorrect", "Email or password is incorrect");
                     return Page();
                 }
 
@@ -70,7 +70,7 @@ namespace Company_Site.Areas.Identity.Pages
                 }
                 else
                 {
-                    ModelState.AddModelError("Incorrect", "Username of password is incorrect");
+                    ModelState.AddModelError("Incorrect", "Email or password is incorrect");
                 }
             }
             return Page();
