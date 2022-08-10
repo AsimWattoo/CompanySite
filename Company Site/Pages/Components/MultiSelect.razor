@@ -1,0 +1,81 @@
+﻿<div>
+	<!--Items-->
+	<a @onclick="DisplaySelectItems" class="d-flex align-items-center select-header">
+		<div>
+			<div>
+				@foreach (string option in _selectedOptions)
+				{
+					<span class="me-1 option">@option</span>
+				}
+			</div>
+			<i class="fa fa-angle-down"></i>
+		</div>
+	</a>
+
+	<div class="multi-select">
+		@if (IsSelectBoxDisplayed)
+		{
+
+			<div class="select-box">
+				@foreach (string option in Options)
+				{
+					<div class="select-box-item">
+							@if(_selectedOptions.Contains(option)){
+								<input type="checkbox" class="d-inline-block" @onchange='@(e => ItemSelected(e, option))' checked>
+							}
+							else{
+								<input type="checkbox" class="d-inline-block" @onchange='@(e => ItemSelected(e, option))'>
+							}
+							<option value="@option" class="d-inline-block"> @option </option>
+					</div>
+				}
+			</div>
+		}
+	</div>
+
+</div>
+
+@code {
+
+	//The list of options to display
+	[Parameter]
+	public List<string> Options { get; set; } = new List<string>();
+
+	//List of options selected
+	[Parameter]
+	public List<string> SelectedOptions{
+		get => _selectedOptions;
+		set{
+			if (value == _selectedOptions)
+				return;
+			_selectedOptions = value;
+			SelectedOptionsChanged.InvokeAsync(value);
+		}
+	}
+
+	private List<string> _selectedOptions = new List<string>();
+
+	[Parameter]
+	public EventCallback<List<string>> SelectedOptionsChanged { get; set; }
+
+	private bool IsSelectBoxDisplayed = false;
+
+	//Displays the select bar
+	private void DisplaySelectItems(){
+		IsSelectBoxDisplayed ^= true;
+	}
+
+	//Fires when the change event is fired
+	private void ItemSelected(ChangeEventArgs e, string option){
+		string? value = option;
+		bool val = (bool)e.Value;
+		if(value != null){
+			if (val)
+				_selectedOptions.Add(value);
+			else
+				_selectedOptions.Remove(value);
+			SelectedOptionsChanged.InvokeAsync(_selectedOptions);
+		}
+	}
+
+}

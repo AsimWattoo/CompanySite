@@ -1,13 +1,40 @@
 ﻿@inject NavigationManager navManager
 
+<div class="full-screen">
+	<div class="center-screen p-4 drop-shadow text-center">
+		<h4 class="mb-3">@ErrorMessage</h4>
+		<div class="d-flex justify-content-center">
+			<a class="btn btn-secondary me-1" @onclick="NavigateBack"><i class="fa fa-arrow-left me-1"></i>Back</a>
+			<a class="btn btn-primary" @onclick="Login"><i class="fa fa-unlock me-1"></i>Login</a>
+		</div>
+	</div>
+</div>
+
 @code {
 
 	[Parameter]
 	public string ReturnUrl { get; set; } = "~/";
 
+	//The message to be displayed
+	private string ErrorMessage { get; set; }
+
+	[CascadingParameter(Name = "IsLoggedIn")]
+	public bool IsLoggedIn { get; set; }
+
 	protected override void OnInitialized()
 	{
-		navManager.NavigateTo($"login?returnUrl={ReturnUrl}", true);
+		if (IsLoggedIn)
+			ErrorMessage = "Please login to access the page";
+		else
+			ErrorMessage = "You do not have access to this page. Please contact your admin to gain access or check your credentials";
+		StateHasChanged();
 	}
 
+	private void NavigateBack(){
+		navManager.NavigateTo(ReturnUrl, true);
+	}
+
+	private void Login(){
+		navManager.NavigateTo($"login?returnUrl={ReturnUrl}", true);
+	}
 }

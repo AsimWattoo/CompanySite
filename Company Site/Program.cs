@@ -1,16 +1,13 @@
 using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Helpers;
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
-});
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddIdentity<User, UserRole>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;
@@ -21,7 +18,6 @@ builder.Services.AddIdentity<User, UserRole>(options =>
     options.User.RequireUniqueEmail = true;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
-
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSession();
@@ -49,9 +45,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 //Ensuring that database has been created by using migrations
-using(IServiceScope scope = app.Services.CreateScope())
-{
-    scope.ServiceProvider.GetService<ApplicationDbContext>()?.Database.EnsureCreated();
-}
+Seeder.SeedData(app);
 
 app.Run();

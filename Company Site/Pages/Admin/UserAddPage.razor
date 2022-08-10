@@ -2,6 +2,7 @@
 @layout Company_Site.Shared.AdminLayout
 @using Company_Site.DB
 @using Company_Site.Data
+@using Company_Site.Enum
 @using Company_Site.Pages.Components;
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using Microsoft.AspNetCore.Identity
@@ -117,6 +118,10 @@
 					</InputSelect>
 				</div>
 
+				<div class="mb-3">
+					<MultiSelect Options="@options" @bind-SelectedOptions="SelectedOptions"/>
+				</div>
+
 				<div class="input-group mb-3 d-flex align-items-center">
 					<label for="status" class="me-1">Status</label>
 					<InputSelect @bind-Value="newUser.Status" id="status" class="form-select">
@@ -156,6 +161,11 @@
 
 @code {
 
+	private List<string> options = Enum.GetValues<UserPages>().Select(item => item.ToString()).ToList();
+
+	// The list of selected options
+	private List<string> SelectedOptions { get; set; } = new List<string>();
+
 	private string? Title;
 
 	private string PageMode;
@@ -165,7 +175,7 @@
 	private User newUser = new User();
 
 	//The existing data about the user being edited
-	private string FirstName, LastName, Email;
+	private string FirstName, LastName, Email, Role;
 
 	private string confirmPassword { get; set; }
 
@@ -192,6 +202,7 @@
 				Email = newUser.Email;
 				FirstName = newUser.FirstName;
 				LastName = newUser.LastName;
+				Role = newUser.Role;
 			}
 			StateHasChanged();
 		}
@@ -207,19 +218,18 @@
 
 			if(string.IsNullOrEmpty(Password))
 			{
-				Error = "Password is required";
+				ShowError("Password is required");
 				return;
 			}
 			else if(Password.CompareTo(confirmPassword) != 0){
-				Error = "Passwords do not match";
+				ShowError("Passwords do not match");
 				return;
 			}
 			newUser.UserName = $"{newUser.FirstName}{newUser.LastName}";
 			IdentityResult res = await userManager.CreateAsync(newUser, Password);
 			//Adding Errors if any
 			if(!res.Succeeded){
-				Error = res.Errors.First().Description;
-				StateHasChanged();
+				ShowError(res);
 				return;
 			}
 
@@ -230,20 +240,36 @@
 				{
 					IdentityResult roleRes = await roleManager.CreateAsync(new UserRole() { Name = "Admin" });
 					if(!roleRes.Succeeded){
-						Error = roleRes.Errors.First().Description;
-						StateHasChanged();
+						ShowError(roleRes);
 						return;
 					}
 
 					//Role has been created
 					roleRes = await userManager.AddToRoleAsync(newUser, "Admin");
 					if(!roleRes.Succeeded){
-						Error = roleRes.Errors.First().Description;
-						StateHasChanged();
+						ShowError(roleRes);
 						return;
 					}
 				}
 			}
+
+			//Adding user access for pages if defined
+			foreach(string option in SelectedOptions){
+				UserPages page;
+
+				if(!Enum.TryParse<UserPages>(option, out page)){
+					continue;
+				}
+
+				dbContext.AccessList.Add(new UserAccess()
+				{
+					Page = page,
+					UserId = newUser.Id
+				});
+			}
+
+			dbContext.SaveChanges();
+
 			navManager.NavigateTo("/admin");
 		}
 		else if(PageMode == "edit"){
@@ -251,7 +277,7 @@
 			if (!string.IsNullOrEmpty(Password)) {
 				if (Password.CompareTo(confirmPassword) != 0)
 				{
-					Error = "Passwords do not match";
+					ShowError("Passwords do not match");
 					return;
 				}
 
@@ -259,8 +285,7 @@
 				IdentityResult passRes= await userManager.ResetPasswordAsync(newUser, token, Password);
 				if (!passRes.Succeeded)
 				{
-					Error = passRes.Errors.First().Description;
-					StateHasChanged();
+					ShowError(passRes);
 					return;
 				}
 			}
@@ -270,8 +295,7 @@
 
 				if (!res.Succeeded)
 				{
-					Error = res.Errors.First().Description;
-					StateHasChanged();
+					ShowError(res);
 					return;
 				}
 			}
@@ -281,14 +305,47 @@
 
 				if (!res.Succeeded)
 				{
-					Error = res.Errors.First().Description;
-					StateHasChanged();
+					ShowError(res);
 					return;
 				}
+			}
+
+			//If the user role has changed
+			if(newUser.Role != Role){
+
+				//If the user has been made admin
+				if(newUser.Role == "Admin" && Role != "Admin"){
+					//Adding user to admin role
+					IdentityResult res = await userManager.AddToRoleAsync(newUser, "Admin");
+					if(!res.Succeeded){
+						ShowError(res);
+						return;
+					}
+				}
+				//If the user has been removed from admin role
+				else if(newUser.Role != "Admin" && Role == "Admin"){
+					IdentityResult res = await userManager.RemoveFromRoleAsync(newUser, "Admin");
+					if(!res.Succeeded){
+						ShowError(res);
+						return;
+					}
+				}
+
 			}
 
 			dbContext.SaveChanges();
 			navManager.NavigateTo("/admin");
 		}
 	}
+
+	private void ShowError(IdentityResult res){
+		Error = res.Errors.First().Description;
+		StateHasChanged();
+	}
+
+	private void ShowError(string error){
+		Error = error;
+		StateHasChanged();
+	}
+
 }

@@ -1,12 +1,17 @@
 ﻿@page "/"
+@using Company_Site.Enum
 @using Company_Site.Pages.Components
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Dashboard</PageTitle>
 
 <AuthorizeView>
 
 	<Authorized>
-		<h3>Index Page</h3>
+		
+		<AccessChecker Page="UserPages.Dashboard" ReturnUrl="~/">
+			<h3>Dashboard</h3>
+		</AccessChecker>
+
 	</Authorized>
 
 	<NotAuthorized>
@@ -14,3 +19,4 @@
 	</NotAuthorized>
 
 </AuthorizeView>
+

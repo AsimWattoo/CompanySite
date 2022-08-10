@@ -7,8 +7,10 @@
 @using System.Linq
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using Company_Site.Pages.Components
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
 
-@inject ApplicationDbContext dbContext
+@inject IDbContextFactory<ApplicationDbContext> contextFactory
 @inject ProtectedSessionStorage sessionStorage
 @inject NavigationManager navigationManager
 
@@ -296,10 +298,12 @@
 		["Mobile"] = Sorting.None,
 	};
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
 		base.OnInitialized();
-		Users = dbContext.Users.ToList();
+		using(ApplicationDbContext dbContext = await contextFactory.CreateDbContextAsync()){
+			Users = dbContext.Users.ToList();
+		}
 		numberOfPages = (Users.Count / SearchBar.RowsToShow) + 1;
 		DisplayedUsers = Users.Take(SearchBar.RowsToShow * currentPage).ToList();
 	}
@@ -339,9 +343,11 @@
 	}
 
 	private void DeleteRecord(){
-		dbContext.Users.Remove(dbContext.Users.First(u => u.Id == userIdToDelete));
-		dbContext.SaveChanges();
-		Users = dbContext.Users.ToList();
+		using(ApplicationDbContext dbContext = contextFactory.CreateDbContext()){
+			dbContext.Users.Remove(dbContext.Users.First(u => u.Id == userIdToDelete));
+			dbContext.SaveChanges();
+			Users = dbContext.Users.ToList();
+		}
 		UpdateUsers();
 	}
 

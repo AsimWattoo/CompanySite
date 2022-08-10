@@ -1,19 +1,64 @@
-﻿@inherits LayoutComponentBase
+﻿@using Company_Site.DB
+@using Company_Site.Data
+@using Company_Site.Enum
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject UserManager<User> userManager
+@inject IDbContextFactory<ApplicationDbContext> dbContextFactory
 
 <PageTitle>Company Site</PageTitle>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<CascadingValue Value="@IsLoggedIn" Name="IsLoggedIn">
+    <CascadingValue Value="@IsAdmin" Name="IsAdmin">
+        <CascadingValue Value="@Pages" Name="Pages">
+            <div class="page">
+                @if(IsLoggedIn){
+                    <div class="sidebar">
+                        <NavMenu />
+                    </div>
+                }
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+                <main>
+                    <div class="top-row px-4">
+                        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+                    </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+                    <article class="content px-4">
+                        @Body
+                    </article>
+                </main>
+            </div>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+@code{
+
+    public bool IsLoggedIn { get; set; }
+
+    public bool IsAdmin { get; set; }
+
+    public List<UserPages> Pages { get; set; } = new List<UserPages>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity.Name == null)
+            IsLoggedIn = false;
+        else
+        {
+            User user = null;
+
+            using(ApplicationDbContext dbContext = dbContextFactory.CreateDbContext()){
+                user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
+                Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();
+            }
+
+            IsAdmin = await userManager.IsInRoleAsync(user, "Admin");
+            IsLoggedIn = true;
+        }
+        base.OnInitialized();
+    }
+}
