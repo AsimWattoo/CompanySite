@@ -3,7 +3,8 @@
     public enum UserPages
     {
 
-        Dashboard
+        Dashboard,
+        NewAcquisition,
 
     }
 }

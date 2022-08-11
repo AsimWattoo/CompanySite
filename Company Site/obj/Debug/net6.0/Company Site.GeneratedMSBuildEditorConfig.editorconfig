@@ -31,8 +31,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xFcnJvclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/Table.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xUYWJsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxJbmRleC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoMaster.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vTWFzdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/NewAcquisition.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxOZXdBY3F1aXNpdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Shared/EmptyLayout.razor]

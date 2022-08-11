@@ -26,10 +26,13 @@ else{
 	[CascadingParameter(Name = "Pages")]
 	public List<UserPages> Pages { get; set; } = new List<UserPages>();
 
+	[CascadingParameter(Name = "IsAdmin")]
+	public bool IsAdmin { get; set; }
+
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-		if (Pages.Contains(Page))
+		if (Pages.Contains(Page) || IsAdmin)
 			IsAllowed = true;
 		else
 			IsAllowed = false;

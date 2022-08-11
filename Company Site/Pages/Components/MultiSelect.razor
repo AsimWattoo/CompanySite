@@ -15,18 +15,17 @@
 	<div class="multi-select">
 		@if (IsSelectBoxDisplayed)
 		{
-
 			<div class="select-box">
 				@foreach (string option in Options)
 				{
 					<div class="select-box-item">
-							@if(_selectedOptions.Contains(option)){
-								<input type="checkbox" class="d-inline-block" @onchange='@(e => ItemSelected(e, option))' checked>
-							}
-							else{
-								<input type="checkbox" class="d-inline-block" @onchange='@(e => ItemSelected(e, option))'>
-							}
-							<option value="@option" class="d-inline-block"> @option </option>
+						@if(_selectedOptions.Contains(option)){
+							<input type="checkbox" class="d-inline-block form-checkbox" @onchange='@(e => ItemSelected(e, option))' checked>
+						}
+						else{
+							<input type="checkbox" class="d-inline-block form-checkbox" @onchange='@(e => ItemSelected(e, option))'>
+						}
+						<option value="@option" class="d-inline-block ms-1"> @option </option>
 					</div>
 				}
 			</div>

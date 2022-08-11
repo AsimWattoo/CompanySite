@@ -21,10 +21,6 @@
                 }
 
                 <main>
-                    <div class="top-row px-4">
-                        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-                    </div>
-
                     <article class="content px-4">
                         @Body
                     </article>
@@ -54,9 +50,9 @@
             using(ApplicationDbContext dbContext = dbContextFactory.CreateDbContext()){
                 user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
                 Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();
+                IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
             }
 
-            IsAdmin = await userManager.IsInRoleAsync(user, "Admin");
             IsLoggedIn = true;
         }
         base.OnInitialized();

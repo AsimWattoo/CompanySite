@@ -203,6 +203,7 @@
 				FirstName = newUser.FirstName;
 				LastName = newUser.LastName;
 				Role = newUser.Role;
+				SelectedOptions = dbContext.AccessList.Where(a => a.UserId == userId).Select(a => a.Page.ToString()).ToList();
 			}
 			StateHasChanged();
 		}
@@ -331,6 +332,23 @@
 					}
 				}
 
+			}
+			//Removing any access before
+			dbContext.AccessList.RemoveRange(dbContext.AccessList.Where(a => a.UserId == newUser.Id));
+
+			//Adding user access for pages if defined
+			foreach(string option in SelectedOptions){
+				UserPages page;
+
+				if(!Enum.TryParse<UserPages>(option, out page)){
+					continue;
+				}
+
+				dbContext.AccessList.Add(new UserAccess()
+				{
+					Page = page,
+					UserId = newUser.Id
+				});
 			}
 
 			dbContext.SaveChanges();

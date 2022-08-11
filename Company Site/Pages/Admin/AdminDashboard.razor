@@ -20,24 +20,6 @@
 
 		<PageTitle>Admin Dashboard</PageTitle>
 
-		<div class="modal" id="deleteConfirmModal">
-			<div class="modal-dialog modal-dialog-centered">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">Confirmation</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<p>Are you sure you want to delete the record?</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						<button type="button" @onclick="DeleteRecord"  data-bs-dismiss="modal"  class="btn btn-danger">Confirm</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-11">
@@ -50,201 +32,7 @@
 		</div>
 
 		<div class="container-fluid mt-4">
-			<!--Table Header-->
-
-			<EditForm Model="SearchBar" Context="searchBar">
-
-				<div class="row">
-					<div class="col-3">
-						Show 
-						<select id="enteriesSelection" class="select-box" @onchange="@RowsToShowChange">
-							<option value="10">10</option>
-							<option value="20">20</option>
-							<option value="30">30</option>
-							<option value="50">50</option>
-						</select>
-						enteries
-					</div>
-					<div class="col-8 d-flex justify-content-end">
-						<div>
-							<label for="searchBox">Search</label>
-							<input type="text" class="roundedTextBox"/>
-						</div>
-					</div>
-				</div>
-
-			</EditForm>
-
-			<!--Table-->
-			<div class="row my-3">
-				<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
-					<tr class="border-bottom-1">
-						<th scope="col">
-							<a class="btn-sortable" @onclick='(() => Sort("Id"))'>
-								#
-								@if(Sortings["Id"] == Sorting.Ascending){
-										<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if(Sortings["Id"] == Sorting.Descending)
-								{
-										<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("First Name"))'>
-								First Name
-								@if (Sortings["First Name"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["First Name"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Last Name"))'>
-								Last Name
-								@if (Sortings["Last Name"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Last Name"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Date of Joining"))'>
-								Date of Joining
-								@if (Sortings["Date of Joining"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Date of Joining"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Email"))'>
-								Email
-								@if (Sortings["Email"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Email"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Department"))'>
-								Department
-								@if (Sortings["Department"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Department"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Role"))'>
-								Role
-								@if (Sortings["Role"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Role"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Designation"))'>
-								Designation
-								@if (Sortings["Designation"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Designation"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" >
-							<a class="btn-sortable" @onclick='(() => Sort("Mobile"))'>
-								Mobile
-								@if (Sortings["Mobile"] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings["Mobile"] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-							</a>
-						</th>
-						<th scope="col" ></th>
-					</tr>
-					@foreach (User user in DisplayedUsers)
-					{
-					<tr>
-						<th scope="row">@user.Id</th>
-						<td >@user.FirstName</td>
-						<td >@user.LastName</td>
-						<td >@user.DateOfJoining.ToShortDateString()</td>
-						<td >@user.Email</td>
-						<td >@user.Department</td>
-						<td >@user.Role</td>
-						<td >@user.Designation</td>
-						<td >@user.Mobile</td>
-						<td >
-									<a @onclick='@(() => EditRecord(user.Id))'><i class="fa fa-edit btn btn-outline-primary"></i></a>
-									<a @onclick='@(() => DeleteRecordId(user.Id))' data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
-						</td>
-					</tr>
-					}
-				</table>
-			</div>
-			<!--Table Footer-->
-			<div class="row">
-				<div class="col-4">
-					<p class="lead fs-small">Showing @(DisplayedUsers.Count > 0 ? (currentPage - 1) * SearchBar.RowsToShow + 1 : 0) to @(DisplayedUsers.Count + ((currentPage - 1) * SearchBar.RowsToShow)) out of @Users.Count enteries</p>
-				</div>
-				<div class="col-8">
-					<nav>
-						<ul class="pagination d-flex justify-content-end">
-						<li class="page-item">
-							<a class="page-link" @onclick='@(() => ChangePage(1))' aria-label="Previous">
-							<span aria-hidden="true">&laquo;</span>
-							<span class="sr-only">Previous</span>
-							</a>
-						</li>
-						@foreach(int p in Pages)
-						{
-							<li class="page-item"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
-						}
-						<li class="page-item">
-							<a class="page-link" @onclick='@(() => ChangePage(numberOfPages))' aria-label="Next">
-							<span aria-hidden="true">&raquo;</span>
-							<span class="sr-only">Next</span>
-							</a>
-						</li>
-						</ul>
-					</nav>
-				</div>
-			</div>
+			<Table Items="@Users" Headers="@Headers" GetTableRows="@GetUserRows" GetId="@GetUserId" SortRecords="@SortRecords" Delete="DeleteRecord" Edit="EditRecord" Search="Search"></Table>
 		</div>
 
 	</Authorized>
@@ -258,45 +46,9 @@
 
 @code {
 
-	///The number of rows to show
-	private SearchBarModel SearchBar { get; set; } = new SearchBarModel();
-
-	///the number of pages to show
-	private int numberOfPages { get; set; } = 1;
-
-	private List<int> Pages
-	{
-		get
-		{
-			{
-				List<int> pages = new List<int>();
-				for (int p = 1; p <= numberOfPages; p++)
-					pages.Add(p);
-				return pages;
-			}
-		}
-	}
-
 	private int currentPage { get; set; } = 1;
 
 	public List<User> Users = new List<User>();
-
-	public List<User> DisplayedUsers = new List<User>();
-
-	private int userIdToDelete;
-
-	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>()
-	{
-		["Id"] = Sorting.None,
-		["First Name"]= Sorting.None,
-		["Last Name"] = Sorting.None,
-		["Date of Joining"] = Sorting.None,
-		["Email"] = Sorting.None,
-		["Department"] = Sorting.None,
-		["Role"] = Sorting.None,
-		["Designation"] = Sorting.None,
-		["Mobile"] = Sorting.None,
-	};
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -304,132 +56,130 @@
 		using(ApplicationDbContext dbContext = await contextFactory.CreateDbContextAsync()){
 			Users = dbContext.Users.ToList();
 		}
-		numberOfPages = (Users.Count / SearchBar.RowsToShow) + 1;
-		DisplayedUsers = Users.Take(SearchBar.RowsToShow * currentPage).ToList();
 	}
 
-	private void ChangePage(int page){
-		currentPage = page;
-		UpdateUsers();
-	}
-
-	//Fires when selected rows to show changes
-	private void RowsToShowChange(ChangeEventArgs e){
-		SearchBar.RowsToShow = int.Parse(e.Value.ToString());
-		UpdateUsers();
-	}
-
-	private void UpdateUsers(){
-		DisplayedUsers = Users.Take(currentPage * SearchBar.RowsToShow).Skip((currentPage - 1) * SearchBar.RowsToShow).ToList();
-	}
-
-	private void ResetSorting(string toSkip = null)
+	private List<string> Headers = new List<string>
 	{
-		foreach (string key in Sortings.Keys)
-		{
-			if (key == toSkip)
-				continue;
-			Sortings[key] = Sorting.None;
-		}
-	}
+		"Id",
+		"First Name",
+		"Last Name",
+		"Date of Joining",
+		"Email",
+		"Department",
+		"Role",
+		"Designation",
+		"Mobile",
+		""
+	};
 
-	private void AddUser(){
+	private void AddUser()
+	{
 		sessionStorage.SetAsync("UserPageMode", "add");
 		navigationManager.NavigateTo("/admin/adduser");
 	}
 
-	private void DeleteRecordId(int id){
-		userIdToDelete = id;
+	private List<User> SortRecords(List<User> users, string name, Sorting sorting)
+	{
+		switch (name)
+		{
+			case "Id":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Id).ToList();
+				else
+					return users.OrderByDescending(func => func.Id).ToList();
+
+			case "First Name":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.FirstName).ToList();
+				else
+					return users.OrderByDescending(func => func.FirstName).ToList();
+
+			case "Last Name":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.LastName).ToList();
+				else
+					return users.OrderByDescending(func => func.LastName).ToList();
+
+			case "Date of Joining":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.DateOfJoining).ToList();
+				else
+					return users.OrderByDescending(func => func.DateOfJoining).ToList();
+
+			case "Email":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Email).ToList();
+				else
+					return users.OrderByDescending(func => func.Email).ToList();
+
+			case "Department":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Department).ToList();
+				else
+					return users.OrderByDescending(func => func.Department).ToList();
+
+			case "Role":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Role).ToList();
+				else
+					return users.OrderByDescending(func => func.Role).ToList();
+
+			case "Designation":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Designation).ToList();
+				else
+					return users.OrderByDescending(func => func.Designation).ToList();
+
+			case "Mobile":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Mobile).ToList();
+				else
+					return users.OrderByDescending(func => func.Mobile).ToList();
+			default:
+				return users;
+		}
 	}
 
-	private void DeleteRecord(){
-		using(ApplicationDbContext dbContext = contextFactory.CreateDbContext()){
+	private List<User> DeleteRecord(int userIdToDelete)
+	{
+		using (ApplicationDbContext dbContext = contextFactory.CreateDbContext())
+		{
 			dbContext.Users.Remove(dbContext.Users.First(u => u.Id == userIdToDelete));
 			dbContext.SaveChanges();
 			Users = dbContext.Users.ToList();
+			return Users;
 		}
-		UpdateUsers();
 	}
 
-	private void EditRecord(int id){
+	private void EditRecord(int id)
+	{
 		sessionStorage.SetAsync("UserPageMode", "edit");
 		sessionStorage.SetAsync("UserId", id);
 		navigationManager.NavigateTo("/admin/adduser");
 	}
 
-	///Sorts the table with the specified column
-	private void Sort(string name)
-	{
-		ResetSorting(name);
-		if (Sortings[name] == Sorting.None)
-			Sortings[name] = Sorting.Ascending;
-		else if (Sortings[name] == Sorting.Ascending)
-			Sortings[name] = Sorting.Descending;
-		else
-			Sortings[name] = Sorting.Ascending;
-
-		SortRecords(name);
-	}
-
-	private void SortRecords(string name)
-	{
-		switch (name)
+	private List<string> GetUserRows(User u){
+		return new List<string>()
 		{
-			case "Id":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.Id).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.Id).ToList();
-				return;
-			case "First Name":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.FirstName).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.FirstName).ToList();
-				return;
-			case "Last Name":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.LastName).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.LastName).ToList();
-				return;
-			case "Date of Joining":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.DateOfJoining).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.DateOfJoining).ToList();
-				return;
-			case "Email":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.Email).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.Email).ToList();
-				return;
-			case "Department":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.Department).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.Department).ToList();
-				return;
-			case "Role":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.Role).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.Role).ToList();
-				return;
-			case "Designation":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.Designation).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.Designation).ToList();
-				return;
-			case "Mobile":
-				if (Sortings[name] == Sorting.Ascending)
-					Users = Users.OrderBy(func => func.Mobile).ToList();
-				else
-					Users = Users.OrderByDescending(func => func.Mobile).ToList();
-				return;
-		}
+			u.Id.ToString(),
+			u.FirstName, 
+			u.LastName,
+			u.DateOfJoining.ToString(),
+			u.Email,
+			u.Department,
+			u.Role,
+			u.Designation,
+			u.Mobile,
+		};
 	}
 
+	private int GetUserId(User user){
+		return user.Id;
+	}
+
+	private List<User> Search(List<User> users, string text){
+		text = text.ToLower();
+		return users.Where(user => user.FirstName.ToLower().Contains(text) || user.LastName.ToLower().Contains(text)).ToList();
+	}
 }
+
