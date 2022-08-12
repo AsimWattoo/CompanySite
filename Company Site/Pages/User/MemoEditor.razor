@@ -1,0 +1,43 @@
+﻿@page "/memoeditor"
+@using Company_Site.ViewModels
+
+<PageTitle>Memo Editor</PageTitle>
+
+<AuthorizeView Roles="Admin">
+
+	<Authorized >
+
+		<div class="px-lg-5">
+			<h3>Add Memo</h3>
+			<EditForm Model="@NewMemo" Context="childContext">
+
+				<DataAnnotationsValidator/>
+				<ValidationSummary/>
+				<ErrorView Error="@Error"/>
+
+				<div class="input-group d-flex justify-content-end">
+					<div>
+						<input type="submit" value="Submit" class="btn btn-primary me-1"/>
+						<a class="btn btn-danger">Cancel</a>
+					</div>
+				</div>
+
+			</EditForm>
+		</div>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/admin/adduser" />
+	</NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+
+	//The error which is being displayed
+	private string Error { get; set; }
+
+	private MemoViewModel NewMemo { get; set; }
+
+}

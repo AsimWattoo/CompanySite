@@ -40,7 +40,7 @@
 				<div>
 					<label for="searchBox">Search</label>
 					<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
-					<a class="btn btn-outline-primary mx-1" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
+					<a class="btn btn-outline-secondary mx-1" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
 				</div>
 			</div>
 		</div>
@@ -80,9 +80,13 @@
 						@foreach(string rowItem in GetTableRows(item)){
 							<td class="text-center">@rowItem</td>
 						}
-						<td >
-							<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
-							<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+						<td>
+							@if(IsEditable){
+								<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
+							}
+							@if(IsDeleteable){
+								<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+							}
 						</td>
 					</tr>
 
@@ -130,7 +134,7 @@
 	public Func<T, int> GetId { get; set; }
 
 	[Parameter]
-	public Func<List<T>, string, Sorting, List<T>> SortRecords { get; set; }
+	public Func<List<T>, string, Sorting, List<T>> OnSortRecords { get; set; }
 
 	[Parameter]
 	public List<string> Headers { get; set; }
@@ -139,13 +143,19 @@
 	public List<T> Items { get; set; }
 
 	[Parameter]
-	public Func<int, List<T>> Delete { get; set; }
+	public Func<int, List<T>> OnDelete { get; set; }
 
 	[Parameter]
-	public Action<int> Edit { get; set; }
+	public Action<int> OnEdit { get; set; }
 
 	[Parameter]
-	public Func<List<T>, string, List<T>> Search { get; set; }
+	public Func<List<T>, string, List<T>> OnSearch { get; set; }
+
+	[Parameter]
+	public bool IsEditable { get; set; } = true;
+
+	[Parameter]
+	public bool IsDeleteable { get; set; } = true;
 
 	//The copy of the items to be kept while searching
 	private List<T> itemsCopy { get; set; }
@@ -220,7 +230,7 @@
 		DisplayedItems = Items.Take(_CurrentPage * SearchModel.RowsToShow).Skip((_CurrentPage - 1) * SearchModel.RowsToShow).ToList();
 		string sortingColumn = Sortings.Where(s => s.Value != Sorting.None).FirstOrDefault().Key;
 		if(sortingColumn != null){
-			DisplayedItems = SortRecords(DisplayedItems, sortingColumn, Sortings[sortingColumn]);
+			DisplayedItems = OnSortRecords(DisplayedItems, sortingColumn, Sortings[sortingColumn]);
 		}
 	}
 
@@ -250,28 +260,28 @@
 		else
 			Sortings[name] = Sorting.Ascending;
 
-		DisplayedItems = SortRecords(DisplayedItems, name, Sortings[name]);
+		DisplayedItems = OnSortRecords(DisplayedItems, name, Sortings[name]);
 	}
 
 	//Deletes the record
 	private void DeleteRecord(){
-		if(Delete != null){
-			Items = Delete(userIdToDelete);
+		if(OnDelete != null){
+			Items = OnDelete(userIdToDelete);
 			UpdateRows();
 		}
 	}
 
 	//Edits the record
 	private void EditRecord(int id){
-		if(Edit != null){
-			Edit(id);
+		if(OnEdit != null){
+			OnEdit(id);
 		}
 	}
 
 	//Searches the records
 	private void SearchRecords(){
 		if(!string.IsNullOrEmpty(SearchText) && !string.IsNullOrWhiteSpace(SearchText)){
-			Items = Search(Items, SearchText);
+			Items = OnSearch(Items, SearchText);
 		}
 		else{
 			Items = itemsCopy;

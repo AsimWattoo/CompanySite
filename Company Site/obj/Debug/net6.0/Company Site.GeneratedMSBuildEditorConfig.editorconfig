@@ -39,6 +39,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vRWRpdG9yLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoMaster.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vTWFzdGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

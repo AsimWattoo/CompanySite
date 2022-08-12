@@ -118,8 +118,13 @@
 					</InputSelect>
 				</div>
 
-				<div class="mb-3">
-					<MultiSelect Options="@options" @bind-SelectedOptions="SelectedOptions"/>
+				<div class="mb-3 row">
+					<div class="col-3 d-flex align-items-center">
+						<label class="me-1">Page Accesses</label>
+					</div>
+					<div class="col">
+						<MultiSelect Options="@options" @bind-SelectedOptions="SelectedOptions"/>
+					</div>
 				</div>
 
 				<div class="input-group mb-3 d-flex align-items-center">

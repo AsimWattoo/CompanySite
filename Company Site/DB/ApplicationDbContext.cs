@@ -1,11 +1,13 @@
 ﻿using Company_Site.Data;
 
+using File = Company_Site.Data.File;
+
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Company_Site.DB
 {
-	public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
+    public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
 	{
 		#region DbSets
 
