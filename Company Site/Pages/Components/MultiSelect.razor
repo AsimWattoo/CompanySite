@@ -1,4 +1,6 @@
-﻿<div>
+﻿@inherits ComponentBase
+
+<div @attributes="CapturedAttributes">
 	<!--Items-->
 	<a @onclick="DisplaySelectItems" class="d-flex align-items-center select-header">
 		<div>
@@ -35,6 +37,9 @@
 </div>
 
 @code {
+
+	[Parameter(CaptureUnmatchedValues = true)]
+	public Dictionary<string, object> CapturedAttributes { get; set; }
 
 	//The list of options to display
 	[Parameter]

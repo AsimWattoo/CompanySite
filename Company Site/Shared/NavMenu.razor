@@ -11,38 +11,38 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+    <nav class="flex-column px-3">
+        <div class="nav-item my-2 text-start">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Dashboard
+                <span class="oi oi-home" aria-hidden="true"></span> <p class="m-0">Dashboard</p>
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item my-2 text-start">
             <NavLink class="nav-link" href="/newacquisition" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> New Acquisition
+                <span class="oi oi-home" aria-hidden="true"></span> <p class="m-0">New Acquisition</p>
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item my-2 text-start">
             <NavLink class="nav-link" href="/memomaster" Match="NavLinkMatch.All">
-                <span class="fa fa-envelope me-2" aria-hidden="true"></span> Memo Master
+                <span class="fa fa-envelope me-2" aria-hidden="true"></span> <p class="m-0">Memo Master</p>
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item my-2 text-start">
             <NavLink class="nav-link" href="/memoeditor" Match="NavLinkMatch.All">
-                <span class="fa fa-edit me-2" aria-hidden="true"></span> Memo Editor
+                <span class="fa fa-edit me-2" aria-hidden="true"></span> <p class="m-0">Memo Editor</p>
             </NavLink>
         </div>
         @if(IsAdmin)
         {
-            <div class="nav-item px-3">
+                        <div class="nav-item my-2 text-start">
                 <NavLink class="nav-link" href="admin">
-                    <i class="fa fa-server me-3"></i> Admin Dashboard
+                            <i class="fa fa-server me-3"></i> <p class="m-0">Admin Dashboard</p>
                 </NavLink>
             </div>
         }
-        <div class="nav-item px-3">
+        <div class="nav-item my-2 text-start">
             <NavLink class="nav-link" href="logout">
-                <i class="fa fa-lock me-3"></i> Logout
+                <i class="fa fa-lock me-3"></i> <p class="m-0">Logout</p>
             </NavLink>
         </div>
     </nav>

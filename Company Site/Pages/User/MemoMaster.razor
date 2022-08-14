@@ -3,7 +3,11 @@
 @using Company_Site.Data
 @using Company_Site.Enum
 @using Company_Site.Pages.Components
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.WebUtilities
 @inject ApplicationDbContext dbContext
+@inject ProtectedSessionStorage sessionStorage
+@inject NavigationManager navManager
 
 <PageTitle> Memo Master </PageTitle>
 
@@ -30,7 +34,7 @@
 
 		</div>
 
-		<Table Items="@DisplayedMemos" Headers="@Headers" GetTableRows="@GetTableRows" IsEditable="false" IsDeleteable="false" OnSortRecords="SortRecords" OnSearch="Search"></Table>
+		<Table T="Memo" T2="string" Items="@DisplayedMemos" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
 
 	</Authorized>
 
@@ -48,7 +52,6 @@
 
 	public List<string> Headers { get; set; } = new List<string>()
 	{
-		"Serial Number",
 		"Memo Number",
 		"Case Name",
 		"Subject",
@@ -78,6 +81,10 @@
 			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Rejected).ToList();
 	}
 
+	private string GetId(Memo m){
+		return m.MemoNumber;
+	}
+
 	private List<string> GetTableRows(Memo m){
 		List<string> row = new List<string>()
 		{
@@ -98,11 +105,6 @@
 	private List<Memo> SortRecords(List<Memo> memos, string name, Sorting sorting){
 
 		switch(name){
-			case "Serial Number":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.SerialNumber).ToList();
-				else
-					return memos.OrderByDescending(m => m.SerialNumber).ToList();
 			case "Memo Number":
 				if (sorting == Sorting.Ascending)
 					return memos.OrderBy(m => m.MemoNumber).ToList();
@@ -152,5 +154,17 @@
 	private List<Memo> Search(List<Memo> memos, string text){
 		text = text.ToLower();
 		return memos.Where(m => m.MemoNumber.ToLower().Contains(text)).ToList();
+	}
+
+	private bool IsEditable(Memo m){
+		if (m.IsDraft)
+			return true;
+		else
+			return false;
+	}
+
+	private void Edit(string str){
+		sessionStorage.SetAsync("MemoId", str);
+		navManager.NavigateTo(QueryHelpers.AddQueryString("/memoeditor", "id", str));
 	}
 }

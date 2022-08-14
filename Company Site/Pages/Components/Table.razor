@@ -1,6 +1,7 @@
 ﻿@using Company_Site.Data
 @using Company_Site.Enum
 @typeparam T 
+@typeparam T2
 
 <div class="container-fluid mt-4">
 	
@@ -51,6 +52,9 @@
 	<div class="row my-3">
 		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
 			<tr class="border-bottom-1">
+				@if(ShowSerialNumber){
+					<th scope="col" class="text-center">Serial Number</th>
+				}
 				@foreach(string header in Headers){
 					@if(!string.IsNullOrEmpty(header)){
 							<th scope="col" class="text-center">
@@ -72,24 +76,26 @@
 					}
 				}
 			</tr>
-			@foreach (T item in DisplayedItems)
+			@foreach(T item in Items)
 			{
 				@if(GetTableRows != null){
-					
 					<tr>
+						@if(ShowSerialNumber){
+							<td class="text-center">@SR</td>
+						}
 						@foreach(string rowItem in GetTableRows(item)){
 							<td class="text-center">@rowItem</td>
 						}
 						<td>
-							@if(IsEditable){
+							@if(IsEditable(item)){
 								<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
 							}
-							@if(IsDeleteable){
+							@if(IsDeleteable(item)){
 								<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
 							}
 						</td>
 					</tr>
-
+					SR++;
 				}
 			}
 		</table>
@@ -131,7 +137,7 @@
 	public Func<T, List<string>> GetTableRows { get; set; }
 
 	[Parameter]
-	public Func<T, int> GetId { get; set; }
+	public Func<T, T2> GetId { get; set; }
 
 	[Parameter]
 	public Func<List<T>, string, Sorting, List<T>> OnSortRecords { get; set; }
@@ -143,19 +149,24 @@
 	public List<T> Items { get; set; }
 
 	[Parameter]
-	public Func<int, List<T>> OnDelete { get; set; }
+	public Func<T2, List<T>> OnDelete { get; set; }
 
 	[Parameter]
-	public Action<int> OnEdit { get; set; }
+	public Action<T2> OnEdit { get; set; }
 
 	[Parameter]
 	public Func<List<T>, string, List<T>> OnSearch { get; set; }
 
 	[Parameter]
-	public bool IsEditable { get; set; } = true;
+	public Func<T, bool> IsEditable { get; set; } = (T t) => true;
 
 	[Parameter]
-	public bool IsDeleteable { get; set; } = true;
+	public Func<T, bool> IsDeleteable { get; set; } = (T t) => true;
+
+	[Parameter]
+	public bool ShowSerialNumber { get; set; } = false;
+
+	private int SR = 1;
 
 	//The copy of the items to be kept while searching
 	private List<T> itemsCopy { get; set; }
@@ -183,7 +194,7 @@
 
 	private List<T> DisplayedItems = new List<T>();
 
-	private int userIdToDelete;
+	private T2 userIdToDelete;
 
 	//The text of the search box
 	private string SearchText;
@@ -227,6 +238,7 @@
 
 	private void UpdateRows()
 	{
+		SR = 1;
 		DisplayedItems = Items.Take(_CurrentPage * SearchModel.RowsToShow).Skip((_CurrentPage - 1) * SearchModel.RowsToShow).ToList();
 		string sortingColumn = Sortings.Where(s => s.Value != Sorting.None).FirstOrDefault().Key;
 		if(sortingColumn != null){
@@ -244,7 +256,7 @@
 		}
 	}
 
-	private void DeleteRecordId(int id)
+	private void DeleteRecordId(T2 id)
 	{
 		userIdToDelete = id;
 	}
@@ -272,7 +284,7 @@
 	}
 
 	//Edits the record
-	private void EditRecord(int id){
+	private void EditRecord(T2 id){
 		if(OnEdit != null){
 			OnEdit(id);
 		}
@@ -288,5 +300,4 @@
 		}
 		UpdateInitialization();
 	}
-
 }

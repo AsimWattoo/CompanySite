@@ -9,14 +9,14 @@ namespace Company_Site.Data
 
         #region Public Properties
 
-        [Key]
         public int Id { get; set; }
 
-        [Required]
         public string MemoId { get; set; }
 
-        [Required]
         public int UserId { get; set; }
+
+        [Required]
+        public DateTime ApprovalDate { get; set; }
 
         /// <summary>
         /// The status of memo from the referenced person.
