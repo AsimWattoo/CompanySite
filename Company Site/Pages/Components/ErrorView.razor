@@ -1,0 +1,14 @@
+﻿
+@if(!string.IsNullOrEmpty(Error)){
+	<ul class="text-danger">
+		<li class="mb-1">@Error</li>
+	</ul>
+}
+
+@code {
+
+	//The list of errors
+	[Parameter]
+	public string Error { get; set; } = string.Empty;
+
+}

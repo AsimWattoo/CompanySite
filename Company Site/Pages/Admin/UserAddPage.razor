@@ -1,0 +1,374 @@
+﻿@page "/admin/adduser"
+@layout Company_Site.Shared.AdminLayout
+@using Company_Site.DB
+@using Company_Site.Data
+@using Company_Site.Enum
+@using Company_Site.Pages.Components;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Identity
+@inject ProtectedSessionStorage sessionStorage
+@inject NavigationManager navManager
+@inject ApplicationDbContext dbContext
+@inject UserManager<User> userManager
+@inject RoleManager<UserRole> roleManager
+
+<PageTitle>@Title | Admin</PageTitle>
+
+<AuthorizeView Roles="Admin">
+
+	<Authorized >
+
+		<div class="px-lg-5">
+			<h3>@Title</h3>
+			<EditForm Model="@newUser" OnValidSubmit="@FormSubmit" Context="childContext">
+
+				<DataAnnotationsValidator/>
+				<ValidationSummary/>
+				<ErrorView Error="@Error"/>
+
+				<div class="form-floating mb-3">
+				  <InputText type="text" class="form-control" id="firstname" placeholder="First Name" @bind-Value="newUser.FirstName"/>
+				  <label for="firstname">First Name</label>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <InputText type="text" class="form-control" id="lastname" placeholder="Last Name" @bind-Value="newUser.LastName"/>
+				  <label for="lastname">Last Name</label>
+				</div>
+
+				<div class="input-group mb-3 d-flex align-items-center">
+					<label for="designation" class="me-1">Designation</label>
+					<InputSelect @bind-Value="newUser.Designation" class="form-control" id="designation">
+						<option selected>--- Select Designation ---</option>
+						<option value="CEO">CEO</option>
+						<option value="CFO">CFO</option>
+						<option value="Vice President">Vice President</option>
+						<option value="Assistance Vice President">Assistance Vice President</option>
+						<option value="Cheif Manager">Cheif Manager</option>
+						<option value="Manager">Manager</option>
+						<option value="Assistance Manager">Assistance Manager</option>
+						<option value="Management Trainee">Management Trainee</option>
+						<option value="Auditor">Auditor</option>
+					</InputSelect>
+				</div>
+
+				<div class="input-group mb-3 d-flex align-items-center">
+					<label for="department" class="me-1">Department</label>
+					<InputSelect @bind-Value="newUser.Department" id="department" class="form-select" >
+						<option selected>--- Select Department ---</option>
+						<option value="Acquisition">Acquisition</option>
+						<option value="Finance">Finance</option>
+						<option value="Legal">Legal</option>
+						<option value="Retail">Retail</option>
+						<option value="Resolution">Resolution</option>
+						<option value="HR">HR</option>
+						<option value="Compliance">Compliance</option>
+						<option value="Office Support">Office Support</option>
+					</InputSelect>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <InputText type="email" class="form-control" id="email" placeholder="email" @bind-Value="newUser.Email"/>
+				  <label for="email">Email</label>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <InputText type="password" class="form-control" id="password" placeholder="password" @bind-Value="Password"/>
+				  <label for="password">Password</label>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <InputText type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" @bind-Value="confirmPassword"/>
+				  <label for="confirm-password">Confirm Password</label>
+				</div>
+
+				<div class="input-group mb-3 d-flex align-items-center">
+					<label for="role" class="me-1">Role</label>
+					<InputSelect @bind-Value="newUser.Role"  id="role" class="form-select">
+						<option selected>--- Select Role ---</option>
+						<option value="Management">Management</option>
+						<option value="Business Head">Business Head</option>
+						<option value="Group Head">Group Head</option>
+						<option value="Dealing Officer">Dealing Officer</option>
+						<option value="Legal Officer">Legal Officer</option>
+						<option value="Officer">Officer</option>
+						<option value="Internal Auditor">Internal Auditor</option>
+						<option value="External Auditor">External Auditor</option>
+						<option value="Admin">Admin</option>
+					</InputSelect>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <input type="date" class="form-control" id="date-of-joining" placeholder="Date of Joining" @bind-value="newUser.DateOfJoining">
+				  <label for="date-of-joining">Date of joining</label>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <input type="date" class="form-control" id="date-of-birth" placeholder="Date of Birth" @bind-value="newUser.DOB">
+				  <label for="date-of-birth">Date of Birth</label>
+				</div>
+
+				<div class="input-group mb-3 d-flex align-items-center">
+					<label for="office-location" class="me-1">Office Location</label>
+					<InputSelect @bind-Value="newUser.OfficeLocation" id="office-location" class="form-select">
+						<option selected>--- Select Office Location ---</option>
+						<option value="Office">Office</option>
+						<option value="Site">Site</option>
+						<option value="Warehouse">Warehouse</option>
+					</InputSelect>
+				</div>
+
+				<div class="mb-3 row">
+					<div class="col-2 d-flex align-items-center">
+						<label class="me-1">Page Accesses</label>
+					</div>
+					<div class="col">
+						<MultiSelect Options="@options" @bind-SelectedOptions="SelectedOptions"/>
+					</div>
+				</div>
+
+				<div class="input-group mb-3 d-flex align-items-center">
+					<label for="status" class="me-1">Status</label>
+					<InputSelect @bind-Value="newUser.Status" id="status" class="form-select">
+						<option selected>--- Select Status ---</option>
+						<option value="Active">Active</option>
+						<option value="Deactive">Deactivate</option>
+					</InputSelect>
+				</div>
+
+				<div class="form-floating mb-3">
+				  <InputText type="text" class="form-control" id="mobile" placeholder="Mobile" @bind-Value="newUser.Mobile"/>
+				  <label for="mobile">Mobile</label>
+				</div>
+
+				<div class="input-group d-flex justify-content-end">
+					<div>
+						@if(PageMode == "add"){
+							<input type="submit" value="Add" class="btn btn-primary me-1"/>
+						}
+						else{
+							<input type="submit" value="Submit" class="btn btn-primary me-1"/>
+						}
+						<a class="btn btn-danger" @onclick="cancel">Cancel</a>
+					</div>
+				</div>
+
+			</EditForm>
+		</div>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/admin/adduser" />
+	</NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+
+	private List<string> options = Enum.GetValues<UserPages>().Select(item => item.ToString()).ToList();
+
+	// The list of selected options
+	private List<string> SelectedOptions { get; set; } = new List<string>();
+
+	private string? Title;
+
+	private string PageMode;
+
+	private string Error = string.Empty;
+
+	private User newUser = new User();
+
+	//The existing data about the user being edited
+	private string FirstName, LastName, Email, Role;
+
+	private string confirmPassword { get; set; }
+
+	//The password for the user
+	private string Password { get; set; }
+
+	protected async override void OnInitialized()
+	{
+		base.OnInitialized();
+		string? pageMode = (await sessionStorage.GetAsync<string>("UserPageMode")).Value;
+		if(pageMode == null)
+		{
+			navManager.NavigateTo("/admin");
+		}
+		else{
+			PageMode = pageMode;
+			if (pageMode == "add")
+				Title = "Add User";
+			else
+			{
+				Title = "Edit User";
+				int userId = (await sessionStorage.GetAsync<int>("UserId")).Value;
+				newUser = await userManager.FindByIdAsync(userId.ToString());
+				Email = newUser.Email;
+				FirstName = newUser.FirstName;
+				LastName = newUser.LastName;
+				Role = newUser.Role;
+				SelectedOptions = dbContext.AccessList.Where(a => a.UserId == userId).Select(a => a.Page.ToString()).ToList();
+			}
+			StateHasChanged();
+		}
+	}
+
+	private void cancel(){
+		navManager.NavigateTo("/admin");
+	}
+
+	//Either adds or edits a user
+	private async void FormSubmit(){
+		if(PageMode == "add"){
+
+			if(string.IsNullOrEmpty(Password))
+			{
+				ShowError("Password is required");
+				return;
+			}
+			else if(Password.CompareTo(confirmPassword) != 0){
+				ShowError("Passwords do not match");
+				return;
+			}
+			newUser.UserName = $"{newUser.FirstName}{newUser.LastName}";
+			IdentityResult res = await userManager.CreateAsync(newUser, Password);
+			//Adding Errors if any
+			if(!res.Succeeded){
+				ShowError(res);
+				return;
+			}
+
+			//Adding to the role
+			if(newUser.Role == "Admin"){
+				UserRole role = await roleManager.FindByNameAsync("Admin");
+				if (role == null)
+				{
+					IdentityResult roleRes = await roleManager.CreateAsync(new UserRole() { Name = "Admin" });
+					if(!roleRes.Succeeded){
+						ShowError(roleRes);
+						return;
+					}
+
+					//Role has been created
+					roleRes = await userManager.AddToRoleAsync(newUser, "Admin");
+					if(!roleRes.Succeeded){
+						ShowError(roleRes);
+						return;
+					}
+				}
+			}
+
+			//Adding user access for pages if defined
+			foreach(string option in SelectedOptions){
+				UserPages page;
+
+				if(!Enum.TryParse<UserPages>(option, out page)){
+					continue;
+				}
+
+				dbContext.AccessList.Add(new UserAccess()
+				{
+					Page = page,
+					UserId = newUser.Id
+				});
+			}
+
+			dbContext.SaveChanges();
+
+			navManager.NavigateTo("/admin");
+		}
+		else if(PageMode == "edit"){
+
+			if (!string.IsNullOrEmpty(Password)) {
+				if (Password.CompareTo(confirmPassword) != 0)
+				{
+					ShowError("Passwords do not match");
+					return;
+				}
+
+				string token = await userManager.GeneratePasswordResetTokenAsync(newUser);
+				IdentityResult passRes= await userManager.ResetPasswordAsync(newUser, token, Password);
+				if (!passRes.Succeeded)
+				{
+					ShowError(passRes);
+					return;
+				}
+			}
+
+			if(newUser.Email != Email){
+				IdentityResult res = await userManager.SetEmailAsync(newUser, newUser.Email);
+
+				if (!res.Succeeded)
+				{
+					ShowError(res);
+					return;
+				}
+			}
+
+			if(newUser.FirstName != FirstName || newUser.LastName != LastName){
+				IdentityResult res = await userManager.SetUserNameAsync(newUser, $"{newUser.FirstName}{newUser.LastName}");
+
+				if (!res.Succeeded)
+				{
+					ShowError(res);
+					return;
+				}
+			}
+
+			//If the user role has changed
+			if(newUser.Role != Role){
+
+				//If the user has been made admin
+				if(newUser.Role == "Admin" && Role != "Admin"){
+					//Adding user to admin role
+					IdentityResult res = await userManager.AddToRoleAsync(newUser, "Admin");
+					if(!res.Succeeded){
+						ShowError(res);
+						return;
+					}
+				}
+				//If the user has been removed from admin role
+				else if(newUser.Role != "Admin" && Role == "Admin"){
+					IdentityResult res = await userManager.RemoveFromRoleAsync(newUser, "Admin");
+					if(!res.Succeeded){
+						ShowError(res);
+						return;
+					}
+				}
+
+			}
+			//Removing any access before
+			dbContext.AccessList.RemoveRange(dbContext.AccessList.Where(a => a.UserId == newUser.Id));
+
+			//Adding user access for pages if defined
+			foreach(string option in SelectedOptions){
+				UserPages page;
+
+				if(!Enum.TryParse<UserPages>(option, out page)){
+					continue;
+				}
+
+				dbContext.AccessList.Add(new UserAccess()
+				{
+					Page = page,
+					UserId = newUser.Id
+				});
+			}
+
+			dbContext.SaveChanges();
+			navManager.NavigateTo("/admin");
+		}
+	}
+
+	private void ShowError(IdentityResult res){
+		Error = res.Errors.First().Description;
+		StateHasChanged();
+	}
+
+	private void ShowError(string error){
+		Error = error;
+		StateHasChanged();
+	}
+
+}

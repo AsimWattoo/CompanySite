@@ -1,22 +1,109 @@
-/* _content/Company Site/Pages/AdminDashboard.razor.rz.scp.css */
-.border-bottom-1[b-li00p3aabm]{
+/* _content/Company Site/Pages/Admin/AdminDashboard.razor.rz.scp.css */
+.border-bottom-1[b-hscf0vogua] {
     border-bottom: 1px solid black;
 }
 
-.select-box[b-li00p3aabm]{
+.select-box[b-hscf0vogua] {
     border-radius: 5px;
     margin: 0px 5px;
     padding: 5px 10px;
 }
 
-.roundedTextBox[b-li00p3aabm]{
+.roundedTextBox[b-hscf0vogua] {
     border-radius: 5px !important;
     border: 1px solid lightgray !important;
     padding: 5px;
 }
 
-.roundedTextBox:focus[b-li00p3aabm]{
-    outline: none;
+    .roundedTextBox:focus[b-hscf0vogua] {
+        outline: none;
+    }
+
+td[b-hscf0vogua], th[b-hscf0vogua] {
+    text-align: center;
+}
+/* _content/Company Site/Pages/Components/LoginRedirect.razor.rz.scp.css */
+.full-screen[b-hhpooac1pp]{
+    width: 100%;
+    height: 90vh;
+    position: relative;
+}
+
+.center-screen[b-hhpooac1pp]{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.drop-shadow[b-hhpooac1pp] {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 5px;
+}
+/* _content/Company Site/Pages/Components/MultiSelect.razor.rz.scp.css */
+.multi-select[b-3nfkh5vk6s]{
+    position: relative;
+}
+
+.select-box[b-3nfkh5vk6s] {
+    max-height: 250px;
+    position: absolute;
+    top: 0%;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid lightgray;
+    overflow: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.select-header[b-3nfkh5vk6s]{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 0px 5px 5px 0px;
+    margin-bottom: 2px;
+    position: relative;
+    height: 45px;
+}
+
+.select-header i[b-3nfkh5vk6s]{
+    position: absolute;
+    top: 50%;
+    left: 98%;
+    transform: translate(-100%, -50%);
+}
+
+.select-box-item[b-3nfkh5vk6s]{
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.select-box-item input[type='checkbox'][b-3nfkh5vk6s]{
+    cursor: pointer;
+}
+
+.select-box-item:hover[b-3nfkh5vk6s]{
+    background: gray;
+    color: white;
+}
+
+.select-header .option[b-3nfkh5vk6s]{
+    padding: 5px 20px;
+    background-color: lightgray;
+    border-radius: 10%;
+}
+/* _content/Company Site/Pages/User/MemoEditor.razor.rz.scp.css */
+fieldset[b-5ewobahw9o]{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
 }
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
 .page[b-y3fmicphz7] {

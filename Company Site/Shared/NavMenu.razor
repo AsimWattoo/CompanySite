@@ -1,4 +1,7 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using Company_Site.Data
+@using Company_Site.Enum
+
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Company Site</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
@@ -8,20 +11,38 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
+    <nav class="flex-column px-3">
+        <div class="nav-item my-2 text-start">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="oi oi-home" aria-hidden="true"></span> <p class="m-0">Dashboard</p>
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+        <div class="nav-item my-2 text-start">
+            <NavLink class="nav-link" href="/newacquisition" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> <p class="m-0">New Acquisition</p>
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+        <div class="nav-item my-2 text-start">
+            <NavLink class="nav-link" href="/memomaster" Match="NavLinkMatch.All">
+                <span class="fa fa-envelope me-2" aria-hidden="true"></span> <p class="m-0">Memo Master</p>
+            </NavLink>
+        </div>
+        <div class="nav-item my-2 text-start">
+            <NavLink class="nav-link" href="/memoeditor" Match="NavLinkMatch.All">
+                <span class="fa fa-edit me-2" aria-hidden="true"></span> <p class="m-0">Memo Editor</p>
+            </NavLink>
+        </div>
+        @if(IsAdmin)
+        {
+                        <div class="nav-item my-2 text-start">
+                <NavLink class="nav-link" href="admin">
+                            <i class="fa fa-server me-3"></i> <p class="m-0">Admin Dashboard</p>
+                </NavLink>
+            </div>
+        }
+        <div class="nav-item my-2 text-start">
+            <NavLink class="nav-link" href="logout">
+                <i class="fa fa-lock me-3"></i> <p class="m-0">Logout</p>
             </NavLink>
         </div>
     </nav>
@@ -31,6 +52,17 @@
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    [CascadingParameter(Name = "IsAdmin")]
+    public bool IsAdmin { get; set; }
+
+    [CascadingParameter(Name ="Pages")]
+    public List<UserPages> Pages { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
 
     private void ToggleNavMenu()
     {

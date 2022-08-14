@@ -1,11 +1,17 @@
-﻿@inherits LayoutComponentBase
+﻿@using Company_Site.Data
+@using Microsoft.AspNetCore.Identity
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider authStateProvider
+@inject UserManager<User> userManager
 
 <PageTitle>Admin Dashboard</PageTitle>
 
 <div class="page">
-    <div class="col-4 sidebar">
-        <AdminNavMenu/>
-    </div>
+    @if(IsLoggedIn){
+        <div class="col-4 sidebar">
+            <AdminNavMenu/>
+        </div>
+    }
 
     <main class="main">
         <article class="content">
@@ -13,3 +19,23 @@
         </article>
     </main>
 </div>
+
+@code{
+
+    private bool IsLoggedIn { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
+        if (state.User.Identity.Name == null)
+            IsLoggedIn = false;
+        else
+        {
+            User user = await userManager.FindByNameAsync(state.User.Identity.Name);
+            bool isAdmin = await userManager.IsInRoleAsync(user, "Admin");
+            IsLoggedIn = isAdmin;
+        }
+        StateHasChanged();
+    }
+}

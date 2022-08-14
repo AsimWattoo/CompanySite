@@ -1,0 +1,57 @@
+.multi-select[b-3nfkh5vk6s]{
+    position: relative;
+}
+
+.select-box[b-3nfkh5vk6s] {
+    max-height: 250px;
+    position: absolute;
+    top: 0%;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100%;
+    border: 1px solid lightgray;
+    overflow: auto;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.select-header[b-3nfkh5vk6s]{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid lightgray;
+    border-radius: 0px 5px 5px 0px;
+    margin-bottom: 2px;
+    position: relative;
+    height: 45px;
+}
+
+.select-header i[b-3nfkh5vk6s]{
+    position: absolute;
+    top: 50%;
+    left: 98%;
+    transform: translate(-100%, -50%);
+}
+
+.select-box-item[b-3nfkh5vk6s]{
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+.select-box-item input[type='checkbox'][b-3nfkh5vk6s]{
+    cursor: pointer;
+}
+
+.select-box-item:hover[b-3nfkh5vk6s]{
+    background: gray;
+    color: white;
+}
+
+.select-header .option[b-3nfkh5vk6s]{
+    padding: 5px 20px;
+    background-color: lightgray;
+    border-radius: 10%;
+}

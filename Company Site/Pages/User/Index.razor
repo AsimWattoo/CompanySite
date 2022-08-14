@@ -1,0 +1,22 @@
+﻿@page "/"
+@using Company_Site.Enum
+@using Company_Site.Pages.Components
+
+<PageTitle>Dashboard</PageTitle>
+
+<AuthorizeView>
+
+	<Authorized>
+		
+		<AccessChecker Page="UserPages.Dashboard" ReturnUrl="~/">
+			<h3>Dashboard</h3>
+		</AccessChecker>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/"/>
+	</NotAuthorized>
+
+</AuthorizeView>
+

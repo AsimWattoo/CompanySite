@@ -1,0 +1,170 @@
+﻿@page "/memomaster"
+@using Company_Site.DB
+@using Company_Site.Data
+@using Company_Site.Enum
+@using Company_Site.Pages.Components
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.WebUtilities
+@inject ApplicationDbContext dbContext
+@inject ProtectedSessionStorage sessionStorage
+@inject NavigationManager navManager
+
+<PageTitle> Memo Master </PageTitle>
+
+<AuthorizeView>
+
+	<Authorized>
+
+		<div class="d-flex mb-3">
+
+			<div class="mx-1">
+				<input type="radio" name="memoStatus" id="processing" value="Pending" @onchange="MemoStatusSelectionChanged" checked/>
+				<label for="processing">Under Process</label>
+			</div>
+
+			<div class="mx-1">
+				<input type="radio" name="memoStatus" id="approved" value="Approved" @onchange="MemoStatusSelectionChanged" />
+				<label for="approved">Approved</label>
+			</div>
+
+			<div class="mx-1">
+				<input type="radio" name="memoStatus" id="rejected" value="Rejected" @onchange="MemoStatusSelectionChanged"/>
+				<label for="rejected">Rejected</label>
+			</div>
+
+		</div>
+
+		<Table T="Memo" T2="string" Items="@DisplayedMemos" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/memomaster"/>
+	</NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+
+	public List<Memo> DisplayedMemos { get; set; }
+
+	private int serialNumber = 1;
+
+	public List<string> Headers { get; set; } = new List<string>()
+	{
+		"Memo Number",
+		"Case Name",
+		"Subject",
+		"Type",
+		"Department",
+		"Vendor",
+		"Amount",
+		"Status"
+	};
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Pending).ToList();
+	}
+
+	private void MemoStatusSelectionChanged(ChangeEventArgs e)
+	{
+		if (e.Value == null)
+			return;
+		serialNumber = 1;
+		if (e.Value.ToString() == "Pending")
+			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Pending).ToList();
+		else if (e.Value.ToString() == "Approved")
+			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Approved).ToList();
+		else
+			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Rejected).ToList();
+	}
+
+	private string GetId(Memo m){
+		return m.MemoNumber;
+	}
+
+	private List<string> GetTableRows(Memo m){
+		List<string> row = new List<string>()
+		{
+			m.MemoNumber,
+			m.CaseName,
+			m.Subject,
+			m.Type,
+			m.Department,
+			m.Vendor,
+			m.Amount.ToString(),
+			m.MemoStatus.ToString()
+		};
+		//TODO: Update memo status with names of users for which memo is pending
+		serialNumber++;
+		return row;
+	}
+
+	private List<Memo> SortRecords(List<Memo> memos, string name, Sorting sorting){
+
+		switch(name){
+			case "Memo Number":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.MemoNumber).ToList();
+				else
+					return memos.OrderByDescending(m => m.MemoNumber).ToList();
+			case "Case Number":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.CaseName).ToList();
+				else
+					return memos.OrderByDescending(m => m.CaseName).ToList();
+			case "Subject":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.Subject).ToList();
+				else
+					return memos.OrderByDescending(m => m.Subject).ToList();
+			case "Type":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.Type).ToList();
+				else
+					return memos.OrderByDescending(m => m.Type).ToList();
+			case "Department":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.Department).ToList();
+				else
+					return memos.OrderByDescending(m => m.Department).ToList();
+			case "Vendor":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.Vendor).ToList();
+				else
+					return memos.OrderByDescending(m => m.Vendor).ToList();
+			case "Amount":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.Amount).ToList();
+				else
+					return memos.OrderByDescending(m => m.Amount).ToList();
+			case "Status":
+				if (sorting == Sorting.Ascending)
+					return memos.OrderBy(m => m.MemoStatus).ToList();
+				else
+					return memos.OrderByDescending(m => m.MemoStatus).ToList();
+			default:
+				return memos;
+		}
+
+	}
+
+	private List<Memo> Search(List<Memo> memos, string text){
+		text = text.ToLower();
+		return memos.Where(m => m.MemoNumber.ToLower().Contains(text)).ToList();
+	}
+
+	private bool IsEditable(Memo m){
+		if (m.IsDraft)
+			return true;
+		else
+			return false;
+	}
+
+	private void Edit(string str){
+		sessionStorage.SetAsync("MemoId", str);
+		navManager.NavigateTo(QueryHelpers.AddQueryString("/memoeditor", "id", str));
+	}
+}

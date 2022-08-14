@@ -1,0 +1,41 @@
+﻿@using Company_Site.Enum
+
+@if(IsAllowed){
+	<div>
+		@ChildContent
+	</div>
+}
+else{
+	<LoginRedirect ReturnUrl="@ReturnUrl"/>
+}
+
+@code {
+
+	[Parameter]
+	public string ReturnUrl { get; set; }
+
+	[Parameter]
+	public UserPages Page { get; set; }
+
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	//Whether the user is allowed on the page or not
+	private bool IsAllowed { get; set; }
+
+	[CascadingParameter(Name = "Pages")]
+	public List<UserPages> Pages { get; set; } = new List<UserPages>();
+
+	[CascadingParameter(Name = "IsAdmin")]
+	public bool IsAdmin { get; set; }
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		if (Pages.Contains(Page) || IsAdmin)
+			IsAllowed = true;
+		else
+			IsAllowed = false;
+		StateHasChanged();
+	}
+}

@@ -1,0 +1,23 @@
+.border-bottom-1[b-hscf0vogua] {
+    border-bottom: 1px solid black;
+}
+
+.select-box[b-hscf0vogua] {
+    border-radius: 5px;
+    margin: 0px 5px;
+    padding: 5px 10px;
+}
+
+.roundedTextBox[b-hscf0vogua] {
+    border-radius: 5px !important;
+    border: 1px solid lightgray !important;
+    padding: 5px;
+}
+
+    .roundedTextBox:focus[b-hscf0vogua] {
+        outline: none;
+    }
+
+td[b-hscf0vogua], th[b-hscf0vogua] {
+    text-align: center;
+}

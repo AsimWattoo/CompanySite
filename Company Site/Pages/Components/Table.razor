@@ -1,0 +1,303 @@
+﻿@using Company_Site.Data
+@using Company_Site.Enum
+@typeparam T 
+@typeparam T2
+
+<div class="container-fluid mt-4">
+	
+	<div class="modal" id="deleteConfirmModal">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Confirmation</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete the record?</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="button" @onclick="DeleteRecord"  data-bs-dismiss="modal"  class="btn btn-danger">Confirm</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<!--Table Header-->
+	<EditForm Model="SearchModel" Context="searchBar">
+
+		<div class="row">
+			<div class="col-3">
+				Show 
+				<select id="enteriesSelection" class="select-box mx-1" @onchange="@RowsToShowChange">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="50">50</option>
+				</select>
+				enteries
+			</div>
+			<div class="col-8 d-flex justify-content-end">
+				<div>
+					<label for="searchBox">Search</label>
+					<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
+					<a class="btn btn-outline-secondary mx-1" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
+				</div>
+			</div>
+		</div>
+
+	</EditForm>
+
+	<!--Table-->
+	<div class="row my-3">
+		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
+			<tr class="border-bottom-1">
+				@if(ShowSerialNumber){
+					<th scope="col" class="text-center">Serial Number</th>
+				}
+				@foreach(string header in Headers){
+					@if(!string.IsNullOrEmpty(header)){
+							<th scope="col" class="text-center">
+								<a class="btn-sortable" @onclick='(() => Sort(header))'>
+								@header
+								@if (Sortings[header] == Sorting.Ascending)
+								{
+											<i class="ms-1 fa fa-arrow-up d-inline"></i>
+								}
+								else if (Sortings[header] == Sorting.Descending)
+								{
+											<i class="ms-1 fa fa-arrow-down d-inline"></i>
+								}
+								</a>
+							</th>
+					}
+					else{
+						<th></th>
+					}
+				}
+			</tr>
+			@foreach(T item in Items)
+			{
+				@if(GetTableRows != null){
+					<tr>
+						@if(ShowSerialNumber){
+							<td class="text-center">@SR</td>
+						}
+						@foreach(string rowItem in GetTableRows(item)){
+							<td class="text-center">@rowItem</td>
+						}
+						<td>
+							@if(IsEditable(item)){
+								<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
+							}
+							@if(IsDeleteable(item)){
+								<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+							}
+						</td>
+					</tr>
+					SR++;
+				}
+			}
+		</table>
+	</div>
+	<!--Table Footer-->
+	<div class="row">
+		<div class="col-4">
+			<p class="lead fs-small">Showing @(DisplayedItems.Count > 0 ? (_CurrentPage - 1) * SearchModel.RowsToShow + 1 : 0) to @(DisplayedItems.Count + ((_CurrentPage - 1) * SearchModel.RowsToShow)) out of @Items.Count enteries</p>
+		</div>
+		<div class="col-8">
+			<nav>
+				<ul class="pagination d-flex justify-content-end">
+				<li class="page-item">
+					<a class="page-link" @onclick='@(() => ChangePage(1))' aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+					<span class="sr-only">Previous</span>
+					</a>
+				</li>
+				@foreach(int p in Pages)
+				{
+					<li class="page-item"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
+				}
+				<li class="page-item">
+					<a class="page-link" @onclick='@(() => ChangePage(_NumberOfPages))' aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+					<span class="sr-only">Next</span>
+					</a>
+				</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+
+
+@code {
+
+	[Parameter]
+	public Func<T, List<string>> GetTableRows { get; set; }
+
+	[Parameter]
+	public Func<T, T2> GetId { get; set; }
+
+	[Parameter]
+	public Func<List<T>, string, Sorting, List<T>> OnSortRecords { get; set; }
+
+	[Parameter]
+	public List<string> Headers { get; set; }
+
+	[Parameter]
+	public List<T> Items { get; set; }
+
+	[Parameter]
+	public Func<T2, List<T>> OnDelete { get; set; }
+
+	[Parameter]
+	public Action<T2> OnEdit { get; set; }
+
+	[Parameter]
+	public Func<List<T>, string, List<T>> OnSearch { get; set; }
+
+	[Parameter]
+	public Func<T, bool> IsEditable { get; set; } = (T t) => true;
+
+	[Parameter]
+	public Func<T, bool> IsDeleteable { get; set; } = (T t) => true;
+
+	[Parameter]
+	public bool ShowSerialNumber { get; set; } = false;
+
+	private int SR = 1;
+
+	//The copy of the items to be kept while searching
+	private List<T> itemsCopy { get; set; }
+
+	//The model to be used for searching
+	private SearchBarModel SearchModel { get; set; } = new SearchBarModel();
+
+	///the number of pages to show
+	private int _NumberOfPages { get; set; } = 1;
+
+	private List<int> Pages
+	{
+		get
+		{
+			{
+				List<int> pages = new List<int>();
+				for (int p = 1; p <= _NumberOfPages	; p++)
+					pages.Add(p);
+				return pages;
+			}
+		}
+	}
+
+	private int _CurrentPage { get; set; } = 1;
+
+	private List<T> DisplayedItems = new List<T>();
+
+	private T2 userIdToDelete;
+
+	//The text of the search box
+	private string SearchText;
+
+	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>();
+
+	private void UpdateInitialization(){
+		_NumberOfPages = (Items.Count / SearchModel.RowsToShow) + 1;
+		DisplayedItems = Items.Take(SearchModel.RowsToShow * _CurrentPage).ToList();
+		_CurrentPage = 1;
+	}
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		UpdateInitialization();
+		//Copying items for later recovery
+		itemsCopy = Items;
+		foreach(string header in Headers){
+
+			if (string.IsNullOrEmpty(header))
+				continue;
+
+			Sortings.Add(header, Sorting.None);
+		}
+
+	}
+
+	//Fires when selected rows to show changes
+	private void RowsToShowChange(ChangeEventArgs e)
+	{
+		SearchModel.RowsToShow = int.Parse(e.Value.ToString());
+		UpdateRows();
+	}
+
+	private void ChangePage(int page)
+	{
+		_CurrentPage = page;
+		UpdateRows();
+	}
+
+	private void UpdateRows()
+	{
+		SR = 1;
+		DisplayedItems = Items.Take(_CurrentPage * SearchModel.RowsToShow).Skip((_CurrentPage - 1) * SearchModel.RowsToShow).ToList();
+		string sortingColumn = Sortings.Where(s => s.Value != Sorting.None).FirstOrDefault().Key;
+		if(sortingColumn != null){
+			DisplayedItems = OnSortRecords(DisplayedItems, sortingColumn, Sortings[sortingColumn]);
+		}
+	}
+
+	private void ResetSorting(string toSkip = null)
+	{
+		foreach (string key in Sortings.Keys)
+		{
+			if (key == toSkip)
+				continue;
+			Sortings[key] = Sorting.None;
+		}
+	}
+
+	private void DeleteRecordId(T2 id)
+	{
+		userIdToDelete = id;
+	}
+
+	///Sorts the table with the specified column
+	private void Sort(string name)
+	{
+		ResetSorting(name);
+		if (Sortings[name] == Sorting.None)
+			Sortings[name] = Sorting.Ascending;
+		else if (Sortings[name] == Sorting.Ascending)
+			Sortings[name] = Sorting.Descending;
+		else
+			Sortings[name] = Sorting.Ascending;
+
+		DisplayedItems = OnSortRecords(DisplayedItems, name, Sortings[name]);
+	}
+
+	//Deletes the record
+	private void DeleteRecord(){
+		if(OnDelete != null){
+			Items = OnDelete(userIdToDelete);
+			UpdateRows();
+		}
+	}
+
+	//Edits the record
+	private void EditRecord(T2 id){
+		if(OnEdit != null){
+			OnEdit(id);
+		}
+	}
+
+	//Searches the records
+	private void SearchRecords(){
+		if(!string.IsNullOrEmpty(SearchText) && !string.IsNullOrWhiteSpace(SearchText)){
+			Items = OnSearch(Items, SearchText);
+		}
+		else{
+			Items = itemsCopy;
+		}
+		UpdateInitialization();
+	}
+}

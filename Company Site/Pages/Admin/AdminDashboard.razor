@@ -1,0 +1,185 @@
+﻿@layout Company_Site.Shared.AdminLayout
+@page "/admin"
+
+@using Company_Site.DB
+@using Company_Site.Data
+@using Company_Site.Enum
+@using System.Linq
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Company_Site.Pages.Components
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore
+
+@inject IDbContextFactory<ApplicationDbContext> contextFactory
+@inject ProtectedSessionStorage sessionStorage
+@inject NavigationManager navigationManager
+
+<AuthorizeView Roles="Admin">
+
+	<Authorized>
+
+		<PageTitle>Admin Dashboard</PageTitle>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-11">
+					<h3 class="mt-3">Users</h3>
+				</div>
+				<div class="col-1 d-flex justify-content-start align-items-center">
+					<a class="btn btn-primary" @onclick="AddUser"><i class="fa fa-plus"></i></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mt-4">
+			<Table T="User" T2="int" Items="@Users" Headers="@Headers" GetTableRows="@GetUserRows" GetId="@GetUserId" OnSortRecords="@SortRecords" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+		</div>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/admin"/>
+	</NotAuthorized>
+
+</AuthorizeView>
+
+
+@code {
+
+	private int currentPage { get; set; } = 1;
+
+	public List<User> Users = new List<User>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		base.OnInitialized();
+		using(ApplicationDbContext dbContext = await contextFactory.CreateDbContextAsync()){
+			Users = dbContext.Users.ToList();
+		}
+	}
+
+	private List<string> Headers = new List<string>
+	{
+		"Id",
+		"First Name",
+		"Last Name",
+		"Date of Joining",
+		"Email",
+		"Department",
+		"Role",
+		"Designation",
+		"Mobile",
+		""
+	};
+
+	private void AddUser()
+	{
+		sessionStorage.SetAsync("UserPageMode", "add");
+		navigationManager.NavigateTo("/admin/adduser");
+	}
+
+	private List<User> SortRecords(List<User> users, string name, Sorting sorting)
+	{
+		switch (name)
+		{
+			case "Id":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Id).ToList();
+				else
+					return users.OrderByDescending(func => func.Id).ToList();
+
+			case "First Name":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.FirstName).ToList();
+				else
+					return users.OrderByDescending(func => func.FirstName).ToList();
+
+			case "Last Name":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.LastName).ToList();
+				else
+					return users.OrderByDescending(func => func.LastName).ToList();
+
+			case "Date of Joining":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.DateOfJoining).ToList();
+				else
+					return users.OrderByDescending(func => func.DateOfJoining).ToList();
+
+			case "Email":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Email).ToList();
+				else
+					return users.OrderByDescending(func => func.Email).ToList();
+
+			case "Department":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Department).ToList();
+				else
+					return users.OrderByDescending(func => func.Department).ToList();
+
+			case "Role":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Role).ToList();
+				else
+					return users.OrderByDescending(func => func.Role).ToList();
+
+			case "Designation":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Designation).ToList();
+				else
+					return users.OrderByDescending(func => func.Designation).ToList();
+
+			case "Mobile":
+				if (sorting == Sorting.Ascending)
+					return users.OrderBy(func => func.Mobile).ToList();
+				else
+					return users.OrderByDescending(func => func.Mobile).ToList();
+			default:
+				return users;
+		}
+	}
+
+	private List<User> DeleteRecord(int userIdToDelete)
+	{
+		using (ApplicationDbContext dbContext = contextFactory.CreateDbContext())
+		{
+			dbContext.Users.Remove(dbContext.Users.First(u => u.Id == userIdToDelete));
+			dbContext.SaveChanges();
+			Users = dbContext.Users.ToList();
+			return Users;
+		}
+	}
+
+	private void EditRecord(int id)
+	{
+		sessionStorage.SetAsync("UserPageMode", "edit");
+		sessionStorage.SetAsync("UserId", id);
+		navigationManager.NavigateTo("/admin/adduser");
+	}
+
+	private List<string> GetUserRows(User u){
+		return new List<string>()
+		{
+			u.Id.ToString(),
+			u.FirstName, 
+			u.LastName,
+			u.DateOfJoining.ToString(),
+			u.Email,
+			u.Department,
+			u.Role,
+			u.Designation,
+			u.Mobile,
+		};
+	}
+
+	private int GetUserId(User user){
+		return user.Id;
+	}
+
+	private List<User> Search(List<User> users, string text){
+		text = text.ToLower();
+		return users.Where(user => user.FirstName.ToLower().Contains(text) || user.LastName.ToLower().Contains(text)).ToList();
+	}
+}
+
