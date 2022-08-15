@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
@@ -8,7 +9,8 @@ namespace Company_Site.Data
         #region Public Properties
 
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int FileId { get; set; }
 
         [Required]
         public string Path { get; set; }

@@ -47,6 +47,9 @@ namespace Company_Site.DB
 
 			builder.Entity<UserMemoReference>()
 				.HasKey("Id", "MemoId", "UserId");
+
+			builder.Entity<File>()
+				.HasKey(f => f.FileId);
 		}
 
 		#endregion

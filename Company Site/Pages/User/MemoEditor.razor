@@ -2,6 +2,7 @@
 @using Company_Site.DB
 @using Company_Site.Data
 @using Company_Site.Enum
+@using Company_Site.Helpers
 @using Company_Site.Pages.Components
 @using Company_Site.ViewModels
 @using Microsoft.AspNetCore.WebUtilities
@@ -202,6 +203,48 @@
 
 				</fieldset>
 
+				<fieldset>
+
+					<legend>Memo Description or Attach Word File</legend>
+
+					<div class="row">
+						<div class="col-12">
+							
+						</div>
+						<div class="col-12">
+							<div class="input-group mb-3 d-flex align-items-center">
+								<label for="files" class="me-1">Files</label>
+								<InputFile id="files" @bind-Value="@NewMemo.Files" OnChange="FilesChanged" multiple/>
+							</div>
+							<div class="row px-2">
+								@foreach(IBrowserFile file in NewMemo.Files){
+									<div class="col-md-2 col-3 m-2 p-2 file-box">
+										<div class="position-relative">
+											<a class="rounded-pill cancel-btn" @onclick="@(() => RemoveFile(file))">X</a>
+										</div>
+										<div class="d-flex justify-content-center">
+											@if(file.ContentType == "image/png" || file.ContentType == "image/jpg")
+											{
+												<img src="/img/img.png" class="w-75 h-75 mt-2"/>
+											}
+											else if(file.ContentType == "application/pdf")
+											{
+												<img src="/img/pdf.png" class="w-75 h-75 mt-2"/>
+											}
+											else
+											{
+												<img src="/img/word.png" class="w-75 h-75 mt-2"/>
+											}
+										</div>
+										<p class="m-0 text-center">@file.Name</p>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+
+				</fieldset>
+
 				<div class="input-group d-flex justify-content-end mb-3">
 					@if(PageMode == PageMode.Add){
 						<div>
@@ -245,6 +288,15 @@
 	public string id{ get; set; }
 
 	private PageMode PageMode = PageMode.Add;
+
+	private const long MAX_FILE_SIZE = 1024000 * 5;
+
+	//Files change
+	private void FilesChanged(InputFileChangeEventArgs e){
+		if (e.GetMultipleFiles().Any(f => f.Size > MAX_FILE_SIZE))
+			Error = "Files of max size 5MB are allowed";
+		NewMemo.Files = e.GetMultipleFiles().ToList();
+	}
 
 	protected override async void OnInitialized()
 	{
@@ -292,11 +344,13 @@
 			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> toIds = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
+			List<string> files = dbContext.Files.Where(m => m.MemoId == NewMemo.MemoNumber).Select(f => f.Path).ToList();
+
 
 			NewMemo.From.AddRange(dbContext.Users.Where(func => fromIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
 			NewMemo.Through.AddRange(dbContext.Users.Where(func => throughIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
 			NewMemo.To.AddRange(dbContext.Users.Where(func => toIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
-
+			NewMemo.Files = GetFiles(files);
 		}
 
 		AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
@@ -330,7 +384,7 @@
 		UpdateMemoNumber();
 	}
 
-	private void SaveDraft(){
+	private async void SaveDraft(){
 		Memo memo = new Memo()
 		{
 			Amount = NewMemo.Amount,
@@ -352,10 +406,11 @@
 		};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));
+		dbContext.Files.RemoveRange(dbContext.Files.Where(f => f.MemoId == this.id));
 
 		int id = 1;
 		if(dbContext.MemoReferences.Any())
-			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id;
+			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id + 1;
 
 		foreach(string user in NewMemo.From){
 			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
@@ -376,6 +431,11 @@
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ToId = id;
+		List<string> files = await SaveFiles(NewMemo.Files);
+		int fileId = 1;
+		if (dbContext.Files.Any())
+			fileId = dbContext.Files.OrderBy(f => f.FileId).Last().FileId + 1;
+		dbContext.Files.AddRange(files.Select(f => new File() { FileId = fileId++, Path = f, MemoId = memo.MemoNumber}));
 
 		if(PageMode == PageMode.Add){
 			if(dbContext.Memos.Where(f => f.MemoNumber == NewMemo.MemoNumber).Count() != 0)
@@ -397,12 +457,11 @@
 				dbContext.Memos.Add(memo);
 			}
 		}
-		//TODO: File Functionality
 		dbContext.SaveChanges();
-		navManager.NavigateTo("/");
+		navManager.NavigateTo("/memomaster");
 	}
 
-	private void AddMemo(){
+	private async void AddMemo(){
 		Memo memo = new Memo()
 			{
 				Amount = NewMemo.Amount,
@@ -424,7 +483,7 @@
 			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));
-
+		dbContext.Files.RemoveRange(dbContext.Files.Where(f => f.MemoId == this.id));
 
 		int id = 1;
 		if(dbContext.MemoReferences.Any())
@@ -449,6 +508,14 @@
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ToId = id;
+
+		memo.ToId = id;
+		List<string> files = await SaveFiles(NewMemo.Files);
+		int fileId = 1;
+		if (dbContext.Files.Any())
+			fileId = dbContext.Files.OrderBy(f => f.FileId).Last().FileId + 1;
+		dbContext.Files.AddRange(files.Select(f => new File() { FileId = fileId++, Path = f, MemoId = this.id }));
+
 		if (PageMode == PageMode.Add)
 		{
 			if (dbContext.Memos.Where(f => f.MemoNumber == NewMemo.MemoNumber).Count() != 0)
@@ -473,7 +540,7 @@
 			}
 		}
 		dbContext.SaveChanges();
-		navManager.NavigateTo("/");
+		navManager.NavigateTo("/memomaster");
 	}
 
 	private void Discard(){
@@ -481,6 +548,35 @@
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(func => func.MemoId == m.MemoNumber));
 		dbContext.Memos.Remove(m);
 		dbContext.SaveChanges();
+		navManager.NavigateTo("/memomaster");
 	}
 
+	//Uploads and saves files
+	private async Task<List<string>> SaveFiles(List<IBrowserFile> files){
+		List<string> filePaths = new List<string>();
+		foreach(IBrowserFile file in files){
+			Stream stream = file.OpenReadStream(maxAllowedSize: MAX_FILE_SIZE);
+			string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files", file.Name);
+			filePaths.Add(filePath);
+			using(FileStream fileStream = new FileStream(filePath, FileMode.Create)){
+				byte[] data = new byte[stream.Length];
+				await stream.ReadAsync(data, 0, data.Length);
+				await fileStream.WriteAsync(data, 0, data.Length);
+			}
+		}
+		return filePaths;
+	}
+
+	private List<IBrowserFile> GetFiles(List<string> files){
+		List<IBrowserFile> loadedFiles = new List<IBrowserFile>();
+		foreach(string file in files){
+			IBrowserFile f = new UploadedFile(file);
+			loadedFiles.Add(f);
+		}
+		return loadedFiles; 
+	}
+
+	private void RemoveFile(IBrowserFile file){
+		NewMemo.Files.Remove(file);
+	}
 }

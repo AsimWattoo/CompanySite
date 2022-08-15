@@ -44,8 +44,7 @@ namespace Company_Site.Data
         [Required]
         public string Vendor { get; set; }
 
-        [Required]
-        public string Frequency { get; set; }
+        public string? Frequency { get; set; }
 
         [Required]
         public int ToId { get; set; }
@@ -60,10 +59,6 @@ namespace Company_Site.Data
         public DateTime ValidTill { get; set; }
 
         public string? Text { get; set; }
-
-        public string? FilesId { get; set; }
-
-        public int CommentsId { get; set; }
 
         [Required]
         public MemoStatus MemoStatus { get; set; } = MemoStatus.Pending;
