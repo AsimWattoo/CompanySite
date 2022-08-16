@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ztgzgt2zmEq3ccmEtUGXBNj5+p49WniSGE9omcKHhds=",
+  "Hash": "9PNC1k/HKiQUmvECzSuQWfF7ZMrMHjejLzdg3wb0pWc=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -16,6 +16,40 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\asimw\\.nuget\\packages\\blazored.texteditor\\1.0.8\\staticwebassets\\Blazored-BlazorQuill.js",
+      "SourceId": "Blazored.TextEditor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\asimw\\.nuget\\packages\\blazored.texteditor\\1.0.8\\staticwebassets\\",
+      "BasePath": "_content/Blazored.TextEditor",
+      "RelativePath": "Blazored-BlazorQuill.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\asimw\\.nuget\\packages\\blazored.texteditor\\1.0.8\\staticwebassets\\Blazored-BlazorQuill.js"
+    },
+    {
+      "Identity": "C:\\Users\\asimw\\.nuget\\packages\\blazored.texteditor\\1.0.8\\staticwebassets\\quill-blot-formatter.min.js",
+      "SourceId": "Blazored.TextEditor",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\asimw\\.nuget\\packages\\blazored.texteditor\\1.0.8\\staticwebassets\\",
+      "BasePath": "_content/Blazored.TextEditor",
+      "RelativePath": "quill-blot-formatter.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\asimw\\.nuget\\packages\\blazored.texteditor\\1.0.8\\staticwebassets\\quill-blot-formatter.min.js"
+    },
     {
       "Identity": "C:\\Users\\asimw\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\6.0.7\\staticwebassets\\V5\\css\\site.css",
       "SourceId": "Microsoft.AspNetCore.Identity.UI",

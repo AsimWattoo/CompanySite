@@ -126,6 +126,23 @@ fieldset[b-5ewobahw9o]{
 .file-box:hover .cancel-btn[b-5ewobahw9o]{
     opacity: 1;
 }
+/* _content/Company Site/Pages/User/MemoView.razor.rz.scp.css */
+fieldset[b-jr6ue2ld43] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+fieldset legend[b-jr6ue2ld43]{
+    margin-bottom: 15px;
+}
+
+.comment-box[b-jr6ue2ld43] {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 10px;
+}
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
 .page[b-y3fmicphz7] {
     position: relative;

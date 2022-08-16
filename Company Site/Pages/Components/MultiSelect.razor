@@ -2,7 +2,7 @@
 
 <div @attributes="CapturedAttributes">
 	<!--Items-->
-	<a @onclick="DisplaySelectItems" @onfocusout="HideSelectBox" class="d-flex align-items-center select-header">
+	<a @onclick="DisplaySelectItems" @onblur="HideSelectBox" class="d-flex align-items-center select-header">
 		<div>
 			<div>
 				@foreach (string option in _selectedOptions)

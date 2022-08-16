@@ -1,4 +1,5 @@
-﻿using Company_Site.Enum;
+﻿using Company_Site.Data;
+using Company_Site.Enum;
 
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -62,7 +63,7 @@ namespace Company_Site.ViewModels
 
         public List<IBrowserFile> Files { get; set; } = new List<IBrowserFile>();
 
-        public List<string> Comments { get; set; }
+        public List<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
 
         [Required]
         public MemoStatus MemoStatus { get; set; } = MemoStatus.Pending;

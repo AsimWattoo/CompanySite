@@ -50,6 +50,9 @@ namespace Company_Site.DB
 
 			builder.Entity<File>()
 				.HasKey(f => f.FileId);
+
+			builder.Entity<Comment>()
+				.HasKey(k => k.CommentId);
 		}
 
 		#endregion

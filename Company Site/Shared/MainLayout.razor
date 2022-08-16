@@ -13,19 +13,21 @@
 <CascadingValue Value="@IsLoggedIn" Name="IsLoggedIn">
     <CascadingValue Value="@IsAdmin" Name="IsAdmin">
         <CascadingValue Value="@Pages" Name="Pages">
-            <div class="page">
-                @if(IsLoggedIn){
-                    <div class="sidebar">
-                        <NavMenu />
-                    </div>
-                }
+            <CascadingValue Value="@UserId" Name="UserId">
+                <div class="page">
+                    @if(IsLoggedIn){
+                        <div class="sidebar">
+                            <NavMenu />
+                        </div>
+                    }
 
-                <main>
-                    <article class="content px-4">
-                        @Body
-                    </article>
-                </main>
-            </div>
+                    <main>
+                        <article class="content px-4">
+                            @Body
+                        </article>
+                    </main>
+                </div>
+            </CascadingValue>
         </CascadingValue>
     </CascadingValue>
 </CascadingValue>
@@ -37,6 +39,8 @@
     public bool IsAdmin { get; set; }
 
     public List<UserPages> Pages { get; set; } = new List<UserPages>();
+
+    public int? UserId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,8 +55,8 @@
                 user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
                 Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();
                 IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
+                UserId = user.Id;
             }
-
             IsLoggedIn = true;
         }
         base.OnInitialized();

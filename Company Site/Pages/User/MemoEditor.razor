@@ -13,7 +13,7 @@
 
 <PageTitle>Memo Editor</PageTitle>
 
-<AuthorizeView Roles="Admin">
+<AuthorizeView>
 
 	<Authorized >
 
@@ -210,8 +210,38 @@
 					<div class="row">
 						<div class="col-12">
 							
+							<BlazoredTextEditor EditorContent="@editorContent" @ref="@textEditor" Placeholder="Enter memo description">
+								<ToolbarContent>
+									<select class="ql-header">
+										<option selected=""></option>
+										<option value="1"></option>
+										<option value="2"></option>
+										<option value="3"></option>
+										<option value="4"></option>
+										<option value="5"></option>
+									</select>
+									<span class="ql-formats">
+										<button class="ql-bold"></button>
+										<button class="ql-italic"></button>
+										<button class="ql-underline"></button>
+										<button class="ql-strike"></button>
+									</span>
+									<span class="ql-formats">
+										<select class="ql-color"></select>
+										<select class="ql-background"></select>
+									</span>
+									<span class="ql-formats">
+										<button class="ql-list" value="ordered"></button>
+										<button class="ql-list" value="bullet"></button>
+									</span>
+									<span class="ql-formats">
+										<button class="ql-link"></button>
+									</span>
+								</ToolbarContent>
+							</BlazoredTextEditor>
+
 						</div>
-						<div class="col-12">
+						<div class="col-12 mt-5">
 							<div class="input-group mb-3 d-flex align-items-center">
 								<label for="files" class="me-1">Files</label>
 								<InputFile id="files" @bind-Value="@NewMemo.Files" OnChange="FilesChanged" multiple/>
@@ -274,6 +304,13 @@
 
 @code {
 
+	[CascadingParameter(Name = "UserId")]
+	public int? UserId { get; set; }
+
+	private BlazoredTextEditor textEditor;
+
+	private RenderFragment editorContent;
+
 	//The error which is being displayed
 	private string Error { get; set; }
 
@@ -291,6 +328,7 @@
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
 
+
 	//Files change
 	private void FilesChanged(InputFileChangeEventArgs e){
 		if (e.GetMultipleFiles().Any(f => f.Size > MAX_FILE_SIZE))
@@ -301,6 +339,10 @@
 	protected override async void OnInitialized()
 	{
 		base.OnInitialized();
+
+		if (UserId == null)
+			return;
+
 		string[] param = navManager.Uri.Split("?");
 		if(param.Count() > 1){
 			Dictionary<string, StringValues> parameters = QueryHelpers.ParseQuery(param[1]);
@@ -317,7 +359,7 @@
 
 		if(PageMode == PageMode.Add){
 			if (dbContext.Memos.Any())
-				MemoNumber = int.Parse(dbContext.Memos.OrderBy(o => o.MemoNumber).Last().MemoNumber.Split('/').Last());
+				MemoNumber = int.Parse(dbContext.Memos.OrderBy(o => o.MemoNumber).Last().MemoNumber.Split('/').Last()) + 1;
 		}
 		else{
 			//Getting the Memo and Loading in the view model
@@ -341,6 +383,10 @@
 					Periodicity = memo.Periodicity,
 					Type = memo.Type
 				};
+			editorContent = new RenderFragment((builder) =>
+			{
+				builder.AddMarkupContent(0, memo.Text);
+			});
 			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> toIds = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
@@ -364,14 +410,23 @@
 
 	//Updates the memo number
 	private void UpdateMemoNumber(){
-		NewMemo.MemoNumber = "";
+		string memoNumber = "";
 		if (!string.IsNullOrEmpty(NewMemo.Department))
-			NewMemo.MemoNumber = $"{NewMemo.Department}";
+			memoNumber = $"{NewMemo.Department}";
 		if (!string.IsNullOrEmpty(CurrentUser.FirstName))
-			NewMemo.MemoNumber += $"/{CurrentUser.FirstName}";
+			memoNumber += $"/{CurrentUser.FirstName}";
 		if (!string.IsNullOrEmpty(CurrentUser.LastName))
-			NewMemo.MemoNumber += $"{CurrentUser.LastName.First()}";
-		NewMemo.MemoNumber += $"/{NewMemo.Date.ToString("yy")}/{MemoNumber}";
+			memoNumber += $"{CurrentUser.LastName.First()}";
+		string temp = "";
+		while(true){
+			temp = $"{memoNumber}/{NewMemo.Date.ToString("yy")}/{MemoNumber}";
+			if (dbContext.Memos.Where(f => f.MemoNumber == temp).Any())
+				MemoNumber++;
+			else
+				break;
+		}
+		NewMemo.MemoNumber = temp; ;
+
 	}
 
 	private void DepartmentChanged(string department){
@@ -385,8 +440,10 @@
 	}
 
 	private async void SaveDraft(){
+		string text = await textEditor.GetHTML();
 		Memo memo = new Memo()
 		{
+			WriterId = UserId.Value,
 			Amount = NewMemo.Amount,
 			Branch = NewMemo.Branch,
 			CaseName = NewMemo.CaseName,
@@ -399,7 +456,7 @@
 			MemoStatus = Company_Site.Enum.MemoStatus.Pending,
 			Periodicity = NewMemo.Periodicity,
 			Subject = NewMemo.Subject,
-			Text = NewMemo.Text,
+			Text = text,
 			Type = NewMemo.Type,
 			Vendor = NewMemo.Vendor,
 			ValidTill = NewMemo.ValidTill,
@@ -451,6 +508,7 @@
 			{
 				Memo foundMemo = dbContext.Memos.Where(m => m.MemoNumber == this.id).First();
 				foundMemo.FromMemoViewModel(NewMemo);
+				foundMemo.Text = text;
 			}
 			else{
 				dbContext.Memos.Remove(dbContext.Memos.Where(f => f.MemoNumber == this.id).First());
@@ -462,8 +520,10 @@
 	}
 
 	private async void AddMemo(){
+		string text = await textEditor.GetHTML();
 		Memo memo = new Memo()
 			{
+				WriterId = UserId.Value,
 				Amount = NewMemo.Amount,
 				Branch = NewMemo.Branch,
 				CaseName = NewMemo.CaseName,
@@ -476,7 +536,7 @@
 				MemoStatus = Company_Site.Enum.MemoStatus.Pending,
 				Periodicity = NewMemo.Periodicity,
 				Subject = NewMemo.Subject,
-				Text = NewMemo.Text,
+				Text = text,
 				Type = NewMemo.Type,
 				Vendor = NewMemo.Vendor,
 				ValidTill = NewMemo.ValidTill,
@@ -487,7 +547,7 @@
 
 		int id = 1;
 		if(dbContext.MemoReferences.Any())
-			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id;
+			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id + 1;
 
 		foreach(string user in NewMemo.From){
 			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
@@ -514,7 +574,7 @@
 		int fileId = 1;
 		if (dbContext.Files.Any())
 			fileId = dbContext.Files.OrderBy(f => f.FileId).Last().FileId + 1;
-		dbContext.Files.AddRange(files.Select(f => new File() { FileId = fileId++, Path = f, MemoId = this.id }));
+		dbContext.Files.AddRange(files.Select(f => new File() { FileId = fileId++, Path = f, MemoId = memo.MemoNumber }));
 
 		if (PageMode == PageMode.Add)
 		{

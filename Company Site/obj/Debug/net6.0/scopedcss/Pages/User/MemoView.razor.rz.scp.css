@@ -1,0 +1,16 @@
+fieldset[b-jr6ue2ld43] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+fieldset legend[b-jr6ue2ld43]{
+    margin-bottom: 15px;
+}
+
+.comment-box[b-jr6ue2ld43] {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 10px;
+}
