@@ -16,11 +16,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\SaveFile.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Pages\AdminDashboard.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\SaveFile.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Blazored.TextEditor" Version="1.0.8" />
+    <PackageReference Include="MailKit" Version="3.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.7" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.7" />
@@ -30,10 +39,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+    <PackageReference Include="MimeKit" Version="3.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\files\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\SaveFile.js" />
   </ItemGroup>
 
 </Project>

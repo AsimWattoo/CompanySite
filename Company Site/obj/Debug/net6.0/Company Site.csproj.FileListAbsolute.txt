@@ -277,3 +277,6 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\MemoEditor.razor.rz.scp.css
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Blazored.TextEditor.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\MemoView.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\MailKit.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\MimeKit.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\BouncyCastle.Crypto.dll

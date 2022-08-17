@@ -9,6 +9,8 @@
 @using Microsoft.Extensions.Primitives
 @inject NavigationManager navManager
 @inject ApplicationDbContext dbContext;
+@inject MailManager mailManager
+@inject IJSRuntime JSRuntime
 
 
 <AuthorizeView>
@@ -202,8 +204,7 @@
 
 						@foreach (UploadedFile file in Memo.Files)
 						{
-							<a id="exportCsv" class="col-md-2 col-3 m-2 p-2 file-box" href="@file.FilePath" download="@file.Name" 
-								role="button" target="_top">
+								<a  class="col-md-2 col-3 m-2 p-2 file-box" @onclick="@(() => DownloadFile(file))">
 								<div>
 									<div class="d-flex justify-content-center">
 										@if (file.ContentType == "image/png" || file.ContentType == "image/jpg")
@@ -317,6 +318,8 @@
 
 	private BlazoredTextEditor commentEditor;
 
+	private const long MAX_FILE_SIZE = 1024000 * 5;
+
 	/// <summary>
 	/// Indicates whether this is the writer to memo viewing it or not
 	/// </summary>
@@ -374,6 +377,16 @@
 
 	}
 
+	private async void DownloadFile(UploadedFile file)
+	{
+		using(Stream stream = file.OpenReadStream(maxAllowedSize: MAX_FILE_SIZE))
+		{
+			byte[] data = new byte[stream.Length];
+			stream.Read(data, 0, data.Length);
+			await JSRuntime.InvokeVoidAsync("BlazorDownloadFile", file.Name, file.ContentType, data);
+		}
+	}
+
 	private async void Accept(){
 		string content = await commentEditor.GetHTML();
 
@@ -396,7 +409,7 @@
 		Memo memo = dbContext.Memos.Where(f => f.MemoNumber == Memo.MemoNumber).First();
 
 		//Getting is there any reference which has not still approved the memo
-		if(dbContext.MemoReferences.Where(f => (f.MemoId == memo.MemoNumber && f.MemoStatus != MemoStatus.Approved)).Any()){
+		if(!dbContext.MemoReferences.Where(f => (f.MemoId == memo.MemoNumber && f.MemoStatus != MemoStatus.Approved)).Any()){
 			memo.MemoStatus = MemoStatus.Approved;
 		}
 
@@ -428,6 +441,24 @@
 		m.MemoStatus = MemoStatus.Rejected;
 
 		dbContext.SaveChanges();
+
+		//Sending mail to all the users who approved the memo
+		List<int> ids = dbContext.MemoReferences.Where(memo => memo.MemoId == m.MemoNumber && memo.MemoStatus == MemoStatus.Approved).Select(f => f.UserId).ToList();
+		ids.Add(m.WriterId);
+		ids = ids.Distinct().ToList();
+
+		//Getting emails for all the users
+		List<string> emails = dbContext.Users.Where(u => ids.Contains(u.Id)).Select(u => u.Email).ToList();
+
+		User currentUser = dbContext.Users.Where(u => u.Id == UserId).First();
+		bool isCommentEmpty = content.Equals("<p><br></p>");
+		string commentContent = isCommentEmpty ? "" : $"<p>Comment: {content}</p>";
+
+		Task t = mailManager.SendMail(emails, $"Memo {m.MemoNumber} Rejected", $@"
+<p>Memo is rejected by {currentUser.FirstName} {currentUser.LastName} at {currentUser.Department}.</p>
+<p>{commentContent}</p>
+");
+
 		navManager.NavigateTo("/memomaster");
 	}
 

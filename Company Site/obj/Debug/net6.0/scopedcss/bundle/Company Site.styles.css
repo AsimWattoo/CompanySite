@@ -134,6 +134,11 @@ fieldset[b-jr6ue2ld43] {
     padding: 10px;
 }
 
+a[b-jr6ue2ld43]{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
 
 fieldset legend[b-jr6ue2ld43]{
     margin-bottom: 15px;

@@ -19,6 +19,10 @@ builder.Services.AddIdentity<User, UserRole>(options =>
 })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+IConfigurationSection mailSection = builder.Configuration.GetSection("Mail Credentials");
+string email = mailSection.GetValue<string>("Email");
+string code = mailSection.GetValue<string>("Code");
+builder.Services.AddSingleton<MailManager>(new MailManager(email, code));
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSession();
 
