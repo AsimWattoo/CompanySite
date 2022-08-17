@@ -34,7 +34,7 @@
 
 		</div>
 
-		<Table T="Memo" T2="string" Items="@DisplayedMemos" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
+		<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
 
 	</Authorized>
 
@@ -46,9 +46,10 @@
 
 @code {
 
-	public List<Memo> DisplayedMemos { get; set; }
+	[CascadingParameter(Name = "UserId")]
+	public int? UserId { get; set; }
 
-	private int serialNumber = 1;
+	public List<Memo> DisplayedMemos { get; set; }
 
 	public List<string> Headers { get; set; } = new List<string>()
 	{
@@ -72,7 +73,6 @@
 	{
 		if (e.Value == null)
 			return;
-		serialNumber = 1;
 		if (e.Value.ToString() == "Pending")
 			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Pending).ToList();
 		else if (e.Value.ToString() == "Approved")
@@ -86,6 +86,17 @@
 	}
 
 	private List<string> GetTableRows(Memo m){
+		string users = "";
+		if(m.MemoStatus == MemoStatus.Pending){
+			List<int> ids = dbContext.MemoReferences.Where(f => f.MemoId == m.MemoNumber)
+			.Select(f => f.UserId).Distinct().ToList();
+			List<string> pendingUsers = dbContext.Users.Where(u => ids.Contains(u.Id)).Select(u => $"{u.FirstName} {u.LastName}").ToList();
+			for (int i = 0; i < pendingUsers.Count; i++)
+			{
+				users += $"{pendingUsers[i]}{((i == pendingUsers.Count - 1) ? "" : ",")}";
+			}
+		}
+
 		List<string> row = new List<string>()
 		{
 			m.MemoNumber,
@@ -95,10 +106,8 @@
 			m.Department,
 			m.Vendor,
 			m.Amount.ToString(),
-			m.MemoStatus.ToString()
+			(m.MemoStatus == MemoStatus.Pending ? $"{m.MemoStatus} ({users})" : m.MemoStatus.ToString())
 		};
-		//TODO: Update memo status with names of users for which memo is pending
-		serialNumber++;
 		return row;
 	}
 
@@ -157,14 +166,60 @@
 	}
 
 	private bool IsEditable(Memo m){
-		if (m.IsDraft)
+		if (m.IsDraft && UserId == m.WriterId)
+		{
 			return true;
+		}
 		else
 			return false;
 	}
 
 	private void Edit(string str){
-		sessionStorage.SetAsync("MemoId", str);
 		navManager.NavigateTo(QueryHelpers.AddQueryString("/memoeditor", "id", str));
+	}
+
+	//Tells whether the memo will be viewable or not
+	private bool IsViewable(Memo m)
+	{
+		if (m.IsDraft)
+			return false;
+
+		if (m.MemoStatus != MemoStatus.Pending && m.WriterId == UserId)
+			return true;
+
+		List<UserMemoReference> Froms = dbContext.MemoReferences.Where(memo => memo.MemoId == m.MemoNumber && memo.Id == m.FromId).ToList();
+		if (Froms.Any(f => f.MemoStatus == MemoStatus.Pending))
+		{
+			if (m.MemoStatus == MemoStatus.Pending && Froms.Where(f => f.UserId == UserId && f.MemoStatus == MemoStatus.Pending).Any())
+				return true;
+			else
+				return false;
+		}
+
+		List<UserMemoReference> Throughs = dbContext.MemoReferences.Where(memo => memo.MemoId == m.MemoNumber && memo.Id == m.ThroughId).ToList();
+		if (Throughs.Any(f => f.MemoStatus == MemoStatus.Pending))
+		{
+			if (m.MemoStatus == MemoStatus.Pending && Throughs.Where(f => f.UserId == UserId && f.MemoStatus == MemoStatus.Pending).Any())
+				return true;
+			else
+				return false;
+		}
+
+		List<UserMemoReference> Tos = dbContext.MemoReferences.Where(memo => memo.MemoId == m.MemoNumber && memo.Id == m.ToId).ToList();
+		if (Tos.Any(f => f.MemoStatus == MemoStatus.Pending))
+		{
+			if (m.MemoStatus == MemoStatus.Pending && Tos.Where(f => f.UserId == UserId && f.MemoStatus == MemoStatus.Pending).Any())
+				return true;
+			else
+				return false;
+		}
+
+		return false;
+	}
+
+	//Displays the memo 
+	private void ViewItem(string memoNumber)
+	{
+		navManager.NavigateTo(QueryHelpers.AddQueryString("/memoview", "memoNumber", memoNumber));
 	}
 }

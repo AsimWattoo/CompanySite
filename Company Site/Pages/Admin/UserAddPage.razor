@@ -3,6 +3,7 @@
 @using Company_Site.DB
 @using Company_Site.Data
 @using Company_Site.Enum
+@using Company_Site.Helpers
 @using Company_Site.Pages.Components;
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @using Microsoft.AspNetCore.Identity
@@ -11,6 +12,7 @@
 @inject ApplicationDbContext dbContext
 @inject UserManager<User> userManager
 @inject RoleManager<UserRole> roleManager
+@inject MailManager mailManager
 
 <PageTitle>@Title | Admin</PageTitle>
 
@@ -275,6 +277,21 @@
 			}
 
 			dbContext.SaveChanges();
+
+			//Sending Email
+			Task mail = mailManager.SendMail(newUser.Email, "Account Created", $@"
+<div>
+	<p>First Name: {newUser.FirstName}</p>
+	<p>Last Name: {newUser.LastName}</p>
+	<p>Username: {newUser.UserName}</p>
+	<p>Password: {Password}</p>
+	<p>Role: {newUser.Role}</p>
+	<p>Designation: {newUser.Designation}</p>
+	<p>Department: {newUser.Department}</p>
+	<p>Office Location: {newUser.OfficeLocation}</p>
+	<p>Status: {newUser.Status}</p>
+	<p>Mobile: {newUser.Mobile}</p>
+<div>");
 
 			navManager.NavigateTo("/admin");
 		}

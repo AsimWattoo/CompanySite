@@ -24,6 +24,8 @@ namespace Company_Site.DB
 
 		public DbSet<Comment> Comments { get; set; }
 
+		public DbSet<Vendor> Vendors { get; set; }
+
 		#endregion
 
 		#region Constructor
@@ -47,6 +49,12 @@ namespace Company_Site.DB
 
 			builder.Entity<UserMemoReference>()
 				.HasKey("Id", "MemoId", "UserId");
+
+			builder.Entity<File>()
+				.HasKey(f => f.FileId);
+
+			builder.Entity<Comment>()
+				.HasKey(k => k.CommentId);
 		}
 
 		#endregion

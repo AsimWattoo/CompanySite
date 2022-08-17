@@ -2,7 +2,7 @@
 
 <div @attributes="CapturedAttributes">
 	<!--Items-->
-	<a @onclick="DisplaySelectItems" class="d-flex align-items-center select-header">
+	<a @onclick="DisplaySelectItems" @onblur="HideSelectBox" class="d-flex align-items-center select-header">
 		<div>
 			<div>
 				@foreach (string option in _selectedOptions)
@@ -67,6 +67,10 @@
 	//Displays the select bar
 	private void DisplaySelectItems(){
 		IsSelectBoxDisplayed ^= true;
+	}
+
+	private void HideSelectBox(FocusEventArgs e){
+		IsSelectBoxDisplayed = false;
 	}
 
 	//Fires when the change event is fired

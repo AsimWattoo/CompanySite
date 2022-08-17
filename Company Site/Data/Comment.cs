@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
     public class Comment
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CommentId { get; set; }
 
         [Required]
         public string MemoId { get; set; }

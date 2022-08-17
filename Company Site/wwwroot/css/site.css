@@ -8,6 +8,10 @@ h1:focus {
     outline: none;
 }
 
+.bg-pending{
+    background-color: yellow;
+}
+
 a, .btn-link {
     color: #0071c1;
 }

@@ -87,6 +87,10 @@
 							<td class="text-center">@rowItem</td>
 						}
 						<td>
+							@if (IsViewable(item))
+							{
+								<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1"><i class="fa fa-eye btn btn-outline-primary"></i></a>
+							}
 							@if(IsEditable(item)){
 								<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
 							}
@@ -146,7 +150,18 @@
 	public List<string> Headers { get; set; }
 
 	[Parameter]
-	public List<T> Items { get; set; }
+	public List<T> Items
+	{
+		get => _items;
+		set
+		{
+			if(value != _items)
+			{
+				_items = value;
+				SR = 1;
+			}
+		}
+	}
 
 	[Parameter]
 	public Func<T2, List<T>> OnDelete { get; set; }
@@ -166,7 +181,15 @@
 	[Parameter]
 	public bool ShowSerialNumber { get; set; } = false;
 
+	[Parameter]
+	public Func<T, bool> IsViewable { get; set; } = (T t) => false;
+
+	[Parameter]
+	public Action<T2> ViewItem { get; set; }
+
 	private int SR = 1;
+
+	private List<T> _items = new List<T>();
 
 	//The copy of the items to be kept while searching
 	private List<T> itemsCopy { get; set; }
@@ -299,5 +322,12 @@
 			Items = itemsCopy;
 		}
 		UpdateInitialization();
+	}
+
+	private void ViewRecord(T2 id)
+	{
+		if(ViewItem != null){
+			ViewItem(id);
+		}
 	}
 }

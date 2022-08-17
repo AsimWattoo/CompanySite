@@ -17,6 +17,12 @@ namespace Company_Site.Data
         [Required]
         public string CaseName { get; set; }
 
+        /// <summary>
+        /// The id of the user who wrote the memo
+        /// </summary>
+        [Required]
+        public int WriterId { get; set; }
+
         [Required]
         public string Subject { get; set; }
 
@@ -44,8 +50,7 @@ namespace Company_Site.Data
         [Required]
         public string Vendor { get; set; }
 
-        [Required]
-        public string Frequency { get; set; }
+        public string? Frequency { get; set; }
 
         [Required]
         public int ToId { get; set; }
@@ -60,10 +65,6 @@ namespace Company_Site.Data
         public DateTime ValidTill { get; set; }
 
         public string? Text { get; set; }
-
-        public string? FilesId { get; set; }
-
-        public int CommentsId { get; set; }
 
         [Required]
         public MemoStatus MemoStatus { get; set; } = MemoStatus.Pending;
@@ -96,6 +97,33 @@ namespace Company_Site.Data
             this.Vendor = vm.Vendor;
             this.ValidTill = vm.ValidTill;
             this.Type = vm.Type;
+        }
+
+        /// <summary>
+        /// Copies data from the view model
+        /// </summary>
+        /// <param name="vm"></param>
+        public MemoViewModel ToMemoViewModel()
+        {
+            return new MemoViewModel()
+            {
+                Subject = this.Subject,
+                Amount = Amount,
+                Branch = Branch,
+                CaseName = CaseName,
+                Date = Date,
+                Department = Department ,
+                Financial = Financial ,
+                Frequency = Frequency,
+                IsDraft = IsDraft,
+                MemoStatus = MemoStatus,
+                MemoNumber = MemoNumber,
+                Text = Text,
+                Periodicity = Periodicity,
+                Type = Type,
+                ValidTill = ValidTill,
+                Vendor = Vendor,
+            };
         }
 
         #endregion

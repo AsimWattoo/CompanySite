@@ -100,9 +100,52 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
 }
 /* _content/Company Site/Pages/User/MemoEditor.razor.rz.scp.css */
 fieldset[b-5ewobahw9o]{
-    border: 1px solid black;
+    border: 1px solid lightgray;
     border-radius: 5px;
     margin: 10px;
+    padding: 10px;
+}
+
+.file-box[b-5ewobahw9o] {
+    border: 1px solid lightgray;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.file-box .cancel-btn[b-5ewobahw9o]{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background-color: lightgray;
+    text-decoration: none;
+    padding: 0 6px;
+    opacity: 0;
+    cursor:pointer;
+    transition: all 0.2s ease-in-out;
+}
+.file-box:hover .cancel-btn[b-5ewobahw9o]{
+    opacity: 1;
+}
+/* _content/Company Site/Pages/User/MemoView.razor.rz.scp.css */
+fieldset[b-jr6ue2ld43] {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+a[b-jr6ue2ld43]{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+fieldset legend[b-jr6ue2ld43]{
+    margin-bottom: 15px;
+}
+
+.comment-box[b-jr6ue2ld43] {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 10px;
 }
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */

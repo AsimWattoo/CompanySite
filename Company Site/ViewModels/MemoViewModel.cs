@@ -1,4 +1,7 @@
-﻿using Company_Site.Enum;
+﻿using Company_Site.Data;
+using Company_Site.Enum;
+
+using Microsoft.AspNetCore.Components.Forms;
 
 using System.ComponentModel.DataAnnotations;
 
@@ -45,8 +48,7 @@ namespace Company_Site.ViewModels
         [Required]
         public string Vendor { get; set; }
 
-        [Required]
-        public string Frequency { get; set; }
+        public string? Frequency { get; set; }
 
         [Required]
         public List<string> To { get; set; } = new List<string>();
@@ -59,9 +61,9 @@ namespace Company_Site.ViewModels
 
         public string Text { get; set; }
 
-        public List<string> FilesId { get; set; }
+        public List<IBrowserFile> Files { get; set; } = new List<IBrowserFile>();
 
-        public List<string> Comments { get; set; }
+        public List<CommentViewModel> Comments { get; set; } = new List<CommentViewModel>();
 
         [Required]
         public MemoStatus MemoStatus { get; set; } = MemoStatus.Pending;
