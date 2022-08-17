@@ -24,6 +24,8 @@ namespace Company_Site.DB
 
 		public DbSet<Comment> Comments { get; set; }
 
+		public DbSet<Vendor> Vendors { get; set; }
+
 		#endregion
 
 		#region Constructor

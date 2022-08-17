@@ -30,6 +30,8 @@ namespace Company_Site.Helpers
 
         public string ContentType => _contentType;
 
+        public string FilePath => _filePath;
+
         #endregion
 
         #region Public Methods

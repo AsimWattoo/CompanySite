@@ -1,0 +1,99 @@
+﻿@page "/vendor/{id:int?}"
+@using Company_Site.DB
+@using Company_Site.Data
+@using Company_Site.Enum
+@using Company_Site.Pages.Components
+@inject ApplicationDbContext dbContext
+@inject NavigationManager navManager
+
+<AuthorizeView>
+
+	<Authorized >
+
+		@if (id != null)
+		{
+			<h3>Edit Vendor</h3>
+		}
+		else
+		{
+			<h3>Add Vendor</h3>
+		}
+
+		<div class="px-lg-5">
+			<EditForm Model="Vendor" Context="childContext" OnValidSubmit="AddVendor">
+
+				<DataAnnotationsValidator/>
+				<ValidationSummary/>
+
+					<div class="row">
+						<div class="col-6">
+							<div class="form-floating mb-3 mx-1">
+							  <InputText type="text" class="form-control" id="vendor" placeholder="Vendor Name" @bind-Value="Vendor.VendorName"/>
+							  <label for="vendor">Vendor</label>
+							</div>
+
+						</div>
+					</div>
+
+
+					@if(PageMode == PageMode.Add){
+						<div>
+							<a class="btn btn-outline-primary" @onclick="Cancel">Cancel</a>
+							<input type="submit" value="Add" class="btn btn-outline-success ms-1"/>
+						</div>
+					}
+					else{
+						<div>
+							<a class="btn btn-outline-primary" @onclick="Cancel">Cancel</a>
+							<input type="submit" value="Edit" class="btn btn-outline-success ms-1"/>
+						</div>
+					}
+
+			</EditForm>
+		</div>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/vendors" />
+	</NotAuthorized>
+
+</AuthorizeView>
+
+
+@code {
+
+	[Parameter]
+	public int? id { get; set; }
+
+	private Vendor Vendor { get; set; } = new Vendor();
+
+	private PageMode PageMode { get; set; } = PageMode.Add;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		if (id != null)
+			PageMode = PageMode.Edit;
+
+		if(PageMode == PageMode.Edit)
+		{
+			Vendor = dbContext.Vendors.Where(v => v.Id == id).First();
+		}
+	}
+
+	private void AddVendor()
+	{
+		if(PageMode == PageMode.Add)
+		{
+			dbContext.Vendors.Add(Vendor);
+		}
+		dbContext.SaveChanges();
+		navManager.NavigateTo("/vendors");
+	}
+
+	private void Cancel()
+	{
+		navManager.NavigateTo("/vendors");
+	}
+}

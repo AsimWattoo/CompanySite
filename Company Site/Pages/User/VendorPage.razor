@@ -1,0 +1,107 @@
+﻿@page "/vendors"
+@using Company_Site.DB
+@using Company_Site.Data
+@using Company_Site.Enum
+@using Company_Site.Pages.Components
+@inject ApplicationDbContext dbContext
+@inject NavigationManager navManager
+
+<PageTitle>Vendors</PageTitle>
+
+<AuthorizeView>
+
+	<Authorized>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-11">
+					<h3 class="mt-3">Vendors</h3>
+				</div>
+				<div class="col-1 d-flex justify-content-start align-items-center">
+					<a class="btn btn-primary" @onclick="AddVendor"><i class="fa fa-plus"></i></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="container-fluid mt-4">
+			<Table T="Vendor" T2="int" Items="@Vendors" Headers="@Headers" GetTableRows="@GetVendorRows" GetId="@GetVendorId" OnSortRecords="@SortRecords" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+		</div>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="/vendors"/>
+	</NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+
+	private List<Vendor> Vendors { get; set; } = new List<Vendor>();
+
+	private List<string> Headers => new List<string>(){
+		"Id",
+		"Vendor"
+	};
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		//Getting the list of vendors
+		Vendors = dbContext.Vendors.ToList();
+	}
+
+	private List<string> GetVendorRows(Vendor v)
+	{
+		return new List<string>()
+		{
+			v.Id.ToString(),
+			v.VendorName
+		};
+	}
+
+	private void AddVendor()
+	{
+		navManager.NavigateTo($"/vendor");
+	}
+
+	private int GetVendorId(Vendor v) => v.Id;
+
+	private List<Vendor> SortRecords(List<Vendor> vendors, string field, Sorting sorting)
+	{
+		switch (field)
+		{
+			case "Id":
+				if (sorting == Sorting.Ascending)
+					return vendors.OrderBy(v => v.Id).ToList();
+				else
+					return vendors.OrderByDescending(v => v.Id).ToList();
+			case "Vendor":
+				if (sorting == Sorting.Ascending)
+					return vendors.OrderBy(v => v.VendorName).ToList();
+				else
+					return vendors.OrderByDescending(v => v.VendorName).ToList();
+			default:
+				return vendors;
+		}
+	}
+
+	private List<Vendor> DeleteRecord(int id)
+	{
+		dbContext.Vendors.Remove(dbContext.Vendors.First(u => u.Id == id));
+		dbContext.SaveChanges();
+		Vendors = dbContext.Vendors.ToList();
+		return Vendors;
+	}
+
+	private void EditRecord(int id)
+	{
+		navManager.NavigateTo($"/vendor/{id}");
+	}
+
+	private List<Vendor> Search(List<Vendor> vendors, string text)
+	{
+		text = text.ToLower();
+		return vendors.Where(v => v.VendorName.ToLower().Contains(text) || v.Id.ToString().Equals(text)).ToList();
+	}
+}

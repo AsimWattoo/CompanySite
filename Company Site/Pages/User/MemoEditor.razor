@@ -195,7 +195,9 @@
 								<label for="vendor" class="me-1">Vendor</label>
 								<InputSelect @bind-Value="NewMemo.Vendor"  id="vendor" class="form-select">
 									<option selected>--- Select Vendor ---</option>
-									<option>Haier Store</option>
+									@foreach(Vendor vendor in Vendors){
+										<option value="@vendor.VendorName">@vendor.VendorName</option>
+									}
 								</InputSelect>
 							</div>
 						</div>
@@ -328,6 +330,7 @@
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
 
+	private List<Vendor> Vendors { get; set; }
 
 	//Files change
 	private void FilesChanged(InputFileChangeEventArgs e){
@@ -356,6 +359,7 @@
 			PageMode = PageMode.Edit;
 
 		Users = dbContext.Users.Select(u => $"{u.FirstName} {u.LastName}").ToList();
+		Vendors = dbContext.Vendors.ToList();
 
 		if(PageMode == PageMode.Add){
 			if (dbContext.Memos.Any())
