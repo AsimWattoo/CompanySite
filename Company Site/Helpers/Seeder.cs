@@ -50,20 +50,20 @@ namespace Company_Site.Helpers
 					Console.WriteLine("--> Seeding Data");
 					User user = new User()
 					{
-						UserName = "MuhammadAsim",
-						Email = "asimwattoo6@gmail.com",
+						UserName = "HarshalGandhi",
+						Email = "Harshal_gandhi20055@yahoo.com.com",
 						Department = "Legal",
 						Designation="CEO",
 						OfficeLocation = "Office",
-						FirstName = "Muhammad",
-						LastName="Asim",
+						FirstName = "Harshal",
+						LastName="Gandhi",
 						Status="Active",
-						Mobile="03117995371",
+						Mobile="-------",
                         Role = "Admin",
 						Id = 0
 					};
 
-					IdentityResult res = await userManager.CreateAsync(user, "asimwattoo123");
+					IdentityResult res = await userManager.CreateAsync(user, "pass@1234");
 
 					if (res.Succeeded)
 						Console.WriteLine("--> Successfully created a user");
