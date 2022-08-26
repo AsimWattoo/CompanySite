@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ZCSV1TPoEpw8rJ/A4BVM6SjWAl6y78Eu1lKidyhy37k=",
+  "Hash": "4x3H3brI9B6djnzNrz6gdReDjb+3PdF15YhlJumksMo=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -1511,6 +1511,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\word.png"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\js\\CKEditorInterop.js",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "js/CKEditorInterop.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\CKEditorInterop.js"
     }
   ]
 }

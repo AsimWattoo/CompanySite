@@ -15,21 +15,29 @@
 
 	<Authorized>
 
-		<div class="d-flex mb-3">
+		<div class="row">
 
-			<div class="mx-1">
-				<input type="radio" name="memoStatus" id="processing" value="Pending" @onchange="MemoStatusSelectionChanged" checked/>
-				<label for="processing">Under Process</label>
+			<div class="d-flex justify-content-start align-items-center mb-3 col-7">
+
+				<div class="mx-1">
+					<input type="radio" name="memoStatus" id="processing" value="Pending" @onchange="MemoStatusSelectionChanged" checked/>
+					<label for="processing">Under Process</label>
+				</div>
+
+				<div class="mx-1">
+					<input type="radio" name="memoStatus" id="approved" value="Approved" @onchange="MemoStatusSelectionChanged" />
+					<label for="approved">Approved</label>
+				</div>
+
+				<div class="mx-1">
+					<input type="radio" name="memoStatus" id="rejected" value="Rejected" @onchange="MemoStatusSelectionChanged"/>
+					<label for="rejected">Rejected</label>
+				</div>
+
 			</div>
 
-			<div class="mx-1">
-				<input type="radio" name="memoStatus" id="approved" value="Approved" @onchange="MemoStatusSelectionChanged" />
-				<label for="approved">Approved</label>
-			</div>
-
-			<div class="mx-1">
-				<input type="radio" name="memoStatus" id="rejected" value="Rejected" @onchange="MemoStatusSelectionChanged"/>
-				<label for="rejected">Rejected</label>
+			<div class="col-5 d-flex justify-content-end align-items-center">
+				<a class="btn btn-primary" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Create Memo</a>
 			</div>
 
 		</div>

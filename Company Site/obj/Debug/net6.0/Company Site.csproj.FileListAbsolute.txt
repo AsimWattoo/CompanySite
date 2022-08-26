@@ -280,3 +280,5 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\MailKit.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\MimeKit.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\Components\Table.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\Components\RichTextEditor.razor.rz.scp.css

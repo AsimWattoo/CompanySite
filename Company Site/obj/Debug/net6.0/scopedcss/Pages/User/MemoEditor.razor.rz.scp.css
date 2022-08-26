@@ -25,3 +25,8 @@ fieldset[b-5ewobahw9o]{
 .file-box:hover .cancel-btn[b-5ewobahw9o]{
     opacity: 1;
 }
+
+.rich-editor-razor-wrapper[b-5ewobahw9o]{
+    height: 250px;
+    overflow-y: auto;
+}

@@ -13,6 +13,10 @@ namespace Company_Site.Helpers
 
 		private string _keycode;
 
+        private string _server;
+
+        private int _port;
+
 		#endregion
 
 		#region Constructor
@@ -20,10 +24,12 @@ namespace Company_Site.Helpers
 		/// <summary>
 		/// Default Constructor
 		/// </summary>
-		public MailManager(string email, string keycode)
+		public MailManager(string email, string keycode, string server, int port)
 		{
 			_email = email;
 			_keycode = keycode;
+            _server = server;
+            _port = port;
 		}
 
         #endregion
@@ -50,12 +56,18 @@ namespace Company_Site.Helpers
                     Text = body
                 };
 
-                using (SmtpClient smtp = new SmtpClient())
+                try
                 {
-                    smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    smtp.Authenticate(_email, _keycode);
-                    smtp.Send(message);
-                    smtp.Disconnect(true);
+                    using (SmtpClient smtp = new SmtpClient())
+                    {
+                        smtp.Connect(_server, _port, MailKit.Security.SecureSocketOptions.StartTls);
+                        smtp.Authenticate(_email, _keycode);
+                        smtp.Send(message);
+                        smtp.Disconnect(true);
+                    }
+                }
+                catch(Exception exc)
+                {
                 }
             });
         }

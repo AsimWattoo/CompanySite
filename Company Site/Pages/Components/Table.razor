@@ -49,7 +49,7 @@
 	</EditForm>
 
 	<!--Table-->
-	<div class="row my-3">
+	<div class="my-3 table-wrapper">
 		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
 			<tr class="border-bottom-1">
 				@if(ShowSerialNumber){
@@ -76,7 +76,7 @@
 					}
 				}
 			</tr>
-			@foreach(T item in Items)
+			@foreach (T item in DisplayedItems)
 			{
 				@if(GetTableRows != null){
 					<tr>

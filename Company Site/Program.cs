@@ -22,7 +22,9 @@ builder.Services.AddRazorPages();
 IConfigurationSection mailSection = builder.Configuration.GetSection("Mail Credentials");
 string email = mailSection.GetValue<string>("Email");
 string code = mailSection.GetValue<string>("Code");
-builder.Services.AddSingleton<MailManager>(new MailManager(email, code));
+string server = mailSection.GetValue<string>("Server");
+int port = mailSection.GetValue<int>("Port");
+builder.Services.AddSingleton<MailManager>(new MailManager(email, code, server, port));
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSession();
 

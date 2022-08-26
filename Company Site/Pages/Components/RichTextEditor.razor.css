@@ -1,0 +1,5 @@
+﻿.rich-text-editor-wrapper{
+    height: 250px;
+    width: 100%;
+    overflow: auto;
+}

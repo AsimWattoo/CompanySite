@@ -25,3 +25,8 @@
 .file-box:hover .cancel-btn{
     opacity: 1;
 }
+
+.rich-editor-razor-wrapper{
+    height: 250px;
+    overflow-y: auto;
+}

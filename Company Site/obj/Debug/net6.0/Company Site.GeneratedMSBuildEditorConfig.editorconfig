@@ -31,10 +31,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xFcnJvclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/Table.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xUYWJsZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -74,6 +70,14 @@ build_metadata.AdditionalFiles.CssScope = b-hhpooac1pp
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/MultiSelect.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xNdWx0aVNlbGVjdC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-3nfkh5vk6s
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/RichTextEditor.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xSaWNoVGV4dEVkaXRvci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-85nmdx3pz4
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/Table.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xUYWJsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-12yh34qg01
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoEditor.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vRWRpdG9yLnJhem9y

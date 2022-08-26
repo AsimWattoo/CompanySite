@@ -99,6 +99,18 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
     background-color: lightgray;
     border-radius: 10%;
 }
+/* _content/Company Site/Pages/Components/RichTextEditor.razor.rz.scp.css */
+.rich-text-editor-wrapper[b-85nmdx3pz4]{
+    height: 250px;
+    width: 100%;
+    overflow: auto;
+}
+/* _content/Company Site/Pages/Components/Table.razor.rz.scp.css */
+.table-wrapper[b-12yh34qg01] {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
 /* _content/Company Site/Pages/User/MemoEditor.razor.rz.scp.css */
 fieldset[b-5ewobahw9o]{
     border: 1px solid lightgray;
@@ -126,6 +138,11 @@ fieldset[b-5ewobahw9o]{
 }
 .file-box:hover .cancel-btn[b-5ewobahw9o]{
     opacity: 1;
+}
+
+.rich-editor-razor-wrapper[b-5ewobahw9o]{
+    height: 250px;
+    overflow-y: auto;
 }
 /* _content/Company Site/Pages/User/MemoView.razor.rz.scp.css */
 fieldset[b-jr6ue2ld43] {
