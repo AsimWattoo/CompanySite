@@ -54,5 +54,8 @@
 .select-header .option[b-3nfkh5vk6s]{
     padding: 5px 20px;
     background-color: lightgray;
-    border-radius: 10%;
+}
+
+.text-dark[b-3nfkh5vk6s] {
+    color: black !important;
 }

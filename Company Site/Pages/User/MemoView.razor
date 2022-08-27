@@ -236,38 +236,12 @@
 		<fieldset>
 
 			@if(Memo.MemoStatus == MemoStatus.Pending){
-				<div>
-					<p class="mb-1">Comment: </p>
-					<BlazoredTextEditor @ref="@commentEditor" Placeholder="Enter Comment">
-						<ToolbarContent>
-							<select class="ql-header">
-								<option selected=""></option>
-								<option value="1"></option>
-								<option value="2"></option>
-								<option value="3"></option>
-								<option value="4"></option>
-								<option value="5"></option>
-							</select>
-							<span class="ql-formats">
-								<button class="ql-bold"></button>
-								<button class="ql-italic"></button>
-								<button class="ql-underline"></button>
-								<button class="ql-strike"></button>
-							</span>
-							<span class="ql-formats">
-								<select class="ql-color"></select>
-								<select class="ql-background"></select>
-							</span>
-							<span class="ql-formats">
-								<button class="ql-list" value="ordered"></button>
-								<button class="ql-list" value="bullet"></button>
-							</span>
-							<span class="ql-formats">
-								<button class="ql-link"></button>
-							</span>
-						</ToolbarContent>
-					</BlazoredTextEditor>
-				</div>
+				<EditForm Model="this" Context="childContext">
+					<div>
+						<p class="mb-1">Comment: </p>
+						<RichTextEditor @bind-Value="Comment"/>
+					</div>
+				</EditForm>
 			}
 
 			<div class="mt-3">
@@ -316,9 +290,12 @@
 	[CascadingParameter(Name = "UserId")]
 	private int? UserId { get; set; }
 
-	private BlazoredTextEditor commentEditor;
-
 	private const long MAX_FILE_SIZE = 1024000 * 5;
+
+	/// <summary>
+	/// The comment added by the user
+	/// </summary>
+	private string Comment { get; set; }
 
 	/// <summary>
 	/// Indicates whether this is the writer to memo viewing it or not
@@ -388,7 +365,7 @@
 	}
 
 	private async void Accept(){
-		string content = await commentEditor.GetHTML();
+		string content = Comment;
 
 		int id = 1;
 		if (dbContext.Comments.Any())
@@ -419,7 +396,7 @@
 
 	private async void Reject()
 	{
-		string content = await commentEditor.GetHTML();
+		string content = Comment;
 
 		int id = 1;
 		if (dbContext.Comments.Any())

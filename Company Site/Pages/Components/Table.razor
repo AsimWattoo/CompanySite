@@ -57,19 +57,32 @@
 				}
 				@foreach(string header in Headers){
 					@if(!string.IsNullOrEmpty(header)){
-							<th scope="col" class="text-center">
-								<a class="btn-sortable" @onclick='(() => Sort(header))'>
-								@header
-								@if (Sortings[header] == Sorting.Ascending)
-								{
-											<i class="ms-1 fa fa-arrow-up d-inline"></i>
-								}
-								else if (Sortings[header] == Sorting.Descending)
-								{
-											<i class="ms-1 fa fa-arrow-down d-inline"></i>
-								}
-								</a>
-							</th>
+						<th>
+							<div class="btn-sortable align-content-start row m-0" @onclick='(() => Sort(header))'>
+								
+									<p class="d-inline-block text-start col-8 m-0">@header</p>
+									<div class="col-4 d-flex justify-content-end">
+										<div>
+											@if (Sortings[header] == Sorting.Ascending)
+											{
+															<i class="fa fa-arrow-up d-inline text-dark"></i>
+															<i class="ms-1 fa fa-arrow-down d-inline text-lightgray"></i>
+											}
+											else if (Sortings[header] == Sorting.Descending)
+											{
+															<i class="fa fa-arrow-up d-inline text-lightgray"></i>
+															<i class="ms-1 fa fa-arrow-down d-inline text-dark"></i>
+											}
+											else
+											{
+															<i class="fa fa-arrow-up d-inline text-lightgray"></i>
+															<i class="ms-1 fa fa-arrow-down d-inline text-lightgray"></i>
+											}
+										</div>
+									</div>
+
+							</div>
+						</th>
 					}
 					else{
 						<th></th>
@@ -120,7 +133,7 @@
 				</li>
 				@foreach(int p in Pages)
 				{
-					<li class="page-item"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
+					<li class="page-item mouse-pointer"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
 				}
 				<li class="page-item">
 					<a class="page-link" @onclick='@(() => ChangePage(_NumberOfPages))' aria-label="Next">
@@ -225,6 +238,7 @@
 	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>();
 
 	private void UpdateInitialization(){
+		SR = 1;
 		_NumberOfPages = (Items.Count / SearchModel.RowsToShow) + 1;
 		DisplayedItems = Items.Take(SearchModel.RowsToShow * _CurrentPage).ToList();
 		_CurrentPage = 1;
@@ -287,6 +301,7 @@
 	///Sorts the table with the specified column
 	private void Sort(string name)
 	{
+		SR = 1;
 		ResetSorting(name);
 		if (Sortings[name] == Sorting.None)
 			Sortings[name] = Sorting.Ascending;

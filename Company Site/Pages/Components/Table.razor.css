@@ -3,3 +3,32 @@
     overflow-x: auto;
     white-space: nowrap;
 }
+
+table{
+    border-collapse: collapse;
+}
+
+th, td{
+    border: 1px solid lightgrey;
+}
+
+.btn-sortable {
+    color: gray;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px 13px;
+    transition: all ease-in-out 0.2s;
+}
+
+.btn-sortable:hover {
+    color: black;
+}
+
+.text-lightgray{
+    color: lightgrey;
+}
+
+.mouse-pointer{
+    cursor: pointer;
+}

@@ -76,21 +76,6 @@ a, .btn-link {
     color: darkgray;
 }
 
-.btn-sortable{
-    color: black;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    text-decoration: none;
-    cursor: pointer;
-    padding: 5px 13px;
-    transition: all ease-in-out 0.2s;
-}
-
-.btn-sortable:hover{
-    border: 1px solid black;
-    color: black;
-}
-
 .color-black{
     color: black;
 }

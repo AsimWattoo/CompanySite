@@ -2,23 +2,29 @@
 
 <div @attributes="CapturedAttributes">
 	<!--Items-->
-	<input type="" @onclick="DisplaySelectItems" class="d-flex align-items-center select-header">
+	<div @onclick="DisplaySelectItems" class="d-flex align-items-center select-header text-dark">
 		<div>
 			<div>
 				@foreach (string option in _selectedOptions)
 				{
-					<span class="me-1 option">@option</span>
+					<span class="me-1 option rounded-pill">@option</span>
 				}
 			</div>
 			<i class="fa fa-angle-down"></i>
 		</div>
-	</input>
+	</div>
 
 	<div class="multi-select">
 		@if (IsSelectBoxDisplayed)
 		{
 			<div class="select-box">
-				@foreach (string option in Options)
+
+				<div class="form-floating m-2">
+						  <input type="text" class="form-control" id="Search" placeholder="Search" @oninput='@(e => SearchTextChanged(e))'>
+					  <label for="Search">Search</label>
+				</div>
+
+				@foreach (string option in DisplayedOptions)
 				{
 					<div class="select-box-item">
 						@if(_selectedOptions.Contains(option)){
@@ -45,6 +51,11 @@
 	[Parameter]
 	public List<string> Options { get; set; } = new List<string>();
 
+	/// <summary>
+	/// The list of options which are displayed to the user
+	/// </summary>
+	public List<string> DisplayedOptions { get; set; } = new List<string>();
+
 	//List of options selected
 	[Parameter]
 	public List<string> SelectedOptions{
@@ -64,6 +75,12 @@
 
 	private bool IsSelectBoxDisplayed = false;
 
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		DisplayedOptions = Options;
+	}
+
 	//Displays the select bar
 	private void DisplaySelectItems(){
 		IsSelectBoxDisplayed ^= true;
@@ -80,6 +97,19 @@
 				_selectedOptions.Remove(value);
 			SelectedOptionsChanged.InvokeAsync(_selectedOptions);
 		}
+	}
+
+	private void SearchTextChanged(ChangeEventArgs e)
+	{
+		if (e.Value == null)
+		{
+			DisplayedOptions = Options;
+			return;
+		}
+
+		string text = e.Value.ToString().ToLower();
+		DisplayedOptions = Options.Where(f => f.ToLower().Contains(text)).ToList();
+		StateHasChanged();
 	}
 
 }

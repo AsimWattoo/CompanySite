@@ -277,10 +277,6 @@
 	[CascadingParameter(Name = "UserId")]
 	public int? UserId { get; set; }
 
-	private BlazoredTextEditor textEditor;
-
-	private RenderFragment editorContent;
-
 	//The error which is being displayed
 	private string Error { get; set; }
 
@@ -355,10 +351,6 @@
 					Periodicity = memo.Periodicity,
 					Type = memo.Type
 				};
-			editorContent = new RenderFragment((builder) =>
-			{
-				builder.AddMarkupContent(0, memo.Text);
-			});
 			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> toIds = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
@@ -376,6 +368,9 @@
 		if(state.User.Identity.IsAuthenticated){
 			CurrentUser = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
 		}
+
+		NewMemo.Department = CurrentUser.Department;
+		UpdateMemoNumber();
 
 		StateHasChanged();
 	}
@@ -428,7 +423,7 @@
 			MemoStatus = Company_Site.Enum.MemoStatus.Pending,
 			Periodicity = NewMemo.Periodicity,
 			Subject = NewMemo.Subject,
-			//Text = text,
+			Text = NewMemo.Text,
 			Type = NewMemo.Type,
 			Vendor = NewMemo.Vendor,
 			ValidTill = NewMemo.ValidTill,
@@ -480,7 +475,7 @@
 			{
 				Memo foundMemo = dbContext.Memos.Where(m => m.MemoNumber == this.id).First();
 				foundMemo.FromMemoViewModel(NewMemo);
-				//foundMemo.Text = text;
+				foundMemo.Text = NewMemo.Text;
 			}
 			else{
 				dbContext.Memos.Remove(dbContext.Memos.Where(f => f.MemoNumber == this.id).First());
@@ -492,7 +487,6 @@
 	}
 
 	private async void AddMemo(){
-		string text = await textEditor.GetHTML();
 		Memo memo = new Memo()
 			{
 				WriterId = UserId.Value,
@@ -508,7 +502,7 @@
 				MemoStatus = Company_Site.Enum.MemoStatus.Pending,
 				Periodicity = NewMemo.Periodicity,
 				Subject = NewMemo.Subject,
-				Text = text,
+				Text = NewMemo.Text,
 				Type = NewMemo.Type,
 				Vendor = NewMemo.Vendor,
 				ValidTill = NewMemo.ValidTill,

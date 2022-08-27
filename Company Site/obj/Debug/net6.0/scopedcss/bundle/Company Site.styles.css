@@ -97,7 +97,10 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
 .select-header .option[b-3nfkh5vk6s]{
     padding: 5px 20px;
     background-color: lightgray;
-    border-radius: 10%;
+}
+
+.text-dark[b-3nfkh5vk6s] {
+    color: black !important;
 }
 /* _content/Company Site/Pages/Components/RichTextEditor.razor.rz.scp.css */
 .rich-text-editor-wrapper[b-85nmdx3pz4]{
@@ -110,6 +113,35 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+}
+
+table[b-12yh34qg01]{
+    border-collapse: collapse;
+}
+
+th[b-12yh34qg01], td[b-12yh34qg01]{
+    border: 1px solid lightgrey;
+}
+
+.btn-sortable[b-12yh34qg01] {
+    color: gray;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 5px 13px;
+    transition: all ease-in-out 0.2s;
+}
+
+.btn-sortable:hover[b-12yh34qg01] {
+    color: black;
+}
+
+.text-lightgray[b-12yh34qg01]{
+    color: lightgrey;
+}
+
+.mouse-pointer[b-12yh34qg01]{
+    cursor: pointer;
 }
 /* _content/Company Site/Pages/User/MemoEditor.razor.rz.scp.css */
 fieldset[b-5ewobahw9o]{
