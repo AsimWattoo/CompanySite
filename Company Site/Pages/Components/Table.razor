@@ -168,11 +168,9 @@
 		get => _items;
 		set
 		{
-			if(value != _items)
-			{
-				_items = value;
-				SR = 1;
-			}
+			_items = value;
+			UpdateRows();
+			SR = 1;
 		}
 	}
 

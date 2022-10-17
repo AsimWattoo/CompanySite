@@ -8,6 +8,7 @@ using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace Company_Site.Areas.Identity.Pages
 {
@@ -16,32 +17,38 @@ namespace Company_Site.Areas.Identity.Pages
         #region Public Properties
 
         [BindProperty]
-        public InputModel Input { get; set; } = new InputModel();
+        public LoginInputModel Input { get; set; } = new LoginInputModel();
 
         [BindProperty]
-        public string returnUrl { get; set; }
+        public string returnUrl { get; set; } = string.Empty;
 
         #endregion
 
         #region Private Members
 
-        private SignInManager<User> _signInManager;
         private UserManager<User> _userManager;
 
         #endregion
 
         #region Constructor
 
-        public LoginModel(UserManager<User> userManager, SignInManager<User> signInManager)
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        /// <param name="userManager"></param>
+        public LoginModel(UserManager<User> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         #endregion
 
         #region Public Methods
 
+        /// <summary>
+        /// Fires when the page is retrieved
+        /// </summary>
+        /// <param name="returnUrl"></param>
         public void OnGet(string returnUrl)
         {
             if (returnUrl != null)
@@ -50,6 +57,10 @@ namespace Company_Site.Areas.Identity.Pages
                 returnUrl = Url.Content("~/");
         }
 
+        /// <summary>
+        /// Checking whether the email is correct and if so then redirecting to the next page
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (ModelState.IsValid)
@@ -58,20 +69,30 @@ namespace Company_Site.Areas.Identity.Pages
 
                 if(user == null)
                 {
-                    ModelState.AddModelError("Incorrect", "Email or password is incorrect");
+                    ModelState.AddModelError("Incorrect", "Email is incorrect");
                     return Page();
-                }
-
-                SignInResult res = await _signInManager.PasswordSignInAsync(user, Input.Password, true, false);
-
-                if (res.Succeeded)
-                {
-                    return LocalRedirect(returnUrl);
                 }
                 else
                 {
-                    ModelState.AddModelError("Incorrect", "Email or password is incorrect");
+                    Dictionary<string, string> parms = new Dictionary<string, string>()
+                    {
+                        ["email"] = this.Input.Email,
+                        ["returnUrl"] = this.returnUrl
+                    };
+                    string url = QueryHelpers.AddQueryString("/password-login", parms);
+                    return LocalRedirect(url);
                 }
+
+                //SignInResult res = await _signInManager.PasswordSignInAsync(user, Input.Password, true, false);
+
+                //if (res.Succeeded)
+                //{
+                //    return LocalRedirect(returnUrl);
+                //}
+                //else
+                //{
+                //    ModelState.AddModelError("Incorrect", "Email or password is incorrect");
+                //}
             }
             return Page();
         }
@@ -79,13 +100,10 @@ namespace Company_Site.Areas.Identity.Pages
         #endregion
     }
 
-    public class InputModel
+    public class LoginInputModel
     {
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        public string Password { get; set; }
     }
 }

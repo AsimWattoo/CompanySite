@@ -1,0 +1,33 @@
+﻿.bg-gray {
+    background-color: #C0C0C0;
+}
+
+.btn-list{
+    padding: 50px;
+}
+
+.text-button-heading {
+    color: #4D8AFF;
+    font-size: 1.4rem;
+}
+
+.btn-selected {
+    background-color: #EDF3FF;
+    color: #4D8AFF;
+}
+
+.btn-list a{
+    text-decoration: none;
+    color: black;
+    margin: 5px 0px;
+    display: inline-block;
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+}
+
+.btn-list a:hover {
+    background-color: #EDF3FF;
+    color: #4D8AFF;
+}

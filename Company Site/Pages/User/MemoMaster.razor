@@ -17,32 +17,44 @@
 
 		<div class="row">
 
-			<div class="d-flex justify-content-start align-items-center mb-3 col-7">
+			<div class="mb-3 col-2 btn-list">
+
+				<p class="fw-bold text-button-heading mb-2">Memo List</p>
 
 				<div class="mx-1">
-					<input type="radio" name="memoStatus" id="processing" value="Pending" @onchange="MemoStatusSelectionChanged" checked/>
-					<label for="processing">Under Process</label>
+					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Draft))" class="@(SelectedOption == MemoMasterOption.Draft ? "btn-selected" : "")">Draft</a>
 				</div>
 
 				<div class="mx-1">
-					<input type="radio" name="memoStatus" id="approved" value="Approved" @onchange="MemoStatusSelectionChanged" />
-					<label for="approved">Approved</label>
+					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Pending))" class="@(SelectedOption == MemoMasterOption.Pending ? "btn-selected" : "")">Pending</a>
 				</div>
 
 				<div class="mx-1">
-					<input type="radio" name="memoStatus" id="rejected" value="Rejected" @onchange="MemoStatusSelectionChanged"/>
-					<label for="rejected">Rejected</label>
+					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Approved))" class="@(SelectedOption == MemoMasterOption.Approved ? "btn-selected" : "")">Approved</a>
+				</div>
+
+				<div class="mx-1">
+					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Rejected))" class="@(SelectedOption == MemoMasterOption.Rejected ? "btn-selected" : "")">Rejected</a>
 				</div>
 
 			</div>
 
-			<div class="col-5 d-flex justify-content-end align-items-center">
-				<a class="btn btn-primary" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Add New Memo</a>
+			<div class="col-10">
+				
+				<div class="row mb-2">
+					<div class="col-4">
+						<p class="ms-2 fs-3 fw-bold mb-0">Memo Master</p>
+					</div>
+					<div class="d-flex justify-content-end align-items-center col-8">
+						<a class="btn btn-primary" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Add New Memo</a>
+					</div>
+				</div>
+
+				<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
+				
 			</div>
 
 		</div>
-
-		<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
 
 	</Authorized>
 
@@ -56,6 +68,8 @@
 
 	[CascadingParameter(Name = "UserId")]
 	public int? UserId { get; set; }
+
+	private MemoMasterOption SelectedOption { get; set; } = MemoMasterOption.Draft;
 
 	public List<Memo> DisplayedMemos { get; set; }
 
@@ -74,19 +88,21 @@
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-		DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Pending).ToList();
+		DisplayedMemos = dbContext.Memos.Where(memo => memo.IsDraft).ToList();
 	}
 
-	private void MemoStatusSelectionChanged(ChangeEventArgs e)
+	private void MemoStatusSelectionChanged(MemoMasterOption option)
 	{
-		if (e.Value == null)
-			return;
-		if (e.Value.ToString() == "Pending")
-			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Pending).ToList();
-		else if (e.Value.ToString() == "Approved")
-			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Approved).ToList();
+		SelectedOption = option;
+
+		if (option == MemoMasterOption.Draft)
+			DisplayedMemos = dbContext.Memos.Where(memo => memo.IsDraft && memo.WriterId == UserId).ToList();
+		else if (option == MemoMasterOption.Pending)
+			DisplayedMemos = dbContext.Memos.Where(memo => !memo.IsDraft && memo.MemoStatus == MemoStatus.Pending).ToList();
+		else if (option == MemoMasterOption.Approved)
+			DisplayedMemos = dbContext.Memos.Where(memo => !memo.IsDraft && memo.MemoStatus == MemoStatus.Approved).ToList();
 		else
-			DisplayedMemos = dbContext.Memos.Where(memo => memo.MemoStatus == MemoStatus.Rejected).ToList();
+			DisplayedMemos = dbContext.Memos.Where(memo => !memo.IsDraft && memo.MemoStatus == MemoStatus.Rejected).ToList();
 	}
 
 	private string GetId(Memo m){

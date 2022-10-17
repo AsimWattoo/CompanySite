@@ -35,10 +35,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxJbmRleC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoMaster.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vTWFzdGVyLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/NewAcquisition.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxOZXdBY3F1aXNpdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -83,6 +79,10 @@ build_metadata.AdditionalFiles.CssScope = b-12yh34qg01
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vRWRpdG9yLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-5ewobahw9o
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoMaster.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vTWFzdGVyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-pe2eoguug6
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/MemoView.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxNZW1vVmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-jr6ue2ld43
@@ -113,6 +113,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Areas/Identity/Pages/Shared/_LogoutPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9Mb2dvdXRQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Areas/Identity/Pages/Shared/_PasswordLogin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9QYXNzd29yZExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Areas/Identity/Pages/Shared/_ViewImports.cshtml]

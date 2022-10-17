@@ -213,8 +213,7 @@
 						</div>
 						<div class="col-12 mt-5">
 							<div class="input-group mb-3 d-flex align-items-center">
-								<label for="files" class="me-1">Files</label>
-								<InputFile id="files" @bind-Value="@NewMemo.Files" OnChange="FilesChanged" multiple/>
+								<InputFile id="files" @bind-Value="@NewMemo.Files" class="form-control" OnChange="FilesChanged" multiple/>
 							</div>
 							<div class="row px-2">
 								@foreach(IBrowserFile file in NewMemo.Files){

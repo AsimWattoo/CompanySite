@@ -1,13 +1,14 @@
 ﻿@page "/login"
 @model Company_Site.Areas.Identity.Pages.LoginModel
 
-<div class="container position-relative full-screen">
+<div class="container-lg position-relative full-screen">
 
 	<div class="text-center login-shadow p-4">
 
 		<div>
 
-			<h3 class="mb-3">Login</h3>
+			<h3 class="mb-3 heading">Login</h3>
+			<p class="tagline">Welcome back! Log in to your account</p>
 
 			<form method="post">
 
@@ -19,18 +20,16 @@
 					<input type="text" asp-for="@Model.returnUrl" class="d-none"/>
 				</div>
 
-				<div class="form-floating mb-3">
-				  <input type="email" class="form-control" id="email" placeholder="email" asp-for="@Model.Input.Email"/>
-				  <label for="email">Email</label>
-				</div>
-
-				<div class="form-floating mb-3">
-				  <input type="password" class="form-control" id="password" placeholder="Password" asp-for="@Model.Input.Password"/>
-				  <label for="password">Password</label>
+				<div class="input-container mb-3">
+				  <label for="email" class="form-label">Email Address</label>
+				  <div class="input-control">
+					  <i class="fa fa-envelope"></i>
+					  <input type="email" class="form-control input-control" id="email" placeholder="Test@gmail.com" asp-for="@Model.Input.Email"/>
+				  </div>
 				</div>
 
 				<div class="d-flex justify-content-center mt-2">
-					<input class="btn btn-outline-primary" value="Login" type="submit"/>
+					<input class="btn btn-outline-primary" value="Next" type="submit"/>
 				</div>
 
 			</form>

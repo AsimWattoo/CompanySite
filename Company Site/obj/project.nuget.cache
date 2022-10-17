@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "J1+NqACDd6UbvOfTgUX0zDwkAoSyav5NF7jH804Ns0Ka5oyxTM86dySkUCjVKvPLt8UImiTmZRSERZm86BVr3g==",
+  "dgSpecHash": "iaukYOe2SfGi0rWovBF2tV6STTyez6ruU2513I4RsObBys9xfMAM0DtjB+KnKNCp7MKtfsekpxRXghMpvpwfOg==",
   "success": true,
   "projectFilePath": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\Company Site.csproj",
   "expectedPackageFiles": [
@@ -195,12 +195,5 @@
     "C:\\Users\\asimw\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\asimw\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

@@ -93,3 +93,55 @@ a, .btn-link {
     transform: translate(-50%, -50%);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+.heading{
+    font-weight: 700;
+    font-size:2rem;
+    margin-bottom: 0px;
+}
+
+.tagline{
+    color: lightgray;
+}
+
+.input-container{
+    text-align: start;
+}
+
+.input-control {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid lightgray;
+    border-radius: 0.3rem;
+    background-color: #EDF3FF;
+}
+
+.input-control i {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    color: #6292FF;
+}
+
+.input-control input{
+    border-width: 0.5px;
+    border-color: lightgray;
+    border-style: none none none solid;
+    background-color: white;
+}
+
+.form-label{
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+@media only screen and (max-width: 768px){
+    .login-shadow{
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 468px){
+    .login-shadow{
+        width: 95%;
+    }
+}
