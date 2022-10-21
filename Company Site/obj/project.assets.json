@@ -10664,7 +10664,7 @@
   },
   "packageFolders": {
     "C:\\Users\\asimw\\.nuget\\packages\\": {},
-    "D:\\Applications\\VS 2022 Shared\\NuGetPackages": {}
+    "D:\\Applications\\Visual Studio Data\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -10676,7 +10676,7 @@
       "outputPath": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\Applications\\VS 2022 Shared\\NuGetPackages"
+        "D:\\Applications\\Visual Studio Data\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
         "C:\\Users\\asimw\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10765,7 +10765,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.1.22431.12\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100-rc.2.22477.23\\RuntimeIdentifierGraph.json"
       }
     }
   }

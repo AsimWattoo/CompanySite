@@ -1,55 +1,54 @@
 ﻿@using Company_Site.Data
 @using Company_Site.Enum
 
-<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Company Site</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
+<div class="flex-column px-3 mt-2">
+    <p class="lead color-gray">MENU</p>
 </div>
-
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column px-3">
-        <div class="nav-item my-2 text-start">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+        <a class="@((SelectedOption == "Dashboard" || SelectedOption == string.Empty ? "active" : "")) nav-item my-2 text-start" href="" @onclick='(() => {SelectedOption = "Dashboard";})'>
+            <div class='nav-link d-flex align-items-center'>
                 <span class="oi oi-home" aria-hidden="true"></span> <p class="m-0">Dashboard</p>
-            </NavLink>
-        </div>
-        <div class="nav-item my-2 text-start">
-            <NavLink class="nav-link" href="/newacquisition" Match="NavLinkMatch.All">
+            </div>
+        </a>
+        <a class="@((SelectedOption == "NewAcquisition" ? "active" : "")) nav-item my-2 text-start" href="/newacquisition"  @onclick='(() => {SelectedOption = "NewAcquisition";})'>
+            <div class="nav-link d-flex align-items-center" >
                 <span class="oi oi-home" aria-hidden="true"></span> <p class="m-0">New Acquisition</p>
-            </NavLink>
-        </div>
-        <div class="nav-item my-2 text-start">
-            <NavLink class="nav-link" href="/memomaster" Match="NavLinkMatch.All">
+            </div>
+        </a>
+        <a class="@((SelectedOption == "MemoMaster" ? "active" : "")) nav-item my-2 text-start" href="/memomaster"  @onclick='(() => {SelectedOption = "MemoMaster";})'>
+            <div class="nav-link d-flex align-items-center" >
                 <span class="fa fa-envelope me-2" aria-hidden="true"></span> <p class="m-0">Memo Master</p>
-            </NavLink>
-        </div>
-        <div class="nav-item my-2 text-start">
-            <NavLink class="nav-link" href="/vendors" Match="NavLinkMatch.All">
+            </div>
+        </a>
+        <a class="@((SelectedOption == "Vendors" ? "active" : "")) nav-item my-2 text-start" href="/vendors"  @onclick='(() => {SelectedOption = "Vendors";})'>
+            <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Vendors</p>
-            </NavLink>
-        </div>
+            </div>
+        </a>
         @if(IsAdmin)
         {
-                        <div class="nav-item my-2 text-start">
-                <NavLink class="nav-link" href="admin">
-                            <i class="fa fa-server me-3"></i> <p class="m-0">Admin Dashboard</p>
-                </NavLink>
-            </div>
+            <a class="@((SelectedOption == "Admin" ? "active" : "")) nav-item my-2 text-start" href="admin"  @onclick='(() => {SelectedOption = "Admin";})'>
+                <div class="nav-link d-flex align-items-center" >
+                    <i class="fa fa-server me-3"></i> <p class="m-0">Admin Dashboard</p>
+                </div>
+            </a>
         }
-        <div class="nav-item my-2 text-start">
-            <NavLink class="nav-link" href="logout">
+        <a class="@((SelectedOption == "Logout" ? "active" : "")) nav-item my-2 text-start" href="logout"  @onclick='(() => {SelectedOption = "Logout";})'>
+            <div class="nav-link d-flex align-items-center">
                 <i class="fa fa-lock me-3"></i> <p class="m-0">Logout</p>
-            </NavLink>
-        </div>
+            </div>
+        </a>
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
+
+    /// <summary>
+    /// Indicates the currently selected option of the menu
+    /// </summary>
+    private string SelectedOption = string.Empty;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 

@@ -47,6 +47,7 @@
     <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
+
   <ItemGroup>
     <None Include="wwwroot\assets\css\color-1.css.map" />
     <None Include="wwwroot\assets\css\color-2.css.map" />
@@ -1213,6 +1214,19 @@
     <None Include="wwwroot\assets\js\vector-map\map\jquery-jvectormap-world-mill-en.js" />
     <None Include="wwwroot\assets\js\vertical-menu.js" />
     <None Include="wwwroot\js\SaveFile.js" />
+    <None Include="wwwroot\theme-font\AmandaSignatureRegular.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-Bold.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-BoldItalic.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-Heavy.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-HeavyItalic.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-Light.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-LightItalic.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-Medium.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-MediumItalic.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-Regular.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-RegularItalic.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-Semibold.woff2" />
+    <None Include="wwwroot\theme-font\SFProText-SemiboldItalic.woff2" />
   </ItemGroup>
 
 </Project>

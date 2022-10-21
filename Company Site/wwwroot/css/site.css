@@ -1,7 +1,12 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+@font-face {
+    font-family: "SFPro Text";
+    src: url("./theme-font/SFPro-Text-Medium.woff") format('woff');
+}
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'SFPro Text';
     font-size: 12px;
 }
 
@@ -15,6 +20,10 @@ h1:focus {
 
 a, .btn-link {
     color: #0071c1;
+}
+
+.color-gray {
+    color: gray;
 }
 
 .btn-primary {
@@ -120,6 +129,7 @@ a, .btn-link {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
     color: #6292FF;
+    font-size: 1.3rem;
 }
 
 .input-control input{
@@ -127,6 +137,7 @@ a, .btn-link {
     border-color: lightgray;
     border-style: none none none solid;
     background-color: white;
+    font-size: 1.3rem;
 }
 
 .form-label{

@@ -51,7 +51,7 @@ namespace Company_Site.Helpers
 					User user = new User()
 					{
 						UserName = "HarshalGandhi",
-						Email = "Harshal_gandhi20055@yahoo.com.com",
+						Email = "Harshal_gandhi20055@yahoo.com",
 						Department = "Legal",
 						Designation="CEO",
 						OfficeLocation = "Office",

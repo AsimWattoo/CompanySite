@@ -8501,12 +8501,120 @@
       "PackagePath": "staticwebassets\\img\\pdf.png"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile.jpg",
+      "PackagePath": "staticwebassets\\img\\profile.jpg"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\word.png",
       "PackagePath": "staticwebassets\\img\\word.png"
     },
     {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\js\\CKEditorInterop.js",
       "PackagePath": "staticwebassets\\js\\CKEditorInterop.js"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\AmandaSignatureRegular.woff",
+      "PackagePath": "staticwebassets\\theme-font\\AmandaSignatureRegular.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\AmandaSignatureRegular.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\AmandaSignatureRegular.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Bold.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Bold.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Bold.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Bold.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-BoldItalic.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-BoldItalic.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-BoldItalic.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-BoldItalic.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Heavy.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Heavy.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Heavy.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Heavy.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-HeavyItalic.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-HeavyItalic.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-HeavyItalic.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-HeavyItalic.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Light.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Light.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Light.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Light.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-LightItalic.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-LightItalic.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-LightItalic.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-LightItalic.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Medium.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Medium.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Medium.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Medium.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-MediumItalic.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-MediumItalic.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-MediumItalic.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-MediumItalic.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Regular.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Regular.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Regular.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Regular.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-RegularItalic.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-RegularItalic.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-RegularItalic.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-RegularItalic.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Semibold.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Semibold.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-Semibold.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-Semibold.woff2"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-SemiboldItalic.woff",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-SemiboldItalic.woff"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\SFProText-SemiboldItalic.woff2",
+      "PackagePath": "staticwebassets\\theme-font\\SFProText-SemiboldItalic.woff2"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Company Site.Microsoft.AspNetCore.StaticWebAssets.props",
