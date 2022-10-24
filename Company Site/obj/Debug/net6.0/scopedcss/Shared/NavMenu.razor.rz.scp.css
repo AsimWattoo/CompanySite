@@ -1,5 +1,6 @@
-.navbar-toggler[b-madu8pitlo] {
-    background-color: rgba(255, 255, 255, 0.1);
+.navbar[b-madu8pitlo] {
+    transition: all 0.2s ease-in-out;
+    width: 250px;
 }
 
 .top-row[b-madu8pitlo] {
@@ -49,6 +50,41 @@ a p[b-madu8pitlo]{
     .active .oi[b-madu8pitlo] {
         color: #0157FF;
     }
+
+.nav-item p[b-madu8pitlo] {
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+    width: 150px;
+}
+
+.nav-item span[b-madu8pitlo] {
+    transition: all 0.2s ease-in-out;
+    margin: 1px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.nav-item div[b-madu8pitlo]{
+    padding: 5px;
+}
+
+.collapsed[b-madu8pitlo]{
+    /*width: 5rem;*/
+    overflow: hidden;
+}
+
+.collapsed a div p[b-madu8pitlo]{
+    width: 0px;
+}
+
+.collapsed a div[b-madu8pitlo]{
+    padding: 0px;
+}
+
+.collapsed a div span[b-madu8pitlo]{
+    margin-left: 10px;
+    margin-right: 0px;
+}
 
 @media (min-width: 641px) {
     .navbar-toggler[b-madu8pitlo] {

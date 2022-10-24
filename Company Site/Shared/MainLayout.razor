@@ -16,7 +16,7 @@
             <CascadingValue Value="@UserId" Name="UserId">
                 <div class="page container-fluid w-100">
                     @if(IsLoggedIn){
-                        <div>
+                        <div class="container-fluid">
                             <div class="row">
                                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12 user-info p-2 d-flex justify-content-center">
                                     <div class="user-info-panel d-flex align-items-center">
@@ -24,17 +24,40 @@
                                             <img src="./img/profile.jpg"/>
                                         </div>
                                         <div class="info">
-                                            <p class="mb-0 fw-bold">Muhammad Asim</p>
-                                            <p class="mb-0 color-gray">asimwattoo6@gmail.com</p>
+                                            <p class="mb-0 fs-4 fw-bold">Muhammad Asim</p>
+                                            <p class="mb-0 fs-5 color-gray">asimwattoo6@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-12 px-0 border-bottom-light">
+                                    <div class="row w-100 p-0 h-100 me-0">
+                                        <div class="d-flex align-items-center">
+                                            <div class="col-xl-11 col-lg-10 col-md-8 col-sm-10 col-12 d-flex justify-content-center">
+                                                    <div class="search-bar d-flex align-items-center justify-content-start">
+                                                    <i class="fa fa-search"></i>
+                                                    <input class="" placeholder="Find your Tasks, Projects ..."/>
+                                                </div>
+                                            </div>
+                                            <div class="panel"></div>
+                                            <div class="btn-panel col-xl-1 col-lg-2 col-md-4 col-sm-2 col-12 d-flex justify-content-start align-items-center">
+                                                <a class="nav-bar-btn">
+                                                    <i class="fa fa-bell"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="sidebar col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12">
-                                    <NavMenu />
+                                <div class=" col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12 p-0">
+                                    <div class="@(IsCollapsed ? "collapsed" : "") sidebar">
+                                        <a class="nav-bar-collapse-btn" @onclick="NavBarCollapseBtnClicked">
+                                            <i class="fa fa-angle-double-left"></i>
+                                        </a>
+                                        <NavMenu IsCollapsed="@IsCollapsed"/>
+                                    </div>
                                 </div>
-                                <main>
+                                <main class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-12">
                                     <article class="content px-4">
                                         @Body
                                     </article>
@@ -66,6 +89,8 @@
 
     public int? UserId { get; set; }
 
+    public bool IsCollapsed { get; set; } = false;
+
     protected override async Task OnInitializedAsync()
     {
         AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
@@ -85,4 +110,15 @@
         }
         base.OnInitialized();
     }
+
+    /// <summary>
+    /// Fires when the nav bar collapse button is clicked.
+    /// Changes the state of the nav bar
+    /// </summary>
+    public void NavBarCollapseBtnClicked()
+    {
+        //Toggling the nav bar
+        IsCollapsed = !IsCollapsed;
+    }
+
 }
