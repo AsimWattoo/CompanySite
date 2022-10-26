@@ -1,13 +1,12 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 @font-face {
-    font-family: "SFPro Text";
+    font-family: "SF Pro Text";
     src: url("./theme-font/SFPro-Text-Medium.woff") format('woff');
 }
 
 html, body {
-    font-family: 'SFPro Text';
-    font-size: 12px;
+    font-family: Garamond;
 }
 
 h1:focus {

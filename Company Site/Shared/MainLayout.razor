@@ -14,32 +14,32 @@
     <CascadingValue Value="@IsAdmin" Name="IsAdmin">
         <CascadingValue Value="@Pages" Name="Pages">
             <CascadingValue Value="@UserId" Name="UserId">
-                <div class="page container-fluid w-100">
+                <div class="page container-fluid">
                     @if(IsLoggedIn){
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12 user-info p-2 d-flex justify-content-center">
-                                    <div class="user-info-panel d-flex align-items-center">
-                                        <div class="img d-flex justify-content-center me-2">
+                            <div class="row @(IsCollapsed ? "col-collapsed": "")">
+                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12 user-info col-panel d-flex justify-content-center">
+                                    <div class="user-info-panel d-flex align-items-center justify-content-center m-0 @(IsCollapsed ? "collapsed" : "")">
+                                        <div class="img">
                                             <img src="./img/profile.jpg"/>
                                         </div>
                                         <div class="info">
-                                            <p class="mb-0 fs-4 fw-bold">Muhammad Asim</p>
-                                            <p class="mb-0 fs-5 color-gray">asimwattoo6@gmail.com</p>
+                                            <p class="mb-0 fs-4 fw-bold title-text">Muhammad Asim</p>
+                                            <p class="mb-0 fs-5 color-gray title-text">asimwattoo6@gmail.com</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-12 px-0 border-bottom-light">
-                                    <div class="row w-100 p-0 h-100 me-0">
+                                <div class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-12 px-0">
+                                    <div class="row p-0 h-100 me-0">
                                         <div class="d-flex align-items-center">
-                                            <div class="col-xl-11 col-lg-10 col-md-8 col-sm-10 col-12 d-flex justify-content-center">
+                                            <div class="col-xl-11 col-lg-10 col-md-8 col-sm-8 col-12 d-flex justify-content-center mx-2">
                                                     <div class="search-bar d-flex align-items-center justify-content-start">
                                                     <i class="fa fa-search"></i>
                                                     <input class="" placeholder="Find your Tasks, Projects ..."/>
                                                 </div>
                                             </div>
                                             <div class="panel"></div>
-                                            <div class="btn-panel col-xl-1 col-lg-2 col-md-4 col-sm-2 col-12 d-flex justify-content-start align-items-center">
+                                            <div class="btn-panel col-xl-1 col-lg-2 col-md-4 col-sm-4 col-12 d-flex justify-content-start align-items-center">
                                                 <a class="nav-bar-btn">
                                                     <i class="fa fa-bell"></i>
                                                 </a>
@@ -48,8 +48,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class=" col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12 p-0">
+                            <div class="row @(IsCollapsed ? "col-collapsed": "")">
+                                <div class=" col-xl-2 col-lg-3 col-md-4 col-sm-5 col-12 p-0 col-panel">
                                     <div class="@(IsCollapsed ? "collapsed" : "") sidebar">
                                         <a class="nav-bar-collapse-btn" @onclick="NavBarCollapseBtnClicked">
                                             <i class="fa fa-angle-double-left"></i>
@@ -57,8 +57,8 @@
                                         <NavMenu IsCollapsed="@IsCollapsed"/>
                                     </div>
                                 </div>
-                                <main class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-12">
-                                    <article class="content px-4">
+                                    <main class="col-xl-10 col-lg-9 col-md-8 col-sm-7 col-12 border-top-light">
+                                    <article class="content px-2">
                                         @Body
                                     </article>
                                 </main>
@@ -67,8 +67,8 @@
                     }
                     else
                     {
-                         <main>
-                            <article class="content px-4">
+                        <main class="container-fluid ">
+                            <article class="content">
                                 @Body
                             </article>
                         </main>   

@@ -15,45 +15,47 @@
 
 	<Authorized>
 
-		<div class="row">
+		<div>
+			<div class="row">
 
-			<div class="mb-3 col-2 btn-list">
+				<div class="mb-3 col-2 btn-list">
 
-				<p class="fw-bold text-button-heading mb-2">Memo List</p>
+					<p class="fw-bold text-button-heading mb-2">Memo List</p>
 
-				<div class="mx-1">
-					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Draft))" class="@(SelectedOption == MemoMasterOption.Draft ? "btn-selected" : "")">Draft</a>
+					<div class="mx-1">
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Draft))" class="@(SelectedOption == MemoMasterOption.Draft ? "btn-selected" : "")">Draft</a>
+					</div>
+
+					<div class="mx-1">
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Pending))" class="@(SelectedOption == MemoMasterOption.Pending ? "btn-selected" : "")">Pending</a>
+					</div>
+
+					<div class="mx-1">
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Approved))" class="@(SelectedOption == MemoMasterOption.Approved ? "btn-selected" : "")">Approved</a>
+					</div>
+
+					<div class="mx-1">
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Rejected))" class="@(SelectedOption == MemoMasterOption.Rejected ? "btn-selected" : "")">Rejected</a>
+					</div>
+
 				</div>
 
-				<div class="mx-1">
-					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Pending))" class="@(SelectedOption == MemoMasterOption.Pending ? "btn-selected" : "")">Pending</a>
-				</div>
+				<div class="col-10 px-0">
 
-				<div class="mx-1">
-					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Approved))" class="@(SelectedOption == MemoMasterOption.Approved ? "btn-selected" : "")">Approved</a>
-				</div>
+					<div class="row mb-2">
+						<div class="col-4">
+							<p class="ms-2 fs-3 fw-bold mb-0">Memo Master</p>
+						</div>
+						<div class="d-flex justify-content-end align-items-center col-7">
+							<a class="btn btn-primary" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Add New Memo</a>
+						</div>
+					</div>
 
-				<div class="mx-1">
-					<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Rejected))" class="@(SelectedOption == MemoMasterOption.Rejected ? "btn-selected" : "")">Rejected</a>
+					<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
+
 				</div>
 
 			</div>
-
-			<div class="col-10">
-				
-				<div class="row mb-2">
-					<div class="col-4">
-						<p class="ms-2 fs-3 fw-bold mb-0">Memo Master</p>
-					</div>
-					<div class="d-flex justify-content-end align-items-center col-8">
-						<a class="btn btn-primary" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Add New Memo</a>
-					</div>
-				</div>
-
-				<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
-				
-			</div>
-
 		</div>
 
 	</Authorized>

@@ -63,8 +63,8 @@ main[b-y3fmicphz7] {
         z-index: 1;
     }
 
-    .top-row[b-y3fmicphz7], article[b-y3fmicphz7] {
+    /*.top-row, article {
         padding-left: 2rem !important;
         padding-right: 1.5rem !important;
-    }
+    }*/
 }

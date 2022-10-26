@@ -3,7 +3,7 @@
 @typeparam T 
 @typeparam T2
 
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4 w-100">
 	
 	<div class="modal" id="deleteConfirmModal">
 			<div class="modal-dialog modal-dialog-centered">
@@ -27,9 +27,9 @@
 	<EditForm Model="SearchModel" Context="searchBar">
 
 		<div class="row">
-			<div class="col-3">
+			<div class="col-3 fs">
 				Show 
-				<select id="enteriesSelection" class="select-box mx-1" @onchange="@RowsToShowChange">
+				<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
 					<option value="10">10</option>
 					<option value="20">20</option>
 					<option value="30">30</option>
@@ -37,11 +37,11 @@
 				</select>
 				enteries
 			</div>
-			<div class="col-8 d-flex justify-content-end">
-				<div>
+			<div class="col-9 p-0 d-flex justify-content-end">
+				<div class="fs">
 					<label for="searchBox">Search</label>
 					<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
-					<a class="btn btn-outline-secondary mx-1" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
+					<a class="btn btn-outline-primary mx-1 btn-search" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
 				</div>
 			</div>
 		</div>
@@ -49,38 +49,21 @@
 	</EditForm>
 
 	<!--Table-->
-	<div class="my-3 table-wrapper">
+	<div class="mt-3 table-wrapper">
 		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
 			<tr class="border-bottom-1">
 				@if(ShowSerialNumber){
-					<th scope="col" class="text-center">Serial Number</th>
+					<th scope="col" class="text-center">
+						<div class="btn-sortable align-content-start row m-0">
+							<p class="d-inline-block text-start col-8 m-0">Serial Number</p>
+						</div>
+					</th>
 				}
 				@foreach(string header in Headers){
 					@if(!string.IsNullOrEmpty(header)){
 						<th>
-							<div class="btn-sortable align-content-start row m-0" @onclick='(() => Sort(header))'>
-								
-									<p class="d-inline-block text-start col-8 m-0">@header</p>
-									<div class="col-4 d-flex justify-content-end">
-										<div>
-											@if (Sortings[header] == Sorting.Ascending)
-											{
-															<i class="fa fa-arrow-up d-inline text-dark"></i>
-															<i class="ms-1 fa fa-arrow-down d-inline text-lightgray"></i>
-											}
-											else if (Sortings[header] == Sorting.Descending)
-											{
-															<i class="fa fa-arrow-up d-inline text-lightgray"></i>
-															<i class="ms-1 fa fa-arrow-down d-inline text-dark"></i>
-											}
-											else
-											{
-															<i class="fa fa-arrow-up d-inline text-lightgray"></i>
-															<i class="ms-1 fa fa-arrow-down d-inline text-lightgray"></i>
-											}
-										</div>
-									</div>
-
+							<div class="btn-sortable align-content-start justify-content-start row m-0" @onclick='(() => Sort(header))'>
+								<p class="d-inline-block text-start col-8 m-0">@header</p>
 							</div>
 						</th>
 					}
@@ -94,10 +77,10 @@
 				@if(GetTableRows != null){
 					<tr>
 						@if(ShowSerialNumber){
-							<td class="text-center">@SR</td>
+							<td class="text-start fs-5">@SR</td>
 						}
 						@foreach(string rowItem in GetTableRows(item)){
-							<td class="text-center">@rowItem</td>
+							<td class="text-start fs-5">@rowItem</td>
 						}
 						<td>
 							@if (IsViewable(item))
@@ -120,15 +103,14 @@
 	<!--Table Footer-->
 	<div class="row">
 		<div class="col-4">
-			<p class="lead fs-small">Showing @(DisplayedItems.Count > 0 ? (_CurrentPage - 1) * SearchModel.RowsToShow + 1 : 0) to @(DisplayedItems.Count + ((_CurrentPage - 1) * SearchModel.RowsToShow)) out of @Items.Count enteries</p>
+			<p class="lead page-footer">Showing @(DisplayedItems.Count > 0 ? (_CurrentPage - 1) * SearchModel.RowsToShow + 1 : 0) to @(DisplayedItems.Count + ((_CurrentPage - 1) * SearchModel.RowsToShow)) out of @Items.Count enteries</p>
 		</div>
 		<div class="col-8">
 			<nav>
 				<ul class="pagination d-flex justify-content-end">
 				<li class="page-item">
-					<a class="page-link" @onclick='@(() => ChangePage(1))' aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-					<span class="sr-only">Previous</span>
+					<a class="page-link @(_CurrentPage == 1 ?  "disabled" : "")" @onclick='@(() => PreviousPage())' aria-label="Previous">
+						<span>Previous</span>
 					</a>
 				</li>
 				@foreach(int p in Pages)
@@ -136,9 +118,8 @@
 					<li class="page-item mouse-pointer"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
 				}
 				<li class="page-item">
-					<a class="page-link" @onclick='@(() => ChangePage(_NumberOfPages))' aria-label="Next">
-					<span aria-hidden="true">&raquo;</span>
-					<span class="sr-only">Next</span>
+					<a class="page-link @(_CurrentPage == 1 ?  "disabled" : "")" @onclick='@(() => NextPage())' aria-label="Next">
+						<span>Next</span>
 					</a>
 				</li>
 				</ul>
@@ -268,6 +249,24 @@
 	private void ChangePage(int page)
 	{
 		_CurrentPage = page;
+		UpdateRows();
+	}
+
+	private void PreviousPage()
+	{
+		if (_CurrentPage == 1)
+			return;
+
+		_CurrentPage = _CurrentPage - 1;
+		UpdateRows();
+	}
+
+	private void NextPage()
+	{
+		if (_CurrentPage == _NumberOfPages)
+			return;
+
+		_CurrentPage = _CurrentPage + 1;
 		UpdateRows();
 	}
 
