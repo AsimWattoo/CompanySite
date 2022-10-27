@@ -26,6 +26,8 @@ namespace Company_Site.DB
 
 		public DbSet<Vendor> Vendors { get; set; }
 
+		public DbSet<ExpenseEntry> Expenses { get; set; }
+
 		#endregion
 
 		#region Constructor
