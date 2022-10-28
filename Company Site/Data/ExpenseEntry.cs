@@ -23,13 +23,21 @@ namespace Company_Site.Data
 
         public string Service { get; set; }
 
-        public double Amount { get; set; }
+        public double BillAmount { get; set; }
 
         public int Vendor_Id { get; set; }
 
         [ForeignKey("Id")]
         public Vendor Vendor { get; set; }
 
-        public DateTime PaymentDate { get; set; }
+        public DateTime PaymentDate { get; set; } = DateTime.Now;
+
+        public string PaymentMode { get; set; }
+
+        public double PaymentAmount { get; set; }
+
+        public int AccountId { get; set; }
+
+        public bool Proportionately { get; set; } = false;
     }
 }

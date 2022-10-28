@@ -192,6 +192,18 @@ td[b-12yh34qg01]{
 .table-wrapper[b-12yh34qg01] {
     padding-top: 1rem;
 }
+/* _content/Company Site/Pages/User/Finance Components/ExpenseEntryAdd.razor.rz.scp.css */
+input[b-ki35vq92x0],
+select[b-ki35vq92x0],
+p[b-ki35vq92x0],
+a[b-ki35vq92x0],
+button[b-ki35vq92x0],
+label[b-ki35vq92x0]{
+	font-size: 1.2rem !important;
+}
+/* _content/Company Site/Pages/User/Finance Components/ExpenseManager.razor.rz.scp.css */
+body[b-lxaqi24n7x] {
+}
 /* _content/Company Site/Pages/User/Finance.razor.rz.scp.css */
 .nav-item[b-srb9vcox66] {
     padding-left: 0.2rem;
@@ -716,7 +728,6 @@ div.col-panel[b-cddauckdx4]{
 /* _content/Company Site/Shared/NavMenu.razor.rz.scp.css */
 .navbar[b-madu8pitlo] {
     transition: all 0.2s ease-in-out;
-    width: 250px;
 }
 
 .top-row[b-madu8pitlo] {

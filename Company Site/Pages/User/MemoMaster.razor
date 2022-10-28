@@ -51,7 +51,7 @@
 						</div>
 					</div>
 
-					<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSortRecords="SortRecords" OnSearch="Search" ShowSerialNumber="true"></Table>
+					<Table T="Memo" T2="string" Items="@DisplayedMemos" IsViewable="IsViewable" ViewItem="ViewItem" GetId="GetId" Headers="@Headers" GetTableRows="@GetTableRows" OnEdit="Edit" IsEditable="IsEditable" IsDeleteable="(Memo m) => false" OnSearch="Search" ShowSerialNumber="true"></Table>
 
 				</div>
 
@@ -75,16 +75,16 @@
 
 	public List<Memo> DisplayedMemos { get; set; }
 
-	public List<string> Headers { get; set; } = new List<string>()
+	public Dictionary<string, Func<Memo, dynamic>> Headers { get; set; } = new Dictionary<string, Func<Memo, dynamic>>
 	{
-		"Memo Number",
-		"Case Name",
-		"Subject",
-		"Type",
-		"Department",
-		"Vendor",
-		"Amount",
-		"Status"
+		["Memo Number"] = (Memo memo) => memo.MemoNumber,
+		["Case Name"] = (Memo memo) => memo.CaseName,
+		["Subject"] = (Memo memo) => memo.Subject,
+		["Type"] = (Memo memo) => memo.Type,
+		["Department"] = (Memo memo) => memo.Department,
+		["Vendor"] = (Memo memo) => memo.Vendor,
+		["Amount"] = (Memo memo) => memo.Amount,
+		["Status"] = (Memo memo) => memo.MemoStatus,
 	};
 
 	protected override void OnInitialized()
@@ -137,54 +137,54 @@
 		return row;
 	}
 
-	private List<Memo> SortRecords(List<Memo> memos, string name, Sorting sorting){
+	//private List<Memo> SortRecords(List<Memo> memos, string name, Sorting sorting){
 
-		switch(name){
-			case "Memo Number":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.MemoNumber).ToList();
-				else
-					return memos.OrderByDescending(m => m.MemoNumber).ToList();
-			case "Case Number":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.CaseName).ToList();
-				else
-					return memos.OrderByDescending(m => m.CaseName).ToList();
-			case "Subject":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.Subject).ToList();
-				else
-					return memos.OrderByDescending(m => m.Subject).ToList();
-			case "Type":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.Type).ToList();
-				else
-					return memos.OrderByDescending(m => m.Type).ToList();
-			case "Department":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.Department).ToList();
-				else
-					return memos.OrderByDescending(m => m.Department).ToList();
-			case "Vendor":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.Vendor).ToList();
-				else
-					return memos.OrderByDescending(m => m.Vendor).ToList();
-			case "Amount":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.Amount).ToList();
-				else
-					return memos.OrderByDescending(m => m.Amount).ToList();
-			case "Status":
-				if (sorting == Sorting.Ascending)
-					return memos.OrderBy(m => m.MemoStatus).ToList();
-				else
-					return memos.OrderByDescending(m => m.MemoStatus).ToList();
-			default:
-				return memos;
-		}
+	//	switch(name){
+	//		case "Memo Number":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.MemoNumber).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.MemoNumber).ToList();
+	//		case "Case Number":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.CaseName).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.CaseName).ToList();
+	//		case "Subject":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.Subject).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.Subject).ToList();
+	//		case "Type":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.Type).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.Type).ToList();
+	//		case "Department":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.Department).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.Department).ToList();
+	//		case "Vendor":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.Vendor).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.Vendor).ToList();
+	//		case "Amount":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.Amount).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.Amount).ToList();
+	//		case "Status":
+	//			if (sorting == Sorting.Ascending)
+	//				return memos.OrderBy(m => m.MemoStatus).ToList();
+	//			else
+	//				return memos.OrderByDescending(m => m.MemoStatus).ToList();
+	//		default:
+	//			return memos;
+	//	}
 
-	}
+	//}
 
 	private List<Memo> Search(List<Memo> memos, string text){
 		text = text.ToLower();

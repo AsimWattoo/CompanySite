@@ -293,3 +293,5 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Build.Framework.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\Microsoft.NET.StringTools.dll
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\Finance Components\ExpenseManager.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\Finance Components\ExpenseEntryAdd.razor.rz.scp.css

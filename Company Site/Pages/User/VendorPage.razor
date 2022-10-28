@@ -24,7 +24,7 @@
 		</div>
 
 		<div class="container-fluid mt-4">
-			<Table T="Vendor" T2="int" Items="@Vendors" Headers="@Headers" GetTableRows="@GetVendorRows" GetId="@GetVendorId" OnSortRecords="@SortRecords" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+			<Table T="Vendor" T2="int" Items="@Vendors" Headers="@Headers" GetTableRows="@GetVendorRows" GetId="@GetVendorId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
 		</div>
 
 	</Authorized>
@@ -39,9 +39,9 @@
 
 	private List<Vendor> Vendors { get; set; } = new List<Vendor>();
 
-	private List<string> Headers => new List<string>(){
-		"Id",
-		"Vendor"
+	private Dictionary<string, Func<Vendor, dynamic>> Headers => new Dictionary<string, Func<Vendor, dynamic>>(){
+		["Id"] = (Vendor v) => v.Id,
+		["Vendor"] = (Vendor v) => v.VendorName
 	};
 
 	protected override void OnInitialized()
@@ -66,25 +66,6 @@
 	}
 
 	private int GetVendorId(Vendor v) => v.Id;
-
-	private List<Vendor> SortRecords(List<Vendor> vendors, string field, Sorting sorting)
-	{
-		switch (field)
-		{
-			case "Id":
-				if (sorting == Sorting.Ascending)
-					return vendors.OrderBy(v => v.Id).ToList();
-				else
-					return vendors.OrderByDescending(v => v.Id).ToList();
-			case "Vendor":
-				if (sorting == Sorting.Ascending)
-					return vendors.OrderBy(v => v.VendorName).ToList();
-				else
-					return vendors.OrderByDescending(v => v.VendorName).ToList();
-			default:
-				return vendors;
-		}
-	}
 
 	private List<Vendor> DeleteRecord(int id)
 	{

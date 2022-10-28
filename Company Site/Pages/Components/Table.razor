@@ -27,7 +27,7 @@
 	<EditForm Model="SearchModel" Context="searchBar">
 
 		<div class="row">
-			<div class="col-3 fs">
+			<div class="col-xl-2 col-lg-3 col-md-5 col-sm-6 col-12 fs">
 				Show 
 				<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
 					<option value="10">10</option>
@@ -37,7 +37,7 @@
 				</select>
 				enteries
 			</div>
-			<div class="col-9 p-0 d-flex justify-content-end">
+			<div class="col-xl-10 col-lg-9 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end">
 				<div class="fs">
 					<label for="searchBox">Search</label>
 					<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
@@ -59,7 +59,7 @@
 						</div>
 					</th>
 				}
-				@foreach(string header in Headers){
+				@foreach(string header in Headers.Keys){
 					@if(!string.IsNullOrEmpty(header)){
 						<th>
 							<div class="btn-sortable align-content-start justify-content-start row m-0" @onclick='(() => Sort(header))'>
@@ -138,10 +138,8 @@
 	public Func<T, T2> GetId { get; set; }
 
 	[Parameter]
-	public Func<List<T>, string, Sorting, List<T>> OnSortRecords { get; set; }
-
-	[Parameter]
-	public List<string> Headers { get; set; }
+	//public Dictionary<string, Func<List<T>, Sorting, IEnumerable<T>>> Headers { get; set; } = new Dictionary<string, Func<List<T>, Sorting, IEnumerable<T>>>();
+	public Dictionary<string, Func<T, dynamic>> Headers { get; set; } = new Dictionary<string, Func<T, dynamic>>();
 
 	[Parameter]
 	public List<T> Items
@@ -216,6 +214,19 @@
 
 	private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>();
 
+	/// <summary>
+	/// Sorts the records
+	/// </summary>
+	/// <param name="name"></param>
+	/// <returns></returns>
+	private List<T> SortRecords(string name){
+		return (Sortings[name] == Sorting.Ascending
+			? DisplayedItems.OrderBy(f => Headers[name](f)).ToList()
+			: (Sortings[name] == Sorting.Descending
+				? DisplayedItems.OrderByDescending(f => Headers[name](f)).ToList()
+				: DisplayedItems));
+	}
+
 	private void UpdateInitialization(){
 		SR = 1;
 		_NumberOfPages = (Items.Count / SearchModel.RowsToShow) + 1;
@@ -229,7 +240,7 @@
 		UpdateInitialization();
 		//Copying items for later recovery
 		itemsCopy = Items;
-		foreach(string header in Headers){
+		foreach(string header in Headers.Keys){
 
 			if (string.IsNullOrEmpty(header))
 				continue;
@@ -276,7 +287,7 @@
 		DisplayedItems = Items.Take(_CurrentPage * SearchModel.RowsToShow).Skip((_CurrentPage - 1) * SearchModel.RowsToShow).ToList();
 		string sortingColumn = Sortings.Where(s => s.Value != Sorting.None).FirstOrDefault().Key;
 		if(sortingColumn != null){
-			DisplayedItems = OnSortRecords(DisplayedItems, sortingColumn, Sortings[sortingColumn]);
+			DisplayedItems = SortRecords(sortingColumn);
 		}
 	}
 
@@ -307,8 +318,10 @@
 		else
 			Sortings[name] = Sorting.Ascending;
 
-		DisplayedItems = OnSortRecords(DisplayedItems, name, Sortings[name]);
+		//DisplayedItems = OnSortRecords(DisplayedItems, name, Sortings[name]);
+		DisplayedItems = SortRecords(name);
 	}
+
 
 	//Deletes the record
 	private void DeleteRecord(){

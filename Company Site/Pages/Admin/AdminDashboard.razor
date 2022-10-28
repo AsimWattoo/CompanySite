@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="container-fluid mt-4">
-			<Table T="User" T2="int" Items="@Users" Headers="@Headers" GetTableRows="@GetUserRows" GetId="@GetUserId" OnSortRecords="@SortRecords" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+			<Table T="User" T2="int" Items="@Users" Headers="@Headers" GetTableRows="@GetUserRows" GetId="@GetUserId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
 		</div>
 
 	</Authorized>
@@ -58,86 +58,23 @@
 		}
 	}
 
-	private List<string> Headers = new List<string>
+	private Dictionary<string, Func<User, dynamic>> Headers = new Dictionary<string, Func<User, dynamic>>
 	{
-		"Id",
-		"First Name",
-		"Last Name",
-		"Date of Joining",
-		"Email",
-		"Department",
-		"Role",
-		"Designation",
-		"Mobile",
-		""
+			["Id"] = (User user) => user.Id,
+			["First Name"] = (User user) => user.FirstName,
+			["Last Name"] = (User user) => user.LastName,
+			["Date of Joining"] = (User user) => user.DateOfJoining,
+			["Email"] = (User user) => user.Email,
+			["Department"] = (User user) => user.Department,
+			["Role"] = (User user) => user.Role,
+			["Designation"] = (User user) => user.Designation,
+			["Mobile"] = (User user) => user.Mobile,
 	};
 
 	private void AddUser()
 	{
 		sessionStorage.SetAsync("UserPageMode", "add");
 		navigationManager.NavigateTo("/admin/adduser");
-	}
-
-	private List<User> SortRecords(List<User> users, string name, Sorting sorting)
-	{
-		switch (name)
-		{
-			case "Id":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.Id).ToList();
-				else
-					return users.OrderByDescending(func => func.Id).ToList();
-
-			case "First Name":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.FirstName).ToList();
-				else
-					return users.OrderByDescending(func => func.FirstName).ToList();
-
-			case "Last Name":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.LastName).ToList();
-				else
-					return users.OrderByDescending(func => func.LastName).ToList();
-
-			case "Date of Joining":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.DateOfJoining).ToList();
-				else
-					return users.OrderByDescending(func => func.DateOfJoining).ToList();
-
-			case "Email":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.Email).ToList();
-				else
-					return users.OrderByDescending(func => func.Email).ToList();
-
-			case "Department":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.Department).ToList();
-				else
-					return users.OrderByDescending(func => func.Department).ToList();
-
-			case "Role":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.Role).ToList();
-				else
-					return users.OrderByDescending(func => func.Role).ToList();
-
-			case "Designation":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.Designation).ToList();
-				else
-					return users.OrderByDescending(func => func.Designation).ToList();
-
-			case "Mobile":
-				if (sorting == Sorting.Ascending)
-					return users.OrderBy(func => func.Mobile).ToList();
-				else
-					return users.OrderByDescending(func => func.Mobile).ToList();
-			default:
-				return users;
-		}
 	}
 
 	private List<User> DeleteRecord(int userIdToDelete)
