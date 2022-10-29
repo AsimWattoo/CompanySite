@@ -192,6 +192,21 @@ td[b-12yh34qg01]{
 .table-wrapper[b-12yh34qg01] {
     padding-top: 1rem;
 }
+/* _content/Company Site/Pages/User/Contacts.razor.rz.scp.css */
+body[b-q1iluk83m2] {
+}
+/* _content/Company Site/Pages/User/Finance Components/CollectionEntryAdd.razor.rz.scp.css */
+input[b-v1fp23q3s0],
+select[b-v1fp23q3s0],
+p[b-v1fp23q3s0],
+a[b-v1fp23q3s0],
+button[b-v1fp23q3s0],
+label[b-v1fp23q3s0]{
+	font-size: 1.2rem !important;
+}
+/* _content/Company Site/Pages/User/Finance Components/CollectionManager.razor.rz.scp.css */
+body[b-e38hubolea] {
+}
 /* _content/Company Site/Pages/User/Finance Components/ExpenseEntryAdd.razor.rz.scp.css */
 input[b-ki35vq92x0],
 select[b-ki35vq92x0],
@@ -236,7 +251,30 @@ a[b-srb9vcox66]{
 }
 
 .card[b-srb9vcox66] {
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 0px;
+}
+
+.card-red[b-srb9vcox66] {
+    background-color: #E24A2A;
+    color: white;
+}
+
+.card-green[b-srb9vcox66] {
+    background-color: #2FB153;
+    color: white;
+}
+
+.card-blue[b-srb9vcox66] {
+    background-color: #396DE7; 
+    color: white;
+}
+
+.card-yellow[b-srb9vcox66] {
+    background-color: #F0B501;
+    color: white;
 }
 /* _content/Company Site/Pages/User/Index.razor.rz.scp.css */
 body[b-0d4lq1jm2i] {

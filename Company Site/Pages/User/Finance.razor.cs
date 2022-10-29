@@ -34,7 +34,11 @@ namespace Company_Site.Pages.User
             {
                 if (res.Value == "expense")
                     CurrentType = FinanceTypes.Expenses;
-
+                else if (res.Value == "collection")
+                    CurrentType = FinanceTypes.Collection;
+                else if (res.Value == "distribution")
+                    CurrentType = FinanceTypes.Distribution;
+                await _sessionStorage.DeleteAsync("FinancePageMode");
             }
             StateHasChanged();
         }

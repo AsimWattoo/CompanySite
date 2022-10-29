@@ -29,5 +29,28 @@ a{
 }
 
 .card {
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 0px;
+}
+
+.card-red {
+    background-color: #E24A2A;
+    color: white;
+}
+
+.card-green {
+    background-color: #2FB153;
+    color: white;
+}
+
+.card-blue {
+    background-color: #396DE7; 
+    color: white;
+}
+
+.card-yellow {
+    background-color: #F0B501;
+    color: white;
 }

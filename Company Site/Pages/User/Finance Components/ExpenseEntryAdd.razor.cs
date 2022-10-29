@@ -58,6 +58,14 @@ namespace Company_Site.Pages.User.Finance_Components
 			_navigationManager.NavigateTo("/finance");
 		}
 
+		/// <summary>
+		/// Clears the values for the enteries
+		/// </summary>
+		private void Clear()
+		{
+			NewEntry = new ExpenseEntry();
+		}
+
 		#endregion
 
 	}

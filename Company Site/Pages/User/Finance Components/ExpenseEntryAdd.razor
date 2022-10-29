@@ -74,7 +74,8 @@
         </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
-        <button @onclick="GoBack" class="btn btn-primary me-3">Clear</button>
+        <button @onclick="GoBack" class="btn btn-danger me-3">Cancel</button>
+        <button @onclick="Clear" class="btn btn-primary me-3">Clear</button>
         <button class="btn btn-primary">@(IsAddMode ? "Add" : "Edit")</button>
     </div>
 </EditForm>

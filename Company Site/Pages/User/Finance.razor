@@ -30,7 +30,7 @@
     <div class="container-fluid px-4 py-2">
         <div class="row my-1 gx-5 gy-3">
             <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
+                <div class="card card-red">
                     <div class="card-body">
                         <h4 class="card-title my-2 text-center">Total Trust: 0</h4>
                     </div>
@@ -38,7 +38,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body card-green">
                         <h4 class="card-title my-2 text-center">Total Accounts: 0</h4>
                     </div>
                 </div>
@@ -47,27 +47,27 @@
         <div class="row my-1 g-5">
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body card-blue">
                         <h4 class="card-title my-2 text-center">Total Repayment: 0</h4>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body card-yellow">
                         <h4 class="card-title my-2 text-center">Total Resolution Fees: 0</h4>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
+                <div class="card card-red">
                     <div class="card-body">
                         <h4 class="card-title my-2 text-center">Total Trusteeship: 0</h4>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
+                <div class="card card-green">
                     <div class="card-body">
                         <h4 class="card-title my-2 text-center">Total Collection: 0</h4>
                     </div>
@@ -76,7 +76,7 @@
         </div>
         <div class="row my-1 g-5">
             <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
+                <div class="card card-blue">
                     <div class="card-body">
                         <h4 class="card-title my-2 text-center">Total Collection Financial Year: 0</h4>
                     </div>
@@ -84,7 +84,7 @@
             </div>
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body card-yellow">
                         <h4 class="card-title my-2 text-center">Pending Distribution: 0</h4>
                     </div>
                 </div>
@@ -96,6 +96,12 @@ else if (CurrentType == FinanceTypes.Expenses)
 {
     <div class="mt-4 px-2">
         <ExpenseManager/>
+    </div>
+}
+else if(CurrentType == FinanceTypes.Collection)
+{
+    <div class="mt-4 px-2">
+        <CollectionManager/>
     </div>
 }
 

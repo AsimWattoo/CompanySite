@@ -16,7 +16,6 @@ namespace Company_Site.Pages.User.Finance_Components
 
         private Dictionary<string, Func<ExpenseEntry, dynamic>> Headers { get; set; } = new Dictionary<string, Func<ExpenseEntry, dynamic>>()
         {
-            ["Id"] = (ExpenseEntry e) => e.Id,
             ["Trust Code"] = (ExpenseEntry e) => e.TrustCode,
             ["Borrower Code"] = (ExpenseEntry e) => e.Borrower_Code,
             ["Trust Name"] = (ExpenseEntry e) => e.Trust_Name,
@@ -99,7 +98,6 @@ namespace Company_Site.Pages.User.Finance_Components
         {
             return new List<string>()
             {
-                ex.Id.ToString(),
                 ex.TrustCode,
                 ex.Borrower_Code,
                 ex.Trust_Name,

@@ -72,6 +72,18 @@ build_metadata.AdditionalFiles.CssScope = b-85nmdx3pz4
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xUYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-12yh34qg01
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Contacts.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxDb250YWN0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-q1iluk83m2
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Finance Components/CollectionEntryAdd.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxGaW5hbmNlIENvbXBvbmVudHNcQ29sbGVjdGlvbkVudHJ5QWRkLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-v1fp23q3s0
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Finance Components/CollectionManager.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxGaW5hbmNlIENvbXBvbmVudHNcQ29sbGVjdGlvbk1hbmFnZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-e38hubolea
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Finance Components/ExpenseEntryAdd.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxGaW5hbmNlIENvbXBvbmVudHNcRXhwZW5zZUVudHJ5QWRkLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-ki35vq92x0

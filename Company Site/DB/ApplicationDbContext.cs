@@ -28,6 +28,8 @@ namespace Company_Site.DB
 
 		public DbSet<ExpenseEntry> Expenses { get; set; }
 
+		public DbSet<CollectionEntry> Collections { get; set; }
+
 		#endregion
 
 		#region Constructor

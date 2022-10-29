@@ -31,6 +31,11 @@
                 <span class="fa fa-file-invoice-dollar me-2" aria-hidden="true"></span> <p class="m-0">Finance</p>
             </div>
         </a>
+        <a class="@((SelectedOption == "Contacts" ? "active" : "")) nav-item my-2 text-start" href="/contacts"  @onclick='(() => {SelectedOption = "Contacts";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Contacts</p>
+            </div>
+        </a>
         @if(IsAdmin)
         {
             <a class="@((SelectedOption == "Admin" ? "active" : "")) nav-item my-2 text-start" href="admin"  @onclick='(() => {SelectedOption = "Admin";})'>
