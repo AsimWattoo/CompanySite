@@ -10,6 +10,10 @@
     {
       "library": "bootstrap-multiselect@1.1.1",
       "destination": "wwwroot/css/bootstrap-multiselect/"
+    },
+    {
+      "library": "viewerjs@1.11.0",
+      "destination": "wwwroot/viewerjs/"
     }
   ]
 }

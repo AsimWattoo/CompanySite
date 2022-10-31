@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Company Site.bundle.scp.css"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Documents\\document.pdf",
+      "PackagePath": "staticwebassets\\Documents\\document.pdf"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\assets\\css\\color-1.css",
       "PackagePath": "staticwebassets\\assets\\css\\color-1.css"
     },

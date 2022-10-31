@@ -1,11 +1,12 @@
 ﻿using Company_Site.Data;
+using Company_Site.Interfaces;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Company_Site.Pages.User.Finance_Components
 {
-    public partial class ExpenseManager : ComponentBase
+    public partial class ExpenseManager : ComponentBase, ITable<ExpenseEntry, int>
     {
         #region Private Members
 
@@ -34,6 +35,8 @@ namespace Company_Site.Pages.User.Finance_Components
 
         [Inject]
         private NavigationManager _navigationManager { get; set; }
+        List<ExpenseEntry> ITable<ExpenseEntry, int>.Enteries { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        Dictionary<string, Func<ExpenseEntry, dynamic>> ITable<ExpenseEntry, int>.Headers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         #endregion
 
@@ -53,14 +56,14 @@ namespace Company_Site.Pages.User.Finance_Components
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        private int GetExpenseId(ExpenseEntry e) => e.Id;
+        public int GetId(ExpenseEntry e) => e.Id;
 
         /// <summary>
         /// Deletes the expense entry
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        private List<ExpenseEntry> DeleteRecord(int id)
+        public List<ExpenseEntry> DeleteRecord(int id)
         {
             Enteries.Remove(Enteries.Where(f => f.Id == id).First());
             return Enteries;
@@ -70,7 +73,7 @@ namespace Company_Site.Pages.User.Finance_Components
         /// Edits the record
         /// </summary>
         /// <param name="id"></param>
-        private void EditRecord(int id)
+        public void EditRecord(int id)
         {
             _sessionStorage.SetAsync("ExpensePageMode", "edit");
             _sessionStorage.SetAsync("ExpenseId", id);
@@ -83,7 +86,7 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <param name="users"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        private List<ExpenseEntry> Search(List<ExpenseEntry> expenseEnteries, string text)
+        public List<ExpenseEntry> Search(List<ExpenseEntry> expenseEnteries, string text)
         {
             text = text.ToLower();
             return expenseEnteries.Where(e => e.TrustCode.Equals(text) || e.Borrower_Code.Equals(text) || e.Trust_Name.Equals(text) || e.Service.Equals(text)).ToList();
@@ -94,7 +97,7 @@ namespace Company_Site.Pages.User.Finance_Components
         /// </summary>
         /// <param name="ex"></param>
         /// <returns></returns>
-        private List<string> GetTableRows (ExpenseEntry ex)
+        public List<string> GetTableRows (ExpenseEntry ex)
         {
             return new List<string>()
             {

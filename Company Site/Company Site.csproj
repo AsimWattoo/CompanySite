@@ -45,6 +45,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\assets\js\slick\" />
     <Folder Include="wwwroot\files\" />
+    <Folder Include="wwwroot\Documents\" />
   </ItemGroup>
 
 
