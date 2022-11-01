@@ -19,11 +19,11 @@ namespace Company_Site.Data
 
         public string SRHolder { get; set; }
 
-        public string Payable { get; set; }
+        public string? Payable { get; set; }
 
-        public string TrusteeshipBasis { get; set; }
+        public string? TrusteeshipBasis { get; set; }
 
-        public string TrusteeFee { get; set; }
+        public double TrusteeFee { get; set; }
 
         public int Face_Value { get; set; }
 
@@ -33,11 +33,11 @@ namespace Company_Site.Data
 
         public string TrusteeshipLimit { get; set; }
         
-        public string ResolutionFeeBasis { get; set; }
+        public string? ResolutionFeeBasis { get; set; }
 
         public DateTime TrustSetupDate { get; set; } = DateTime.Now;
 
-        public string NavBand { get; set; }
+        public string? NavBand { get; set; }
 
         public double IssuerUpsideShare { get; set; }
 
@@ -67,5 +67,38 @@ namespace Company_Site.Data
 
         public string ModifiedBy { get; set; }
 
+        public string SROs { get; set; } = string.Empty;
+
+        [NotMapped]
+        public double Ratio => IssuerShare / HolderShare;
+
+        public DateTime SetupDate { get; set; }
+
+        public double ResolutionFee { get; set; }
+
+        public string? InterestMode { get; set; }
+
+        [NotMapped]
+        public double TrustAge => (DateTime.Now - TrustSetupDate).TotalDays / 365;
+
+        public double Year1 { get; set; }
+
+        public double Year2 { get; set; }
+
+        public double Year3 { get; set; }
+
+        public double Year4 { get; set; }
+        
+        public double Year5 { get; set; }
+
+        public double Year6 { get; set; }
+
+        public double Year7 { get; set; }
+
+        public double Year8 { get; set;}
+
+        public double Year9 { get; set; }
+
+        public string PanCard { get; set; }
     }
 }

@@ -1,0 +1,18 @@
+input[b-uv8btyzvub],
+select[b-uv8btyzvub],
+p[b-uv8btyzvub],
+a[b-uv8btyzvub],
+button[b-uv8btyzvub],
+label[b-uv8btyzvub]{
+	font-size: 1.2rem !important;
+}
+
+.body[b-uv8btyzvub]{
+	padding-left: 2rem;
+}
+
+.shadow-box[b-uv8btyzvub] {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	padding: 1rem;
+	border-radius: 5px;
+}

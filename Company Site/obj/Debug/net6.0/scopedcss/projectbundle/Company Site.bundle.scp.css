@@ -377,8 +377,27 @@ fieldset legend[b-jr6ue2ld43]{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 10px;
 }
-/* _content/Company Site/Pages/User/TrustMaster.razor.rz.scp.css */
-body[b-twfwhex5d4] {
+/* _content/Company Site/Pages/User/Turst Components/TrustMaster.razor.rz.scp.css */
+body[b-im6x3mqqsp] {
+}
+/* _content/Company Site/Pages/User/Turst Components/TrustMasterAdd.razor.rz.scp.css */
+input[b-uv8btyzvub],
+select[b-uv8btyzvub],
+p[b-uv8btyzvub],
+a[b-uv8btyzvub],
+button[b-uv8btyzvub],
+label[b-uv8btyzvub]{
+	font-size: 1.2rem !important;
+}
+
+.body[b-uv8btyzvub]{
+	padding-left: 2rem;
+}
+
+.shadow-box[b-uv8btyzvub] {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	padding: 1rem;
+	border-radius: 5px;
 }
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
 .page[b-y3fmicphz7] {

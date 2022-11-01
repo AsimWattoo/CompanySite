@@ -13,9 +13,9 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <summary>
         /// The expenses to be shown
         /// </summary>
-        private List<ExpenseEntry> Enteries { get; set; } = new List<ExpenseEntry>();
+        public List<ExpenseEntry> Enteries { get; set; } = new List<ExpenseEntry>();
 
-        private Dictionary<string, Func<ExpenseEntry, dynamic>> Headers { get; set; } = new Dictionary<string, Func<ExpenseEntry, dynamic>>()
+        public Dictionary<string, Func<ExpenseEntry, dynamic>> Headers { get; set; } = new Dictionary<string, Func<ExpenseEntry, dynamic>>()
         {
             ["Trust Code"] = (ExpenseEntry e) => e.TrustCode,
             ["Borrower Code"] = (ExpenseEntry e) => e.Borrower_Code,
@@ -35,8 +35,7 @@ namespace Company_Site.Pages.User.Finance_Components
 
         [Inject]
         private NavigationManager _navigationManager { get; set; }
-        List<ExpenseEntry> ITable<ExpenseEntry, int>.Enteries { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        Dictionary<string, Func<ExpenseEntry, dynamic>> ITable<ExpenseEntry, int>.Headers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
 
         #endregion
 
