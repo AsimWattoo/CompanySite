@@ -35,7 +35,7 @@ namespace Company_Site.DB
 
 		public DbSet<CompanyPolicy> Policies { get; set; }
 
-		public DbSet<AccountDetails> AccountDetails { get; set; }
+		public DbSet<Account> Accounts { get; set; }
 
 		#endregion
 

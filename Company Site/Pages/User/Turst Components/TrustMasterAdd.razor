@@ -6,11 +6,7 @@
     <EditForm Model="NewEntry" class="mt-3" OnValidSubmit="Add">
         <DataAnnotationsValidator />
 
-        <div class="row">
-            <div class="col-12 my-3">
-                <MultiErrorView Errors="Errors"/>
-            </div>
-        </div>
+        <MultiErrorView Errors="Errors"/>
 
         <div class="row my-2">
             <div class="col-md-3">

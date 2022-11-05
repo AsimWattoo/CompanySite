@@ -1,4 +1,5 @@
-﻿using Company_Site.DB;
+﻿using Company_Site.Data;
+using Company_Site.DB;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
@@ -17,7 +18,7 @@ namespace Company_Site.Pages.User.Account_Components
 
         #region Private Members
 
-        private AccountDetails Details { get; set; } = new AccountDetails();
+        private Account Details { get; set; } = new Account();
 
         private List<string> _errors = new List<string>();
 
@@ -26,7 +27,7 @@ namespace Company_Site.Pages.User.Account_Components
         #region Injected Members
 
         [Inject]
-        private ProtectedBrowserStorage _storage { get; set; }
+        private ProtectedSessionStorage _storage { get; set; }
 
         [Inject]
         private NavigationManager _navigationManager { get; set; }
@@ -44,9 +45,9 @@ namespace Company_Site.Pages.User.Account_Components
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            if (_dbContext.AccountDetails.Any(a => a.UserId == UserId.Value))
+            if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value))
             {
-                Details = _dbContext.AccountDetails.Where(a => a.UserId == UserId.Value).First();
+                Details = _dbContext.Accounts.Where(a => a.UserId == UserId.Value).First();
             }
         }
 
@@ -59,7 +60,7 @@ namespace Company_Site.Pages.User.Account_Components
         /// </summary>
         private void Save()
         {
-            if(_dbContext.AccountDetails.Any(a => a.UserId == UserId.Value )) 
+            if(_dbContext.Accounts.Any(a => a.UserId == UserId.Value )) 
             {
                 _dbContext.Update(Details);
                 _dbContext.SaveChanges();
@@ -68,10 +69,18 @@ namespace Company_Site.Pages.User.Account_Components
             else
             {
                 Details.UserId = UserId.Value;
-                _dbContext.AccountDetails.Add(Details);
+                _dbContext.Accounts.Add(Details);
                 _dbContext.SaveChanges();
                 //TODO: Navigate back to the accounts management page
             }
+        }
+
+        /// <summary>
+        /// Cancels the editing
+        /// </summary>
+        private void Cancel()
+        {
+            //TODO: Navigate to the Accounts Management Page
         }
 
         #endregion

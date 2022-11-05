@@ -71,7 +71,7 @@ namespace Company_Site.Data
 
         public string? DD_Firm { get; set; }
 
-        public string? DD_Date { get; set; }
+        public DateTime DD_Date { get; set; } = DateTime.Now;
 
         public DateTime FinalDate { get; set; } = DateTime.Now;
 
@@ -93,6 +93,6 @@ namespace Company_Site.Data
 
         public string? Modification { get; set; }
 
-        public DateTime ModificationDate { get; set; } DateTime.Now
+        public DateTime ModificationDate { get; set; } = DateTime.Now;
    }
 }
