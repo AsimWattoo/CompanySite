@@ -76,6 +76,10 @@ build_metadata.AdditionalFiles.CssScope = b-85nmdx3pz4
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xUYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-12yh34qg01
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Components/AccountDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IENvbXBvbmVudHNcQWNjb3VudERldGFpbHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ym018wx7u3
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/CompanyPolicyPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxDb21wYW55UG9saWN5UGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-7x0fa6ekom
