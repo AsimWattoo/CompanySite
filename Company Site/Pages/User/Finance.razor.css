@@ -12,10 +12,6 @@
         background-color: #DDE9FE;
     }
 
-a{
-	font-size: 1.2rem;
-}
-
 .active {
     background-color: #DDE9FE;
 }
@@ -24,7 +20,7 @@ a{
         color: #0157FF !important;
     }
 
-.card p,{
+.card p{
     font-size: 1rem;
 }
 

@@ -1,4 +1,5 @@
 ﻿using Company_Site.Data;
+using Company_Site.DB;
 using Company_Site.Interfaces;
 
 using Microsoft.AspNetCore.Components;
@@ -40,6 +41,21 @@ namespace Company_Site.Pages.User.Turst_Components
         [Inject]
         private NavigationManager _navigationManager { get; set; }
 
+        [Inject]
+        private ApplicationDbContext _dbContext { get; set; }
+
+        #endregion
+
+        #region Overriden Methods
+
+        /// <summary>
+        /// After the component is initialized
+        /// </summary>
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            Enteries = _dbContext.Trusts.ToList();
+        }
 
         #endregion
 
@@ -106,7 +122,7 @@ namespace Company_Site.Pages.User.Turst_Components
             {
                 t.TrustSetupDate.ToString("dd/mm/yyyy"),
                 t.SRHolder,
-                t.Ratio.ToString(),
+                Math.Round(t.Ratio, 2).ToString(),
                 t.IssuerUpsideShare.ToString(),
                 t.SetupDate.ToString("dd/mm/yyyy"),
                 t.SRIssued.ToString(),

@@ -1,72 +1,94 @@
 ﻿@page "/trustmaster/add"
+@using Company_Site.Pages.Components
 
 <h2 class="text-center">Expense Manager</h2>
 <div class="body">
-    <EditForm Model="NewEntry" class="mt-3">
+    <EditForm Model="NewEntry" class="mt-3" OnValidSubmit="Add">
+        <DataAnnotationsValidator />
+
+        <div class="row">
+            <div class="col-12 my-3">
+                <MultiErrorView Errors="Errors"/>
+            </div>
+        </div>
+
         <div class="row my-2">
             <div class="col-md-3">
                 <label for="trustCode">Trust Code</label>
                 <InputText @bind-Value="NewEntry.TrustCode" id="trustCode" class="form-control" type="text"/>
+                <ValidationMessage For="@(()=>NewEntry.TrustCode)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="trustName">Trust Name</label>
                 <InputText @bind-Value="NewEntry.Trust_Name" id="trustName" class="form-control" type="text"/>
+                <ValidationMessage For="@(()=>NewEntry.Trust_Name)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="trustSetupDate">Trust Setup Date</label>
                 <input @bind-value="NewEntry.TrustSetupDate" id="trustSetupDate" class="form-control" type="date">
+                <ValidationMessage For="@(()=>NewEntry.TrustSetupDate)" />
             </div>
         </div>
         <div class="row my-2">
             <div class="col-md-3">
                 <label for="srIssued">SR Issued</label>
                 <InputNumber @bind-Value="NewEntry.SRIssued" TValue="int" id="srIssued" class="form-control" type="number" min="1" step="1"/>
+                <ValidationMessage For="@(()=>NewEntry.SRIssued)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="faceValue">Face Value</label>
                 <InputNumber id="faceValue" @bind-Value="NewEntry.Face_Value" TValue="int" class="form-control" type="number" min="1" step="1" />
+                <ValidationMessage For="@(()=>NewEntry.Face_Value)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="navBand">NAV Band</label>
                 <InputSelect @bind-Value="NewEntry.NavBand" id="navBand" class="form-select">
-                    <option value="crrent NAV">current NAV</option>
+                    <option selected> ----- Selection Option -----</option>
+                    <option value="crrentNAV">current NAV</option>
                 </InputSelect>
+                <ValidationMessage For="@(()=>NewEntry.NavBand)" />
             </div>
         </div>
         <div class="row my-2">
             <div class="col-md-3">
                 <label for="srIssuer">SR Issuer</label>
                 <InputText @bind-Value="NewEntry.SRIssuer" id="srIssuer" class="form-control" type="text"/>
+                <ValidationMessage For="@(()=>NewEntry.SRIssuer)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="issuerShare">Issuer Share</label>
                 <InputNumber @bind-Value="NewEntry.IssuerShare" TValue="double" id="issuerShare" class="form-control" type="number"/>
+                <ValidationMessage For="@(()=>NewEntry.IssuerShare)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="upsideShare">Upside Share</label>
                 <InputNumber @bind-Value="NewEntry.IssuerUpsideShare" TValue="double" id="upsideShare" class="form-control" type="number"/>
+                <ValidationMessage For="@(()=> NewEntry.IssuerUpsideShare)" />
             </div>
         </div>
         <div class="row my-2">
             <div class="col-md-3">
                 <label for="srHolder">SR Holder</label>
                 <InputText @bind-Value="NewEntry.SRHolder" id="srHolder" class="form-control" type="text"/>
+                <ValidationMessage For="@(()=>NewEntry.SRHolder)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="holderShare">Holder Share</label>
                 <InputNumber @bind-Value="NewEntry.HolderShare" TValue="double" id="holderShare" class="form-control" type="number"/>
+                <ValidationMessage For="@(()=>NewEntry.HolderShare)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="upsideShare2">Upside Share</label>
                 <InputNumber @bind-Value="NewEntry.HolderUpsideShare" TValue="double" id="upsideShare2" class="form-control" type="number"/>
+                <ValidationMessage For="@(()=>NewEntry.HolderUpsideShare)" />
             </div>
         </div>
         <div class="row my-2">
@@ -216,10 +238,10 @@
                 <InputText @bind-Value=NewEntry.ModifiedBy id="modifiedBy" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-4">
-            <button @onclick="GoBack" class="btn btn-danger me-3">Cancel</button>
-            <button @onclick="Clear" class="btn btn-primary me-3">Clear</button>
-            <button class="btn btn-primary">@(IsAddMode ? "Add" : "Edit")</button>
+        <div class="d-flex justify-content-center mt-4 mb-3">
+            <a @onclick="GoBack" class="btn btn-danger me-3">Cancel</a>
+            <a @onclick="Clear" class="btn btn-primary me-3">Clear</a>
+            <input class="btn btn-primary" type="submit" value="@(IsAddMode ? "Add" : "Edit")">
         </div>
     </EditForm>
 </div>

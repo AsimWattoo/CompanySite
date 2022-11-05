@@ -40,6 +40,11 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 5px;
 }
+/* _content/Company Site/Pages/Components/MultiErrorView.razor.rz.scp.css */
+ul[b-w6etei924s]{
+	color: red;
+}
+
 /* _content/Company Site/Pages/Components/MultiSelect.razor.rz.scp.css */
 .multi-select[b-3nfkh5vk6s]{
     position: relative;
@@ -193,10 +198,6 @@ td[b-12yh34qg01]{
     padding-top: 1rem;
 }
 /* _content/Company Site/Pages/User/CompanyPolicyPage.razor.rz.scp.css */
-*[b-7x0fa6ekom] {
-	font-size: 1.2rem;
-}
-
 #pdf-container[b-7x0fa6ekom]{
 	width: 100%;
 	height: 600px;
@@ -205,26 +206,10 @@ td[b-12yh34qg01]{
 body[b-q1iluk83m2] {
 }
 /* _content/Company Site/Pages/User/Finance Components/CollectionEntryAdd.razor.rz.scp.css */
-input[b-v1fp23q3s0],
-select[b-v1fp23q3s0],
-p[b-v1fp23q3s0],
-a[b-v1fp23q3s0],
-button[b-v1fp23q3s0],
-label[b-v1fp23q3s0]{
-	font-size: 1.2rem !important;
-}
 /* _content/Company Site/Pages/User/Finance Components/CollectionManager.razor.rz.scp.css */
 body[b-e38hubolea] {
 }
 /* _content/Company Site/Pages/User/Finance Components/ExpenseEntryAdd.razor.rz.scp.css */
-input[b-ki35vq92x0],
-select[b-ki35vq92x0],
-p[b-ki35vq92x0],
-a[b-ki35vq92x0],
-button[b-ki35vq92x0],
-label[b-ki35vq92x0]{
-	font-size: 1.2rem !important;
-}
 /* _content/Company Site/Pages/User/Finance Components/ExpenseManager.razor.rz.scp.css */
 body[b-lxaqi24n7x] {
 }
@@ -243,10 +228,6 @@ body[b-lxaqi24n7x] {
         background-color: #DDE9FE;
     }
 
-a[b-srb9vcox66]{
-	font-size: 1.2rem;
-}
-
 .active[b-srb9vcox66] {
     background-color: #DDE9FE;
 }
@@ -255,7 +236,7 @@ a[b-srb9vcox66]{
         color: #0157FF !important;
     }
 
-.card p[b-srb9vcox66],{
+.card p[b-srb9vcox66]{
     font-size: 1rem;
 }
 
@@ -381,15 +362,6 @@ fieldset legend[b-jr6ue2ld43]{
 body[b-im6x3mqqsp] {
 }
 /* _content/Company Site/Pages/User/Turst Components/TrustMasterAdd.razor.rz.scp.css */
-input[b-uv8btyzvub],
-select[b-uv8btyzvub],
-p[b-uv8btyzvub],
-a[b-uv8btyzvub],
-button[b-uv8btyzvub],
-label[b-uv8btyzvub]{
-	font-size: 1.2rem !important;
-}
-
 .body[b-uv8btyzvub]{
 	padding-left: 2rem;
 }

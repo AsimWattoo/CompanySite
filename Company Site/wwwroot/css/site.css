@@ -5,9 +5,14 @@
     src: url("./theme-font/SFPro-Text-Medium.woff") format('woff');
 }
 
-html, body {
+input,
+select,
+p,
+a,
+button,
+label {
     font-family: Garamond;
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 h1:focus {

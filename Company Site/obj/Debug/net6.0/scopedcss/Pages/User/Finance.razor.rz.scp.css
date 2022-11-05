@@ -12,10 +12,6 @@
         background-color: #DDE9FE;
     }
 
-a[b-srb9vcox66]{
-	font-size: 1.2rem;
-}
-
 .active[b-srb9vcox66] {
     background-color: #DDE9FE;
 }
@@ -24,7 +20,7 @@ a[b-srb9vcox66]{
         color: #0157FF !important;
     }
 
-.card p[b-srb9vcox66],{
+.card p[b-srb9vcox66]{
     font-size: 1rem;
 }
 

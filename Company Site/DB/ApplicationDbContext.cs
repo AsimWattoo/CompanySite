@@ -30,6 +30,10 @@ namespace Company_Site.DB
 
 		public DbSet<CollectionEntry> Collections { get; set; }
 
+		public DbSet<Trust> Trusts { get; set; }
+
+		public DbSet<CompanyPolicy> Policies { get; set; }
+
 		#endregion
 
 		#region Constructor

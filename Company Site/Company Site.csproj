@@ -1230,4 +1230,11 @@
     <None Include="wwwroot\theme-font\SFProText-SemiboldItalic.woff2" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Reference Include="TestFramework">
+      <HintPath>..\..\..\..\.Net Framework\Console\TestFramework\TestFramework\bin\Debug\TestFramework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
