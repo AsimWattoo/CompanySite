@@ -1,14 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Company_Site.Base;
+
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class BorrowerDetail
+    public class BorrowerDetail : BaseModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Borrower Name is required")]
         public string Name { get; set; }
 

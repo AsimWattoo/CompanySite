@@ -1,5 +1,9 @@
 ﻿@page "/borrowerdetails/add"
-@using Company_Site.Pages.Components
+
+@inherits BaseAddPage<BorrowerDetail>;
+
+@using Company_Site.Base;
+@using Company_Site.Data;
 
 <div class="mx-2">
     <h3>Borrower Details @(IsAddMode ? "Add" : "Edit")</h3>

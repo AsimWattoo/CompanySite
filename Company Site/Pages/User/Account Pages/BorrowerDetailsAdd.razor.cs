@@ -1,74 +1,27 @@
-﻿using Company_Site.Data;
-using Company_Site.DB;
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+﻿using Company_Site.Base;
+using Company_Site.Data;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class BorrowerDetailsAdd : ComponentBase
+    public partial class BorrowerDetailsAdd: BaseAddPage<BorrowerDetail>
     {
-
-        #region Private Members
-
-        private bool IsAddMode { get; set; } = true;
-
-        private BorrowerDetail NewEntry { get; set; } = new BorrowerDetail();
-
-        private List<string> _errors = new List<string>();
-
-        #endregion
-
-        #region Injected Members
-
-        [Inject]
-        private ApplicationDbContext _dbContext { get; set; }
-
-        [Inject]
-        private ProtectedSessionStorage _storage { get; set; }
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
-        #endregion
 
         #region Overriden Methods
 
-        protected override async void OnInitialized()
+        protected override void Setup()
         {
-            ProtectedBrowserStorageResult<string> pageModeResult = await _storage.GetAsync<string>("BorrowerPageMode");
-            if (pageModeResult.Success)
+            PageModeKey = "BorrowerPageMode";
+            IdKey = "BorrowerId";
+            Records = () => _dbContext.BorrowerDetails.ToList();
+            ReturnUrl = "/borrowerdetails";
+            Save = (t, addMode) =>
             {
-                if(pageModeResult.Value == "edit")
-                {
-                    IsAddMode = false;
-                    ProtectedBrowserStorageResult<int> idRes = await _storage.GetAsync<int>("BorrowerId");
-                    if(idRes.Success)
-                    {
-                        NewEntry = _dbContext.BorrowerDetails.Where(a => a.Id == idRes.Value).First();
-                        StateHasChanged();
-                    }
-                }
-            }
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void Add()
-        {
-            if (IsAddMode)
-                _dbContext.BorrowerDetails.Add(NewEntry);
-            else
-                _dbContext.Update(NewEntry);
-            _dbContext.SaveChanges();
-            _navigationManager.NavigateTo("/borrowerdetails");
-        }
-
-        private void Cancel()
-        {
-            _navigationManager.NavigateTo("/borrowerdetails");
+                if (addMode)
+                    _dbContext.BorrowerDetails.Add(t);
+                else
+                    _dbContext.BorrowerDetails.Update(t);
+                return true;
+            };
         }
 
         #endregion
