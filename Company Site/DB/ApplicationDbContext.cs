@@ -4,7 +4,6 @@ using File = Company_Site.Data.File;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Company_Site.Pages.User.Account_Components;
 
 namespace Company_Site.DB
 {
@@ -36,6 +35,8 @@ namespace Company_Site.DB
 		public DbSet<CompanyPolicy> Policies { get; set; }
 
 		public DbSet<Account> Accounts { get; set; }
+
+		public DbSet<BorrowerDetail> BorrowerDetails { get; set; }
 
 		#endregion
 

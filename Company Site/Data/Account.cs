@@ -87,7 +87,7 @@ namespace Company_Site.Data
 
         public DateTime Case_Exit_Date { get; set; } = DateTime.Now;
 
-        public string Creator_Name { get; set; }
+        public string? Creator_Name { get; set; }
 
         public DateTime CreationDate { get; set; } = DateTime.Now;
 

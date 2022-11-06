@@ -1,0 +1,212 @@
+﻿@page "/accountDetails"
+@using Company_Site.Pages.Components
+
+<div class="px-5">
+
+    <h3>Account Details</h3>
+
+    <EditForm Model="Details" OnValidSubmit="Save">
+
+        <DataAnnotationsValidator/>
+
+        <MultiErrorView Errors="_errors"/>
+
+        <div class="row">
+            <div class="col-md-2">
+                <label for="trustCode">Trust Code</label>
+                <InputText @bind-Value=Details.TrustCode id="trustCode" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => Details.TrustCode)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="borrowerCode">Borrower Code</label>
+                <InputText @bind-Value=Details.BorrowerCode id="borrowerCode" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="officers">Officers</label>
+                <InputText @bind-Value=Details.Officers id="officers" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="groupHead">Group Head</label>
+                <InputText @bind-Value=Details.GroupHead id="groupHead" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="companyName">Company Name</label>
+                <InputText @bind-Value=Details.Company_Name id="companyName" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => Details.Company_Name)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="industry">Industry</label>
+                <InputText @bind-Value=Details.Industry id="industry" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => Details.Industry)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="constitution">Constitution</label>
+                <InputSelect @bind-Value=Details.Constitution id="constitution" class="form-select">
+                    <option selected value="">------ Select Option -----</option>
+                    <option value="publicListed">Public Listed</option>
+                    <option value="private">Private</option>
+                    <option value="partnershipTrust">Partnership Trust</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => Details.Constitution)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="ddOff">DD_Official</label>
+                <InputText @bind-Value=Details.DD_Official id="ddOff" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="location">Location</label>
+                <InputText @bind-Value=Details.Location id="location" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => Details.Location)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="products">Products</label>
+                <InputText @bind-Value=Details.Products id="products" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="opsStatus">Operating Status</label>
+                <InputSelect @bind-Value=Details.Operating_Status id="opsStatus" class="form-select">
+                    <option selected value="">------ Select Option ------</option>
+                    <option value="closed">Closed</option>
+                    <option value="undLiq">Under Liquidation</option>
+                    <option value="operational">Operational</option>
+                    <option value="lowCap">Low Capacity</option>
+                    <option value="midCap">Mid Capacity</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => Details.Operating_Status)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="ddFirm">DD_Firm</label>
+                <InputText @bind-Value=Details.DD_Firm id="ddFirm" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="plantLoc">Plant Location</label>
+                <InputText @bind-Value=Details.Plant_Location id="plantLoc" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="cap">Capacity</label>
+                <InputText @bind-Value=Details.Capacity id="cap" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="npaDate">NPA Date</label>
+                <input @bind-value=Details.NPA_Date id="npaDate" class="form-control" type="date">
+                <ValidationMessage For="@(() => Details.NPA_Date)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="ddDate">DD_Date</label>
+                <input @bind-value=Details.DD_Date id="ddDate" class="form-control" type="date">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="bank">Bank</label>
+                <InputText @bind-Value=Details.Bank id="bank" class="form-control" type="text"/>
+                <datalist id="bank">
+                    @foreach(string bank in bankSuggestions)
+                    {
+                        <option>@bank</option>
+                    }
+                </datalist>
+                <ValidationMessage For="@(() => Details.Bank)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="branch">Branch</label>
+                <InputText @bind-Value=Details.Branch id="branch" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="acqDate">Acquisition Date</label>
+                <input @bind-value=Details.Acquisition_Date id="acqDate" class="form-control" type="date">
+                <ValidationMessage For="@(() => Details.Acquisition_Date)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="finalDate">Final Date</label>
+                <input @bind-value=Details.FinalDate id="finalDate" class="form-control" type="date">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="dateOfDefault">Date of Default</label>
+                <input @bind-value=Details.DateOfDefault id="dateOfDefault" class="form-control" type="date">
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="lastPayment">Last Payment</label>
+                <InputText @bind-Value=Details.Last_Payment id="lastPayment" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                <label for="statDues">Statutory Dues</label>
+                <InputTextArea @bind-Value=Details.Statutory_Dues id="statDues" class="form-control"></InputTextArea>
+            </div>
+        </div>
+        <label for="background">Background</label>
+        <InputTextArea @bind-Value=Details.Background id="background" class="form-control r-none"></InputTextArea>
+        <ValidationMessage For="@(() => Details.Background)"/>
+        <label for="reasonNpa">Reason NPA</label>
+        <InputTextArea @bind-Value=Details.Reason_NPA id="reasonNpa" class="form-control r-none"></InputTextArea>
+        <ValidationMessage For="@(() => Details.Reason_NPA)"/>
+        <label for="caseExit">Case Exit</label>
+        <InputTextArea @bind-Value=Details.Case_Exit id="caseExit" class="form-control r-none"></InputTextArea>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="status">Status</label>
+                <InputSelect @bind-Value=Details.Status id="status" class="form-select">
+                    <option value="active">Active</option>
+                    <option value="closed">Closed</option>
+                    <option value="disable">Disable</option>
+                    <option value="eval">Evaluation</option>
+                </InputSelect>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="caseExitDate">Case Exit Date</label>
+                <input @bind-value=Details.Case_Exit_Date id="caseExitDate" class="form-control" type="date">
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="creatorName">Creator Name</label>
+                <label class="form-control" type="text">@Details.CreationDate</label>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="creationDate">Creation Date</label>
+                <label class="form-control">@Details.CreationDate.ToString("dd/mm/yyyy")</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <label for="mod">Modification</label>
+                <label class="form-control">@Details.Modification</label>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-2">
+                <label for="modDate">Modification Date</label>
+                <label class="form-control">@Details.ModificationDate.ToString("dd/mm/yyyy")</label>
+            </div>
+        </div>
+        <p class="text-center my-3">
+            <a class="btn btn-danger px-3 py-2 me-2" @onclick=Cancel>Cancel</a>
+            <input type="submit" value="Save" class="btn btn-primary"/>
+        </p>
+    </EditForm>
+</div>

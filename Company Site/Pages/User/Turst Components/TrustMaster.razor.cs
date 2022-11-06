@@ -84,7 +84,9 @@ namespace Company_Site.Pages.User.Turst_Components
         /// <returns></returns>
         public List<Trust> DeleteRecord(int id)
         {
-            Enteries.Remove(Enteries.Where(f => f.Id == id).First());
+            _dbContext.Trusts.Remove(_dbContext.Trusts.Where(t => t.Id == id).First());
+            _dbContext.SaveChanges();
+            Enteries = _dbContext.Trusts.ToList();
             return Enteries;
         }
 

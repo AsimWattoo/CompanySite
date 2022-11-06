@@ -149,7 +149,6 @@
 		{
 			_items = value;
 			UpdateRows();
-			SR = 1;
 		}
 	}
 
@@ -289,6 +288,7 @@
 		if(sortingColumn != null){
 			DisplayedItems = SortRecords(sortingColumn);
 		}
+		SR = 1;
 	}
 
 	private void ResetSorting(string toSkip = null)
@@ -327,7 +327,6 @@
 	private void DeleteRecord(){
 		if(OnDelete != null){
 			Items = OnDelete(userIdToDelete);
-			UpdateRows();
 		}
 	}
 

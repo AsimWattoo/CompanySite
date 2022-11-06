@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xFcnJvclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/DebtProfile.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXERlYnRQcm9maWxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/NewAcquisition.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxOZXdBY3F1aXNpdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -76,9 +80,21 @@ build_metadata.AdditionalFiles.CssScope = b-85nmdx3pz4
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xUYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-12yh34qg01
 
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Components/AccountDetails.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IENvbXBvbmVudHNcQWNjb3VudERldGFpbHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = b-ym018wx7u3
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/AccountDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEFjY291bnREZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-ppg6o38ab6
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/BorrowerDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEJvcnJvd2VyRGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-fe6314thq8
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/BorrowerDetailsAdd.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEJvcnJvd2VyRGV0YWlsc0FkZC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-uo88kqytg4
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/AccountManagement.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50TWFuYWdlbWVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-f2jt9za03w
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/CompanyPolicyPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxDb21wYW55UG9saWN5UGFnZS5yYXpvcg==

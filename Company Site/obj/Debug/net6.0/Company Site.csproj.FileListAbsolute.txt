@@ -304,4 +304,7 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\TestFramework.dll
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\bin\Debug\net6.0\TestFramework.pdb
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\Components\MultiErrorView.razor.rz.scp.css
-D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\Account Components\AccountDetails.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\AccountManagement.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\Account Pages\AccountDetails.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\Account Pages\BorrowerDetails.razor.rz.scp.css
+D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\Account Pages\BorrowerDetailsAdd.razor.rz.scp.css

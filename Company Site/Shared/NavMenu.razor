@@ -48,14 +48,14 @@
         </a>
         @if(IsAdmin)
         {
-            <a class="@((SelectedOption == "Admin" ? "active" : "")) nav-item my-2 text-start" href="admin"  @onclick='(() => {SelectedOption = "Admin";})'>
+            <a class="@((SelectedOption == "Admin" ? "active" : "")) nav-item my-2 text-start" href="/admin"  @onclick='(() => {SelectedOption = "Admin";})'>
                 <div class="nav-link d-flex align-items-center" >
                     <span class="fa fa-server me-2"></span> 
                     <p class="m-0">Admin Dashboard</p>
                 </div>
             </a>
         }
-        <a class="@((SelectedOption == "Logout" ? "active" : "")) nav-item my-2 text-start" href="logout"  @onclick='(() => {SelectedOption = "Logout";})'>
+        <a class="@((SelectedOption == "Logout" ? "active" : "")) nav-item my-2 text-start" href="/logout"  @onclick='(() => {SelectedOption = "Logout";})'>
             <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-lock me-2"></span> <p class="m-0">Logout</p>
             </div>

@@ -1,0 +1,19 @@
+﻿@page "/borrowerdetails"
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+
+
+<div class="row mx-2">
+    <div class="col-xl-9 col-lg-8 col-md-7 col-sm-6 col-12">
+        <h2>Borrower Details</h2>
+    </div>
+    <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 d-flex justify-content-end">
+        <a class="btn btn-primary fs-5" @onclick="GoToAddPage">
+            Add
+            <i class="fa fa-plus ms-1"></i>
+        </a>
+    </div>
+</div>
+
+<Table T="BorrowerDetail" T2="int" ShowSerialNumber=true Items="@Enteries" GetTableRows="@GetTableRows" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
