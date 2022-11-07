@@ -1,9 +1,10 @@
 ﻿@page "/borrowerdetails/add"
 
-@inherits BaseAddPage<BorrowerDetail>;
+@inherits BaseAddPage<BorrowerDetail>
 
 @using Company_Site.Base;
 @using Company_Site.Data;
+@using Company_Site.Pages.Components
 
 <div class="mx-2">
     <h3>Borrower Details @(IsAddMode ? "Add" : "Edit")</h3>
@@ -12,7 +13,7 @@
 
         <DataAnnotationsValidator/>
 
-        <MultiErrorView Errors="@_errors"/>
+        <MultiErrorView Errors="_errors"/>
 
         <div class="row">
             <div class="col-md-5">

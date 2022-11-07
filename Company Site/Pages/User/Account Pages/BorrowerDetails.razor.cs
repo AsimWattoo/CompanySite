@@ -1,18 +1,16 @@
-﻿using Company_Site.Data;
+﻿using Company_Site.Base;
+using Company_Site.Data;
 using Company_Site.DB;
 using Company_Site.Interfaces;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class BorrowerDetails : ComponentBase, ITable<BorrowerDetail, int>
+    public partial class BorrowerDetails : BasePage<BorrowerDetail>, ITable<BorrowerDetail, int>
     {
         #region Public Properties
-
-        public List<BorrowerDetail> Enteries { get; set; } = new List<BorrowerDetail>();
 
         public Dictionary<string, Func<BorrowerDetail, dynamic>> Headers { get; set; } = new Dictionary<string, Func<BorrowerDetail, dynamic>>()
         {
@@ -26,25 +24,14 @@ namespace Company_Site.Pages.User.Account_Pages
 
         #endregion
 
-        #region Injected Members
-
-        [Inject]
-        private ApplicationDbContext _dbContext { get; set; }
-
-        [Inject]
-        private ProtectedSessionStorage _storage { get; set; }
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
-        #endregion
-
         #region Overriden Methods
 
-        protected override void OnInitialized()
+        protected override void Setup()
         {
-            base.OnInitialized();
             Enteries = _dbContext.BorrowerDetails.ToList();
+            PageModeKey = "BorrowerPageMode";
+            IdKey = "BorrowerId";
+            AddPageUrl = "/borrowerdetails/add";
         }
 
         #endregion
@@ -59,41 +46,19 @@ namespace Company_Site.Pages.User.Account_Pages
             return Enteries;
         }
 
-        public void EditRecord(int id)
-        {
-            _storage.SetAsync("BorrowerPageMode", "edit");
-            _storage.SetAsync("BorrowerId", id);
-            _navigationManager.NavigateTo("/borrowerdetails/add");
-        }
-
         public int GetId(BorrowerDetail t) => t.Id;
 
-        public List<string> GetTableRows(BorrowerDetail record)
+        public bool SearchItem(BorrowerDetail e)
         {
-            return new List<string>()
-            {
-                record.Name,
-                record.Position,
-                record.Net_Worth,
-                record.NumberOfShares.ToString(),
-                record.PercentOfShareHeld.ToString(),
-                record.Wilful_Defaulter,
-            };
+            return e.Name.Contains(_text) || e.Position.Contains(_text) || e.Wilful_Defaulter.Contains(_text);
         }
+
+        private string _text;
 
         public List<BorrowerDetail> Search(List<BorrowerDetail> enteries, string text)
         {
-            return enteries.Where(e => e.Name.Contains(text) || e.Position.Contains(text) || e.Net_Worth.Contains(text) || e.Wilful_Defaulter.Contains(text)).ToList();
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        private void GoToAddPage()
-        {
-            _storage.SetAsync("BorrowerMode", "add");
-            _navigationManager.NavigateTo("/borrowerdetails/add");
+            _text = text;
+            return enteries.Where(SearchItem).ToList();
         }
 
         #endregion

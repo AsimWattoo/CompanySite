@@ -14,14 +14,16 @@ namespace Company_Site.Pages.User.Account_Pages
             IdKey = "BorrowerId";
             Records = () => _dbContext.BorrowerDetails.ToList();
             ReturnUrl = "/borrowerdetails";
-            Save = (t, addMode) =>
-            {
-                if (addMode)
-                    _dbContext.BorrowerDetails.Add(t);
-                else
-                    _dbContext.BorrowerDetails.Update(t);
-                return true;
-            };
+            Save = save;
+        }
+
+        private bool save (BorrowerDetail t, bool addMode)
+        {
+            if (addMode)
+                _dbContext.BorrowerDetails.Add(t);
+            else
+                _dbContext.BorrowerDetails.Update(t);
+            return true;
         }
 
         #endregion
