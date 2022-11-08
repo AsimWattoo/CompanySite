@@ -40,6 +40,11 @@ namespace Company_Site.DB
 
 		public DbSet<DebtProfileModel> DebtProfiles { get; set; }
 
+		public DbSet<FinancialDataModel> FinancialDatas { get; set; }
+
+		public DbSet<CashFlowProjects> CashFlows { get; set; }
+
+		public DbSet<DocumentListModel> DocumentLists { get; set; }
 		#endregion
 
 		#region Constructor
