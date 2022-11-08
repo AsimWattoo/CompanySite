@@ -47,6 +47,35 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
     margin-left: 1rem;
     margin-right: 1rem;
 }
+/* _content/Company Site/Pages/Components/ContactList.razor.rz.scp.css */
+body[b-3xgbuq7h4v] {
+}
+
+.contacts[b-3xgbuq7h4v] {
+    max-width: 300px;
+    height: 100%;
+}
+
+.contact[b-3xgbuq7h4v] {
+    padding: 0.8rem;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 1px solid #eee;
+}
+
+    .contact:hover[b-3xgbuq7h4v] {
+        transform: scale(1.03, 1.03);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+.btn-delete[b-3xgbuq7h4v] {
+    font-size: 0.7rem;
+}
 /* _content/Company Site/Pages/Components/LoginRedirect.razor.rz.scp.css */
 .full-screen[b-hhpooac1pp]{
     width: 100%;
@@ -235,6 +264,7 @@ body[b-fe6314thq8] {
 /* _content/Company Site/Pages/User/Contacts.razor.rz.scp.css */
 body[b-q1iluk83m2] {
 }
+/* _content/Company Site/Pages/User/EmployeeList.razor.rz.scp.css */
 /* _content/Company Site/Pages/User/Finance Components/CollectionEntryAdd.razor.rz.scp.css */
 /* _content/Company Site/Pages/User/Finance Components/CollectionManager.razor.rz.scp.css */
 body[b-e38hubolea] {

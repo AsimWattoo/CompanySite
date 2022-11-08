@@ -40,6 +40,8 @@ namespace Company_Site.DB
 
 		public DbSet<DebtProfileModel> DebtProfiles { get; set; }
 
+		public DbSet<Employee> Employees { get; set; }
+
 		#endregion
 
 		#region Constructor

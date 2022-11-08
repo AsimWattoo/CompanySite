@@ -8509,6 +8509,18 @@
       "PackagePath": "staticwebassets\\img\\profile.jpg"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-Current.png",
+      "PackagePath": "staticwebassets\\img\\profile\\Profile-1-Current.png"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-Finance-Management-Page.png",
+      "PackagePath": "staticwebassets\\img\\profile\\Profile-1-Finance-Management-Page.png"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-colgate.png",
+      "PackagePath": "staticwebassets\\img\\profile\\Profile-1-colgate.png"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\word.png",
       "PackagePath": "staticwebassets\\img\\word.png"
     },
