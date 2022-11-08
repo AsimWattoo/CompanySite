@@ -38,6 +38,8 @@ namespace Company_Site.DB
 
 		public DbSet<BorrowerDetail> BorrowerDetails { get; set; }
 
+		public DbSet<DebtProfileModel> DebtProfiles { get; set; }
+
 		#endregion
 
 		#region Constructor
