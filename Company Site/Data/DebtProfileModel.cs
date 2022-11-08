@@ -28,8 +28,8 @@ namespace Company_Site.Data
         [Required(ErrorMessage ="Spread is required!")]
         public double Spread{ get; set; }
 
-        [Required(ErrorMessage ="Calculator is required!")]
-        public string? Calculator{ get; set; }
+        [Required(ErrorMessage ="Calculation is required!")]
+        public string? Calculation{ get; set; }
 
         [Required(ErrorMessage ="Frequency is required!")]
         public string frequency{ get; set; }

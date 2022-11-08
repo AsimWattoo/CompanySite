@@ -1,25 +1,32 @@
 ﻿@page "/debtprofile"
+@using Company_Site.Base;
+@using Company_Site.Data;
 @using Company_Site.Pages.Components
+
+@inherits BaseAddPage<DebtProfileModel>
 
 <div class="px-5">
 
     <h3>Debt Profile</h3>
 
-    <EditForm Model="Details" OnValidSubmit="Save">
+    <CollapsibleContainer>
+        <EditForm Model="NewEntry" OnValidSubmit="Save">
 
-        <DataAnnotationsValidator/>
+            <DataAnnotationsValidator/>
 
-        <MultiErrorView Errors="_errors"/>
+            <MultiErrorView Errors="_errors"/>
 
-        <div class="row">
+            <div class="row">
                 <div class="col-md-2">
                     <label for="lenderName">Lender Name</label>
-                    <input id="lenderName" class="form-control" type="text">
+                    <InputText @bind-Value=NewEntry.Lender_Name id="lenderName" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Lender_Name)"/>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
                     <label for="facility">Facility</label>
-                    <input id="facility" class="form-control" type="text">
+                    <InputText @bind-Value=NewEntry.Facilty id="facility" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Facilty)"/>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
@@ -32,110 +39,115 @@
                     <input id="npaDate" class="form-control" type="date">
                 </div>
             </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="pos">POS</label>
+                        <InputNumber @bind-Value=NewEntry.POS TValue=long id="pos" class="form-control" type="number"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="osInterest">O/S Interest</label>
+                        <input id="osInterest" class="form-control" type="number">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="baseInterest"> Base Interest</label>
+                        <input id="baseInterest" class="form-control" type="number">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="spread">Spread</label>
+                        <input id="spread" class="form-control" type="number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="calculation">Calculation</label>
+                        <InputSelect @bind-Value=NewEntry.Calculation id="calculation" class="form-select">
+                            <option value="" selected>---- Select Option ----</option>
+                            <option value="simple">Simple</option>
+                            <option value="compound">Compound</option>
+                        </InputSelect>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="frequency">Frequency</label>
+                        <select id="frequency" class="form-select">
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="annually">Annually</option>
+                        </select>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="penalAmount">penalAmount</label>
+                        <input id="penalAmount" class="form-control" type="number">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="penalInterest">Penal Interest</label>
+                        <input id="penalInterest" class="form-control" type="number">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label for="tenor">Tenor(Months)</label>
+                        <input id="tenor" class="form-control" type="number">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="posAsOn">POS As On</label>
+                        <input @bind-value=NewEntry.POS_As_on id="posAsOn" class="form-control" type="date">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="label1">Label-1</label>
+                        <input id="label1" class="form-control" type="text">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="status">Status</label>
+                        <select id="status" class="form-select">
+                            <option value="active">Active</option>
+                            <option value="restructured">Restructured</option>
+                            <option value="settled">Settled</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="note">Note</label>
+                        <input id="note" class="form-control" type="text">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="emiInstallment">EMI Installment</label>
+                        <input id="emiInstallment" class="form-control" type="number">
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <label for="emiOS">EMI O/S</label>
+                        <input id="emiOS" class="form-control" type="number">
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-md-2">
-                    <label for="pos">POS</label>
-                    <input id="pos" class="form-control" type="number">
+                    <label for="mod">Modification</label>
+                    <label class="form-control"></label>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
-                    <label for="osInterest">O/S Interest</label>
-                    <input id="osInterest" class="form-control" type="number">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="baseInterest"> Base Interest</label>
-                    <input id="baseInterest" class="form-control" type="number">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="spread">Spread</label>
-                    <input id="spread" class="form-control" type="number">
+                    <label for="modDate">Modification Date</label>
+                    <label class="form-control"></label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="calculation">Calculation</label>
-                    <select id="calculation" class="form-select">
-                        <option value="simple">Simple</option>
-                        <option value="compound">Compound</option>
-                    </select>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="frequency">Frequency</label>
-                    <select id="frequency" class="form-select">
-                        <option value="monthly">Monthly</option>
-                        <option value="quarterly">Quarterly</option>
-                        <option value="annually">Annually</option>
-                    </select>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="penalAmount">penalAmount</label>
-                    <input id="penalAmount" class="form-control" type="number">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="penalInterest">Penal Interest</label>
-                    <input id="penalInterest" class="form-control" type="number">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <label for="tenor">Tenor(Months)</label>
-                    <input id="tenor" class="form-control" type="number">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="posAsOn">POS As On</label>
-                    <input id="posAsOn" class="form-control" type="date">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="label1">Label-1</label>
-                    <input id="label1" class="form-control" type="text">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="status">Status</label>
-                    <select id="status" class="form-select">
-                        <option value="active">Active</option>
-                        <option value="restructured">Restructured</option>
-                        <option value="settled">Settled</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-5">
-                    <label for="note">Note</label>
-                    <input id="note" class="form-control" type="text">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="emiInstallment">EMI Installment</label>
-                    <input id="emiInstallment" class="form-control" type="number">
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <label for="emiOS">EMI O/S</label>
-                    <input id="emiOS" class="form-control" type="number">
-                </div>
-            </div>
-        <div class="row">
-            <div class="col-md-2">
-                <label for="mod">Modification</label>
-                <label class="form-control">@Details.Modification</label>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-2">
-                <label for="modDate">Modification Date</label>
-                <label class="form-control">@Details.ModificationDate.ToString("dd/mm/yyyy")</label>
-            </div>
-        </div>
-        <p class="text-center my-3">
-            <a class="btn btn-danger px-3 py-2 me-2" @onclick=Cancel>Cancel</a>
-            <input type="submit" value="Save" class="btn btn-primary"/>
-        </p>
-    </EditForm>
+            <p class="text-center my-3">
+                <a class="btn btn-danger px-3 py-2 me-2" @onclick=Clear>Clear</a>
+                <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary"/>
+            </p>
+        </EditForm>
+    </CollapsibleContainer>
+
+    <Table T="DebtProfileModel" T2="int" ShowSerialNumber=true Items="@Enteries" GetTableRows="@GetTableRows" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+
 </div>

@@ -1,99 +1,41 @@
-﻿using Company_Site.Data;
-using Company_Site.DB;
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+﻿using Company_Site.Base;
+using Company_Site.Data;
+using Company_Site.Interfaces;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class DebtProfile : ComponentBase
+    public partial class DebtProfile : BaseAddPage<DebtProfileModel>, ITable<DebtProfileModel, int>
     {
-
-        #region Public Members
-
-        [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
-
-        #endregion
-
-        #region Private Members
-
-        private Account Details { get; set; } = new Account();
-
-        private List<string> _errors = new List<string>();
-
-        private List<string> bankSuggestions = new List<string>();
-
-        #endregion
-
-        #region Injected Members
-
-        [Inject]
-        private ProtectedSessionStorage _storage { get; set; }
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
-        [Inject]
-        private ApplicationDbContext _dbContext { get; set; }
-
-        #endregion
-
-        #region Overriden Methods
-
-        /// <summary>
-        /// Once the control has been initialized
-        /// </summary>
-        protected override void OnInitialized()
+        protected override void Setup()
         {
-            base.OnInitialized();
-            Data.User user = _dbContext.Users.Where(u => u.Id == UserId.Value).First();
-            bankSuggestions = _dbContext.Accounts.Select(a => a.Bank).Distinct().ToList();
-            if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value))
-            {
-                Details = _dbContext.Accounts.Where(a => a.UserId == UserId.Value).First();
-                Details.Modification = $"{user.FirstName} {user.LastName}";
-                Details.ModificationDate = DateTime.Now;
-            }
-            else
-            {
-                Details.UserId = UserId.Value;
-                Details.Creator_Name = $"{user.FirstName} {user.LastName}";
-                Details.CreationDate = DateTime.Now;
-            }
+            _dbSet = _dbContext.DebtProfiles;
         }
 
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Saves changes to the account details
-        /// </summary>
-        private void Save()
+        public Dictionary<string, Func<DebtProfileModel, string>> Headers { get; set; } = new Dictionary<string, Func<DebtProfileModel, string>>()
         {
-            if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value )) 
-            {
-                _dbContext.Update(Details);
-                _dbContext.SaveChanges();
-                //TODO: Navigate to the account management page
-            }
-            else
-            {
-                _dbContext.Accounts.Add(Details);
-                _dbContext.SaveChanges();
-                //TODO: Navigate back to the accounts management page
-            }
+            ["Lender Name"] = p => p.Lender_Name,
+            ["Facility"] = p => p.Facilty,
+            ["Account Number"] = p => p.Account_Number,
+            ["Lender Name"] = p => p.POS_As_on.ToString("dd/MM/yyyy"),
+            ["Lender Name"] = p => p.Lender_Name,
+        };
+
+        public int GetId(DebtProfileModel t)
+        {
+            return t.Id;
         }
 
-        /// <summary>
-        /// Cancels the editing
-        /// </summary>
-        private void Cancel()
+        private bool _searchItem(DebtProfileModel d)
         {
-            //TODO: Navigate to the Accounts Management Page
+            return d.Lender_Name.Contains(_text) || d.Facilty.Contains(_text);
         }
 
-        #endregion
+        private string _text { get; set; }
+
+        public List<DebtProfileModel> Search(List<DebtProfileModel> enteries, string text)
+        {
+            _text = text;
+            return enteries.Where(_searchItem).ToList();
+        }
     }
 }

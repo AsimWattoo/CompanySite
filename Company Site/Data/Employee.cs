@@ -4,7 +4,6 @@ namespace Company_Site.Data
 {
     public class Employee
     {
-
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
