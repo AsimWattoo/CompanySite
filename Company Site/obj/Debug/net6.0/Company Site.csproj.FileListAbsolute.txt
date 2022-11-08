@@ -306,5 +306,11 @@ D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company 
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.pdb
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\Company Site.genruntimeconfig.cache
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\ref\Company Site.dll
+<<<<<<< HEAD
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\User\EmployeeList.razor.rz.scp.css
 D:\Work\Programming\Visual Studio 2022\C#\.Net Core\Blazor\Company Site\Company Site\obj\Debug\net6.0\scopedcss\Pages\Components\ContactList.razor.rz.scp.css
+=======
+C:\MY NOTES\blazor_app\Company Site\obj\Debug\net6.0\Company Site.dll
+C:\MY NOTES\blazor_app\Company Site\obj\Debug\net6.0\refint\Company Site.dll
+C:\MY NOTES\blazor_app\Company Site\obj\Debug\net6.0\Company Site.pdb
+>>>>>>> 2384d4c727356542d77c5cd3dd9d2e2aa169c4e7
