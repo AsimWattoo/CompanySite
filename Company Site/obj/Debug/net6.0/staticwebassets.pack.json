@@ -8517,6 +8517,10 @@
       "PackagePath": "staticwebassets\\img\\profile\\Profile-1-Finance-Management-Page.png"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-GoogleIcon.png",
+      "PackagePath": "staticwebassets\\img\\profile\\Profile-1-GoogleIcon.png"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-colgate.png",
       "PackagePath": "staticwebassets\\img\\profile\\Profile-1-colgate.png"
     },

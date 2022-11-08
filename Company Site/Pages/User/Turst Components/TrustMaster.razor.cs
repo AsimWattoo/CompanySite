@@ -30,6 +30,7 @@ namespace Company_Site.Pages.User.Turst_Components
         protected override void Setup()
         {
             _dbSet = _dbContext.Trusts;
+            BaseHeaders = Headers;
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "zdZWo+4bfb6YPl9NBOj3hykfF/V49/5CDfcpwp/G1fI=",
+  "Hash": "7K4R/6FLjYfhtrr/nvg7rLm/h2j8L/6cUdSBDM7JA7I=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -37296,6 +37296,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\profile\\Profile-1-Finance-Management-Page.png"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-GoogleIcon.png",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "img/profile/Profile-1-GoogleIcon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\profile\\Profile-1-GoogleIcon.png"
     },
     {
       "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\word.png",

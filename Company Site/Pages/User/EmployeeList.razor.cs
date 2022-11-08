@@ -111,6 +111,7 @@ namespace Company_Site.Pages.User
             _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
             _dbContext.SaveChanges();
             Enteries = _dbSet.ToList();
+            NewEntry = new Employee();
             StateHasChanged();
         }
 

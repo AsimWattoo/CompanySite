@@ -23,6 +23,8 @@ namespace Company_Site.Base
 
         protected bool ShouldAdd { get; set; } = true;
 
+        protected Dictionary<string, Func<T, string>> BaseHeaders { get; set; } = new Dictionary<string, Func<T, string>>();
+
         #endregion
 
         #region Injected Members
@@ -58,10 +60,19 @@ namespace Company_Site.Base
                 _dbSet.Add(NewEntry);
             else
                 _dbSet.Update(NewEntry);
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                //TODO: Show the exception to the user
+                Console.WriteLine(ex);
+            }
             NewEntry = new T();
             Enteries = _dbSet.ToList();
             ShouldAdd = true;
+            StateHasChanged();
 		}
 
         public virtual void EditRecord(int id)
@@ -74,7 +85,7 @@ namespace Company_Site.Base
         protected void Clear()
 		{
 			NewEntry = new T();
-            ShouldAdd = false;
+            ShouldAdd = true;
             StateHasChanged();
 		}
 
@@ -83,7 +94,18 @@ namespace Company_Site.Base
             _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
             _dbContext.SaveChanges();
             Enteries = _dbSet.ToList();
+            StateHasChanged();
             return Enteries;
+        }
+
+        public List<string> GetTableRows(T record)
+        {
+            List<string> row = new List<string>();
+            foreach (string k in BaseHeaders.Keys)
+            {
+                row.Add(BaseHeaders[k](record));
+            }
+            return row;
         }
 
         #endregion

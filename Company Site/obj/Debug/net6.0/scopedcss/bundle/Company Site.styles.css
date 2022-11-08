@@ -56,6 +56,10 @@ body[b-3xgbuq7h4v] {
     height: 100%;
 }
 
+.roundedTextBox[b-3xgbuq7h4v]{
+    height: 30px;
+}
+
 .contact[b-3xgbuq7h4v] {
     padding: 0.8rem;
     border-radius: 5px;
@@ -265,7 +269,6 @@ body[b-fe6314thq8] {
 body[b-q1iluk83m2] {
 }
 /* _content/Company Site/Pages/User/EmployeeList.razor.rz.scp.css */
-/* _content/Company Site/Pages/User/Finance Components/CollectionEntryAdd.razor.rz.scp.css */
 /* _content/Company Site/Pages/User/Finance Components/CollectionManager.razor.rz.scp.css */
 body[b-e38hubolea] {
 }

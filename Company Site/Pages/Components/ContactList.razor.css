@@ -6,6 +6,10 @@
     height: 100%;
 }
 
+.roundedTextBox{
+    height: 30px;
+}
+
 .contact {
     padding: 0.8rem;
     border-radius: 5px;

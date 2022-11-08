@@ -1,0 +1,202 @@
+﻿@using Company_Site.Pages.Components
+<div class="card">
+    <div class="card-header pb-0">
+        <h5>Distribution</h5>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <form class="form form-theme">
+                        <label for="turstCode">Trust Code</label>
+                        <input id="turstCode" class="form-control mb-2" type="text">
+                        <label for="turstName">Trust Name</label>
+                        <input id="turstName" class="form-control mb-2" type="text">
+                        <label for="turstSetupDate">Trust Setup Date</label>
+                        <input id="turstSetupDate" class="form-control mb-2" type="date">
+                        <label for="turstAge">Trust Age</label>
+                        <input id="turstAge" class="form-control mb-2" type="number">
+                        <br>
+                        <label for="particulars">Particulars</label>
+                        <input id="particulars" class="form-control mb-2" type="number">
+                        <label for="openingBalance">Opening Balance</label>
+                        <input id="openingBalance" class="form-control mb-2" type="number">
+                        <label for="totalPayment">Total Principal payment</label>
+                        <input id="totalPayment" class="form-control mb-2" type="number">
+                        <label for="totalRepayment">Total Interest Repayment</label>
+                        <input id="totalRepayment" class="form-control mb-2" type="number">
+                        <label for="totalBalance">Total Balance</label>
+                        <input id="totalBalance" class="form-control mb-2" type="number">
+                        <br>
+                        <label for="expenses">Expenses</label>
+                        <input id="expenses" class="form-control mb-2" type="number">
+                        <label for="trusteeshipFees">Trusteeship Fees</label>
+                        <input id="trusteeshipFees" class="form-control mb-2" type="number">
+                        <label for="resFees">Resolution Fees</label>
+                        <input id="resFees" class="form-control mb-2" type="number">
+                        <label for="collectionFees">Collection Fees</label>
+                        <input id="collectionFees" class="form-control mb-2" type="number">
+                        <label for="totalOtherExpenses">Total Other Expenses</label>
+                        <input id="totalOtherExpenses" class="form-control mb-2" type="number">
+                        <label for="otherAdjustments">Other Adjustments</label>
+                        <input id="otherAdjustments" class="form-control mb-2" type="number">
+                        <label for="totalExpenses">Total Expenses</label>
+                        <input id="totalExpenses" class="form-control mb-2" type="number">
+                        <label for="balance">Balance</label>
+                        <input id="balance" class="form-control mb-2" type="number">
+                        <label for="gst">GST:30%</label>
+                        <input id="gst" class="form-control mb-2" type="number">
+                        <label for="lessAdvanceTDS">Less: Advance TDS 10%</label>
+                        <input id="lessAdvanceTDS" class="form-control mb-2" type="number">
+                        <label for="amountAvailable">Amount Available</label>
+                        <input id="amountAvailable" class="form-control mb-2" type="number">
+                        <label for="normalDistribution">Normal Distribution</label>
+                        <input id="normalDistribution" class="form-control mb-2" type="number">
+                        <label for="surplusDistribution">Surplus Distribution</label>
+                        <input id="surplusDistribution" class="form-control mb-2" type="number">
+                        <label for="newSRvalue">New SR value</label>
+                        <input id="newSRvalue" class="form-control mb-2" type="number">
+                        <label for="lessProvision">Less: Provision</label>
+                        <input id="lessProvision" class="form-control mb-2" type="number">
+                        <label for="closingBalance">Closing Balance</label>
+                        <input id="closingBalance" class="form-control mb-2" type="number">
+
+                        <label for="trustDesc">Trust description</label>
+                        <textarea id="trustDesc" class="form-control mb-2"></textarea>
+                        <label for="t&c">Terms & Condition</label>
+                        <textarea id="t&c" class="form-control mb-2"></textarea>
+
+                        <div class="d-flex">
+                            <button class="btn btn-primary clear">Clear All</button>
+                            <button class="btn btn-primary">Process</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8">
+                    <h5>SR Details</h5>
+                    <table class="table">
+                        <thead>
+                            <th>SR Holder</th>
+                            <th>Normal</th>
+                            <th>SR Share</th>
+                            <th>Surplus</th>
+                            <th>SR Share</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Issuer</td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                            </tr>
+                            <tr>
+                                <td>Holder</td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td><input type="number" style="width: 80px !important;"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table class="table text-center">
+                        <thead>
+                            <th>Distribution</th>
+                            <th colspan="2">Normal Gross Distribution</th>
+                            <th colspan="2">Surplus Gross Distribution</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SR Holder</td>
+                                <td>SR Value</td>
+                                <td>Amount in Rs.</td>
+                                <td>SR value</td>
+                                <td>Amount in Rs.</td>
+                            </tr>
+                            <tr>
+                                <td>Issuer</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Holder</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>0.00</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>
+                    <table class="table text-center">
+                        <thead>
+                            <th></th>
+                            <th colspan="2">Opening</th>
+                            <th colspan="2">Closing</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>SR Holder</td>
+                                <td>FV SR Value</td>
+                                <td>Distribution Value</td>
+                                <td>FV SR value</td>
+                                <td>Distribution Value</td>
+                            </tr>
+                            <tr>
+                                <td>Issuer</td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                            </tr>
+                            <tr>
+                                <td>Holder</td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                                <td><input style="width: 80px;" type="number"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="my-2">
+                        <CollapsibleContainer>
+
+                        </CollapsibleContainer>
+                    </div>
+
+                    <div class="my-2">
+                        <CollapsibleContainer>
+
+                        </CollapsibleContainer>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

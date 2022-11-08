@@ -1,42 +1,42 @@
 ﻿
+using Company_Site.Base;
+
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class CollectionEntry
+    public class CollectionEntry : BaseModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public string? TrustCode { get; set; }
 
-        [Required]
-        public string TrustCode { get; set; }
+        [Required(ErrorMessage ="Borrower is required")]
+        public int Borrower { get; set; }
 
-        [Required]
-        public string Borrower { get; set; }
+        public string? Trust_Name { get; set; }
 
-        [Required]
-        public string Trust_Name { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = "Borrower is required")]
         public string BorrowerName { get; set; }
 
+        [Required(ErrorMessage ="Credit Amount is required")]
         public double CreditAmount { get; set; }
 
+        [Required(ErrorMessage = "Credit date is required")]
         public DateTime CreditDate { get; set; } = DateTime.Now;
 
+        [Required(ErrorMessage = "Source is required")]
         public string Source { get; set; }
 
+        [Required(ErrorMessage = "Type of recovery is required")]
         public string TypeOfRecovery { get; set; }
 
         public string? KYC { get; set; }
 
-        public string NoneSeller { get; set; }
+        public string? NoneSeller { get; set; }
 
-        public string NoneSellerShare { get; set; }
+        public double NoneSellerShare { get; set; }
 
-        public string? AdjustToward { get; set; }
+        [Required(ErrorMessage =  "Adjust towards is required")]
+        public string AdjustToward { get; set; }
 
         public bool Proportionately { get; set; }
     }

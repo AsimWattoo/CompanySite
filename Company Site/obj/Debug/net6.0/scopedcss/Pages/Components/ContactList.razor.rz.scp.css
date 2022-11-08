@@ -6,6 +6,10 @@ body[b-3xgbuq7h4v] {
     height: 100%;
 }
 
+.roundedTextBox[b-3xgbuq7h4v]{
+    height: 30px;
+}
+
 .contact[b-3xgbuq7h4v] {
     padding: 0.8rem;
     border-radius: 5px;

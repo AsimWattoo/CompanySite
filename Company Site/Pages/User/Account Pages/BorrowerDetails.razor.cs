@@ -26,6 +26,7 @@ namespace Company_Site.Pages.User.Account_Pages
         protected override void Setup()
         {
             _dbSet = _dbContext.BorrowerDetails;
+            BaseHeaders = Headers;
         }
 
         #endregion
@@ -33,16 +34,6 @@ namespace Company_Site.Pages.User.Account_Pages
         #region Public Methods
 
         public int GetId(BorrowerDetail t) => t.Id;
-
-        public List<string> GetTableRows(BorrowerDetail record)
-        {
-            List<string> row = new List<string>();
-            foreach(string k in Headers.Keys)
-            {
-                row.Add(Headers[k](record));
-            }
-            return row;
-        }
 
         public bool SearchItem(BorrowerDetail e)
         {
