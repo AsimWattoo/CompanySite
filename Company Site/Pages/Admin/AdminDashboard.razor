@@ -58,12 +58,12 @@
 		}
 	}
 
-	private Dictionary<string, Func<User, dynamic>> Headers = new Dictionary<string, Func<User, dynamic>>
+	private Dictionary<string, Func<User, string>> Headers = new Dictionary<string, Func<User, string>>
 	{
-			["Id"] = (User user) => user.Id,
+			["Id"] = (User user) => user.Id.ToString(),
 			["First Name"] = (User user) => user.FirstName,
 			["Last Name"] = (User user) => user.LastName,
-			["Date of Joining"] = (User user) => user.DateOfJoining,
+			["Date of Joining"] = (User user) => user.DateOfJoining.ToString("dd/MM/yyyy"),
 			["Email"] = (User user) => user.Email,
 			["Department"] = (User user) => user.Department,
 			["Role"] = (User user) => user.Role,

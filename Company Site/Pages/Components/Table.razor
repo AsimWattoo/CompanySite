@@ -1,4 +1,5 @@
 ﻿@using Company_Site.Data
+@using Company_Site.Data
 @using Company_Site.Enum
 @typeparam T 
 @typeparam T2
@@ -139,7 +140,7 @@
 
 	[Parameter]
 	//public Dictionary<string, Func<List<T>, Sorting, IEnumerable<T>>> Headers { get; set; } = new Dictionary<string, Func<List<T>, Sorting, IEnumerable<T>>>();
-	public Dictionary<string, Func<T, dynamic>> Headers { get; set; } = new Dictionary<string, Func<T, dynamic>>();
+	public Dictionary<string, Func<T, string>> Headers { get; set; } = new Dictionary<string, Func<T, string>>();
 
 	[Parameter]
 	public List<T> Items

@@ -12,13 +12,13 @@ namespace Company_Site.Pages.User.Account_Pages
     {
         #region Public Properties
 
-        public Dictionary<string, Func<BorrowerDetail, dynamic>> Headers { get; set; } = new Dictionary<string, Func<BorrowerDetail, dynamic>>()
+        public Dictionary<string, Func<BorrowerDetail, string>> Headers { get; set; } = new Dictionary<string, Func<BorrowerDetail, string>>()
         {
             ["Name"] = p => p.Name,
             ["Position"] = p => p.Position,
             ["Net_Worth"] = p => p.Net_Worth,
             ["Number of shares held"] = p => p.NumberOfShares.ToString(),
-            ["Percent of share hold"] = p => p.PercentOfShareHeld,
+            ["Percent of share hold"] = p => p.PercentOfShareHeld.ToString(),
             ["Will Full Defaulter"] = p => p.Wilful_Defaulter,
         };
 

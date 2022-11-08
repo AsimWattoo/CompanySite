@@ -10,7 +10,7 @@ namespace Company_Site.Interfaces
 
         List<T> Enteries { get; set; }
 
-        Dictionary<string, Func<T, dynamic>> Headers { get; set; }
+        Dictionary<string, Func<T, string>> Headers { get; set; }
 
         #endregion
 

@@ -15,15 +15,15 @@ namespace Company_Site.Pages.User.Finance_Components
         /// </summary>
         public List<ExpenseEntry> Enteries { get; set; } = new List<ExpenseEntry>();
 
-        public Dictionary<string, Func<ExpenseEntry, dynamic>> Headers { get; set; } = new Dictionary<string, Func<ExpenseEntry, dynamic>>()
+        public Dictionary<string, Func<ExpenseEntry, string>> Headers { get; set; } = new Dictionary<string, Func<ExpenseEntry, string>>()
         {
             ["Trust Code"] = (ExpenseEntry e) => e.TrustCode,
             ["Borrower Code"] = (ExpenseEntry e) => e.Borrower_Code,
             ["Trust Name"] = (ExpenseEntry e) => e.Trust_Name,
-            ["Vendor"] = (ExpenseEntry e) => e.Vendor,
+            ["Vendor"] = (ExpenseEntry e) => e.Vendor.VendorName,
             ["Service"] = (ExpenseEntry e) => e.Service,
-            ["Amount"] = (ExpenseEntry e) => e.BillAmount,
-            ["Payment Date"] = (ExpenseEntry e) => e.PaymentDate,
+            ["Amount"] = (ExpenseEntry e) => e.BillAmount.ToString(),
+            ["Payment Date"] = (ExpenseEntry e) => e.PaymentDate.ToString("dd/MM/yyyy"),
         };
 
         #endregion
@@ -106,7 +106,7 @@ namespace Company_Site.Pages.User.Finance_Components
                 ex.Vendor.Id.ToString(),
                 ex.Service,
                 ex.BillAmount.ToString(),
-                ex.PaymentDate.ToShortDateString()
+                ex.PaymentDate.ToString("dd/MM/yyyy")
             };
         }
 

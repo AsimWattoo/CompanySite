@@ -39,8 +39,8 @@
 
 	private List<Vendor> Vendors { get; set; } = new List<Vendor>();
 
-	private Dictionary<string, Func<Vendor, dynamic>> Headers => new Dictionary<string, Func<Vendor, dynamic>>(){
-		["Id"] = (Vendor v) => v.Id,
+	private Dictionary<string, Func<Vendor, string>> Headers => new Dictionary<string, Func<Vendor, string>>(){
+		["Id"] = (Vendor v) => v.Id.ToString(),
 		["Vendor"] = (Vendor v) => v.VendorName
 	};
 

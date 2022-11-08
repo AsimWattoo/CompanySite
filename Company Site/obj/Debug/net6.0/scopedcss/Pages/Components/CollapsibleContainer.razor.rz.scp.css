@@ -1,0 +1,24 @@
+.accordion-header[b-g7xrgfttpy] {
+    border: 1px solid #DDE9FE;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.accordion-button[b-g7xrgfttpy]{
+	padding: 0px;
+}
+
+.accordion-button:[b-g7xrgfttpy]{
+    border: 0px;
+    outline: none;
+}
+
+.accordion-button:not(.collapsed)[b-g7xrgfttpy]{
+    background-color: white;
+    box-shadow: none !important;
+}
+
+.accordion[b-g7xrgfttpy]{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}

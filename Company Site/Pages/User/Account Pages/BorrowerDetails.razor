@@ -6,104 +6,106 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
 
-<h2>Borrower Details</h2>
+<h2 class="ms-3">Borrower Details</h2>
 
-<div class="mx-2">
-    <EditForm Model="NewEntry" OnValidSubmit="Save">
+<CollapsibleContainer>
+    <div class="mx-2">
+        <EditForm Model="NewEntry" OnValidSubmit="Save">
 
-        <DataAnnotationsValidator/>
+            <DataAnnotationsValidator/>
 
-        <MultiErrorView Errors="_errors"/>
+            <MultiErrorView Errors="_errors"/>
 
-        <div class="row">
-            <div class="col-md-5">
-                <label for="name">Name</label>
-                <InputText @bind-Value=NewEntry.Name id="name" class="form-control" type="text"/>
-                <ValidationMessage For="@(() => NewEntry.Name)"/>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="name">Name</label>
+                    <InputText @bind-Value=NewEntry.Name id="name" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Name)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label for="position">Position</label>
+                    <InputSelect @bind-Value=NewEntry.Position id="position" class="form-select">
+                        <option value="">------ Select Option ------</option>
+                        <option value="directer">Director</option>
+                        <option value="guaranteer">Guaranteer</option>
+                        <option value="promotor">Promotor</option>
+                        <option value="coBorrower">Co-Borrower</option>
+                        <option value="mortgagor">Mortgagor</option>
+                        <option value="shareholder">Shareholder</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => NewEntry.Position)"/>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <label for="position">Position</label>
-                <InputSelect @bind-Value=NewEntry.Position id="position" class="form-select">
-                    <option value="">------ Select Option ------</option>
-                    <option value="directer">Director</option>
-                    <option value="guaranteer">Guaranteer</option>
-                    <option value="promotor">Promotor</option>
-                    <option value="coBorrower">Co-Borrower</option>
-                    <option value="mortgagor">Mortgagor</option>
-                    <option value="shareholder">Shareholder</option>
-                </InputSelect>
-                <ValidationMessage For="@(() => NewEntry.Position)"/>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="mobNum">Mobile</label>
+                    <InputText @bind-Value=NewEntry.Mobile id="mobNum" class="form-control" type="tel"/>
+                    <ValidationMessage For="@(() => NewEntry.Mobile)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="email">Email</label>
+                    <InputText @bind-Value=NewEntry.Email id="email" class="form-control" type="email"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="dob">Date of Birth</label>
+                    <input @bind-value=NewEntry.DOB id="dob" class="form-control" type="date">
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label for="mobNum">Mobile</label>
-                <InputText @bind-Value=NewEntry.Mobile id="mobNum" class="form-control" type="tel"/>
-                <ValidationMessage For="@(() => NewEntry.Mobile)"/>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="pan">PAN</label>
+                    <InputText @bind-Value=NewEntry.PAN id="pan" class="form-control" type="text"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="cin">CIN</label>
+                    <InputText @bind-Value=NewEntry.CIN id="cin" class="form-control" type="text"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="aadhar">Aadhar</label>
+                    <InputText @bind-Value=NewEntry.Aadhar id="aadhar" class="form-control" type="text"/>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="email">Email</label>
-                <InputText @bind-Value=NewEntry.Email id="email" class="form-control" type="email"/>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="wilfulDefaultor">Wilfull Defaultor</label>
+                    <InputSelect @bind-Value=NewEntry.Wilful_Defaulter id="wilfulDefaultor" class="form-select">
+                        <option value="" selected>---- Select Option ----</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </InputSelect>
+                    <label for="asOn1">As On</label>
+                    <input @bind-value=NewEntry.WillFullAsOn id="asOn1" class="form-control" type="date">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="netWorth">Net Worth</label>
+                    <InputText @bind-Value=NewEntry.Net_Worth id="netWorth" class="form-control" type="text"/>
+                    <label for="asOn2">As On</label>
+                    <input @bind-value=NewEntry.NetWorthAsOn id="asOn2" class="form-control" type="date">
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="sharesHeld">No. of Shares held</label>
+                    <InputNumber @bind-Value=NewEntry.NumberOfShares TValue=long id="sharesHeld" class="form-control" type="number"/>
+                    <label for="percentShares">Percent of shares held</label>
+                    <InputNumber @bind-Value=NewEntry.PercentOfShareHeld TValue=double id="percentShares" class="form-control" type="number"/>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="dob">Date of Birth</label>
-                <input @bind-value=NewEntry.DOB id="dob" class="form-control" type="date">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label for="pan">PAN</label>
-                <InputText @bind-Value=NewEntry.PAN id="pan" class="form-control" type="text"/>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="cin">CIN</label>
-                <InputText @bind-Value=NewEntry.CIN id="cin" class="form-control" type="text"/>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="aadhar">Aadhar</label>
-                <InputText @bind-Value=NewEntry.Aadhar id="aadhar" class="form-control" type="text"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label for="wilfulDefaultor">Wilfull Defaultor</label>
-                <InputSelect @bind-Value=NewEntry.Wilful_Defaulter id="wilfulDefaultor" class="form-select">
-                    <option value="" selected>---- Select Option ----</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </InputSelect>
-                <label for="asOn1">As On</label>
-                <input @bind-value=NewEntry.WillFullAsOn id="asOn1" class="form-control" type="date">
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="netWorth">Net Worth</label>
-                <InputText @bind-Value=NewEntry.Net_Worth id="netWorth" class="form-control" type="text"/>
-                <label for="asOn2">As On</label>
-                <input @bind-value=NewEntry.NetWorthAsOn id="asOn2" class="form-control" type="date">
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="sharesHeld">No. of Shares held</label>
-                <InputNumber @bind-Value=NewEntry.NumberOfShares TValue=long id="sharesHeld" class="form-control" type="number"/>
-                <label for="percentShares">Percent of shares held</label>
-                <InputNumber @bind-Value=NewEntry.PercentOfShareHeld TValue=double id="percentShares" class="form-control" type="number"/>
-            </div>
-        </div>
-        <label for="addDetails">Additional Details</label>
-        <InputTextArea @bind-Value=NewEntry.Additional_Details id="addDetails" class="form-control"></InputTextArea>
-        <label for="address">Address</label>
-        <InputTextArea @bind-Value=NewEntry.Address id="address" class="form-control"></InputTextArea>
-        <p class="d-flex align-items-center justify-content-center mt-3 text-center">
-            <a class="btn btn-danger px-3 py-2 me-2">Clear</a>
-            <input class="btn btn-primary" type="submit" value="@(ShouldAdd ? "Add" : "Save")"/>
-        </p>
-    </EditForm>
-</div>
+            <label for="addDetails">Additional Details</label>
+            <InputTextArea @bind-Value=NewEntry.Additional_Details id="addDetails" class="form-control"></InputTextArea>
+            <label for="address">Address</label>
+            <InputTextArea @bind-Value=NewEntry.Address id="address" class="form-control"></InputTextArea>
+            <p class="d-flex align-items-center justify-content-center mt-3 text-center">
+                <a class="btn btn-danger me-2" @onclick="Clear">Clear</a>
+                <input class="btn btn-primary" type="submit" value="@(ShouldAdd ? "Add" : "Save")"/>
+            </p>
+        </EditForm>
+    </div>
+</CollapsibleContainer>
 
 <Table T="BorrowerDetail" T2="int" ShowSerialNumber=true Items="@Enteries" GetTableRows="@GetTableRows" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>

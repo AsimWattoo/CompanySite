@@ -14,14 +14,14 @@ namespace Company_Site.Pages.User.Finance_Components
         /// </summary>
         private List<CollectionEntry> Enteries { get; set; } = new List<CollectionEntry>();
 
-        private Dictionary<string, Func<CollectionEntry, dynamic>> Headers { get; set; } = new Dictionary<string, Func<CollectionEntry, dynamic>>()
+        private Dictionary<string, Func<CollectionEntry, string>> Headers { get; set; } = new Dictionary<string, Func<CollectionEntry, string>>()
         {
             ["Trust Code"] = (CollectionEntry e) => e.TrustCode,
             ["Borrower"] = (CollectionEntry e) => e.Borrower,
             ["Trust Name"] = (CollectionEntry e) => e.Trust_Name,
             ["Borrower Name"] = (CollectionEntry e) => e.BorrowerName,
-            ["Amount"] = (CollectionEntry e) => e.CreditAmount,
-            ["Credit Date"] = (CollectionEntry e) => e.CreditDate,
+            ["Amount"] = (CollectionEntry e) => e.CreditAmount.ToString(),
+            ["Credit Date"] = (CollectionEntry e) => e.CreditDate.ToString("dd/MM/yyyy"),
             ["Source"] = (CollectionEntry e) => e.Source,
         };
 

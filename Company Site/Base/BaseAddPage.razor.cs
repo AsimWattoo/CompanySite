@@ -60,6 +60,7 @@ namespace Company_Site.Base
                 _dbSet.Update(NewEntry);
             _dbContext.SaveChanges();
             NewEntry = new T();
+            Enteries = _dbSet.ToList();
             ShouldAdd = true;
 		}
 
@@ -67,12 +68,14 @@ namespace Company_Site.Base
         {
             ShouldAdd = false;
             NewEntry = _dbSet.Where(t => t.Id == id).First();
+            StateHasChanged();
         }
 
         protected void Clear()
 		{
 			NewEntry = new T();
             ShouldAdd = false;
+            StateHasChanged();
 		}
 
         public virtual List<T> DeleteRecord(int id)

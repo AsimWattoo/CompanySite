@@ -75,7 +75,7 @@
 
 	public List<Memo> DisplayedMemos { get; set; }
 
-	public Dictionary<string, Func<Memo, dynamic>> Headers { get; set; } = new Dictionary<string, Func<Memo, dynamic>>
+	public Dictionary<string, Func<Memo, string>> Headers { get; set; } = new Dictionary<string, Func<Memo, string>>
 	{
 		["Memo Number"] = (Memo memo) => memo.MemoNumber,
 		["Case Name"] = (Memo memo) => memo.CaseName,
@@ -83,8 +83,8 @@
 		["Type"] = (Memo memo) => memo.Type,
 		["Department"] = (Memo memo) => memo.Department,
 		["Vendor"] = (Memo memo) => memo.Vendor,
-		["Amount"] = (Memo memo) => memo.Amount,
-		["Status"] = (Memo memo) => memo.MemoStatus,
+		["Amount"] = (Memo memo) => memo.Amount.ToString(),
+		["Status"] = (Memo memo) => memo.MemoStatus.ToString(),
 	};
 
 	protected override void OnInitialized()

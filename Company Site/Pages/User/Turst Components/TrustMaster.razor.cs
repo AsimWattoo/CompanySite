@@ -9,11 +9,11 @@ namespace Company_Site.Pages.User.Turst_Components
     {
         #region Private Members
 
-        public Dictionary<string, Func<Trust, dynamic>> Headers { get; set; } = new Dictionary<string, Func<Trust, dynamic>>()
+        public Dictionary<string, Func<Trust, string>> Headers { get; set; } = new Dictionary<string, Func<Trust, string>>()
         {
             ["Trust Date"] = (Trust e) => e.TrustSetupDate.ToString("dd/mm/yyyy"),
             ["SR Holder"] = (Trust e) => e.SRHolder,
-            ["Ratio"] = (Trust e) => e.Ratio,
+            ["Ratio"] = (Trust e) => e.Ratio.ToString(),
             ["Upside"] = (Trust e) => e.IssuerUpsideShare.ToString(),
             ["Setup Date"] = (Trust e) => e.SetupDate.ToString("dd/mm/yyyy"),
             ["SR Issued"] = (Trust e) => e.SRIssued.ToString(),
@@ -60,11 +60,11 @@ namespace Company_Site.Pages.User.Turst_Components
         {
             return new List<string>()
             {
-                t.TrustSetupDate.ToString("dd/mm/yyyy"),
+                t.TrustSetupDate.ToString("dd/MM/yyyy"),
                 t.SRHolder,
                 Math.Round(t.Ratio, 2).ToString(),
                 t.IssuerUpsideShare.ToString(),
-                t.SetupDate.ToString("dd/mm/yyyy"),
+                t.SetupDate.ToString("dd/MM/yyyy"),
                 t.SRIssued.ToString(),
                 t.SROs,
                 t.TrustAge.ToString(),
