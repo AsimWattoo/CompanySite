@@ -3,6 +3,7 @@ using Company_Site.DB;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Company_Site.Base
 {
@@ -10,19 +11,23 @@ namespace Company_Site.Base
 		where T: BaseModel, new()
 	{
 
-		#region Protected Properties
+        #region Protected Properties
 
-		protected bool IsAddMode { get; set; } = true;
+        public List<T> Enteries { get; set; } = new List<T>();
 
 		protected T NewEntry { get; set; } = new T();
 
 		protected List<string> _errors = new List<string>();
 
-		#endregion
+		protected DbSet<T> _dbSet { get; set; }
 
-		#region Injected Members
+        protected bool ShouldAdd { get; set; } = true;
 
-		[Inject]
+        #endregion
+
+        #region Injected Members
+
+        [Inject]
 		protected ApplicationDbContext _dbContext { get; set; }
 
 		[Inject]
@@ -31,41 +36,14 @@ namespace Company_Site.Base
 		[Inject]
 		protected NavigationManager _navigationManager { get; set; }
 
-		#endregion
+        #endregion
 
-		#region Protected Members
+        #region Overriden Methods
 
-		protected string PageModeKey { get; set; } = string.Empty;
-
-		protected string IdKey { get; set; } = string.Empty;
-
-		protected string ReturnUrl { get; set; } = string.Empty;
-
-		protected Func<List<T>>? Records { get; set; } = null;
-
-		protected Func<T, bool, bool>? Save { get; set; } = null;
-
-		#endregion
-
-		#region Overriden Methods
-
-		protected override async void OnInitialized()
+        protected override async void OnInitialized()
         {
 			Setup();
-            ProtectedBrowserStorageResult<string> pageModeResult = await _storage.GetAsync<string>(PageModeKey);
-            if (pageModeResult.Success)
-            {
-                if (pageModeResult.Value == "edit")
-                {
-                    IsAddMode = false;
-                    ProtectedBrowserStorageResult<int> idRes = await _storage.GetAsync<int>(IdKey);
-                    if (idRes.Success && Records != null)
-                    {
-                        NewEntry = Records().Where(r => r.Id == idRes.Value).First();
-                        StateHasChanged();
-                    }
-                }
-            }
+            Enteries = _dbSet.ToList();
         }
 
 		#endregion
@@ -74,26 +52,36 @@ namespace Company_Site.Base
 
 		protected virtual void Setup(){}
 
-		protected void Add()
+		protected virtual void Save()
 		{
-			if (Save != null)
-			{
-				if (!Save(NewEntry, IsAddMode))
-					return;
-				_dbContext.SaveChanges();
-				_navigationManager.NavigateTo(ReturnUrl);
-            }
+            if (ShouldAdd)
+                _dbSet.Add(NewEntry);
+            else
+                _dbSet.Update(NewEntry);
+            _dbContext.SaveChanges();
+            NewEntry = new T();
+            ShouldAdd = true;
 		}
 
-        protected void Cancel()
+        public virtual void EditRecord(int id)
         {
-			_navigationManager.NavigateTo(ReturnUrl);
+            ShouldAdd = false;
+            NewEntry = _dbSet.Where(t => t.Id == id).First();
         }
 
-		protected void Clear()
+        protected void Clear()
 		{
 			NewEntry = new T();
+            ShouldAdd = false;
 		}
+
+        public virtual List<T> DeleteRecord(int id)
+        {
+            _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
+            _dbContext.SaveChanges();
+            Enteries = _dbSet.ToList();
+            return Enteries;
+        }
 
         #endregion
 

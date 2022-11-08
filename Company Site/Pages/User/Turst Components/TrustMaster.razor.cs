@@ -1,21 +1,13 @@
-﻿using Company_Site.Data;
-using Company_Site.DB;
+﻿using Company_Site.Base;
+using Company_Site.Data;
 using Company_Site.Interfaces;
-
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Company_Site.Pages.User.Turst_Components
 {
 
-    public partial class TrustMaster : ComponentBase, ITable<Trust, int>
+    public partial class TrustMaster : BaseAddPage<Trust>, ITable<Trust, int>
     {
         #region Private Members
-
-        /// <summary>
-        /// The expenses to be shown
-        /// </summary>
-        public List<Trust> Enteries { get; set; } = new List<Trust>();
 
         public Dictionary<string, Func<Trust, dynamic>> Headers { get; set; } = new Dictionary<string, Func<Trust, dynamic>>()
         {
@@ -33,41 +25,11 @@ namespace Company_Site.Pages.User.Turst_Components
 
         #endregion
 
-        #region Injected Members
-
-        [Inject]
-        private ProtectedSessionStorage _sessionStorage { get; set; }
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
-        [Inject]
-        private ApplicationDbContext _dbContext { get; set; }
-
-        #endregion
-
         #region Overriden Methods
 
-        /// <summary>
-        /// After the component is initialized
-        /// </summary>
-        protected override void OnInitialized()
+        protected override void Setup()
         {
-            base.OnInitialized();
-            Enteries = _dbContext.Trusts.ToList();
-        }
-
-        #endregion
-
-        #region Private Methods
-
-        /// <summary>
-        /// Navigates to the add page
-        /// </summary>
-        private void GoToAddPage()
-        {
-            _sessionStorage.SetAsync("TrustPageMode", "add");
-            _navigationManager.NavigateTo("/trustmaster/add");
+            _dbSet = _dbContext.Trusts;
         }
 
         /// <summary>
@@ -76,30 +38,6 @@ namespace Company_Site.Pages.User.Turst_Components
         /// <param name="e"></param>
         /// <returns></returns>
         public int GetId(Trust e) => e.Id;
-
-        /// <summary>
-        /// Deletes the expense entry
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public List<Trust> DeleteRecord(int id)
-        {
-            _dbContext.Trusts.Remove(_dbContext.Trusts.Where(t => t.Id == id).First());
-            _dbContext.SaveChanges();
-            Enteries = _dbContext.Trusts.ToList();
-            return Enteries;
-        }
-
-        /// <summary>
-        /// Edits the record
-        /// </summary>
-        /// <param name="id"></param>
-        public void EditRecord(int id)
-        {
-            _sessionStorage.SetAsync("TrustPageMode", "edit");
-            _sessionStorage.SetAsync("TrustId", id);
-            _navigationManager.NavigateTo("/trustmaster/add");
-        }
 
         /// <summary>
         /// Searches the records

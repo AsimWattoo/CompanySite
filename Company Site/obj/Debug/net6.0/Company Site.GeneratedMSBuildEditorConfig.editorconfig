@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xBY2Nlc3NDaGVja2VyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/CollapsibleContainer.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xDb2xsYXBzaWJsZUNvbnRhaW5lci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/ErrorView.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xFcnJvclZpZXcucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -96,10 +100,6 @@ build_metadata.AdditionalFiles.CssScope = b-ppg6o38ab6
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEJvcnJvd2VyRGV0YWlscy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-fe6314thq8
 
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/BorrowerDetailsAdd.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEJvcnJvd2VyRGV0YWlsc0FkZC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = b-uo88kqytg4
-
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/AccountManagement.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50TWFuYWdlbWVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-f2jt9za03w
@@ -151,10 +151,6 @@ build_metadata.AdditionalFiles.CssScope = b-jr6ue2ld43
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Turst Components/TrustMaster.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxUdXJzdCBDb21wb25lbnRzXFRydXN0TWFzdGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-im6x3mqqsp
-
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Turst Components/TrustMasterAdd.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxUdXJzdCBDb21wb25lbnRzXFRydXN0TWFzdGVyQWRkLnJhem9y
-build_metadata.AdditionalFiles.CssScope = b-uv8btyzvub
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Shared/AdminLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFkbWluTGF5b3V0LnJhem9y

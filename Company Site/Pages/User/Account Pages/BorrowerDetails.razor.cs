@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class BorrowerDetails : BasePage<BorrowerDetail>, ITable<BorrowerDetail, int>
+    public partial class BorrowerDetails : BaseAddPage<BorrowerDetail>, ITable<BorrowerDetail, int>
     {
         #region Public Properties
 
@@ -28,25 +28,24 @@ namespace Company_Site.Pages.User.Account_Pages
 
         protected override void Setup()
         {
-            Enteries = _dbContext.BorrowerDetails.ToList();
-            PageModeKey = "BorrowerPageMode";
-            IdKey = "BorrowerId";
-            AddPageUrl = "/borrowerdetails/add";
+            _dbSet = _dbContext.BorrowerDetails;
         }
 
         #endregion
 
         #region Public Methods
 
-        public List<BorrowerDetail> DeleteRecord(int id)
-        {
-            _dbContext.BorrowerDetails.Remove(_dbContext.BorrowerDetails.Where(f => f.Id == id).First());
-            _dbContext.SaveChanges();
-            Enteries = _dbContext.BorrowerDetails.ToList();
-            return Enteries;
-        }
-
         public int GetId(BorrowerDetail t) => t.Id;
+
+        public List<string> GetTableRows(BorrowerDetail record)
+        {
+            List<string> row = new List<string>();
+            foreach(string k in Headers.Keys)
+            {
+                row.Add(Headers[k](record));
+            }
+            return row;
+        }
 
         public bool SearchItem(BorrowerDetail e)
         {
