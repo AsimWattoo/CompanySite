@@ -1,4 +1,5 @@
-﻿using Company_Site.Data;
+﻿using Company_Site.Base;
+using Company_Site.Data;
 using Company_Site.Interfaces;
 
 using Microsoft.AspNetCore.Components;
@@ -6,14 +7,9 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Company_Site.Pages.User.Finance_Components
 {
-    public partial class ExpenseManager : ComponentBase, ITable<ExpenseEntry, int>
+    public partial class ExpenseManager : BaseAddPage<ExpenseEntry>, ITable<ExpenseEntry, int>
     {
         #region Private Members
-
-        /// <summary>
-        /// The expenses to be shown
-        /// </summary>
-        public List<ExpenseEntry> Enteries { get; set; } = new List<ExpenseEntry>();
 
         public Dictionary<string, Func<ExpenseEntry, string>> Headers { get; set; } = new Dictionary<string, Func<ExpenseEntry, string>>()
         {
@@ -28,27 +24,16 @@ namespace Company_Site.Pages.User.Finance_Components
 
         #endregion
 
-        #region Injected Members
+        #region Overriden Methods
 
-        [Inject]
-        private ProtectedSessionStorage _sessionStorage { get; set; }
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
+        protected override void Setup()
+        {
+            _dbSet = _dbContext.Expenses;
+        }
 
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Navigates to the add page
-        /// </summary>
-        private void GoToAddPage()
-        {
-            _sessionStorage.SetAsync("ExpensePageMode", "add");
-            _navigationManager.NavigateTo("/finance/expense/modify");
-        }
 
         /// <summary>
         /// Gets the expense id
@@ -56,28 +41,6 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <param name="e"></param>
         /// <returns></returns>
         public int GetId(ExpenseEntry e) => e.Id;
-
-        /// <summary>
-        /// Deletes the expense entry
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public List<ExpenseEntry> DeleteRecord(int id)
-        {
-            Enteries.Remove(Enteries.Where(f => f.Id == id).First());
-            return Enteries;
-        }
-
-        /// <summary>
-        /// Edits the record
-        /// </summary>
-        /// <param name="id"></param>
-        public void EditRecord(int id)
-        {
-            _sessionStorage.SetAsync("ExpensePageMode", "edit");
-            _sessionStorage.SetAsync("ExpenseId", id);
-            _navigationManager.NavigateTo("/finance/expense/modify");
-        }
 
         /// <summary>
         /// Searches the records
@@ -89,25 +52,6 @@ namespace Company_Site.Pages.User.Finance_Components
         {
             text = text.ToLower();
             return expenseEnteries.Where(e => e.TrustCode.Equals(text) || e.Borrower_Code.Equals(text) || e.Trust_Name.Equals(text) || e.Service.Equals(text)).ToList();
-        }
-
-        /// <summary>
-        /// Specifies each table row
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
-        public List<string> GetTableRows (ExpenseEntry ex)
-        {
-            return new List<string>()
-            {
-                ex.TrustCode,
-                ex.Borrower_Code,
-                ex.Trust_Name,
-                ex.Vendor.Id.ToString(),
-                ex.Service,
-                ex.BillAmount.ToString(),
-                ex.PaymentDate.ToString("dd/MM/yyyy")
-            };
         }
 
         #endregion

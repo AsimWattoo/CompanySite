@@ -2,15 +2,12 @@
 
 using Key = System.ComponentModel.DataAnnotations.KeyAttribute;
 using System.ComponentModel.DataAnnotations.Schema;
+using Company_Site.Base;
 
 namespace Company_Site.Data
 {
-    public class ExpenseEntry
+    public class ExpenseEntry : BaseModel
     {
-
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
 
         [Required]
         public string TrustCode { get; set; }
