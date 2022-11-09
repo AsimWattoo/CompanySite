@@ -8509,6 +8509,10 @@
       "PackagePath": "staticwebassets\\img\\profile.jpg"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-Borrower-Details.png",
+      "PackagePath": "staticwebassets\\img\\profile\\Profile-1-Borrower-Details.png"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-Current.png",
       "PackagePath": "staticwebassets\\img\\profile\\Profile-1-Current.png"
     },

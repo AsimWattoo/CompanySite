@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7K4R/6FLjYfhtrr/nvg7rLm/h2j8L/6cUdSBDM7JA7I=",
+  "Hash": "mTjcDr3nuGWIZ72rYv/4r0M5EQ7V+UAmqSuiaWEAHfk=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -37245,6 +37245,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\profile.jpg"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-Borrower-Details.png",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "img/profile/Profile-1-Borrower-Details.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\profile\\Profile-1-Borrower-Details.png"
     },
     {
       "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\img\\profile\\Profile-1-colgate.png",
