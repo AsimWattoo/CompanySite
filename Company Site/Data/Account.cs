@@ -15,7 +15,7 @@ namespace Company_Site.Data
         public string TrustCode { get; set; }
 
         [Required(ErrorMessage = "Borrower code is required")]
-        public string BorrowerCode { get; set; }
+        public int BorrowerCode { get; set; }
 
         public string? Officers { get; set; }
 

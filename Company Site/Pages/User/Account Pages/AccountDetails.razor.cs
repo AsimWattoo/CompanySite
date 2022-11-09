@@ -54,11 +54,12 @@ namespace Company_Site.Pages.User.Account_Pages
                 Details.UserId = UserId.Value;
                 Details.Creator_Name = $"{user.FirstName} {user.LastName}";
                 Details.CreationDate = DateTime.Now;
+                Details.BorrowerCode = 1;
 
                 //If db context contains any account recortd
                 if (_dbContext.Accounts.Any())
                 {
-                    //TODO: Generate Borrower Code
+                    Details.BorrowerCode = _dbContext.Accounts.OrderBy(a => a.BorrowerCode).First().BorrowerCode + 1;
                 }
             }
         }
