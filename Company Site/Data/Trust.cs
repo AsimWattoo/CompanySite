@@ -91,23 +91,41 @@ namespace Company_Site.Data
         [NotMapped]
         public double TrustAge => Math.Round((DateTime.Now - TrustSetupDate).TotalDays / 365, 2);
 
-        public double Year1 { get; set; }
+        public double T_Year1 { get; set; }
 
-        public double Year2 { get; set; }
+        public double T_Year2 { get; set; }
 
-        public double Year3 { get; set; }
+        public double T_Year3 { get; set; }
 
-        public double Year4 { get; set; }
+        public double T_Year4 { get; set; }
         
-        public double Year5 { get; set; }
+        public double T_Year5 { get; set; }
 
-        public double Year6 { get; set; }
+        public double T_Year6 { get; set; }
 
-        public double Year7 { get; set; }
+        public double T_Year7 { get; set; }
 
-        public double Year8 { get; set;}
+        public double T_Year8 { get; set;}
 
-        public double Year9 { get; set; }
+        public double T_Year9 { get; set; }
+
+        public double R_Year1 { get; set; }
+
+        public double R_Year2 { get; set; }
+
+        public double R_Year3 { get; set; }
+
+        public double R_Year4 { get; set; }
+
+        public double R_Year5 { get; set; }
+
+        public double R_Year6 { get; set; }
+
+        public double R_Year7 { get; set; }
+
+        public double R_Year8 { get; set; }
+
+        public double R_Year9 { get; set; }
 
         public string? PanCard { get; set; }
     }

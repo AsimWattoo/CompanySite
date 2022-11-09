@@ -32,6 +32,20 @@ namespace Company_Site.Pages.User.Turst_Components
             _dbSet = _dbContext.Trusts;
         }
 
+        #endregion
+
+        #region Public Methods
+
+        public void ClearTrusteeshipFee()
+        {
+            NewEntry.T_Year1 = NewEntry.T_Year2 = NewEntry.T_Year3 = NewEntry.T_Year4 = NewEntry.T_Year5 = NewEntry.T_Year6 = NewEntry.T_Year7 = NewEntry.T_Year8 = NewEntry.T_Year9 = 0;
+        }
+
+        public void ClearResolutionFee()
+        {
+            NewEntry.R_Year1 = NewEntry.R_Year2 = NewEntry.R_Year3 = NewEntry.R_Year4 = NewEntry.R_Year5 = NewEntry.R_Year6 = NewEntry.R_Year7 = NewEntry.R_Year8 = NewEntry.R_Year9 = 0;
+        }
+
         /// <summary>
         /// Gets the expense id
         /// </summary>

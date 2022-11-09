@@ -156,47 +156,95 @@
                 </InputSelect>
             </div>
         </div>
+
+        <!--Trusteeship Fee Section-->
         <div class="row my-2">
+            <h5>Trusteeship Fee</h5>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year1">Year 1</label>
-                <InputNumber @bind-Value=NewEntry.Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year2">Year 2</label>
-                <InputNumber @bind-Value=NewEntry.Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
-                <label for="year3">Year 3</label>
-                <InputNumber @bind-Value=NewEntry.Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
+                <label for="F3">Year 3</label>
+                <InputNumber @bind-Value=NewEntry.T_Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year4">Year 4</label>
-                <InputNumber @bind-Value=NewEntry.Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year5">Year 5</label>
-                <InputNumber @bind-Value=NewEntry.Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year6">Year 6</label>
-                <InputNumber @bind-Value=NewEntry.Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year7">Year 7</label>
-                <InputNumber @bind-Value=NewEntry.Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year8">Year 8</label>
-                <InputNumber @bind-Value=NewEntry.Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
                 <label for="year9">Year 9+</label>
-                <InputNumber @bind-Value=NewEntry.Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
+                <InputNumber @bind-Value=NewEntry.T_Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
             </div>
             <div class="col-md-1 col-sm-2 col-6">
-                <button class="btn btn-primary mt-4 clear1">Clear</button>
+                <a class="btn btn-primary mt-4 clear1" @onclick=ClearTrusteeshipFee>Clear</a>
             </div>
         </div>
+
+        <!--Resolution Fee Section-->
+        <div class="row my-2">
+            <h5>Resolution Fee</h5>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year1">Year 1</label>
+                <InputNumber @bind-Value=NewEntry.R_Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year2">Year 2</label>
+                <InputNumber @bind-Value=NewEntry.R_Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="F3">Year 3</label>
+                <InputNumber @bind-Value=NewEntry.R_Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year4">Year 4</label>
+                <InputNumber @bind-Value=NewEntry.R_Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year5">Year 5</label>
+                <InputNumber @bind-Value=NewEntry.R_Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year6">Year 6</label>
+                <InputNumber @bind-Value=NewEntry.R_Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year7">Year 7</label>
+                <InputNumber @bind-Value=NewEntry.R_Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year8">Year 8</label>
+                <InputNumber @bind-Value=NewEntry.R_Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <label for="year9">Year 9+</label>
+                <InputNumber @bind-Value=NewEntry.R_Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
+            </div>
+            <div class="col-md-1 col-sm-2 col-6">
+                <a class="btn btn-primary mt-4 clear1" @onclick=ClearResolutionFee>Clear</a>
+            </div>
+        </div>
+
         <div class="row my-3">
             <div class="col-md-6">
                 <label for="trustDesc">Trust Description</label>
