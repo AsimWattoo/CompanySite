@@ -26,7 +26,6 @@ namespace Company_Site.Pages.User.Account_Pages
         protected override void Setup()
         {
             _dbSet = _dbContext.BorrowerDetails;
-            BaseHeaders = Headers;
         }
 
         #endregion

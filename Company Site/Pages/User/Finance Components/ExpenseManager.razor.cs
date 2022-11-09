@@ -2,9 +2,6 @@
 using Company_Site.Data;
 using Company_Site.Interfaces;
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-
 namespace Company_Site.Pages.User.Finance_Components
 {
     public partial class ExpenseManager : BaseAddPage<ExpenseEntry>, ITable<ExpenseEntry, int>

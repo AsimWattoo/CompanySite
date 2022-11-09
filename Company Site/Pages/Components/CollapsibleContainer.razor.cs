@@ -13,6 +13,9 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public RenderFragment ChildContent { get; set; }
 
+        [Parameter]
+        public int Id { get; set; } = 0;
+
         #endregion
 
     }

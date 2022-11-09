@@ -1,4 +1,4 @@
-﻿using Company_Site.Base;
+using Company_Site.Base;
 using Company_Site.Data;
 using Company_Site.Interfaces;
 
@@ -6,36 +6,48 @@ namespace Company_Site.Pages.User.Account_Pages
 {
     public partial class DebtProfile : BaseAddPage<DebtProfileModel>, ITable<DebtProfileModel, int>
     {
+        
+        #region Public Properties
+
+        public Dictionary<string, Func<DebtProfileModel, string>> Headers { get; set; } = new Dictionary<string, Func<DebtProfileModel, string>>()
+        {
+            ["Lender Name"] = p => p.LenderName,
+            ["Facility"] = p => p.Facility,
+            ["Account_No"] = p => p.AccountNumber.ToString(),
+            ["POS"] = p => p.POS.ToString(),
+            ["TOS"] = p => p.TOS.ToString(),
+            ["Interest_Rate"] = p => p.Res_InterestRate.ToString(),
+        };
+
+        #endregion
+
+        #region Overriden Methods
+
         protected override void Setup()
         {
             _dbSet = _dbContext.DebtProfiles;
         }
 
-        public Dictionary<string, Func<DebtProfileModel, string>> Headers { get; set; } = new Dictionary<string, Func<DebtProfileModel, string>>()
-        {
-            ["Lender Name"] = p => p.Lender_Name,
-            ["Facility"] = p => p.Facilty,
-            ["Account Number"] = p => p.Account_Number,
-            ["Lender Name"] = p => p.POS_As_on.ToString("dd/MM/yyyy"),
-            ["Lender Name"] = p => p.Lender_Name,
-        };
+        #endregion
 
-        public int GetId(DebtProfileModel t)
+        #region Public Methods
+
+        public int GetId(DebtProfileModel t) => t.Id;
+
+        public bool SearchItem(DebtProfileModel e)
         {
-            return t.Id;
+            return e.LenderName.Contains(_text) || e.Facility.Contains(_text) || e.AccountNumber.ToString().Contains(_text) || e.POS.ToString().Contains(_text) || e.Res_InterestRate.ToString().Contains(_text);
         }
 
-        private bool _searchItem(DebtProfileModel d)
-        {
-            return d.Lender_Name.Contains(_text) || d.Facilty.Contains(_text);
-        }
-
-        private string _text { get; set; }
+        private string _text;
 
         public List<DebtProfileModel> Search(List<DebtProfileModel> enteries, string text)
         {
             _text = text;
-            return enteries.Where(_searchItem).ToList();
+            return enteries.Where(SearchItem).ToList();
         }
+
+        #endregion
+    
     }
 }

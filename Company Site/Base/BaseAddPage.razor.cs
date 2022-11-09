@@ -23,8 +23,6 @@ namespace Company_Site.Base
 
         protected bool ShouldAdd { get; set; } = true;
 
-        protected Dictionary<string, Func<T, string>> BaseHeaders { get; set; } = new Dictionary<string, Func<T, string>>();
-
         #endregion
 
         #region Injected Members

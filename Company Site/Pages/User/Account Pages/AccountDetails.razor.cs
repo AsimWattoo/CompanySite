@@ -29,12 +29,6 @@ namespace Company_Site.Pages.User.Account_Pages
         #region Injected Members
 
         [Inject]
-        private ProtectedSessionStorage _storage { get; set; }
-
-        [Inject]
-        private NavigationManager _navigationManager { get; set; }
-
-        [Inject]
         private ApplicationDbContext _dbContext { get; set; }
 
         #endregion
@@ -60,6 +54,12 @@ namespace Company_Site.Pages.User.Account_Pages
                 Details.UserId = UserId.Value;
                 Details.Creator_Name = $"{user.FirstName} {user.LastName}";
                 Details.CreationDate = DateTime.Now;
+
+                //If db context contains any account recortd
+                if (_dbContext.Accounts.Any())
+                {
+                    //TODO: Generate Borrower Code
+                }
             }
         }
 

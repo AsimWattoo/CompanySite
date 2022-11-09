@@ -34,8 +34,6 @@ namespace Company_Site.Pages.User.Finance_Components
         protected override void Setup()
         {
             _dbSet = _dbContext.Collections;
-            BaseHeaders = Headers;
-            Borrowers = _dbContext.BorrowerDetails.ToList();
         }
 
         #endregion
