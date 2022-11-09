@@ -48,6 +48,10 @@ namespace Company_Site.DB
 
 		public DbSet<DocumentsListsModel> DocumentLists { get; set; }
 
+		public DbSet<StatementOfAccountModel> AccountStatements { get; set; }
+
+		public DbSet<DebtProfileModel> DebtProfiles { get; set; }
+
 		#endregion
 
 		#region Constructor
