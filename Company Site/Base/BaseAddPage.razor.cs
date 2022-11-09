@@ -98,16 +98,6 @@ namespace Company_Site.Base
             return Enteries;
         }
 
-        public List<string> GetTableRows(T record)
-        {
-            List<string> row = new List<string>();
-            foreach (string k in BaseHeaders.Keys)
-            {
-                row.Add(BaseHeaders[k](record));
-            }
-            return row;
-        }
-
         #endregion
 
     }

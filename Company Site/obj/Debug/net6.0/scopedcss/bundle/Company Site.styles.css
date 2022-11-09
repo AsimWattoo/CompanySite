@@ -421,6 +421,28 @@ fieldset legend[b-jr6ue2ld43]{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 10px;
 }
+/* _content/Company Site/Pages/User/StatementOfAccount.razor.rz.scp.css */
+p[b-xwwcr866nd]{
+	margin-bottom: 0px;
+}
+
+.table[b-xwwcr866nd]{
+	width: 100%;
+	height: 200px;
+	border: 0px solid black;
+}
+
+fieldset[b-xwwcr866nd]{
+	border-radius: 10px;
+}
+
+legend[b-xwwcr866nd]{
+	position: relative;
+	top: -28px;
+	left: 10px;
+	background-color: white;
+	width: 70px;
+}
 /* _content/Company Site/Pages/User/Turst Components/TrustMaster.razor.rz.scp.css */
 body[b-im6x3mqqsp] {
 }

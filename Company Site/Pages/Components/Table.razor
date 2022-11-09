@@ -25,29 +25,32 @@
 	</div>
 
 	<!--Table Header-->
-	<EditForm Model="SearchModel" Context="searchBar">
+	@if (IsSearchable)
+	{
+		<EditForm Model="SearchModel" Context="searchBar">
 
-		<div class="row">
-			<div class="col-xl-2 col-lg-3 col-md-5 col-sm-6 col-12 fs">
-				Show 
-				<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
-					<option value="10">10</option>
-					<option value="20">20</option>
-					<option value="30">30</option>
-					<option value="50">50</option>
-				</select>
-				enteries
-			</div>
-			<div class="col-xl-10 col-lg-9 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end">
-				<div class="fs">
-					<label for="searchBox">Search</label>
-					<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
-					<a class="btn btn-outline-primary mx-1 btn-search" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
+			<div class="row">
+				<div class="col-xl-2 col-lg-3 col-md-5 col-sm-6 col-12 fs">
+					Show 
+					<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
+						<option value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="50">50</option>
+					</select>
+					enteries
+				</div>
+				<div class="col-xl-10 col-lg-9 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end">
+					<div class="fs">
+						<label for="searchBox">Search</label>
+						<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
+						<a class="btn btn-outline-primary mx-1 btn-search" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
+					</div>
 				</div>
 			</div>
-		</div>
 
-	</EditForm>
+		</EditForm>
+	}
 
 	<!--Table-->
 	<div class="mt-3 table-wrapper">
@@ -133,10 +136,13 @@
 @code {
 
 	[Parameter]
-	public Func<T, List<string>> GetTableRows { get; set; }
-
-	[Parameter]
 	public Func<T, T2> GetId { get; set; }
+
+	/// <summary>
+	/// Indicates whether the table is searchable or not
+	/// </summary>
+	[Parameter]
+	public bool IsSearchable { get; set; } = true;
 
 	[Parameter]
 	//public Dictionary<string, Func<List<T>, Sorting, IEnumerable<T>>> Headers { get; set; } = new Dictionary<string, Func<List<T>, Sorting, IEnumerable<T>>>();
@@ -201,6 +207,16 @@
 				return pages;
 			}
 		}
+	}
+
+	private List<string> GetTableRows(T record)
+	{
+		List<string> row = new List<string>();
+		foreach (string k in Headers.Keys)
+		{
+			row.Add(Headers[k](record));
+		}
+		return row;
 	}
 
 	private int _CurrentPage { get; set; } = 1;

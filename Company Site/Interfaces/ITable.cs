@@ -44,13 +44,6 @@ namespace Company_Site.Interfaces
         /// <returns></returns>
         List<T> Search(List<T> enteries, string text);
 
-        /// <summary>
-        /// Specifies each table row
-        /// </summary>
-        /// <param name="ex"></param>
-        /// <returns></returns>
-        List<string> GetTableRows(T record);
-
         #endregion
 
     }
