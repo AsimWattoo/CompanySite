@@ -45,8 +45,6 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "POS As On is required")]
         public DateTime POS_AsOn { get; set; } = DateTime.Now;
 
-        public string? Label1 { get; set; } //Label input type therefore string? 
-
         public string? Status { get; set; } //Active/Restructed?Settled input type therefore string?
 
         public string? note { get; set; }
