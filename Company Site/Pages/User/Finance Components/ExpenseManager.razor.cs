@@ -16,7 +16,7 @@ namespace Company_Site.Pages.User.Finance_Components
             ["Vendor"] = (ExpenseEntry e) => e.Vendor.VendorName,
             ["Service"] = (ExpenseEntry e) => e.Service,
             ["Amount"] = (ExpenseEntry e) => e.BillAmount.ToString(),
-            ["Payment Date"] = (ExpenseEntry e) => e.PaymentDate.ToString("dd/MM/yyyy"),
+            ["Payment Date"] = (ExpenseEntry e) => e.PaymentDate.ToString("dd-MMM-yyyy"),
         };
 
         #endregion

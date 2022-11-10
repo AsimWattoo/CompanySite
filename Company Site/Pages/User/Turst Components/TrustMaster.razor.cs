@@ -11,11 +11,11 @@ namespace Company_Site.Pages.User.Turst_Components
 
         public Dictionary<string, Func<Trust, string>> Headers { get; set; } = new Dictionary<string, Func<Trust, string>>()
         {
-            ["Trust Date"] = (Trust e) => e.TrustSetupDate.ToString("dd/mm/yyyy"),
+            ["Trust Date"] = (Trust e) => e.TrustSetupDate.ToString("dd-MMM-yyyy"),
             ["SR Holder"] = (Trust e) => e.SRHolder,
             ["Ratio"] = (Trust e) => e.Ratio.ToString(),
             ["Upside"] = (Trust e) => e.IssuerUpsideShare.ToString(),
-            ["Setup Date"] = (Trust e) => e.SetupDate.ToString("dd/mm/yyyy"),
+            ["Setup Date"] = (Trust e) => e.SetupDate.ToString("dd-MMM-yyyy"),
             ["SR Issued"] = (Trust e) => e.SRIssued.ToString(),
             ["SR O/s"] = (Trust e) => e.SROs,
             ["Turst Age"] = (Trust e) => e.TrustAge.ToString(),

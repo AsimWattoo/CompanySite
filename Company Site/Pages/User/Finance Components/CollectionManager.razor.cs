@@ -1,6 +1,7 @@
 ﻿using Company_Site.Base;
 using Company_Site.Data;
 using Company_Site.Interfaces;
+using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
@@ -18,7 +19,7 @@ namespace Company_Site.Pages.User.Finance_Components
             ["Trust Name"] = (CollectionEntry e) => e.Trust_Name,
             ["Borrower Name"] = (CollectionEntry e) => e.BorrowerName,
             ["Amount"] = (CollectionEntry e) => e.CreditAmount.ToString(),
-            ["Credit Date"] = (CollectionEntry e) => e.CreditDate.ToString("dd/MM/yyyy"),
+            ["Credit Date"] = (CollectionEntry e) => e.CreditDate.ToString("dd-MMM-yyyy"),
             ["Source"] = (CollectionEntry e) => e.Source,
         };
 
@@ -34,12 +35,17 @@ namespace Company_Site.Pages.User.Finance_Components
         protected override void Setup()
         {
             _dbSet = _dbContext.Collections;
+            Borrowers = _dbContext.BorrowerDetails.ToList();
         }
 
         #endregion
 
         #region Private Methods
 
+        /// <summary>
+        /// Gets and sets the name of the borrower based on id
+        /// </summary>
+        /// <param name="value"></param>
         private void BorrowerChanged(int value)
         {
             NewEntry.Borrower = value;
