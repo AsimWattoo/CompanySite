@@ -80,7 +80,7 @@
 
                 <!--Modal to enter new record-->
                 <div>
-                    <div class="modal" id="addModal">
+                    <div class="modal @(ShowModel ? "show d-block" : "d-none")" role="dialog" id="addModal">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content px-4 py-4">
                                <EditForm Model="NewEntry" OnValidSubmit="Save">
@@ -110,7 +110,7 @@
                                         </div>
                                    </div>
                                     <div class="modal-footer mt-3">
-                                        <a class="btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                                        <a class="btn btn-danger" @onclick="@Cancel">Cancel</a>
                                         <a @onclick="Clear" class="btn btn-secondary">Clear</a>
                                         <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary"/>
                                     </div>
@@ -122,7 +122,7 @@
 
                 <div class="mt-4">
                     <div class="d-flex align-items-center justify-content-end">
-                        <a data-bs-toggle="modal" class="my-1  btn btn-outline-primary" data-bs-target="#addModal"><i class="fa fa-plus me-1"></i> Add</a>
+                        <a class="my-1  btn btn-outline-primary" @onclick="@(() =>ShowModel = true)"><i class="fa fa-plus me-1"></i> Add</a>
                     </div>
                     <div>
                         <Table T="TrustRelationModel" T2="int" Items="Enteries" GetId="GetId" Headers=Headers OnEdit=EditRecord OnDelete=DeleteRecord IsSearchable=false></Table>
@@ -132,3 +132,8 @@
         </div>
     </div>
 </div>
+
+@if(ShowModel)
+{
+    <div class="modal-backdrop show"></div>
+}

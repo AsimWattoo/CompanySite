@@ -60,6 +60,7 @@ namespace Company_Site.Base
 
 		protected virtual void Save()
 		{
+            _errors.Clear();
             if(SaveSetup())
             {
                 try
@@ -96,15 +97,27 @@ namespace Company_Site.Base
         {
             ShouldAdd = false;
             NewEntry = _dbSet.Where(t => t.Id == id).First();
+            OnEdit();
             StateHasChanged();
         }
+
+        /// <summary>
+        /// Allows the child class to perform some operation when edit button is clicked
+        /// </summary>
+        public virtual void OnEdit()
+        {}
 
         protected void Clear()
 		{
             SaveResetup();
-            ShouldAdd = true;
+            OnClear();
             StateHasChanged();
 		}
+
+        /// <summary>
+        /// Allows child classes to change the clear functionality
+        /// </summary>
+        protected virtual void OnClear() { ShouldAdd = true; }
 
         public virtual List<T> DeleteRecord(int id)
         {

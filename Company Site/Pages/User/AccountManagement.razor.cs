@@ -44,6 +44,11 @@ namespace Company_Site.Pages.User
         /// </summary>
         private List<Trust> Trusts { get; set; } = new List<Trust>();
 
+        /// <summary>
+        /// Indicates that the modal should be shown
+        /// </summary>
+        private bool ShowModel { get; set; } = false;
+
         #endregion
 
         #region Overriden Methods
@@ -62,6 +67,10 @@ namespace Company_Site.Pages.User
 
         #region Private Methods
 
+        /// <summary>
+        /// Runs at the end of the save method
+        /// Used to resetup things for next input
+        /// </summary>
         protected override void SaveResetup()
         {
             NewEntry = new TrustRelationModel();
@@ -69,7 +78,12 @@ namespace Company_Site.Pages.User
             NewEntry.AccountId = UserId.Value;
             NewEntry.Trust = new Trust();
         }
-
+        
+        /// <summary>
+        /// Runs at start of the save method
+        /// If it is true then rest of the save code is executed
+        /// </summary>
+        /// <returns></returns>
         protected override bool SaveSetup()
         {
             if(NewEntry.Account == null)
@@ -77,8 +91,14 @@ namespace Company_Site.Pages.User
                 _errors.Add("No Account exists");
                 return false;
             }
+            else if(_dbContext.TrustRelations.Count(t => t.AccountId == UserId.Value && t.TrustCode == NewEntry.TrustCode) > 0)
+            {
+                _errors.Add("Trust Code is already added for the current account.");
+                return false;
+            }
             else
             {
+                ShowModel = false;
                 return base.SaveSetup();
             }
         }
@@ -91,6 +111,15 @@ namespace Company_Site.Pages.User
             NewEntry.Trust = _dbContext.Trusts.Where(t => t.TrustCode == trustCode).FirstOrDefault();
         }
 
+        public override void OnEdit()
+        {
+            ShowModel = true;
+        }
+
+        protected override void OnClear()
+        {
+        }
+
         protected override void LoadData()
         {
             Enteries = _dbContext.TrustRelations.ToList();
@@ -99,6 +128,13 @@ namespace Company_Site.Pages.User
                 e.Account = _dbContext.Accounts.Where(a => a.UserId == e.AccountId).FirstOrDefault();
                 e.Trust = _dbContext.Trusts.Where(t => t.TrustCode == e.TrustCode).FirstOrDefault();
             });
+        }
+
+        private void Cancel()
+        {
+            ShouldAdd = true;
+            ShowModel = false;
+            SaveResetup();
         }
 
         #endregion
