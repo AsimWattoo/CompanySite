@@ -68,31 +68,23 @@ namespace Company_Site.Pages.User.Account_Pages
 
         #region Private Methods
 
-        /// <summary>
-        /// Saves changes to the account details
-        /// </summary>
         private void Save()
         {
             if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value )) 
             {
                 _dbContext.Update(Details);
                 _dbContext.SaveChanges();
-                //TODO: Navigate to the account management page
             }
             else
             {
                 _dbContext.Accounts.Add(Details);
                 _dbContext.SaveChanges();
-                //TODO: Navigate back to the accounts management page
             }
         }
 
-        /// <summary>
-        /// Cancels the editing
-        /// </summary>
-        private void Cancel()
+        private void Clear()
         {
-            //TODO: Navigate to the Accounts Management Page
+            Details = new Account();
         }
 
         #endregion

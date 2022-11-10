@@ -48,6 +48,8 @@ namespace Company_Site.DB
 
 		public DbSet<DocumentsListsModel> DocumentLists { get; set; }
 
+		public DbSet<TrustRelationModel> TrustRelations { get; set; }
+
 		#endregion
 
 		#region Constructor
@@ -77,6 +79,14 @@ namespace Company_Site.DB
 
 			builder.Entity<Comment>()
 				.HasKey(k => k.CommentId);
+
+			builder.Entity<Trust>()
+				.HasIndex(f => f.TrustCode)
+				.IsUnique();
+
+			builder.Entity<Account>()
+				.HasIndex(f => f.BorrowerCode)
+				.IsUnique();
 		}
 
 		#endregion

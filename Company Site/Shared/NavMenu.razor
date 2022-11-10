@@ -46,6 +46,11 @@
                 <span class="fa fa-file-archive me-2" aria-hidden="true"></span> <p class="m-0">Policy</p>
             </div>
         </a>
+        <a class="@((SelectedOption == "AccountManagement" ? "active" : "")) nav-item my-2 text-start" href="/accounts"  @onclick='(() => {SelectedOption = "AccountManagement";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Accounts</p>
+            </div>
+        </a>
         <a class="@((SelectedOption == "EmployeeManagement" ? "active" : "")) nav-item my-2 text-start" href="/employeelist"  @onclick='(() => {SelectedOption = "EmployeeManagement";})'>
             <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Employee List</p>

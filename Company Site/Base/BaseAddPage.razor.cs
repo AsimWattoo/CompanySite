@@ -40,38 +40,57 @@ namespace Company_Site.Base
 
         #region Overriden Methods
 
-        protected override async void OnInitialized()
+        protected override void OnInitialized()
         {
 			Setup();
-            Enteries = _dbSet.ToList();
+            SaveResetup();
+            LoadData();
         }
 
 		#endregion
 
 		#region Protected Methods
 
-		protected virtual void Setup(){}
+        protected virtual void LoadData()
+        {
+            Enteries = _dbSet.ToList();
+        }
+
+        protected virtual void Setup(){}
 
 		protected virtual void Save()
 		{
+            if(SaveSetup())
+            {
+                try
+                {
+                    _dbContext.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    //TODO: Show the exception to the user
+                    Console.WriteLine(ex);
+                }
+                LoadData();
+                ShouldAdd = true;
+                SaveResetup();
+                StateHasChanged();
+            }
+		}
+
+        protected virtual bool SaveSetup()
+        {
             if (ShouldAdd)
                 _dbSet.Add(NewEntry);
             else
                 _dbSet.Update(NewEntry);
-            try
-            {
-                _dbContext.SaveChanges();
-            }
-            catch(Exception ex)
-            {
-                //TODO: Show the exception to the user
-                Console.WriteLine(ex);
-            }
+            return true;
+        }
+
+        protected virtual void SaveResetup()
+        {
             NewEntry = new T();
-            Enteries = _dbSet.ToList();
-            ShouldAdd = true;
-            StateHasChanged();
-		}
+        }
 
         public virtual void EditRecord(int id)
         {
@@ -82,7 +101,7 @@ namespace Company_Site.Base
 
         protected void Clear()
 		{
-			NewEntry = new T();
+            SaveResetup();
             ShouldAdd = true;
             StateHasChanged();
 		}
