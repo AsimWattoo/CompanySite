@@ -85,25 +85,25 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>@Model.Trust.SRIssuer</td>
-                                <td>@Model.Trust.IssuerShare%</td>
-                                <td>@((Model.Trust.SRIssued * Model.Trust.IssuerShare) / 100)</td>
-                                <td>@Model.Trust.IssuerUpsideShare%</td>
-                                <td>@((Model.Trust.SRIssued * Model.Trust.IssuerUpsideShare) / 100)</td>
+                                <td>@Model.IssuerName</td>
+                                <td>@Model.IssuerSharePercentage%</td>
+                                <td>@Math.Round(Model.IssuerShare, 2)</td>
+                                <td>@Model.IssuerUpsideShares%</td>
+                                <td>@Math.Round(Model.IssuerUpsideShares)</td>
                             </tr>
                             <tr>
-                                <td>@Model.Trust.SRHolder</td>
-                                <td>@Model.Trust.HolderShare%</td>
-                                <td>@((Model.Trust.SRIssued * Model.Trust.HolderShare) / 100)</td>
-                                <td>@Model.Trust.HolderUpsideShare%</td>
-                                <td>@((Model.Trust.SRIssued * Model.Trust.HolderUpsideShare) / 100)</td>
+                                <td>@Model.HolderName</td>
+                                <td>@Model.HolderSharePercentage%</td>
+                                <td>@Math.Round(Model.HolderShare)</td>
+                                <td>@Model.HolderUpsideSharePercentage%</td>
+                                <td>@Math.Round(Model.HolderUpsideShares)</td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td>@(Model.Trust.IssuerShare + Model.Trust.HolderShare)%</td>
-                                <td>@Model.Trust.SRIssued</td>
-                                <td>@(Model.Trust.IssuerUpsideShare + Model.Trust.HolderUpsideShare)%</td>
-                                <td>@Model.Trust.SRIssued</td>
+                                <td>@Model.TotalSharePercentage%</td>
+                                <td>@Math.Round(Model.SRIssued)</td>
+                                <td>@Model.TotalUpsideSharePercentage%</td>
+                                <td>@Math.Round(Model.SRIssued)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -123,25 +123,25 @@
                                 <td>Amount in Rs.</td>
                             </tr>
                             <tr>
-                                <td>Issuer</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>-</td>
+                                <td>@Model.IssuerName</td>
+                                <td>@Math.Round(Model.IssuerSRValue, 2)</td>
+                                <td>@Math.Round(Model.IssuerAmount, 2)</td>
+                                <td>@Math.Round(Model.IssuerUpsideSRValue, 2)</td>
+                                <td>@Math.Round(Model.IssuerUpsideAmount, 2)</td>
                             </tr>
                             <tr>
-                                <td>Holder</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>-</td>
+                                <td>@Model.HolderName</td>
+                                <td>@Math.Round(Model.HolderSRValue, 2)</td>
+                                <td>@Math.Round(Model.HolderAmount, 2)</td>
+                                <td>@Math.Round(Model.HolderUpsideSRValue, 2)</td>
+                                <td>@Math.Round(Model.HolderUpsideAmount, 2)</td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>0.00</td>
-                                <td>-</td>
+                                <td>@Math.Round(Model.TotalSRValue, 2)</td>
+                                <td>@Math.Round(Model.SRIssued, 2)</td>
+                                <td>@Math.Round(Model.TotalUpsideSRValue, 2)</td>
+                                <td>@Math.Round(Model.TotalUpsideAmount, 2)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -161,25 +161,25 @@
                                 <td>Distribution Value</td>
                             </tr>
                             <tr>
-                                <td>Issuer</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
+                                <td>@Model.IssuerName</td>
+                                <td>@Math.Round(Model.IssuerOpeningFVSRValue, 2)</td>
+                                <td>@Math.Round(Model.IssuerOpeningDistributionValue, 2)</td>
+                                <td>@Math.Round(Model.IssuerClosingFVSRValue, 2)</td>
+                                <td>@Math.Round(Model.IssuerClosingDistributionValue, 2)</td>
                             </tr>
                             <tr>
-                                <td>Holder</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
+                                <td>@Model.HolderName</td>
+                                <td>@Math.Round(Model.HolderOpeningFVSRValue, 2)</td>
+                                <td>@Math.Round(Model.HolderClosingDistributionValue, 2)</td>
+                                <td>@Math.Round(Model.HolderClosingFVSRValue, 2)</td>
+                                <td>@Math.Round(Model.HolderUpsideAmount, 2)</td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
-                                <td>0.0</td>
+                                <td>@Math.Round(Model.TotalOpeningFVSRValue, 2)</td>
+                                <td>@Math.Round(Model.TotalOpeningDistributionValue, 2)</td>
+                                <td>@Math.Round(Model.TotalClosingFVSRValue, 2)</td>
+                                <td>@Math.Round(Model.TotalClosingDistributionValue, 2)</td>
                             </tr>
                         </tbody>
                     </table>
