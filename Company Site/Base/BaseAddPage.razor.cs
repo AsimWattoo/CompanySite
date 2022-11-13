@@ -93,18 +93,18 @@ namespace Company_Site.Base
             NewEntry = new T();
         }
 
-        public virtual void EditRecord(int id)
+        public void EditRecord(int id)
         {
             ShouldAdd = false;
             NewEntry = _dbSet.Where(t => t.Id == id).First();
-            OnEdit();
+            OnEdit(id);
             StateHasChanged();
         }
 
         /// <summary>
         /// Allows the child class to perform some operation when edit button is clicked
         /// </summary>
-        public virtual void OnEdit()
+        public virtual void OnEdit(int id)
         {}
 
         protected void Clear()

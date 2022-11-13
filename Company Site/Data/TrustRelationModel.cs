@@ -1,6 +1,8 @@
 ﻿using Company_Site.Base;
+using Company_Site.DB;
 
 using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.EntityFrameworkCore;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -28,5 +30,20 @@ namespace Company_Site.Data
         /// The amount for each trust
         /// </summary>
         public double Amount { get; set; }
+
+        public int BorrowerCode { get; set; }
+
+        #region Public Methods
+
+        /// <summary>
+        /// Populates the table
+        /// </summary>
+        public void Populate(ApplicationDbContext dbContext)
+        {
+            Trust = dbContext.Trusts.Where(f => f.TrustCode == TrustCode).FirstOrDefault();
+            Account = dbContext.Accounts.Where(f => f.UserId == AccountId).FirstOrDefault();
+        }
+
+        #endregion
     }
 }

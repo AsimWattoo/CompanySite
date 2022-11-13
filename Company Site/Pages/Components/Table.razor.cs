@@ -3,6 +3,9 @@ using Company_Site.Enum;
 using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Internal;
+
+using System.Reflection;
 
 namespace Company_Site.Pages.Components
 {
@@ -64,13 +67,19 @@ namespace Company_Site.Pages.Components
         /// Tells whether a field will act as input or not
         /// </summary>
         [Parameter]
-        public Dictionary<string, TableInput<T>?> IsInput { get; set; } = new Dictionary<string, TableInput<T>?>();
+        public Dictionary<string, TableInput<T>?> InputFields { get; set; } = new Dictionary<string, TableInput<T>?>();
 
         /// <summary>
         /// Fires when the editable field value is saved
         /// </summary>
         [Parameter]
         public Action<T> OnSave { get; set; }
+
+        /// <summary>
+        /// Tells whether the table is editable or not
+        /// </summary>
+        [Parameter]
+		public bool IsSaveable { get; set; }
 
         #endregion
 
@@ -113,11 +122,6 @@ namespace Company_Site.Pages.Components
 
         private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>();
 
-        /// <summary>
-        /// Tells whether the table is editable or not
-        /// </summary>
-		private bool IsSaveable => IsInput.Select(k => k.Value).Count(f => f != null) > 0;
-
 		#endregion
 
 		#region Private Methods
@@ -125,13 +129,23 @@ namespace Company_Site.Pages.Components
 		private void SetInputValue(string header, ChangeEventArgs e, T record)
         {
             Type type = typeof(T);
-            if(IsInput[header]?.PropertyName != null)
-                type.GetProperty(IsInput[header].PropertyName)?.SetValue(record, e.Value);
+            if(InputFields[header]?.PropertyName != null)
+            {
+                PropertyInfo property = type.GetProperty(InputFields[header].PropertyName);
+                try
+                {
+                    property?.SetValue(record, Convert.ChangeType(e.Value, property.PropertyType));
+                }
+                catch
+                {
+                    property?.SetValue(record, InputFields[header].DefaultValue);
+                }
+            }
         }
 
         private bool CheckInput(string header)
         {
-            bool value = IsInput.ContainsKey(header) && IsInput[header] != null;
+            bool value = InputFields.ContainsKey(header) && InputFields[header] != null;
             return value;
         }
 

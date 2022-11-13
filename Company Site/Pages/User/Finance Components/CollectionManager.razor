@@ -20,9 +20,9 @@
                 <label for="borrowerSelect">Select Borrower</label>
                 <InputSelect Value="@NewEntry.Borrower" ValueExpression="@(() => NewEntry.Borrower)" ValueChanged="BorrowerChanged" TValue=int id="borrowerSelect" class="form-select">
                     <option value="" selected>----- Select Borrower</option>
-                    @foreach(BorrowerDetail b in Borrowers)
+                    @foreach(Account b in Borrowers)
                     {
-                        <option value="@b.Id">@b.Name</option>
+                        <option value="@b.Id">@b.Id</option>
                     }
                 </InputSelect>
             </div>
@@ -30,6 +30,7 @@
             <div class="col-md-3">
                 <label for="borrower">Borrower</label>
                 <label id="borrower" class="form-control">@NewEntry.BorrowerName</label>
+                <ValidationMessage For="@(() => NewEntry.BorrowerName)" />
             </div>
         </div>
         <div class="row">
@@ -100,6 +101,20 @@
                 <label for="Proportionately">Proportionately</label>
             </div>
         </div>
+
+        <div class="row my-3">
+            <Table T="TrustRelationModel" T2="int" 
+                ShowSerialNumber=true 
+                Items=TrustRelationModelEnteries 
+                Headers="RelationTableHeaders" 
+                GetId=GetRelationId 
+                IsDeleteable="@(t => false)" 
+                IsEditable="@(t => false)"
+                IsSearchable="false"
+                InputFields="RelationModelEditableFields"
+                IsSaveable=false/>
+        </div>
+
         <div class="d-flex justify-content-center mt-4">
             <a @onclick="Clear" class="btn btn-danger me-3">Clear</a>
             <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary"/>

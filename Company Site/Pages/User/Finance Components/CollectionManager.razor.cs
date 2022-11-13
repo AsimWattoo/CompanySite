@@ -26,7 +26,30 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <summary>
         /// The list of borrowers to show
         /// </summary>
-        private List<BorrowerDetail> Borrowers { get; set; } = new List<BorrowerDetail>();
+        private List<Account> Borrowers { get; set; } = new List<Account>();
+
+        /// <summary>
+        /// Headers for the relation table header
+        /// </summary>
+        private Dictionary<string, Func<TrustRelationModel, string>> RelationTableHeaders{ get; set; } = new Dictionary<string, Func<TrustRelationModel, string>>()
+        {
+            ["Trust Code"] = t => t.TrustCode,
+            ["Trust Name"] = t => t.Trust == null ? "" : t.Trust.Trust_Name,
+            ["Holder Name"] = t => t.Trust == null ? "" : t.Trust?.SRHolder,
+            ["Share"] = t => t.Share.ToString(),
+            ["Amount"] = t => t.Amount.ToString()
+        };
+
+        private List<TrustRelationModel> TrustRelationModelEnteries { get; set; } = new List<TrustRelationModel>();
+
+        private Dictionary<string, TableInput<TrustRelationModel>> RelationModelEditableFields { get; set; } = new Dictionary<string, TableInput<TrustRelationModel>>()
+        {
+            ["Trust Code"] = null,
+            ["Trust Name"] = null,
+            ["Holder Name"] = null,
+            ["Share"] = new (t => nameof(t.Share), 0),
+            ["Amount"] = new (t => nameof(t.Amount), 0),
+        };
 
         #endregion
 
@@ -35,12 +58,19 @@ namespace Company_Site.Pages.User.Finance_Components
         protected override void Setup()
         {
             _dbSet = _dbContext.Collections;
-            Borrowers = _dbContext.BorrowerDetails.ToList();
+            Borrowers = _dbContext.Accounts.ToList();
+            TrustRelationModelEnteries.ForEach(f =>
+            {
+                f.Account = new Account();
+                f.Trust = new Trust();
+            });
         }
 
         #endregion
 
         #region Private Methods
+
+        private int GetRelationId(TrustRelationModel model) => model.Id;
 
         /// <summary>
         /// Gets and sets the name of the borrower based on id
@@ -49,7 +79,23 @@ namespace Company_Site.Pages.User.Finance_Components
         private void BorrowerChanged(int value)
         {
             NewEntry.Borrower = value;
-            NewEntry.BorrowerName = Borrowers.Where(f => f.Id == value).FirstOrDefault()?.Name;
+            NewEntry.BorrowerName = Borrowers.Where(f => f.Id == value).FirstOrDefault()?.Company_Name;
+            TrustRelationModelEnteries = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
+            TrustRelationModelEnteries.ForEach(f => f.Populate(_dbContext));
+        }
+
+        protected override bool SaveSetup()
+        {
+            if (base.SaveSetup())
+            {
+                foreach (TrustRelationModel model in TrustRelationModelEnteries)
+                {
+                    _dbContext.TrustRelations.Update(model);
+                }
+                return true;
+            }
+            else
+                return false;
         }
 
         /// <summary>
@@ -69,6 +115,17 @@ namespace Company_Site.Pages.User.Finance_Components
         {
             text = text.ToLower();
             return expenseEnteries.Where(e => e.TrustCode.Equals(text) || e.Source.Equals(text) || e.Trust_Name.Equals(text) || e.Borrower.Equals(text) || e.BorrowerName.Equals(text)).ToList();
+        }
+
+        public override void OnEdit(int id)
+        {
+            TrustRelationModelEnteries = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
+        }
+
+        protected override void SaveResetup()
+        {
+            NewEntry = new CollectionEntry();
+            TrustRelationModelEnteries = new List<TrustRelationModel>();
         }
 
         #endregion

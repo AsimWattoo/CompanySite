@@ -75,6 +75,8 @@ namespace Company_Site.Pages.User
         {
             NewEntry = new TrustRelationModel();
             NewEntry.Account = _dbContext.Accounts.Where(a => a.UserId == UserId.Value).FirstOrDefault();
+            if(NewEntry.Account != null)
+                NewEntry.BorrowerCode = NewEntry.Account.BorrowerCode;
             NewEntry.AccountId = UserId.Value;
             NewEntry.Trust = new Trust();
         }
@@ -111,7 +113,7 @@ namespace Company_Site.Pages.User
             NewEntry.Trust = _dbContext.Trusts.Where(t => t.TrustCode == trustCode).FirstOrDefault();
         }
 
-        public override void OnEdit()
+        public override void OnEdit(int id)
         {
             ShowModel = true;
         }
