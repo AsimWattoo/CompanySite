@@ -50,6 +50,10 @@ namespace Company_Site.DB
 
 		public DbSet<TrustRelationModel> TrustRelations { get; set; }
 
+		public DbSet<DistributionEntry> DistributionEnteries { get; set; }
+
+		public DbSet<CollectionSubEntry> CollectionSubEntries { get; set; }
+
 		#endregion
 
 		#region Constructor

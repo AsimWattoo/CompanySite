@@ -19,6 +19,12 @@ namespace Company_Site.Pages.Components
         public Func<T, T2> GetId { get; set; }
 
         /// <summary>
+        /// Fires when a row is clicked
+        /// </summary>
+        [Parameter]
+        public Action<T> OnRowClick { get; set; }
+
+        /// <summary>
         /// Indicates whether the table is searchable or not
         /// </summary>
         [Parameter]
@@ -122,11 +128,20 @@ namespace Company_Site.Pages.Components
 
         private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>();
 
-		#endregion
+        #endregion
 
-		#region Private Methods
+        #region Overriden Methods
 
-		private void SetInputValue(string header, ChangeEventArgs e, T record)
+        protected override void OnAfterRender(bool firstRender)
+        {
+            SR = 1;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void SetInputValue(string header, ChangeEventArgs e, T record)
         {
             Type type = typeof(T);
             if(InputFields[header]?.PropertyName != null)

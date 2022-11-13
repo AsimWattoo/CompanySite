@@ -24,6 +24,8 @@ namespace Company_Site.Pages.User.Account_Pages
 
         private List<string> bankSuggestions = new List<string>();
 
+        private List<Trust> Trusts = new List<Trust>();
+
         #endregion
 
         #region Injected Members
@@ -41,6 +43,7 @@ namespace Company_Site.Pages.User.Account_Pages
         protected override void OnInitialized()
         {
             base.OnInitialized();
+            Trusts = _dbContext.Trusts.ToList();
             Data.User user = _dbContext.Users.Where(u => u.Id == UserId.Value).First();
             bankSuggestions = _dbContext.Accounts.Select(a => a.Bank).Distinct().ToList();
             if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value))

@@ -31,18 +31,18 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <summary>
         /// Headers for the relation table header
         /// </summary>
-        private Dictionary<string, Func<TrustRelationModel, string>> RelationTableHeaders{ get; set; } = new Dictionary<string, Func<TrustRelationModel, string>>()
+        private Dictionary<string, Func<CollectionSubEntry, string>> RelationTableHeaders{ get; set; } = new Dictionary<string, Func<CollectionSubEntry, string>>()
         {
             ["Trust Code"] = t => t.TrustCode,
-            ["Trust Name"] = t => t.Trust == null ? "" : t.Trust.Trust_Name,
-            ["Holder Name"] = t => t.Trust == null ? "" : t.Trust?.SRHolder,
+            ["Trust Name"] = t => t.TrustName == null ? "" : t.TrustName,
+            ["Holder Name"] = t => t.HolderName == null ? "" : t.HolderName,
             ["Share"] = t => t.Share.ToString(),
             ["Amount"] = t => t.Amount.ToString()
         };
 
-        private List<TrustRelationModel> TrustRelationModelEnteries { get; set; } = new List<TrustRelationModel>();
+        private List<CollectionSubEntry> TrustRelationModelEnteries { get; set; } = new List<CollectionSubEntry>();
 
-        private Dictionary<string, TableInput<TrustRelationModel>> RelationModelEditableFields { get; set; } = new Dictionary<string, TableInput<TrustRelationModel>>()
+        private Dictionary<string, TableInput<CollectionSubEntry>> RelationModelEditableFields { get; set; } = new Dictionary<string, TableInput<CollectionSubEntry>>()
         {
             ["Trust Code"] = null,
             ["Trust Name"] = null,
@@ -59,18 +59,13 @@ namespace Company_Site.Pages.User.Finance_Components
         {
             _dbSet = _dbContext.Collections;
             Borrowers = _dbContext.Accounts.ToList();
-            TrustRelationModelEnteries.ForEach(f =>
-            {
-                f.Account = new Account();
-                f.Trust = new Trust();
-            });
         }
 
         #endregion
 
         #region Private Methods
 
-        private int GetRelationId(TrustRelationModel model) => model.Id;
+        private int GetRelationId(CollectionSubEntry model) => model.Id;
 
         /// <summary>
         /// Gets and sets the name of the borrower based on id
@@ -79,18 +74,46 @@ namespace Company_Site.Pages.User.Finance_Components
         private void BorrowerChanged(int value)
         {
             NewEntry.Borrower = value;
-            NewEntry.BorrowerName = Borrowers.Where(f => f.Id == value).FirstOrDefault()?.Company_Name;
-            TrustRelationModelEnteries = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
-            TrustRelationModelEnteries.ForEach(f => f.Populate(_dbContext));
+            Account? acc = _dbContext.Accounts.Where(f => f.Id == value).FirstOrDefault();
+            if (acc != null)
+            {
+                NewEntry.TrustCode = acc.TrustCode;
+                NewEntry.Trust_Name = _dbContext.Trusts.Where(f => f.TrustCode == acc.TrustCode).FirstOrDefault()?.Trust_Name;
+                NewEntry.BorrowerName = acc.Company_Name;
+                List<TrustRelationModel> trustRelations= _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
+                TrustRelationModelEnteries.Clear();
+                foreach(TrustRelationModel model in trustRelations)
+                {
+                    Trust t = _dbContext.Trusts.Where(f => f.TrustCode == f.TrustCode).FirstOrDefault();
+                    if (t == null)
+                        continue;
+                    TrustRelationModelEnteries.Add(new CollectionSubEntry()
+                    {
+                        TrustCode = model.TrustCode,
+                        TrustName = t?.Trust_Name,
+                        Amount = 0,
+                        Share = 0,
+                        HolderName = t?.SRHolder,
+                        BorrowerCode = NewEntry.Borrower,
+                    });
+                }
+            }
         }
 
+        /// <summary>
+        /// Fires when the save command is initiated
+        /// </summary>
+        /// <returns></returns>-
         protected override bool SaveSetup()
         {
             if (base.SaveSetup())
             {
-                foreach (TrustRelationModel model in TrustRelationModelEnteries)
+                _dbContext.SaveChanges();
+                int id = NewEntry.Id;
+                foreach (CollectionSubEntry model in TrustRelationModelEnteries)
                 {
-                    _dbContext.TrustRelations.Update(model);
+                    model.CollectionEntryId = id;
+                    _dbContext.CollectionSubEntries.Update(model);
                 }
                 return true;
             }
@@ -119,13 +142,13 @@ namespace Company_Site.Pages.User.Finance_Components
 
         public override void OnEdit(int id)
         {
-            TrustRelationModelEnteries = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
+            TrustRelationModelEnteries = _dbContext.CollectionSubEntries.Where(f => f.CollectionEntryId == NewEntry.Id).ToList();
         }
 
         protected override void SaveResetup()
         {
             NewEntry = new CollectionEntry();
-            TrustRelationModelEnteries = new List<TrustRelationModel>();
+            TrustRelationModelEnteries = new List<CollectionSubEntry>();
         }
 
         #endregion

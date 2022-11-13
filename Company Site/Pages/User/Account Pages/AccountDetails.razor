@@ -1,4 +1,5 @@
 ﻿@page "/accountDetails"
+@using Company_Site.Data;
 @using Company_Site.Pages.Components
 
 <div class="px-5">
@@ -14,7 +15,13 @@
         <div class="row">
             <div class="col-md-2">
                 <label for="trustCode">Trust Code</label>
-                <InputText @bind-Value=Details.TrustCode id="trustCode" class="form-control" type="text"/>
+                <InputSelect @bind-Value=Details.TrustCode class="form-select">
+                    <option value="" selected>------ Select Option ------</option>
+                    @foreach(Trust t in Trusts)
+                    {
+                        <option value="@t.TrustCode">@t.TrustCode</option>
+                    }
+                </InputSelect>
                 <ValidationMessage For="@(() => Details.TrustCode)"/>
             </div>
             <div class="col-md-1"></div>
@@ -185,7 +192,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-2">
                 <label for="creatorName">Creator Name</label>
-                <label class="form-control" type="text">@Details.CreationDate</label>
+                <label class="form-control" type="text">@Details.Creator_Name</label>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-2">

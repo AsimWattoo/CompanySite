@@ -1,5 +1,4 @@
 ﻿@using Company_Site.Data
-@using Company_Site.Data
 @using Company_Site.Enum
 @typeparam T 
 @typeparam T2
@@ -78,7 +77,7 @@
 			</tr>
 			@foreach (T item in DisplayedItems)
 			{
-				<tr>
+				<tr @onclick="@(() => OnRowClick?.Invoke(item))">
 					@if(ShowSerialNumber){
 						<td class="text-start fs-5">@SR</td>
 					}

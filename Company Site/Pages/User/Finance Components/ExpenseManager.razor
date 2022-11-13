@@ -11,35 +11,47 @@
         <div class="row my-2">
             <div class="col-md-6">
                 <label for="trustSelect">Select Trust</label>
-                <select id="trustSelect" class="form-select">
-                    <option value="1">1</option>
-                </select>
+                <InputSelect ValueChanged="@TrustCodeChanged" Value="@NewEntry.TrustCode" TValue=string ValueExpression="@(() => NewEntry.TrustCode)" id="trustSelect" class="form-select">
+                    <option value="" selected>----- Select Option -----</option>
+                    @foreach(Trust t in Trusts)
+                    {
+                        <option value="@t.TrustCode">@t.Trust_Name</option>
+                    }
+                </InputSelect>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-3">
                 <label for="trustCode">Trust Code</label>
-                <InputText id="trustCode" class="form-control" type="text" @bind-Value="NewEntry.TrustCode"/>
+                <label class="form-control">@NewEntry.TrustCode</label>
             </div>
         </div>
         <div class="row  my-2">
             <div class="col-md-6">
                 <label for="borrowerSelect">Select Borrower</label>
-                <select id="borrowerSelect" class="form-select">
-                    <option value="1">1</option>
-                </select>
+                <InputSelect ValueChanged="@BorrowerCodeChanged" TValue="int" Value=@NewEntry.Borrower_Code ValueExpression="@(() => NewEntry.Borrower_Code)" class="form-select">
+                    <option value="-1" selected>--------- Select Option -------</option>
+                    @foreach(Account acc in Borrowers)
+                    {
+                        <option value="@acc.BorrowerCode">@acc.Company_Name</option>
+                    }
+                </InputSelect>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-3">
                 <label for="borrowerCode">Borrower Code</label>
-                <InputText id="borrowerCode" class="form-control" type="text"  @bind-Value="NewEntry.Borrower_Code"/>
+                <label class="form-control">@NewEntry.Borrower_Code</label>
             </div>
         </div>
         <div class="row  my-2">
             <div class="col-md-6">
                 <label for="vendor">Vendor</label>
-                <select id="vendor" class="form-select">
-                    <option value="1">1</option>
-                </select>
+                <InputSelect Value="@NewEntry.Vendor_Id" ValueExpression=@(() => NewEntry.Vendor_Id) ValueChanged="VendorChanged" TValue="int" class="form-select">
+                    <option value="" selected>------ Select Option ------</option>
+                    @foreach(Vendor v in Vendors)
+                    {
+                        <option value="@v.Id">@v.VendorName</option>
+                    }
+                </InputSelect>
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-3">

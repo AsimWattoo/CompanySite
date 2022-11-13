@@ -1,4 +1,5 @@
-﻿@using Company_Site.Pages.Components
+﻿@using Company_Site.Data;
+@using Company_Site.Pages.Components
 <div class="card">
     <div class="card-header pb-0">
         <h5>Distribution</h5>
@@ -9,9 +10,9 @@
                 <div class="col-md-4">
                     <form class="form form-theme">
                         <label for="turstCode">Trust Code</label>
-                        <input id="turstCode" class="form-control mb-2" type="text">
+                        <label class="form-control mb-2">@Model.TrustCode</label>
                         <label for="turstName">Trust Name</label>
-                        <input id="turstName" class="form-control mb-2" type="text">
+                        <label class="form-control mb-2">@Model.TrustName</label>
                         <label for="turstSetupDate">Trust Setup Date</label>
                         <input id="turstSetupDate" class="form-control mb-2" type="date">
                         <label for="turstAge">Trust Age</label>
@@ -21,7 +22,7 @@
                         <input id="particulars" class="form-control mb-2" type="number">
                         <label for="openingBalance">Opening Balance</label>
                         <input id="openingBalance" class="form-control mb-2" type="number">
-                        <label for="totalPayment">Total Principal payment</label>
+                        <label for="totalPayment">Total Collection</label>
                         <input id="totalPayment" class="form-control mb-2" type="number">
                         <label for="totalRepayment">Total Interest Repayment</label>
                         <input id="totalRepayment" class="form-control mb-2" type="number">
@@ -84,25 +85,25 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Issuer</td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td>@Model.Trust.SRIssuer</td>
+                                <td>@Model.Trust.IssuerShare%</td>
+                                <td>@((Model.Trust.SRIssued * Model.Trust.IssuerShare) / 100)</td>
+                                <td>@Model.Trust.IssuerUpsideShare%</td>
+                                <td>@((Model.Trust.SRIssued * Model.Trust.IssuerUpsideShare) / 100)</td>
                             </tr>
                             <tr>
-                                <td>Holder</td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td>@Model.Trust.SRHolder</td>
+                                <td>@Model.Trust.HolderShare%</td>
+                                <td>@((Model.Trust.SRIssued * Model.Trust.HolderShare) / 100)</td>
+                                <td>@Model.Trust.HolderUpsideShare%</td>
+                                <td>@((Model.Trust.SRIssued * Model.Trust.HolderUpsideShare) / 100)</td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
-                                <td><input type="number" style="width: 80px !important;"></td>
+                                <td>@(Model.Trust.IssuerShare + Model.Trust.HolderShare)%</td>
+                                <td>@Model.Trust.SRIssued</td>
+                                <td>@(Model.Trust.IssuerUpsideShare + Model.Trust.HolderUpsideShare)%</td>
+                                <td>@Model.Trust.SRIssued</td>
                             </tr>
                         </tbody>
                     </table>
@@ -161,40 +162,41 @@
                             </tr>
                             <tr>
                                 <td>Issuer</td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
+                                <td>0.0</td>
+                                <td>0.0</td>
+                                <td>0.0</td>
+                                <td>0.0</td>
                             </tr>
                             <tr>
                                 <td>Holder</td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
+                                <td>0.0</td>
+                                <td>0.0</td>
+                                <td>0.0</td>
+                                <td>0.0</td>
                             </tr>
                             <tr>
                                 <td>Total</td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
-                                <td><input style="width: 80px;" type="number"></td>
+                                <td>0.0</td>
+                                <td>0.0</td>
+                                <td>0.0</td>
+                                <td>0.0</td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="my-2">
-                        <CollapsibleContainer>
-
+                        <h5 class="my-2">Expenses</h5>
+                        <CollapsibleContainer Id="1">
+                            <Table T="ExpenseEntry" T2="int" Headers="ExpenseHeaders" Items=ExpenseEntries GetId=GetExpenseId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
                         </CollapsibleContainer>
                     </div>
 
                     <div class="my-2">
-                        <CollapsibleContainer>
-
+                        <h5 class="my-2">Collections</h5>
+                        <CollapsibleContainer Id="2">
+                            <Table T="CollectionEntry" T2="int" OnRowClick="CollectionRowSelected" ShowSerialNumber=true Items="Collections" GetId="GetCollectionId" Headers="CollectionHeaders" IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
                         </CollapsibleContainer>
                     </div>
-
                 </div>
             </div>
         </div>
