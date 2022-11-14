@@ -18,6 +18,8 @@ namespace Company_Site.Data
         [Required]
         public string Trust_Name { get; set; }
 
+        public int? Distribution_Id { get; set; } = null;
+
         public string? Service { get; set; }
 
         public double BillAmount { get; set; }

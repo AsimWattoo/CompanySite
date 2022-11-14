@@ -87,6 +87,12 @@ namespace Company_Site.Pages.Components
         [Parameter]
 		public bool IsSaveable { get; set; }
 
+        /// <summary>
+        /// Indicates to show confirmation message for deletion
+        /// </summary>
+        [Parameter]
+        public bool ShowDeleteConfirmation { get; set; } = true;
+
         #endregion
 
         #region Private Members

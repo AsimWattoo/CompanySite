@@ -1,4 +1,5 @@
-﻿using Company_Site.Data;
+﻿using Company_Site.Areas.Identity.Pages.Shared;
+using Company_Site.Data;
 using Company_Site.DB;
 using Company_Site.ViewModels;
 
@@ -44,6 +45,20 @@ namespace Company_Site.Pages.User.Finance_Components
 
         #endregion
 
+        #region Combined Trust Collection Properties
+
+        private List<CombinedTrustCollection> CombinedCollections { get; set; } = new List<CombinedTrustCollection>();
+
+        private Dictionary<string, Func<CombinedTrustCollection, string>> CombinedCollectionHeaders = new Dictionary<string, Func<CombinedTrustCollection, string>>()
+        {
+            ["Trust Name"] = p => p.Trust_Name,
+            ["Total Collection"] = p => p.TotalCollection.ToString()
+        };
+
+        private int GetCombinedCollectionId(CombinedTrustCollection t) => t.Id;
+
+        #endregion
+
         #region Private Properties
 
         /// <summary>
@@ -65,7 +80,17 @@ namespace Company_Site.Pages.User.Finance_Components
         protected override void OnInitialized()
         {
             //Loading Collections Data
-            Collections = _dbContext.Collections.ToList();
+            List<CollectionEntry> collections = _dbContext.Collections.ToList();
+            collections.Where(f => f.Distribution_Id == null).GroupBy(t => t.TrustCode).ToList().ForEach(f =>
+            {
+                CollectionEntry? e = collections.Where(t => t.TrustCode == f.Key).FirstOrDefault();
+                double totalCollection = 0;
+
+                foreach(CollectionEntry collection in f)
+                    totalCollection += collection.CreditAmount;
+
+                CombinedCollections.Add(new CombinedTrustCollection() { Id = 0, Trust_Name = e.Trust_Name, TrustCode = f.Key, TotalCollection = totalCollection });
+            });
         }
 
         #endregion
@@ -76,6 +101,7 @@ namespace Company_Site.Pages.User.Finance_Components
         {
             Model = new DistributionViewModel();
             ExpenseEntries = new List<ExpenseEntry>();
+            Collections = new List<CollectionEntry>();
         }
 
         /// <summary>
@@ -110,12 +136,27 @@ namespace Company_Site.Pages.User.Finance_Components
             };
             _dbContext.DistributionEnteries.Add(e);
             _dbContext.SaveChanges();
+            Collections.ForEach(c =>
+            {
+                c.Distribution_Id = e.Id;
+                _dbContext.Collections.Update(c);
+			});
+            ExpenseEntries.ForEach(c => 
+            {
+                c.Distribution_Id = e.Id;
+                _dbContext.Expenses.Update(c);
+			});
+            _dbContext.SaveChanges();
         }
 
-        private void CollectionRowSelected(CollectionEntry collection)
+        /// <summary>
+        /// Fires when the combined trust collection row is selected from the database
+        /// </summary>
+        /// <param name="collection"></param>
+        private void TotalCollectionRowSelected(CombinedTrustCollection collection)
         {
             Trust? t = _dbContext.Trusts.Where(t => t.TrustCode == collection.TrustCode).FirstOrDefault();
-            if(t != null)
+            if (t != null)
             {
                 Model.TrustAge = t.TrustAge;
                 Model.TrustSetupDate = t.TrustSetupDate.ToString("dd-MMM-yyyy");
@@ -123,12 +164,13 @@ namespace Company_Site.Pages.User.Finance_Components
             }
             Model.TrustCode = collection.TrustCode;
             Model.TrustName = collection.Trust_Name;
+            Collections = _dbContext.Collections.Where(f => f.TrustCode == collection.TrustCode && f.Distribution_Id == null).ToList();
             //Getting expense enteries for the trust
-            ExpenseEntries = _dbContext.Expenses.Where(e => e.TrustCode == collection.TrustCode).ToList();
+            ExpenseEntries = _dbContext.Expenses.Where(e => e.TrustCode == collection.TrustCode && e.Distribution_Id == null).ToList();
             //Getting Previous distributions for the trust
             DistributionEntry? lastDistrubtion = _dbContext.DistributionEnteries.Where(t => t.Trust_Code == collection.TrustCode).OrderByDescending(t => t.Id).FirstOrDefault();
 
-            if(lastDistrubtion != null)
+            if (lastDistrubtion != null)
                 Model.OpeningBalance = lastDistrubtion.ClosingBalance;
 
             //Calculating total collections for the trust
@@ -139,6 +181,23 @@ namespace Company_Site.Pages.User.Finance_Components
 
             StateHasChanged();
         }
+
+        /// <summary>
+        /// Updates the table by removing the collection from list
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private List<CollectionEntry> CollectionDeleted(int id)
+        {
+            CollectionEntry? collection = Collections.Where(c => c.Id == id).First();
+            if (collection == null)
+                return Collections;
+
+            Collections.Remove(collection);
+			Model.TotalCollection = Collections.Where(e => e.TrustCode == collection.TrustCode).Sum(f => f.CreditAmount);
+            StateHasChanged();
+            return Collections;
+		}
 
         #endregion
 

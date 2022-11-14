@@ -43,21 +43,23 @@ namespace Company_Site.ViewModels
 
         public double HolderUpsideShares => (SRIssued * HolderUpsideSharePercentage) / 100;
 
-        public double IssuerSRValue => IssuerSharePercentage / 100;
+        public double IssuerSRValue => IssuerSharePercentage * TotalSRValue;
 
-        public double HolderSRValue => HolderSharePercentage / 100;
+        public double HolderSRValue => HolderSharePercentage * TotalSRValue;
 
-        public double TotalSRValue => IssuerSRValue + HolderSRValue;
+        public double TotalSRValue { get; set; } = 0;
 
         public double IssuerAmount => IssuerShare * IssuerSRValue;
 
         public double HolderAmount => HolderShare * HolderSRValue;
 
-        public double IssuerUpsideSRValue => (IssuerUpsideSharePercentage * 2) / 100;
+        public double TotalAmount => IssuerAmount + HolderAmount;
 
-        public double HolderUpsideSRValue => (HolderUpsideSharePercentage * 2) / 100;
+        public double IssuerUpsideSRValue => IssuerUpsideSharePercentage * TotalUpsideSRValue;
 
-        public double TotalUpsideSRValue => IssuerUpsideSRValue + HolderUpsideSRValue;
+        public double HolderUpsideSRValue => HolderUpsideSharePercentage * TotalUpsideSRValue;
+
+        public double TotalUpsideSRValue { get; set; } = 0;
 
         public double IssuerUpsideAmount => IssuerUpsideShares * IssuerUpsideSRValue;
 

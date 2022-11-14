@@ -114,7 +114,14 @@
 							}
 							@if (IsDeleteable(item))
 							{
-								<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+								if(ShowDeleteConfirmation)
+								{
+									<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+								}
+								else
+								{
+									<a @onclick='@(() => {DeleteRecordId(GetId(item)); DeleteRecord();})' class="my-1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+								}
 							}
 						}
 					</td>

@@ -1,6 +1,8 @@
 ﻿
 using Company_Site.Base;
 
+using MimeKit.Cryptography;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
@@ -39,5 +41,7 @@ namespace Company_Site.Data
         public string AdjustToward { get; set; }
 
         public bool Proportionately { get; set; }
+
+        public int? Distribution_Id { get; set; } = null;
     }
 }

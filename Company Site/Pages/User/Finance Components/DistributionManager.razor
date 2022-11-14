@@ -1,5 +1,6 @@
 ﻿@using Company_Site.Data;
 @using Company_Site.Pages.Components
+@using Company_Site.ViewModels;
 <div class="card">
     <div class="card-header pb-0">
         <h5>Distribution</h5>
@@ -52,9 +53,9 @@
                         <label for="amountAvailable">Amount Available</label>
                         <label id="amountAvailable" class="form-control mb-2">@Model.AmountAvailable</label>
                         <label for="normalDistribution">Normal Distribution</label>
-                        <label id="normalDistribution" class="form-control mb-2">@Model.TotalSRValue</label>
+                        <InputNumber @bind-Value=Model.TotalSRValue id="normalDistribution" class="form-control mb-2"/>
                         <label for="surplusDistribution">Surplus Distribution</label>
-                        <label id="surplusDistribution" class="form-control mb-2">@Model.TotalUpsideSRValue</label>
+                        <InputNumber @bind-Value=Model.TotalUpsideSRValue id="surplusDistribution" class="form-control mb-2"/>
                         <label for="newSRvalue">New SR value</label>
                         <label id="newSRvalue" class="form-control mb-2">@Model.NewSRValue</label>
                         <label for="lessProvision">Less: Provision</label>
@@ -139,7 +140,7 @@
                             <tr>
                                 <td>Total</td>
                                 <td>@Math.Round(Model.TotalSRValue, 2)</td>
-                                <td>@Math.Round(Model.SRIssued, 2)</td>
+                                <td>@Math.Round(Model.TotalAmount, 2)</td>
                                 <td>@Math.Round(Model.TotalUpsideSRValue, 2)</td>
                                 <td>@Math.Round(Model.TotalUpsideAmount, 2)</td>
                             </tr>
@@ -184,6 +185,14 @@
                         </tbody>
                     </table>
 
+
+                    <div class="my-2">
+                        <h5 class="my-2">Total Collections</h5>
+                        <CollapsibleContainer Id="3">
+                            <Table T="CombinedTrustCollection" T2="int" OnRowClick=TotalCollectionRowSelected ShowSerialNumber=true Headers="CombinedCollectionHeaders" Items=CombinedCollections GetId=GetCombinedCollectionId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
+                        </CollapsibleContainer>
+                    </div>
+
                     <div class="my-2">
                         <h5 class="my-2">Expenses</h5>
                         <CollapsibleContainer Id="1">
@@ -194,7 +203,7 @@
                     <div class="my-2">
                         <h5 class="my-2">Collections</h5>
                         <CollapsibleContainer Id="2">
-                            <Table T="CollectionEntry" T2="int" OnRowClick="CollectionRowSelected" ShowSerialNumber=true Items="Collections" GetId="GetCollectionId" Headers="CollectionHeaders" IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
+                            <Table T="CollectionEntry" T2="int" ShowSerialNumber=true Items="Collections" GetId="GetCollectionId" Headers="CollectionHeaders" IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => true)" OnDelete="CollectionDeleted" ShowDeleteConfirmation=false/>
                         </CollapsibleContainer>
                     </div>
                 </div>
