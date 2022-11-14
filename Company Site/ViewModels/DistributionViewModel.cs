@@ -88,5 +88,132 @@ namespace Company_Site.ViewModels
         public double HolderClosingDistributionValue => HolderClosingFVSRValue * HolderUpsideShares;
 
         public double TotalClosingDistributionValue => IssuerClosingDistributionValue + HolderClosingDistributionValue;
+
+        /// <summary>
+        /// The opening balance for the trust
+        /// Will be equal to last closing balance for the trust. If no entry for the trust then 0
+        /// </summary>
+        public double OpeningBalance { get; set; } = 0;
+
+        /// <summary>
+        /// The total collections for the trust
+        /// </summary>
+        public double TotalCollection { get; set; } = 0;
+
+        public double TotalBalance => OpeningBalance + TotalCollection;
+
+        public double GST_Rate { get; set; } = 30;
+
+        public double ResolutionFeePercentage
+        {
+            get
+            {
+                if (TrustAge <= 1)
+                    return Trust.R_Year1;
+                else if (TrustAge > 1 && TrustAge <= 2)
+                    return Trust.R_Year2;
+                else if (TrustAge > 2 && TrustAge <= 3)
+                    return Trust.R_Year3;
+                else if (TrustAge > 3 && TrustAge <= 4)
+                    return Trust.R_Year4;
+                else if (TrustAge > 4 && TrustAge <= 5)
+                    return Trust.R_Year5;
+                else if (TrustAge > 5 && TrustAge <= 6)
+                    return Trust.R_Year6;
+                else if (TrustAge > 6 && TrustAge <= 7)
+                    return Trust.R_Year7;
+                else if (TrustAge > 7 && TrustAge <= 8)
+                    return Trust.R_Year8;
+                else
+                    return Trust.R_Year9;
+            }
+        }
+
+        public double TrusteeshipFeePercentage
+        {
+            get
+            {
+                if (TrustAge <= 1)
+                    return Trust.T_Year1;
+                else if (TrustAge > 1 && TrustAge <= 2)
+                    return Trust.T_Year2;
+                else if (TrustAge > 2 && TrustAge <= 3)
+                    return Trust.T_Year3;
+                else if (TrustAge > 3 && TrustAge <= 4)
+                    return Trust.T_Year4;
+                else if (TrustAge > 4 && TrustAge <= 5)
+                    return Trust.T_Year5;
+                else if (TrustAge > 5 && TrustAge <= 6)
+                    return Trust.T_Year6;
+                else if (TrustAge > 6 && TrustAge <= 7)
+                    return Trust.T_Year7;
+                else if (TrustAge > 7 && TrustAge <= 8)
+                    return Trust.T_Year8;
+                else
+                    return Trust.T_Year9;
+            }
+        }
+
+        public double CollectionFeePercentage => Trust.CollectionFee;
+
+        public double TrusteeshipFee
+        {
+            get
+            {
+                double intermediate_value = (TrusteeshipFeePercentage * TotalCollection) / 100;
+                return intermediate_value + (intermediate_value * GST_Rate) / 100;
+            }
+        }
+
+        public double ResolutionFee
+        {
+            get
+            {
+                double intermediate_value = (ResolutionFeePercentage * TotalCollection) / 100;
+                return intermediate_value + (intermediate_value * GST_Rate) / 100;
+            }
+        }
+
+        public double CollectionFee
+        {
+            get
+            {
+                double intermediate_value = (CollectionFeePercentage * TotalCollection) / 100;
+                return intermediate_value + (intermediate_value * GST_Rate) / 100;
+            }
+        }
+
+        public double TotalOtherExpenses { get; set; }
+
+        public double InterestOnExpenses { get; set; }
+
+        public double OtherAdjustments { get; set; }
+
+        public double TotalExpenses => TrusteeshipFee + CollectionFee + ResolutionFee + TotalOtherExpenses + InterestOnExpenses + OtherAdjustments;
+
+        public double Balance => TotalBalance - TotalExpenses;
+
+        public double LessAdvancedTDS { get; set; }
+
+        public double TDS => (Balance * GST_Rate) / 100;
+
+        public double AmountAvailable => Math.Round((Balance - TDS - LessAdvancedTDS) / SRIssued,2);
+
+        public double NewSRValue
+        {
+            get
+            {
+                double value = TotalOpeningFVSRValue - TotalSRValue - TotalUpsideSRValue;
+                return value < 1 ? 1 : value;
+            }
+        }
+
+        public double LessProvision { get; set; }
+
+        public double ClosingBalance => (TotalSRValue + TotalUpsideSRValue) * SRIssued - LessProvision;
+
+        public string? TrustDescription => Trust.TrustDescription;
+
+        public string? TermsAndConditions => Trust.TermsAndConditions;
     }
 }

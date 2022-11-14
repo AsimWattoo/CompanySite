@@ -80,7 +80,7 @@ namespace Company_Site.Data
         public string? SROs { get; set; } = string.Empty;
 
         [NotMapped]
-        public double Ratio => IssuerShare / HolderShare;
+        public double Ratio => Math.Round(IssuerShare / HolderShare, 2);
 
         public DateTime SetupDate { get; set; } = DateTime.Now;
 

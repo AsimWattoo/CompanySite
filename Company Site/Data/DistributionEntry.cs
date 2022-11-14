@@ -18,38 +18,38 @@ namespace Company_Site.Data
 
         public int SROutStanding { get; set; }
 
-        public float Opening { get; set; }
+        public double Opening { get; set; }
 
-        public float Collections { get; set; }
+        public double Collections { get; set; }
 
-        public float TSFee { get; set; }
+        public double TSFee { get; set; }
 
-        public float RFees { get; set; }
+        public double RFees { get; set; }
 
-        public float CFee { get; set; }
+        public double CFee { get; set; }
 
-        public float OtherExpense { get; set; }
+        public double OtherExpense { get; set; }
 
-        public float Adjustment { get; set; }
+        public double Adjustment { get; set; }
 
-        public float Balance { get; set; }
+        public double Balance { get; set; }
 
-        public float TDS_Decimal { get; set; }
+        public double TDS_Decimal { get; set; }
 
-        public float Advance_TDS_Decimal { get; set; }
+        public double Advance_TDS_Decimal { get; set; }
 
-        public float Distribution_AMT { get; set; }
+        public double Distribution_AMT { get; set; }
 
-        public float NormalDist { get; set; }
+        public double NormalDist { get; set; }
 
-        public float Surplus { get; set; }
+        public double Surplus { get; set; }
 
-        public float Provision { get; set; }
+        public double Provision { get; set; }
 
-        public float ClosingBalance { get; set; }
+        public double ClosingBalance { get; set; }
 
-        public float OPFV { get; set; }
+        public double OPFV { get; set; }
 
-        public float CLFV { get; set; }
+        public double CLFV { get; set; }
     }
 }
