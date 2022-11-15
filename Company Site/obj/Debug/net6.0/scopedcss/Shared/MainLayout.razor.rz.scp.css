@@ -8,6 +8,7 @@ main[b-cddauckdx4] {
     padding: 0px;
 }
 
+
 .user-info[b-cddauckdx4]{
     border-right: 1px solid lightgray;
 }
@@ -242,7 +243,6 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .sidebar[b-cddauckdx4] {
-        height: 100vh;
         position: sticky;
         top: 0;
     }

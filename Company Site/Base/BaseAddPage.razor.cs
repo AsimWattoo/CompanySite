@@ -10,7 +10,6 @@ namespace Company_Site.Base
 	public partial class BaseAddPage<T> : ComponentBase
 		where T: BaseModel, new()
 	{
-
         #region Protected Properties
 
         public List<T> Enteries { get; set; } = new List<T>();
@@ -42,6 +41,7 @@ namespace Company_Site.Base
 
         protected override void OnInitialized()
         {
+            BeforeSetup();
 			Setup();
             SaveResetup();
             LoadData();
@@ -55,6 +55,8 @@ namespace Company_Site.Base
         {
             Enteries = _dbSet.ToList();
         }
+
+        protected virtual void BeforeSetup() { }
 
         protected virtual void Setup(){}
 
@@ -129,6 +131,5 @@ namespace Company_Site.Base
         }
 
         #endregion
-
     }
 }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class Account : BaseModel
+    public class Account : BaseModifierModel
     {
 
         [Required]
@@ -84,13 +84,5 @@ namespace Company_Site.Data
         public string? Status { get; set; }
 
         public DateTime Case_Exit_Date { get; set; } = DateTime.Now;
-
-        public string? Creator_Name { get; set; }
-
-        public DateTime CreationDate { get; set; } = DateTime.Now;
-
-        public string? Modification { get; set; }
-
-        public DateTime ModificationDate { get; set; } = DateTime.Now;
    }
 }

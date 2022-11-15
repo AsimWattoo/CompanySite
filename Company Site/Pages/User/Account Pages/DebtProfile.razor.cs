@@ -2,11 +2,13 @@ using Company_Site.Base;
 using Company_Site.Data;
 using Company_Site.Interfaces;
 
+using Microsoft.AspNetCore.Components;
+
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class DebtProfile : BaseAddPage<DebtProfileModel>, ITable<DebtProfileModel, int>
+    public partial class DebtProfile : BaseModifierAddPage<DebtProfileModel>, ITable<DebtProfileModel, int>
     {
-        
+
         #region Public Properties
 
         public Dictionary<string, Func<DebtProfileModel, string>> Headers { get; set; } = new Dictionary<string, Func<DebtProfileModel, string>>()
@@ -21,11 +23,26 @@ namespace Company_Site.Pages.User.Account_Pages
 
         #endregion
 
+        #region Private Members
+
+        private Account? userAccount;
+
+        #endregion
+
         #region Overriden Methods
 
         protected override void Setup()
         {
             _dbSet = _dbContext.DebtProfiles;
+            userAccount = _dbContext.Accounts.Where(f => f.UserId == UserId.Value).FirstOrDefault();
+        }
+
+        protected override void SaveResetup()
+        {
+            NewEntry = new DebtProfileModel();
+            if(userAccount != null)
+                NewEntry.BorrowerCode = userAccount.BorrowerCode;
+            RecordData();
         }
 
         #endregion

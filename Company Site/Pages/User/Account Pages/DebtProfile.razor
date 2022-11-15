@@ -1,6 +1,6 @@
 @page "/DebtProfile"
 
-@inherits BaseAddPage<DebtProfileModel>
+@inherits BaseModifierAddPage<DebtProfileModel>
 
 @using Company_Site.Base;
 @using Company_Site.Data;
@@ -30,7 +30,7 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-2">
                     <label for="accNum">Account Number</label>
-                    <InputNumber TValue="long" @bind-Value=NewEntry.AccountNumber id="accNum" class="form-control"/>
+                    <InputNumber TValue="int" @bind-Value=NewEntry.AccountNumber id="accNum" class="form-control"/>
                     <ValidationMessage For="@(() => NewEntry.AccountNumber)"/>
                 </div>
                 <div class="col-md-1"></div>

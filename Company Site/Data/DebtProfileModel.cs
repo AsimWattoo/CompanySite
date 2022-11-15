@@ -4,9 +4,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class DebtProfileModel : BaseModel
+    public class DebtProfileModel : BaseModifierModel
     {
         #region Debt Profile Fields
+
+        /// <summary>
+        /// The borrower code with which this debt profile is linked to
+        /// </summary>
+        [Required(ErrorMessage = "Borrower code is required")]
+        public int BorrowerCode { get; set; }
 
         [Required(ErrorMessage = "Lender Name is required")]
         public string LenderName { get; set; }
@@ -15,7 +21,7 @@ namespace Company_Site.Data
         public string Facility { get; set; }
 
         [Required(ErrorMessage = "Account Number is required")]
-        public long AccountNumber { get; set; }
+        public int AccountNumber { get; set; }
 
         public DateTime NPA_Date { get; set; } = DateTime.Now;
 
@@ -70,7 +76,7 @@ namespace Company_Site.Data
 
         public double Res_Interest { get; set; }
 
-        public DateTime Res_POSAsOn { get; set; }
+        public DateTime Res_POSAsOn { get; set; } = DateTime.Now;
 
         public double Res_PrincipleMonutorium { get; set; }
 

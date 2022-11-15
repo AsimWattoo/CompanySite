@@ -49,13 +49,13 @@ namespace Company_Site.Pages.User.Account_Pages
             if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value))
             {
                 Details = _dbContext.Accounts.Where(a => a.UserId == UserId.Value).First();
-                Details.Modification = $"{user.FirstName} {user.LastName}";
+                Details.Modifier = $"{user.FirstName} {user.LastName}";
                 Details.ModificationDate = DateTime.Now;
             }
             else
             {
                 Details.UserId = UserId.Value;
-                Details.Creator_Name = $"{user.FirstName} {user.LastName}";
+                Details.CreatorName = $"{user.FirstName} {user.LastName}";
                 Details.CreationDate = DateTime.Now;
                 Details.BorrowerCode = 1;
 
