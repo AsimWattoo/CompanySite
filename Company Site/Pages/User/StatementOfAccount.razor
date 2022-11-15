@@ -122,23 +122,29 @@
         <fieldset class="border px-2 py-2">
             <legend>Admin</legend>
 
-            <div class="row my-2">
-                <div class="col-3 d-flex align-items-center">
-                    <input class="form-check" type="radio" value="expenses" name="option"/>
-                    <label class="ms-1">Expenses</label>
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <input class="form-check" type="radio" value="collections" name="option"/>
-                    <label class="ms-1">Collections</label>
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <input class="form-check" type="radio" value="disbursement" name="option"/>
-                    <label class="ms-1">Disbursement</label>
-                </div>
-                <div class="col-3 d-flex align-items-center">
-                    <input class="form-check" type="radio" value="interest" name="option"/>
-                    <label class="ms-1">Change in interest</label>
-                </div>
+            <div class="my-2">
+                <EditForm Model="this">
+                    <InputRadioGroup @bind-Value=AddMode>
+                        <div class="row">
+                            <div class="col-3 d-flex align-items-center">
+                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Expenses)"/>
+                                <label class="ms-1">Expenses</label>
+                            </div>
+                            <div class="col-3 d-flex align-items-center">
+                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Collections)"/>
+                                <label class="ms-1">Collections</label>
+                            </div>
+                            <div class="col-3 d-flex align-items-center">
+                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Disbursement)"/>
+                                <label class="ms-1">Disbursement</label>
+                            </div>
+                            <div class="col-3 d-flex align-items-center">
+                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Interest)"/>
+                                <label class="ms-1">Change in interest</label>
+                            </div>
+                        </div>
+                    </InputRadioGroup>
+                </EditForm>
             </div>
 
             <div class="row my-2">

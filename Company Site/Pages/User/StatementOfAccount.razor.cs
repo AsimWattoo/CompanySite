@@ -1,6 +1,7 @@
 ﻿using Company_Site.Data;
 using Company_Site.DB;
 using Company_Site.Enum;
+using Company_Site.Helpers;
 using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
@@ -94,23 +95,23 @@ namespace Company_Site.Pages.User
             ["Trust Name"] = e => e.Trust_Name,
             ["SR Issued"] = e => e.SRIssued.ToString(),
             ["SR Outstanding"] = e => e.SROutStanding.ToString(),
-            ["Opening"] = e => Round(e.Opening),
-            ["Collections"] = e => Round(e.Collections),
-            ["TS Fee"] = e => Round(e.TSFee),
-            ["RS Fee"] = e => Round(e.RFees),
-            ["C Fee"] = e => Round(e.CFee),
-            ["Other Expenses"] = e => Round(e.OtherExpense),
-            ["Adjustments"] = e => Round(e.Adjustment),
-            ["Balance"] = e => Round(e.Balance),
-            ["TDS Decimal"] = e => Round(e.TDS_Decimal),
-            ["Advance TDS Decimal"] = e => Round(e.Advance_TDS_Decimal),
-            ["Disstribution AMT"] = e => Round(e.Distribution_AMT),
-            ["Normal Dist"] = e => Round(e.NormalDist),
-            ["Surplus"] = e => Round(e.Surplus),
-            ["Provision"] = e => Round(e.Provision),
-            ["Closing Balance"] = e => Round(e.ClosingBalance),
-            ["OPFV"] = e => Round(e.OPFV),
-            ["CLFv"] = e => Round(e.CLFV),
+            ["Opening"] = e => Number.Round(e.Opening),
+            ["Collections"] = e => Number.Round(e.Collections),
+            ["TS Fee"] = e => Number.Round(e.TSFee),
+            ["RS Fee"] = e => Number.Round(e.RFees),
+            ["C Fee"] = e => Number.Round(e.CFee),
+            ["Other Expenses"] = e => Number.Round(e.OtherExpense),
+            ["Adjustments"] = e => Number.Round(e.Adjustment),
+            ["Balance"] = e => Number.Round(e.Balance),
+            ["TDS Decimal"] = e => Number.Round(e.TDS_Decimal),
+            ["Advance TDS Decimal"] = e => Number.Round(e.Advance_TDS_Decimal),
+            ["Disstribution AMT"] = e => Number.Round(e.Distribution_AMT),
+            ["Normal Dist"] = e => Number.Round(e.NormalDist),
+            ["Surplus"] = e => Number.Round(e.Surplus),
+            ["Provision"] = e => Number.Round(e.Provision),
+            ["Closing Balance"] = e => Number.Round(e.ClosingBalance),
+            ["OPFV"] = e => Number.Round(e.OPFV),
+            ["CLFv"] = e => Number.Round(e.CLFV),
         };
 
         public List<DistributionEntry> DistributionEntries { get; set; } = new List<DistributionEntry>();
@@ -127,6 +128,11 @@ namespace Company_Site.Pages.User
         private StatementOfAccountViewModel Model { get; set; } = new StatementOfAccountViewModel();
 
         private StatementOfAccountMode Mode { get; set; } = StatementOfAccountMode.Collections;
+
+        /// <summary>
+        /// The mode of the page for adding
+        /// </summary>
+        private StatementOfAccountMode AddMode { get; set; }
 
         #endregion
 
@@ -207,8 +213,6 @@ namespace Company_Site.Pages.User
         {
             Mode = mode;
         }
-
-        private static string Round(double value) => Math.Round(value, 2).ToString();
 
         #endregion
 
