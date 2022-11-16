@@ -16,7 +16,6 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Trust code is required")]
         public string TrustCode { get; set; }
 
-        public int AccountId { get; set; }
         [NotMapped]
         public Account? Account { get; set; }
 
@@ -30,7 +29,7 @@ namespace Company_Site.Data
         public void Populate(ApplicationDbContext dbContext)
         {
             Trust = dbContext.Trusts.Where(f => f.TrustCode == TrustCode).FirstOrDefault();
-            Account = dbContext.Accounts.Where(f => f.UserId == AccountId).FirstOrDefault();
+            Account = dbContext.Accounts.Where(f => f.BorrowerCode == BorrowerCode).FirstOrDefault();
         }
 
         #endregion

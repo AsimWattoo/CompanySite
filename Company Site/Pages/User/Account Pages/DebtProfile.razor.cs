@@ -34,7 +34,7 @@ namespace Company_Site.Pages.User.Account_Pages
         protected override void Setup()
         {
             _dbSet = _dbContext.DebtProfiles;
-            userAccount = _dbContext.Accounts.Where(f => f.UserId == UserId.Value).FirstOrDefault();
+            userAccount = _dbContext.Accounts.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).FirstOrDefault();
         }
 
         protected override void SaveResetup()

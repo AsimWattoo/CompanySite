@@ -36,6 +36,8 @@ namespace Company_Site.DB
 
 		public DbSet<Account> Accounts { get; set; }
 
+		public DbSet<AccountDetailsModel> AccountDetails { get; set; }
+
 		public DbSet<BorrowerDetail> BorrowerDetails { get; set; }
 
 		public DbSet<DebtProfileModel> DebtProfiles { get; set; }

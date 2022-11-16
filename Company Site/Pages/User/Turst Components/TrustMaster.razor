@@ -1,6 +1,6 @@
 ﻿@page "/trustmaster"
 
-@inherits BaseAddPage<Trust>
+@inherits BaseModifierAddPage<Trust>
 
 @using Company_Site.Base;
 @using Company_Site.Data;
@@ -10,292 +10,349 @@
 
 <h2>Trust Master</h2>
 
-<div class="body">
-    <EditForm Model="NewEntry" class="mt-3" OnValidSubmit="Save">
-        <DataAnnotationsValidator />
+<CollapsibleContainer Title="Trust" Id="1">
+    <div class="body">
+        <EditForm Model="NewEntry" class="mt-3" OnValidSubmit="Save">
+            <DataAnnotationsValidator />
 
-        <MultiErrorView Errors="_errors"/>
+            <MultiErrorView Errors="_errors"/>
 
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="trustCode">Trust Code</label>
-                <InputText @bind-Value="NewEntry.TrustCode" id="trustCode" class="form-control" type="text"/>
-                <ValidationMessage For="@(()=>NewEntry.TrustCode)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="trustCode">Trust Code</label>
+                    <InputText @bind-Value="NewEntry.TrustCode" id="trustCode" class="form-control" type="text"/>
+                    <ValidationMessage For="@(()=>NewEntry.TrustCode)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="trustName">Trust Name</label>
+                    <InputText @bind-Value="NewEntry.Trust_Name" id="trustName" class="form-control" type="text"/>
+                    <ValidationMessage For="@(()=>NewEntry.Trust_Name)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="trustSetupDate">Trust Setup Date</label>
+                    <input @bind-value="NewEntry.TrustSetupDate" id="trustSetupDate" class="form-control" type="date">
+                    <ValidationMessage For="@(()=>NewEntry.TrustSetupDate)" />
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="trustName">Trust Name</label>
-                <InputText @bind-Value="NewEntry.Trust_Name" id="trustName" class="form-control" type="text"/>
-                <ValidationMessage For="@(()=>NewEntry.Trust_Name)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="srIssued">SR Issued</label>
+                    <InputNumber @bind-Value="NewEntry.SRIssued" TValue="int" id="srIssued" class="form-control" type="number" min="1" step="1"/>
+                    <ValidationMessage For="@(()=>NewEntry.SRIssued)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="faceValue">Face Value</label>
+                    <InputNumber id="faceValue" @bind-Value="NewEntry.Face_Value" TValue="int" class="form-control" type="number" min="1" step="1" />
+                    <ValidationMessage For="@(()=>NewEntry.Face_Value)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="navBand">NAV Band</label>
+                    <InputSelect @bind-Value="NewEntry.NavBand" id="navBand" class="form-select">
+                        <option selected> ----- Selection Option -----</option>
+                        <option value="crrentNAV">current NAV</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(()=>NewEntry.NavBand)" />
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="trustSetupDate">Trust Setup Date</label>
-                <input @bind-value="NewEntry.TrustSetupDate" id="trustSetupDate" class="form-control" type="date">
-                <ValidationMessage For="@(()=>NewEntry.TrustSetupDate)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="srIssuer">SR Issuer</label>
+                    <InputText @bind-Value="NewEntry.SRIssuer" id="srIssuer" class="form-control" type="text"/>
+                    <ValidationMessage For="@(()=>NewEntry.SRIssuer)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="issuerShare">Issuer Share</label>
+                    <InputNumber @bind-Value="NewEntry.IssuerShare" TValue="double" id="issuerShare" class="form-control" type="number"/>
+                    <ValidationMessage For="@(()=>NewEntry.IssuerShare)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="upsideShare">Upside Share</label>
+                    <InputNumber @bind-Value="NewEntry.IssuerUpsideShare" TValue="double" id="upsideShare" class="form-control" type="number"/>
+                    <ValidationMessage For="@(()=> NewEntry.IssuerUpsideShare)" />
+                </div>
             </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="srIssued">SR Issued</label>
-                <InputNumber @bind-Value="NewEntry.SRIssued" TValue="int" id="srIssued" class="form-control" type="number" min="1" step="1"/>
-                <ValidationMessage For="@(()=>NewEntry.SRIssued)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="srHolder">SR Holder</label>
+                    <InputText @bind-Value="NewEntry.SRHolder" id="srHolder" class="form-control" type="text"/>
+                    <ValidationMessage For="@(()=>NewEntry.SRHolder)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="holderShare">Holder Share</label>
+                    <InputNumber @bind-Value="NewEntry.HolderShare" TValue="double" id="holderShare" class="form-control" type="number"/>
+                    <ValidationMessage For="@(()=>NewEntry.HolderShare)" />
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="upsideShare2">Upside Share</label>
+                    <InputNumber @bind-Value="NewEntry.HolderUpsideShare" TValue="double" id="upsideShare2" class="form-control" type="number"/>
+                    <ValidationMessage For="@(()=>NewEntry.HolderUpsideShare)" />
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="faceValue">Face Value</label>
-                <InputNumber id="faceValue" @bind-Value="NewEntry.Face_Value" TValue="int" class="form-control" type="number" min="1" step="1" />
-                <ValidationMessage For="@(()=>NewEntry.Face_Value)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="payable">Payable</label>
+                    <InputSelect @bind-Value="NewEntry.Payable" id="payable" class="form-select">
+                        <option value="1">1</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="trustLimit">Trusteeship Limit</label>
+                    <InputText @bind-Value=NewEntry.TrusteeshipLimit id="trustLimit" class="form-control" type="text"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="trustCollection">Trusteeship Collection</label>
+                    <InputText @bind-Value=NewEntry.TrusteeshipCollection id="trustCollection" class="form-control" type="text"/>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="navBand">NAV Band</label>
-                <InputSelect @bind-Value="NewEntry.NavBand" id="navBand" class="form-select">
-                    <option selected> ----- Selection Option -----</option>
-                    <option value="crrentNAV">current NAV</option>
-                </InputSelect>
-                <ValidationMessage For="@(()=>NewEntry.NavBand)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="trustBasis">Trusteeship Basis</label>
+                    <InputSelect @bind-Value="NewEntry.TrusteeshipBasis" id="trustBasis" class="form-select">
+                        <option value="1">1</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="resFeeBasis">Resolution Fee Basis</label>
+                    <InputSelect @bind-Value=NewEntry.ResolutionFeeBasis id="resFeeBasis" class="form-select">
+                        <option value="1">1</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="collectionFee">Collection Fee</label>
+                    <InputNumber @bind-Value=NewEntry.CollectionFee TValue="double" id="collectionFee" class="form-control" type="number"/>
+                </div>
             </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="srIssuer">SR Issuer</label>
-                <InputText @bind-Value="NewEntry.SRIssuer" id="srIssuer" class="form-control" type="text"/>
-                <ValidationMessage For="@(()=>NewEntry.SRIssuer)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="trusteeFee">SR Investor</label>
+                    <InputText @bind-Value=NewEntry.SRInvestor id="trusteeFee" class="form-control"/>
+                </div>
+                <div class="offset-md-1 col-md-3">
+                    <label for="setupDate">Investor Share</label>
+                    <InputNumber @bind-Value="NewEntry.InvestorShare" TValue="double" id="setupDate" class="form-control" />
+                </div>
+                <div class="offset-md-1 col-md-3">
+                    <label for="resolutionFee">Resolution Fee</label>
+                    <InputNumber @bind-Value=NewEntry.ResolutionFee TValue="double" id="resolutionFee" class="form-control" type="number"/>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="issuerShare">Issuer Share</label>
-                <InputNumber @bind-Value="NewEntry.IssuerShare" TValue="double" id="issuerShare" class="form-control" type="number"/>
-                <ValidationMessage For="@(()=>NewEntry.IssuerShare)" />
+            <div class="row my-2">
+                <div class="col-md-3">
+                    <label for="interestMode">Interest Mode</label>
+                    <InputSelect @bind-Value=NewEntry.InterestMode id="interestMode" class="form-select">
+                        <option value="simple">Simple</option>
+                        <option value="compound">Compound</option>
+                    </InputSelect>
+                </div>
             </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="upsideShare">Upside Share</label>
-                <InputNumber @bind-Value="NewEntry.IssuerUpsideShare" TValue="double" id="upsideShare" class="form-control" type="number"/>
-                <ValidationMessage For="@(()=> NewEntry.IssuerUpsideShare)" />
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="srHolder">SR Holder</label>
-                <InputText @bind-Value="NewEntry.SRHolder" id="srHolder" class="form-control" type="text"/>
-                <ValidationMessage For="@(()=>NewEntry.SRHolder)" />
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="holderShare">Holder Share</label>
-                <InputNumber @bind-Value="NewEntry.HolderShare" TValue="double" id="holderShare" class="form-control" type="number"/>
-                <ValidationMessage For="@(()=>NewEntry.HolderShare)" />
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="upsideShare2">Upside Share</label>
-                <InputNumber @bind-Value="NewEntry.HolderUpsideShare" TValue="double" id="upsideShare2" class="form-control" type="number"/>
-                <ValidationMessage For="@(()=>NewEntry.HolderUpsideShare)" />
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="payable">Payable</label>
-                <InputSelect @bind-Value="NewEntry.Payable" id="payable" class="form-select">
-                    <option value="1">1</option>
-                </InputSelect>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="trustLimit">Trusteeship Limit</label>
-                <InputText @bind-Value=NewEntry.TrusteeshipLimit id="trustLimit" class="form-control" type="text"/>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="trustCollection">Trusteeship Collection</label>
-                <InputText @bind-Value=NewEntry.TrusteeshipCollection id="trustCollection" class="form-control" type="text"/>
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="trustBasis">Trusteeship Basis</label>
-                <InputSelect @bind-Value="NewEntry.TrusteeshipBasis" id="trustBasis" class="form-select">
-                    <option value="1">1</option>
-                </InputSelect>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="resFeeBasis">Resolution Fee Basis</label>
-                <InputSelect @bind-Value=NewEntry.ResolutionFeeBasis id="resFeeBasis" class="form-select">
-                    <option value="1">1</option>
-                </InputSelect>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                <label for="collectionFee">Collection Fee</label>
-                <InputNumber @bind-Value=NewEntry.CollectionFee TValue="double" id="collectionFee" class="form-control" type="number"/>
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="trusteeFee">Trustee Fee</label>
-                <InputNumber @bind-Value=NewEntry.TrusteeFee TValue="double" id="trusteeFee" class="form-control" type="number"/>
-            </div>
-            <div class="offset-md-1 col-md-3">
-                <label for="setupDate">Setup Date</label>
-                <input @bind-value="NewEntry.SetupDate" id="setupDate" class="form-control" type="date">
-            </div>
-            <div class="offset-md-1 col-md-3">
-                <label for="resolutionFee">Resolution Fee</label>
-                <InputNumber @bind-Value=NewEntry.ResolutionFee TValue="double" id="resolutionFee" class="form-control" type="number"/>
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-3">
-                <label for="interestMode">Interest Mode</label>
-                <InputSelect @bind-Value=NewEntry.InterestMode id="interestMode" class="form-select">
-                    <option value="simple">Simple</option>
-                    <option value="compound">Compound</option>
-                </InputSelect>
-            </div>
-        </div>
 
-        <!--Trusteeship Fee Section-->
-        <div class="row my-2">
-            <h5>Trusteeship Fee</h5>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year1">Year 1</label>
-                <InputNumber @bind-Value=NewEntry.T_Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
+            <!--Trusteeship Fee Section-->
+            <div class="row my-2">
+                <h5>Trusteeship Fee</h5>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year1">Year 1</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year2">Year 2</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="F3">Year 3</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year4">Year 4</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year5">Year 5</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year6">Year 6</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year7">Year 7</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year8">Year 8</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year9">Year 9+</label>
+                    <InputNumber @bind-Value=NewEntry.T_Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <a class="btn btn-primary mt-4 clear1" @onclick=ClearTrusteeshipFee>Clear</a>
+                </div>
             </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year2">Year 2</label>
-                <InputNumber @bind-Value=NewEntry.T_Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="F3">Year 3</label>
-                <InputNumber @bind-Value=NewEntry.T_Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year4">Year 4</label>
-                <InputNumber @bind-Value=NewEntry.T_Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year5">Year 5</label>
-                <InputNumber @bind-Value=NewEntry.T_Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year6">Year 6</label>
-                <InputNumber @bind-Value=NewEntry.T_Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year7">Year 7</label>
-                <InputNumber @bind-Value=NewEntry.T_Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year8">Year 8</label>
-                <InputNumber @bind-Value=NewEntry.T_Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year9">Year 9+</label>
-                <InputNumber @bind-Value=NewEntry.T_Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <a class="btn btn-primary mt-4 clear1" @onclick=ClearTrusteeshipFee>Clear</a>
-            </div>
-        </div>
 
-        <!--Resolution Fee Section-->
-        <div class="row my-2">
-            <h5>Resolution Fee</h5>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year1">Year 1</label>
-                <InputNumber @bind-Value=NewEntry.R_Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
+            <!--Resolution Fee Section-->
+            <div class="row my-2">
+                <h5>Resolution Fee</h5>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year1">Year 1</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year1 TValue="double" id="year1" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year2">Year 2</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="F3">Year 3</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year4">Year 4</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year5">Year 5</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year6">Year 6</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year7">Year 7</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year8">Year 8</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <label for="year9">Year 9+</label>
+                    <InputNumber @bind-Value=NewEntry.R_Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
+                </div>
+                <div class="col-md-1 col-sm-2 col-6">
+                    <a class="btn btn-primary mt-4 clear1" @onclick=ClearResolutionFee>Clear</a>
+                </div>
             </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year2">Year 2</label>
-                <InputNumber @bind-Value=NewEntry.R_Year2 TValue="double" id="year2" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="F3">Year 3</label>
-                <InputNumber @bind-Value=NewEntry.R_Year3 TValue="double" id="year3" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year4">Year 4</label>
-                <InputNumber @bind-Value=NewEntry.R_Year4 TValue="double" id="year4" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year5">Year 5</label>
-                <InputNumber @bind-Value=NewEntry.R_Year5 TValue="double" id="year5" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year6">Year 6</label>
-                <InputNumber @bind-Value=NewEntry.R_Year6 TValue="double" id="year6" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year7">Year 7</label>
-                <InputNumber @bind-Value=NewEntry.R_Year7 TValue="double" id="year7" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year8">Year 8</label>
-                <InputNumber @bind-Value=NewEntry.R_Year8 TValue="double" id="year8" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <label for="year9">Year 9+</label>
-                <InputNumber @bind-Value=NewEntry.R_Year9 TValue="double" id="year9" class="form-control year-row-1" type="number"/>
-            </div>
-            <div class="col-md-1 col-sm-2 col-6">
-                <a class="btn btn-primary mt-4 clear1" @onclick=ClearResolutionFee>Clear</a>
-            </div>
-        </div>
 
-        <div class="row my-3">
-            <div class="col-md-6">
-                <label for="trustDesc">Trust Description</label>
-                <InputTextArea @bind-Value=NewEntry.TrustDescription id="trustDesc" class="form-control"></InputTextArea>
+            <div class="row my-3">
+                <div class="col-md-5">
+                    <label for="trustDesc">Trust Description</label>
+                    <InputTextArea @bind-Value=NewEntry.TrustDescription id="trustDesc" class="form-control"></InputTextArea>
+                </div>
+                <div class="offset-md-1 col-md-5">
+                    <label for="t&c">Terms & Condirions</label>
+                    <InputTextArea @bind-Value=NewEntry.TermsAndConditions id="t&c" class="form-control"></InputTextArea>
+                </div>
             </div>
-            <div class="col-md-6">
-                <label for="t&c">Terms & Condirions</label>
-                <InputText @bind-Value=NewEntry.TermsAndConditions id="t&c" class="form-control"></InputText>
+            <div class="row my-4">
+                <div class="col-md-3 shadow-box">
+                    <label for="beneName">Beneficiary Name</label>
+                    <InputText @bind-Value=NewEntry.BeneficiaryName id="beneName" class="form-control" type="text"/>
+                    <label for="branch">Branch Name & Address</label>
+                    <InputText @bind-Value=NewEntry.BranchNameAndAddress class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3 shadow-box">
+                    <label for="accNum">Account Number</label>
+                    <InputText @bind-Value=NewEntry.AccountNumber id="accNum" class="form-control" type="text"/>
+                    <label for="ifsc">IFSC Code</label>
+                    <InputText @bind-Value=NewEntry.IFSCCode id="ifsc" class="form-control" type="text"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3 shadow-box">
+                    <label for="panCard">Pan Card</label>
+                    <InputText @bind-Value=NewEntry.PanCard id="panCard" class="form-control" type="text"/>
+                </div>
             </div>
+            <div class="row mt-5">
+                <div class="col-md-3 shadow-box">
+                    <label for="createdBy">Created By</label>
+                    <label id="createdBy" class="form-control" type="text">@NewEntry.CreatorName</label>
+                    <label for="createdDate">Created Date</label>
+                    <label id="createdDate" class="form-control">@NewEntry.CreationDate.ToString("dd-MMM-yyyy")</label>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3 shadow-box">
+                    <label for="modifiedBy">Modified By</label>
+                    <label id="modifiedBy" class="form-control" type="text">@NewEntry.Modifier</label>
+                    <label for="modifiedBy">Modification Date</label>
+                    <label class="form-control" type="text">@NewEntry.ModificationDate.ToString("dd-MMM-yyyy")</label>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4 mb-3">
+                <a @onclick="Clear" class="btn btn-primary me-3">Clear</a>
+                <input class="btn btn-primary" type="submit" value="@(ShouldAdd ? "Add" : "Edit")">
+            </div>
+        </EditForm>
+    </div>
+    
+    <div class="mt-3">
+
+        <Modal ShowModal=ShowAccountForm>
+            <EditForm Model="NewAccount" class="p-5" OnValidSubmit="SaveAccount">
+                <DataAnnotationsValidator/>
+
+                <div class="d-flex justify-content-center">
+                    <label>Trust Name</label>
+                    <p class="mb-0 ms-2">@NewAccount.TrustName</p>
+                    <ValidationMessage For="@(() => NewAccount.TrustName)" />
+                </div>
+                <div class="my-2">
+                    <label for="trustCode" class="form-label">Trust Code</label>
+                    <label class="form-control">@NewAccount.TrustCode</label>
+                    <ValidationMessage For="@(() => NewAccount.TrustCode)" />
+                </div>
+                <div class="my-2">
+                    <label class="form-label">Borrower Code</label>
+                    <label class="form-control">@NewAccount.BorrowerCode</label>
+                    <ValidationMessage For="@(() => NewAccount.BorrowerCode)" />
+                </div>
+                <div class="my-2">
+                    <label for="trustCode" class="form-label">Company Name</label>
+                    <InputText @bind-Value=NewAccount.Company class="form-control"/>
+                    <ValidationMessage For="@(() => NewAccount.Company)" />
+                </div>
+                <div class="my-2">
+                    <label for="trustCode" class="form-label">Acquisition Date</label>
+                    <input type=date @bind-value=NewAccount.AcquistionDate class="form-control"/>
+                </div>
+                <div class="my-2">
+                    <label for="trustCode" class="form-label">Acquisition Price</label>
+                    <InputNumber @bind-Value=NewAccount.AcquisitonPrice class="form-control"/>
+                </div>
+                <div class="my-2">
+                    <label for="trustCode" class="form-label">SR Issued</label>
+                    <InputNumber @bind-Value=NewAccount.SRIssued class="form-control"/>
+                </div>
+                <div class="my-2 d-flex justify-content-center">
+                    <a class="me-2 btn btn-danger" @onclick=CancelAccountForm>Cancel</a>
+                    <a class="me-2 btn btn-secondary" @onclick=ClearAccountForm>Clear</a>
+                    <input class="btn btn-primary" type="submit" value="@(AccountAddMode ? "Add" : "Edit")"/>
+                </div>
+            </EditForm>
+        </Modal>
+
+        <div class="d-flex justify-content-end mx-5 mt-3">
+            <a class="btn btn-primary" @onclick="AddAccount">Assign Account</a>
         </div>
-        <div class="row my-4">
-            <div class="col-md-3 shadow-box">
-                <label for="beneName">Beneficiary Name</label>
-                <InputText @bind-Value=NewEntry.BeneficiaryName id="beneName" class="form-control" type="text"/>
-                <label for="branch">Branch Name & Address</label>
-                <InputText @bind-Value=NewEntry.BranchNameAndAddress class="form-control"/>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3 shadow-box">
-                <label for="accNum">Account Number</label>
-                <InputText @bind-Value=NewEntry.AccountNumber id="accNum" class="form-control" type="text"/>
-                <label for="ifsc">IFSC Code</label>
-                <InputText @bind-Value=NewEntry.IFSCCode id="ifsc" class="form-control" type="text"/>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-3 shadow-box">
-                <label for="panCard">Pan Card</label>
-                <InputText @bind-Value=NewEntry.PanCard id="panCard" class="form-control" type="text"/>
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-md-4 shadow-box">
-                <label for="createdBy">Created By</label>
-                <InputText @bind-Value=NewEntry.CreatedBy id="createdBy" class="form-control" type="text"/>
-                <label for="createdDate">Created Date</label>
-                <input id="createdDate" @bind-value="NewEntry.CreatedDate" class="form-control" type="text"/>
-            </div>
-            <div class="col-md-2"></div>
-            <div class="col-md-4 shadow-box">
-                <label for="modifiedBy">Modified</label>
-                <InputText @bind-Value=NewEntry.Modified id="modifiedBy" class="form-control" type="text"/>
-                <label for="modifiedBy">Modified By</label>
-                <InputText @bind-Value=NewEntry.ModifiedBy id="modifiedBy" class="form-control" type="text"/>
-            </div>
-        </div>
-        <div class="d-flex justify-content-center mt-4 mb-3">
-            <a @onclick="Clear" class="btn btn-primary me-3">Clear</a>
-            <input class="btn btn-primary" type="submit" value="@(ShouldAdd ? "Add" : "Edit")">
-        </div>
-    </EditForm>
-</div>
+        <Table T="Account" T2="int" ShowSerialNumber=true Items="TrustAccounts" Headers="AccountHeaders" GetId="GetAccountId" IsSearchable=false OnEdit="OnAccountEdit" OnDelete="OnAccountDelete"/>
+    </div>
+
+</CollapsibleContainer>
+
 
 
 <Table T="Trust" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>

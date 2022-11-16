@@ -1,5 +1,6 @@
 ﻿using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Helpers;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
@@ -18,7 +19,7 @@ namespace Company_Site.Pages.User.Account_Pages
 
         #region Private Members
 
-        private Account Details { get; set; } = new Account();
+        private AccountDetailsModel Details { get; set; } = new AccountDetailsModel();
 
         private List<string> _errors = new List<string>();
 
@@ -33,6 +34,9 @@ namespace Company_Site.Pages.User.Account_Pages
         [Inject]
         private ApplicationDbContext _dbContext { get; set; }
 
+        [Inject]
+        private ApplicationState State { get; set; }
+
         #endregion
 
         #region Overriden Methods
@@ -44,27 +48,8 @@ namespace Company_Site.Pages.User.Account_Pages
         {
             base.OnInitialized();
             Trusts = _dbContext.Trusts.ToList();
-            Data.User user = _dbContext.Users.Where(u => u.Id == UserId.Value).First();
-            bankSuggestions = _dbContext.Accounts.Select(a => a.Bank).Distinct().ToList();
-            if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value))
-            {
-                Details = _dbContext.Accounts.Where(a => a.UserId == UserId.Value).First();
-                Details.Modifier = $"{user.FirstName} {user.LastName}";
-                Details.ModificationDate = DateTime.Now;
-            }
-            else
-            {
-                Details.UserId = UserId.Value;
-                Details.CreatorName = $"{user.FirstName} {user.LastName}";
-                Details.CreationDate = DateTime.Now;
-                Details.BorrowerCode = 1;
-
-                //If db context contains any account recortd
-                if (_dbContext.Accounts.Any())
-                {
-                    Details.BorrowerCode = _dbContext.Accounts.OrderBy(a => a.BorrowerCode).First().BorrowerCode + 1;
-                }
-            }
+            bankSuggestions = _dbContext.AccountDetails.Select(a => a.Bank).Distinct().ToList();
+            CreateNewInstance();
         }
 
         #endregion
@@ -73,21 +58,44 @@ namespace Company_Site.Pages.User.Account_Pages
 
         private void Save()
         {
-            if (_dbContext.Accounts.Any(a => a.UserId == UserId.Value )) 
+            if (_dbContext.AccountDetails.Any(a => a.BorrowerCode == State.BorrowerCode)) 
             {
                 _dbContext.Update(Details);
                 _dbContext.SaveChanges();
             }
             else
             {
-                _dbContext.Accounts.Add(Details);
+                _dbContext.AccountDetails.Add(Details);
                 _dbContext.SaveChanges();
             }
         }
 
         private void Clear()
         {
-            Details = new Account();
+            CreateNewInstance();
+        }
+
+        private void CreateNewInstance()
+        {
+            Details = new AccountDetailsModel();
+            Data.User user = _dbContext.Users.Where(u => u.Id == UserId.Value).First();
+            if (State.BorrowerCode != -1)
+            {
+                if (_dbContext.AccountDetails.Any(a => a.BorrowerCode == State.BorrowerCode))
+                {
+                    Details = _dbContext.AccountDetails.Where(a => a.BorrowerCode == State.BorrowerCode).First();
+                    Details.Modifier = $"{user.FirstName} {user.LastName}";
+                    Details.ModificationDate = DateTime.Now;
+                }
+                else
+                {
+                    Details.BorrowerCode = State.BorrowerCode;
+                    Account? acc = _dbContext.Accounts.Where(a => a.BorrowerCode == State.BorrowerCode).FirstOrDefault();
+                    Details.TrustCode = acc.TrustCode;
+                    Details.CreatorName = $"{user.FirstName} {user.LastName}";
+                    Details.CreationDate = DateTime.Now;
+                }
+            }
         }
 
         #endregion

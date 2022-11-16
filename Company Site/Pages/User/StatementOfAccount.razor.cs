@@ -136,6 +136,14 @@ namespace Company_Site.Pages.User
 
         #endregion
 
+        #region Form Fields
+
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        public double Amount { get; set; } = 0;
+
+        #endregion
+
         #region Injected Members
 
         [Inject]
@@ -160,6 +168,7 @@ namespace Company_Site.Pages.User
                 Trust? t = trusts.Where(f => f.TrustCode == acc.TrustCode).FirstOrDefault();
                 DebtProfileModel? debt = debtProfiles.Where(f => f.BorrowerCode == acc.BorrowerCode).FirstOrDefault();
                 DistributionEntry? trustDis = distributionEntries.Where(t => t.Trust_Code == acc.TrustCode).OrderByDescending(f => f.Id).FirstOrDefault();
+
                 if (t == null || debt == null)
                     continue;
 
@@ -169,8 +178,8 @@ namespace Company_Site.Pages.User
                 {
                     Account_Number = debt.AccountNumber,
                     Borrower_Code = acc.BorrowerCode,
-                    Account_Name = acc.Company_Name,
-                    Bank_Name = acc.Bank,
+                    Account_Name = acc.Company,
+                    Bank_Name = acc.Assignor,
                     Trust_Code = acc.TrustCode,
                     Trust_Name = t.Trust_Name,
                     Calculation = debt.Calculation,

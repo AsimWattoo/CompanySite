@@ -40,6 +40,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
     <PackageReference Include="MimeKit" Version="3.4.2" />
+    <PackageReference Include="Radzen.Blazor" Version="4.3.6" />
   </ItemGroup>
 
   <ItemGroup>

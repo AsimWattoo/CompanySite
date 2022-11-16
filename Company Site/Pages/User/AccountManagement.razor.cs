@@ -1,8 +1,12 @@
 ﻿using Company_Site.Base;
 using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Helpers;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
+
+using Radzen;
 
 namespace Company_Site.Pages.User
 {
@@ -19,19 +23,22 @@ namespace Company_Site.Pages.User
 
         #endregion
 
-        #region Injected Members
-
-        [Inject]
-        private ApplicationDbContext _dbContext { get; set; }
-
-        #endregion
-
         #region Private Members
 
         /// <summary>
-        /// The account of the logged in user
+        /// The selected account
         /// </summary>
         private Account? _Account { get; set; }
+
+        /// <summary>
+        /// The list of all the accounts
+        /// </summary>
+        private List<Account> Accounts { get; set; } = new List<Account>();
+
+        /// <summary>
+        /// The list of filtered accounts
+        /// </summary>
+        private List<Account> FilteredAccounts { get; set; } = new List<Account>();
 
         private Dictionary<string, Func<TrustRelationModel, string>> Headers { get; set; } = new Dictionary<string, Func<TrustRelationModel, string>>()
         {
@@ -59,13 +66,40 @@ namespace Company_Site.Pages.User
         protected override void Setup()
         {
             _dbSet = _dbContext.TrustRelations;
-            _Account = _dbContext.Accounts.Where(a => a.UserId == UserId).FirstOrDefault();
+            Accounts = _dbContext.Accounts.ToList();
+            FilteredAccounts = Accounts;
             Trusts = _dbContext.Trusts.ToList();
         }
 
         #endregion
 
         #region Private Methods
+
+
+        private void OnAccountChange(object account)
+        {
+            if(account is int borrowerCode) 
+            {
+                _applicationState.BorrowerCode = borrowerCode;
+                Enteries = _dbContext.TrustRelations.Where(t => t.BorrowerCode == borrowerCode).ToList();
+                _Account = Accounts.Where(f => f.BorrowerCode == borrowerCode).First();
+                SaveResetup();
+            }
+        }
+
+        void LoadAccountData(LoadDataArgs args)
+        {
+            var query = Accounts.AsQueryable();
+
+            if (!string.IsNullOrEmpty(args.Filter))
+            {
+                query = query.Where(c => c.Company.ToLower().Contains(args.Filter.ToLower()));
+            }
+
+            FilteredAccounts = query.ToList();
+
+            InvokeAsync(StateHasChanged);
+        }
 
         /// <summary>
         /// Runs at the end of the save method
@@ -74,10 +108,11 @@ namespace Company_Site.Pages.User
         protected override void SaveResetup()
         {
             NewEntry = new TrustRelationModel();
-            NewEntry.Account = _dbContext.Accounts.Where(a => a.UserId == UserId.Value).FirstOrDefault();
-            if(NewEntry.Account != null)
-                NewEntry.BorrowerCode = NewEntry.Account.BorrowerCode;
-            NewEntry.AccountId = UserId.Value;
+            if(_applicationState.BorrowerCode != -1)
+            {
+                NewEntry.Account = _dbContext.Accounts.Where(a => a.BorrowerCode == _applicationState.BorrowerCode).FirstOrDefault();
+                NewEntry.BorrowerCode = _applicationState.BorrowerCode;
+            }
             NewEntry.Trust = new Trust();
         }
         
@@ -93,7 +128,7 @@ namespace Company_Site.Pages.User
                 _errors.Add("No Account exists");
                 return false;
             }
-            else if(_dbContext.TrustRelations.Count(t => t.AccountId == UserId.Value && t.TrustCode == NewEntry.TrustCode) > 0)
+            else if(_dbContext.TrustRelations.Count(t => t.BorrowerCode == _applicationState.BorrowerCode && t.TrustCode == NewEntry.TrustCode) > 0)
             {
                 _errors.Add("Trust Code is already added for the current account.");
                 return false;
@@ -124,10 +159,10 @@ namespace Company_Site.Pages.User
 
         protected override void LoadData()
         {
-            Enteries = _dbContext.TrustRelations.ToList();
+            Enteries = _dbContext.TrustRelations.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
             Enteries.ForEach(e =>
             {
-                e.Account = _dbContext.Accounts.Where(a => a.UserId == e.AccountId).FirstOrDefault();
+                e.Account = _dbContext.Accounts.Where(a => a.BorrowerCode == e.BorrowerCode).FirstOrDefault();
                 e.Trust = _dbContext.Trusts.Where(t => t.TrustCode == e.TrustCode).FirstOrDefault();
             });
         }

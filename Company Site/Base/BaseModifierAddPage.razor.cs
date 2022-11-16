@@ -54,6 +54,11 @@ namespace Company_Site.Base
             }
         }
 
+        public override void OnEdit(int id)
+        {
+            RecordData();
+        }
+
         #endregion
     }
 }

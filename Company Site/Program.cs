@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContextFactory<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddSingleton<ApplicationState>();
 builder.Services.AddIdentity<User, UserRole>(options =>
 {
     options.Password.RequireNonAlphanumeric = false;

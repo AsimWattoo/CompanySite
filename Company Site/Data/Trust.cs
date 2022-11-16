@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class Trust : BaseModel
+    public class Trust : BaseModifierModel
     {
         [Required(ErrorMessage = "Trust Code is required")]
         public string TrustCode { get; set; }
@@ -25,8 +25,6 @@ namespace Company_Site.Data
         public string? Payable { get; set; }
 
         public string? TrusteeshipBasis { get; set; }
-
-        public double TrusteeFee { get; set; }
 
         [Required(ErrorMessage = "Face Value is required")]
         public int Face_Value { get; set; }
@@ -69,20 +67,10 @@ namespace Company_Site.Data
 
         public string? IFSCCode { get; set; }
 
-        public string? CreatedBy { get; set; }
-
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
-
-        public string? Modified { get; set; }
-
-        public string? ModifiedBy { get; set; }
-
         public string? SROs { get; set; } = string.Empty;
 
         [NotMapped]
         public double Ratio => Math.Round(IssuerShare / HolderShare, 2);
-
-        public DateTime SetupDate { get; set; } = DateTime.Now;
 
         public double ResolutionFee { get; set; }
 
@@ -128,5 +116,9 @@ namespace Company_Site.Data
         public double R_Year9 { get; set; }
 
         public string? PanCard { get; set; }
+
+        public string? SRInvestor { get; set; }
+
+        public double InvestorShare { get; set; }
     }
 }

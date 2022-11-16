@@ -122,8 +122,8 @@
         <fieldset class="border px-2 py-2">
             <legend>Admin</legend>
 
-            <div class="my-2">
-                <EditForm Model="this">
+            <EditForm Model="this">
+                <div class="my-2">
                     <InputRadioGroup @bind-Value=AddMode>
                         <div class="row">
                             <div class="col-3 d-flex align-items-center">
@@ -144,43 +144,44 @@
                             </div>
                         </div>
                     </InputRadioGroup>
-                </EditForm>
-            </div>
+                </div>
 
-            <div class="row my-2">
-                <div class="col-6 d-flex align-items-center">
-                    <label for="date" class="me-2">Date</label>
-                    <input class="form-control" type="date" id="date"/>
+                <div class="row my-2">
+                    <div class="col-6 d-flex align-items-center">
+                        <label for="date" class="me-2">Date</label>
+                        <input class="form-control" type="date" id="date"/>
+                    </div>
+                    <div class="col-6 d-flex align-items-center">
+                        <label for="amount" class="me-2">Amount (Rs.)</label>
+                        <input class="form-control" type="number" id="amount"/>
+                    </div>
                 </div>
-                <div class="col-6 d-flex align-items-center">
-                    <label for="amount" class="me-2">Amount (Rs.)</label>
-                    <input class="form-control" type="number" id="amount"/>
-                </div>
-            </div>
 
-            <div class="row my-2">
-                <div class="col-6 d-flex align-items-center">
-                    <input type="checkbox" id="check"/>
-                    <label for="check" class="me-1 ms-1">Change Interest Rate</label>
-                    <input type="number" class="form-control"/>
+                <div class="row my-2">
+                    <div class="col-6 d-flex align-items-center">
+                        <input type="checkbox" id="check"/>
+                        <label for="check" class="me-1 ms-1">Change Interest Rate</label>
+                        <input type="number" class="form-control"/>
+                    </div>
+                    <div class="col-6 d-flex align-items-center">
+                        <label for="note" class="me-2">Note</label>
+                        <input class="form-control" type="text" id="note"/>
+                    </div>
                 </div>
-                <div class="col-6 d-flex align-items-center">
-                    <label for="note" class="me-2">Note</label>
-                    <input class="form-control" type="text" id="note"/>
-                </div>
-            </div>
 
-            <div class="row my-2">
-                <div class="col-4 px-2 d-flex justify-content-center">
-                    <a class="btn btn-danger">Remove</a>
+                <div class="row my-2">
+                    <div class="col-4 px-2 d-flex justify-content-center">
+                        <a class="btn btn-danger">Remove</a>
+                    </div>
+                    <div class="col-4 px-2 d-flex justify-content-center">
+                        <a class="btn btn-primary">Add</a>
+                    </div>
+                    <div class="col-4 px-2 d-flex justify-content-center">
+                        <a class="btn btn-danger">Bulk upload using Excel</a>
+                    </div>
                 </div>
-                <div class="col-4 px-2 d-flex justify-content-center">
-                    <a class="btn btn-primary">Add</a>
-                </div>
-                <div class="col-4 px-2 d-flex justify-content-center">
-                    <a class="btn btn-danger">Bulk upload using Excel</a>
-                </div>
-            </div>
+
+            </EditForm>
 
         </fieldset>
     </div>

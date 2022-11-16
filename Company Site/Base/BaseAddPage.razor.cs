@@ -1,5 +1,6 @@
 ﻿using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Helpers;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
@@ -34,6 +35,9 @@ namespace Company_Site.Base
 
 		[Inject]
 		protected NavigationManager _navigationManager { get; set; }
+
+        [Inject]
+        protected ApplicationState _applicationState { get; set; }
 
         #endregion
 

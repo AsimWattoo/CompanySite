@@ -1,0 +1,12 @@
+﻿<div class="modal @(ShowModal ? "show d-block" : "d-none")" role="dialog" id="addModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content px-4 py-4">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@if (ShowModal)
+{
+    <div class="modal-backdrop show"></div>
+}
