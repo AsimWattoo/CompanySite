@@ -163,44 +163,46 @@ namespace Company_Site.Pages.User
         {
             //TODO: Resolve Trust Code issue here.
             //Loading Account Data to Statement of Account View Model
-            //List<Account> accounts = new List<Account>();
-            //List<Trust> trusts = await _dbContext.Trusts.ToListAsync();
-            //List<DebtProfileModel> debtProfiles = await _dbContext.DebtProfiles.ToListAsync();
-            //List<DistributionEntry> distributionEntries = await _dbContext.DistributionEnteries.ToListAsync();
-            //foreach (Account acc in accounts)
-            //{
-            //    Trust? t = trusts.Where(f => f.TrustCode == acc.TrustCode).First();
-            //    DebtProfileModel? debt = debtProfiles.Where(f => f.BorrowerCode == acc.BorrowerCode).FirstOrDefault();
-            //    DistributionEntry? trustDis = distributionEntries.Where(t => t.Trust_Code == acc.TrustCode).OrderByDescending(f => f.Id).FirstOrDefault();
+            List<TrustRelationModel> relations = new List<TrustRelationModel>();
+            List<Account> accounts = new List<Account>();
+            List<Trust> trusts = await _dbContext.Trusts.ToListAsync();
+            List<DebtProfileModel> debtProfiles = await _dbContext.DebtProfiles.ToListAsync();
+            List<DistributionEntry> distributionEntries = await _dbContext.DistributionEnteries.ToListAsync();
+            foreach (TrustRelationModel relation in relations)
+            {
+                Account acc = accounts.Where(f => f.BorrowerCode == relation.BorrowerCode).First();
+                Trust? t = trusts.Where(f => f.TrustCode == relation.TrustCode).First();
+                DebtProfileModel? debt = debtProfiles.Where(f => f.BorrowerCode == acc.BorrowerCode).FirstOrDefault();
+                DistributionEntry? trustDis = distributionEntries.Where(t => t.Trust_Code == relation.TrustCode).OrderByDescending(f => f.Id).FirstOrDefault();
 
-            //    if (t == null || debt == null)
-            //        continue;
+                if (t == null || debt == null)
+                    continue;
 
-            //    double opening = trustDis == null ? 0 : trustDis.ClosingBalance;
+                double opening = trustDis == null ? 0 : trustDis.ClosingBalance;
 
-            //    Statements.Add(new StatementOfAccountViewModel()
-            //    {
-            //        Account_Number = debt.AccountNumber,
-            //        Borrower_Code = acc.BorrowerCode,
-            //        Account_Name = acc.Company,
-            //        Bank_Name = acc.Assignor,
-            //        Trust_Code = acc.TrustCode,
-            //        Trust_Name = t.Trust_Name,
-            //        Calculation = debt.Calculation,
-            //        ClosedDate = debt.Res_EndDate,
-            //        Facility = debt.Facility,
-            //        Frequency = debt.Facility,
-            //        Note = debt.note,
-            //        Opening_Balance = opening,
-            //        Penal_Interest = debt.PenalAmount,
-            //        SOADate = DateTime.Now,
-            //        Interest = debt.BaseInterestRate + debt.Spread,
-            //        StatusAs = debt.Status,
-            //        Maker = debt.CreatorName,
-            //        Checker = debt.Modifier,
-            //        Penal_Percent = debt.PenalInterest,
-            //    });
-            //}
+                Statements.Add(new StatementOfAccountViewModel()
+                {
+                    Account_Number = debt.AccountNumber,
+                    Borrower_Code = acc.BorrowerCode,
+                    Account_Name = acc.Company,
+                    Bank_Name = acc.Assignor,
+                    Trust_Code = t.TrustCode,
+                    Trust_Name = t.Trust_Name,
+                    Calculation = debt.Calculation,
+                    ClosedDate = debt.Res_EndDate,
+                    Facility = debt.Facility,
+                    Frequency = debt.Facility,
+                    Note = debt.note,
+                    Opening_Balance = opening,
+                    Penal_Interest = debt.PenalAmount,
+                    SOADate = DateTime.Now,
+                    Interest = debt.BaseInterestRate + debt.Spread,
+                    StatusAs = debt.Status,
+                    Maker = debt.CreatorName,
+                    Checker = debt.Modifier,
+                    Penal_Percent = debt.PenalInterest,
+                });
+            }
         }
 
         #endregion
