@@ -1,9 +1,6 @@
 ﻿using Company_Site.Base;
 using Company_Site.DB;
 
-using Microsoft.AspNetCore.Routing.Constraints;
-using Microsoft.EntityFrameworkCore;
-
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +8,7 @@ namespace Company_Site.Data
 {
     public class TrustRelationModel : BaseModel
     {
+        [NotMapped]
         public Trust? Trust { get; set; }
 
         [Required(ErrorMessage = "Trust code is required")]

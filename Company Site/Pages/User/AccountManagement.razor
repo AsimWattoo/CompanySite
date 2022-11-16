@@ -22,10 +22,6 @@
                     <label for="accCode">Account Code</label>
                     <label class="form-control" style="width: 200px;">@_Account?.BorrowerCode</label>
                 </div>
-                <div style="width: 200px;" class="mx-1">
-                    <label for="trustCode">Trust Code</label>
-                    <label class="form-control" style="width: 200px;">@_Account?.TrustCode</label>
-                </div>
             </div>
         </div>
 
@@ -80,49 +76,9 @@
                 </div>
 
                 <!--Modal to enter new record-->
-                <div>
-                    <Modal ShowModal=ShowModel>
-                        <EditForm Model="NewEntry" OnValidSubmit="Save">
-
-                            <DataAnnotationsValidator />
-
-                            <MultiErrorView Errors="_errors" />
-
-                            <div class="row">
-                                <div class="col-6">
-                                    <div>
-                                        <label>Trsut Code</label>
-                                        <InputSelect class="form-select" Value="NewEntry.TrustCode" TValue=string ValueChanged="@TrustCodeChanged" ValueExpression="@(() => NewEntry.TrustCode)">
-                                            <option selected value="">------ Select Option -----</option>
-                                    @foreach (Trust t in Trusts)
-                                    {
-                                                    <option value="@t.TrustCode">@t.TrustCode</option>
-                                    }
-                                        </InputSelect>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div>
-                                        <label>Trust Name</label>
-                                        <label class="form-control">@NewEntry.Trust?.Trust_Name</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer mt-3">
-                                <a class="btn btn-danger" @onclick="@Cancel">Cancel</a>
-                                <a @onclick="Clear" class="btn btn-secondary">Clear</a>
-                                <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary"/>
-                            </div>
-                        </EditForm>
-                    </Modal>
-                </div>
-
                 <div class="mt-4">
-                    <div class="d-flex align-items-center justify-content-end">
-                        <a class="my-1  btn btn-outline-primary" @onclick="@(() =>ShowModel = true)"><i class="fa fa-plus me-1"></i> Add</a>
-                    </div>
                     <div>
-                        <Table T="TrustRelationModel" T2="int" Items="Enteries" GetId="GetId" Headers=Headers OnEdit=EditRecord OnDelete=DeleteRecord IsSearchable=false></Table>
+                        <Table T="TrustRelationModel" T2="int" Items="Enteries" GetId="GetId" Headers=Headers IsEditable="@(e => false)" IsDeleteable=@(e => false) IsSearchable=false></Table>
                     </div>
                 </div>
             </div>

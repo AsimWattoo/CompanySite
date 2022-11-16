@@ -46,16 +46,6 @@ namespace Company_Site.Pages.User
             ["Total SR Issued"] = t => t.Trust.SRIssued.ToString(),
         };
 
-        /// <summary>
-        /// The list of available trusts
-        /// </summary>
-        private List<Trust> Trusts { get; set; } = new List<Trust>();
-
-        /// <summary>
-        /// Indicates that the modal should be shown
-        /// </summary>
-        private bool ShowModel { get; set; } = false;
-
         #endregion
 
         #region Overriden Methods
@@ -68,7 +58,6 @@ namespace Company_Site.Pages.User
             _dbSet = _dbContext.TrustRelations;
             Accounts = _dbContext.Accounts.ToList();
             FilteredAccounts = Accounts;
-            Trusts = _dbContext.Trusts.ToList();
         }
 
         #endregion
@@ -81,7 +70,7 @@ namespace Company_Site.Pages.User
             if(account is int borrowerCode) 
             {
                 _applicationState.BorrowerCode = borrowerCode;
-                Enteries = _dbContext.TrustRelations.Where(t => t.BorrowerCode == borrowerCode).ToList();
+                LoadData();
                 _Account = Accounts.Where(f => f.BorrowerCode == borrowerCode).First();
                 SaveResetup();
             }
@@ -101,61 +90,7 @@ namespace Company_Site.Pages.User
             InvokeAsync(StateHasChanged);
         }
 
-        /// <summary>
-        /// Runs at the end of the save method
-        /// Used to resetup things for next input
-        /// </summary>
-        protected override void SaveResetup()
-        {
-            NewEntry = new TrustRelationModel();
-            if(_applicationState.BorrowerCode != -1)
-            {
-                NewEntry.Account = _dbContext.Accounts.Where(a => a.BorrowerCode == _applicationState.BorrowerCode).FirstOrDefault();
-                NewEntry.BorrowerCode = _applicationState.BorrowerCode;
-            }
-            NewEntry.Trust = new Trust();
-        }
-        
-        /// <summary>
-        /// Runs at start of the save method
-        /// If it is true then rest of the save code is executed
-        /// </summary>
-        /// <returns></returns>
-        protected override bool SaveSetup()
-        {
-            if(NewEntry.Account == null)
-            {
-                _errors.Add("No Account exists");
-                return false;
-            }
-            else if(_dbContext.TrustRelations.Count(t => t.BorrowerCode == _applicationState.BorrowerCode && t.TrustCode == NewEntry.TrustCode) > 0)
-            {
-                _errors.Add("Trust Code is already added for the current account.");
-                return false;
-            }
-            else
-            {
-                ShowModel = false;
-                return base.SaveSetup();
-            }
-        }
-
         private int GetId(TrustRelationModel model) => model.Id;
-
-        private void TrustCodeChanged(string trustCode)
-        {
-            NewEntry.TrustCode = trustCode;
-            NewEntry.Trust = _dbContext.Trusts.Where(t => t.TrustCode == trustCode).FirstOrDefault();
-        }
-
-        public override void OnEdit(int id)
-        {
-            ShowModel = true;
-        }
-
-        protected override void OnClear()
-        {
-        }
 
         protected override void LoadData()
         {
@@ -165,13 +100,6 @@ namespace Company_Site.Pages.User
                 e.Account = _dbContext.Accounts.Where(a => a.BorrowerCode == e.BorrowerCode).FirstOrDefault();
                 e.Trust = _dbContext.Trusts.Where(t => t.TrustCode == e.TrustCode).FirstOrDefault();
             });
-        }
-
-        private void Cancel()
-        {
-            ShouldAdd = true;
-            ShowModel = false;
-            SaveResetup();
         }
 
         #endregion

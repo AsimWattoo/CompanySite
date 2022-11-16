@@ -6,14 +6,14 @@ namespace Company_Site.Data
 {
     public class Account : BaseModel
     {
-        [Required(ErrorMessage = "Trust code is required")]
-        public string TrustCode { get; set; }
+        //[Required(ErrorMessage = "Trust code is required")]
+        //public string TrustCode { get; set; }
 
         [Required(ErrorMessage = "Assignor is required")]
         public string Assignor { get; set; }
 
-        [Required(ErrorMessage = "Trust name is required")]
-        public string TrustName { get; set; }
+        //[Required(ErrorMessage = "Trust name is required")]
+        //public string TrustName { get; set; }
 
         [Required(ErrorMessage = "Borrower code is required")]
         public int BorrowerCode { get; set; }

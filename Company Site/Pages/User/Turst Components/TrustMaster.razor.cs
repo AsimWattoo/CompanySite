@@ -2,6 +2,7 @@
 using Company_Site.Data;
 using Company_Site.Helpers;
 using Company_Site.Interfaces;
+using Company_Site.ViewModels;
 
 namespace Company_Site.Pages.User.Turst_Components
 {
@@ -27,9 +28,9 @@ namespace Company_Site.Pages.User.Turst_Components
 
         #region Account Table Fields
 
-        private List<Account> TrustAccounts { get; set; } = new List<Account>();
+        private List<AccountViewModel> TrustAccounts { get; set; } = new List<AccountViewModel>();
 
-        private Dictionary<string, Func<Account, string>> AccountHeaders { get; set; } = new Dictionary<string, Func<Account, string>>()
+        private Dictionary<string, Func<AccountViewModel, string>> AccountHeaders { get; set; } = new Dictionary<string, Func<AccountViewModel, string>>()
         {
             ["Borrower Code"] = e => e.BorrowerCode.ToString(),
             ["Company Name"] = e => e.Company,
@@ -38,12 +39,12 @@ namespace Company_Site.Pages.User.Turst_Components
             ["SR Issued"] = e => e.SRIssued.ToString(),
         };
 
-        private int GetAccountId(Account acc) => acc.Id;
+        private int GetAccountId(AccountViewModel acc) => acc.BorrowerCode;
 
         /// <summary>
         /// The new account which is being edited
         /// </summary>
-        private Account NewAccount { get; set; } = new Account();
+        private AccountViewModel NewAccount { get; set; } = new AccountViewModel();
 
         private bool ShowAccountForm { get; set; } = false;
 
@@ -53,23 +54,24 @@ namespace Company_Site.Pages.User.Turst_Components
 
         #region Account Methods
 
-        private void OnAccountEdit(int id)
+        private void OnAccountEdit(int borrowerCode)
         {
             AccountAddMode = false;
             ShowAccountForm = true;
-            NewAccount = _dbContext.Accounts.Where(a => a.Id == id).FirstOrDefault() ?? new Account();
+            NewAccount = TrustAccounts.Where(a => a.BorrowerCode == borrowerCode).FirstOrDefault() ?? new AccountViewModel();
         }
 
-        private List<Account> OnAccountDelete(int id)
+        private List<AccountViewModel> OnAccountDelete(int borrowerCode)
         {
-            Account? acc = _dbContext.Accounts.Where(a => a.Id == id).FirstOrDefault();
-            if (acc == null)
+            AccountViewModel model = TrustAccounts.Where(e => e.BorrowerCode == borrowerCode).First();
+            TrustRelationModel? relation = _dbContext.TrustRelations.Where(a => a.BorrowerCode == borrowerCode && a.TrustCode == model.TrustCode).FirstOrDefault();
+            if (relation == null)
                 return TrustAccounts;
 
-            _dbContext.Accounts.Remove(acc);
+            _dbContext.TrustRelations.Remove(relation);
             _dbContext.SaveChanges();
-            TrustAccounts = _dbContext.Accounts.ToList();
             StateHasChanged();
+            TrustAccounts.Remove(model);
             return TrustAccounts;
         }
 
@@ -94,26 +96,62 @@ namespace Company_Site.Pages.User.Turst_Components
         {
             if (ShouldAdd)
             {
-                _dbContext.Accounts.Add(NewAccount);
+                Account account = new Account()
+                {
+                    BorrowerCode = NewAccount.BorrowerCode,
+                    AcquisitonPrice = NewAccount.AcquisitonPrice,
+                    AcquistionDate = NewAccount.AcquistionDate,
+                    Assignor = NewAccount.Assignor,
+                    Company = NewAccount.Company,
+                    SRIssued = NewAccount.SRIssued,
+                };
+                TrustRelationModel relation = new TrustRelationModel()
+                {
+                    BorrowerCode = account.BorrowerCode,
+                    TrustCode = NewAccount.TrustCode,
+                };
+                _dbContext.Accounts.Add(account);
+                _dbContext.TrustRelations.Add(relation);
             }
             else
             {
-                _dbContext.Accounts.Update(NewAccount);
+                Account acc = _dbContext.Accounts.Where(f => f.BorrowerCode == NewAccount.BorrowerCode).First();
+                acc.AcquisitonPrice = NewAccount.AcquisitonPrice;
+                acc.Assignor = NewAccount.Assignor;
+                acc.Company = NewAccount.Company;
+                acc.AcquistionDate = NewAccount.AcquistionDate;
+                acc.SRIssued = NewAccount.SRIssued;
+                _dbContext.Accounts.Update(acc);
             }
             _dbContext.SaveChanges();
-            TrustAccounts = _dbContext.Accounts.Where(e => e.TrustCode == NewEntry.TrustCode).ToList();
+            LoadTrustAccounts();
             CancelAccountForm();
             StateHasChanged();
         }
 
         private void CreateNewAccount()
         {
-            NewAccount = new Account();
-            NewAccount.TrustCode = NewEntry.TrustCode;
-            NewAccount.TrustName = NewEntry.Trust_Name;
+            NewAccount = new AccountViewModel();
             Account? acc = _dbContext.Accounts.OrderByDescending(f => f.BorrowerCode).FirstOrDefault();
             NewAccount.BorrowerCode = acc == null ? 1 : acc.Id + 1;
             NewAccount.Assignor = NewEntry.SRHolder;
+            NewAccount.TrustCode = NewEntry.TrustCode;
+            NewAccount.TrustName = NewEntry.Trust_Name;
+        }
+
+        /// <summary>
+        /// Loads accounts based on trust relation models
+        /// </summary>
+        private void LoadTrustAccounts()
+        {
+            List<TrustRelationModel> relations = _dbContext.TrustRelations.Where(f => f.TrustCode == NewEntry.TrustCode).ToList();
+            List<Account> accounts = _dbContext.Accounts.ToList();
+            TrustAccounts = new List<AccountViewModel>();
+            relations.ForEach(e =>
+            {
+                AccountViewModel acc = new AccountViewModel(accounts.Where(f => f.BorrowerCode == e.BorrowerCode).First(), NewEntry);
+                TrustAccounts.Add(acc);
+            });
         }
 
         #endregion
@@ -128,7 +166,7 @@ namespace Company_Site.Pages.User.Turst_Components
         protected override void OnClear()
         {
             base.OnClear();
-            TrustAccounts = new List<Account>();
+            TrustAccounts = new List<AccountViewModel>();
         }
 
         #endregion
@@ -192,7 +230,7 @@ namespace Company_Site.Pages.User.Turst_Components
 
         public override void OnEdit(int id)
         {
-            TrustAccounts = _dbContext.Accounts.Where(t => t.TrustCode == NewEntry.TrustCode).ToList();
+            LoadTrustAccounts();
             RecordData();
         }
 
