@@ -91,7 +91,8 @@ namespace Company_Site.Pages.User.Account_Pages
                 {
                     Details.BorrowerCode = State.BorrowerCode;
                     Account? acc = _dbContext.Accounts.Where(a => a.BorrowerCode == State.BorrowerCode).FirstOrDefault();
-                    Details.TrustCode = acc.TrustCode;
+                    //TODO: Resolve Trust Code Issue Here
+                    Details.TrustCode = "";
                     Details.CreatorName = $"{user.FirstName} {user.LastName}";
                     Details.CreationDate = DateTime.Now;
                 }

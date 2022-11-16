@@ -52,6 +52,47 @@ namespace Company_Site.Pages.User.Turst_Components
 
         #endregion
 
+        #region Link Account Fields
+
+        public List<Account> ExistingAccounts { get; set; } = new List<Account>();
+
+        public Account SelectedExistingAccount { get; set; } = new Account();
+
+        public void OnExistingAccountChange(object account)
+        {
+            if(account is int borrowerCode)
+            {
+                SelectedExistingAccount = ExistingAccounts.Where(f => f.BorrowerCode == borrowerCode).First();
+            }
+        }
+
+        public bool ShowExistingAccountForm { get; set; } = false;
+
+        public void ShowExistingAccounts()
+        {
+            SelectedExistingAccount = new Account();
+            List<int> linkedAccounts = _dbContext.TrustRelations.Where(e => e.TrustCode == NewEntry.TrustCode).Select(e => e.BorrowerCode).ToList();
+            ExistingAccounts = _dbContext.Accounts.Where(e => !linkedAccounts.Contains(e.BorrowerCode)).ToList();
+            ShowExistingAccountForm = true;
+        }
+
+        public void CancelExistingAccountForm()
+        {
+            ShowExistingAccountForm = false;
+        }
+
+        public void LinkExistingAccount()
+        {
+            TrustRelationModel model = new TrustRelationModel() { BorrowerCode = SelectedExistingAccount.BorrowerCode, TrustCode = NewEntry.TrustCode };
+            _dbContext.TrustRelations.Add(model);
+            _dbContext.SaveChanges();
+            TrustAccounts.Add(new AccountViewModel(SelectedExistingAccount, NewEntry));
+            CancelExistingAccountForm();
+            StateHasChanged();
+        }
+
+        #endregion
+
         #region Account Methods
 
         private void OnAccountEdit(int borrowerCode)

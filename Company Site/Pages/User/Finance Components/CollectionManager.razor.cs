@@ -77,8 +77,10 @@ namespace Company_Site.Pages.User.Finance_Components
             Account? acc = _dbContext.Accounts.Where(f => f.BorrowerCode == value).FirstOrDefault();
             if (acc != null)
             {
-                NewEntry.TrustCode = acc.TrustCode;
-                NewEntry.Trust_Name = _dbContext.Trusts.Where(f => f.TrustCode == acc.TrustCode).FirstOrDefault()?.Trust_Name;
+                //TODO: Resolve Trust Code Issue 
+                NewEntry.TrustCode = "";
+                //NewEntry.TrustCode = acc.TrustCode;
+                NewEntry.Trust_Name = _dbContext.Trusts.Where(f => f.TrustCode == "").FirstOrDefault()?.Trust_Name;
                 NewEntry.BorrowerName = acc.Company;
                 List<TrustRelationModel> trustRelations= _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
                 TrustRelationModelEnteries.Clear();
