@@ -28,6 +28,8 @@ namespace Company_Site.Pages.User.Finance_Components
         /// </summary>
         private List<Account> Borrowers { get; set; } = new List<Account>();
 
+        public bool DeleteRelatedEntries { get; set; } = false;
+
         #endregion
 
         #region Collection Sub Entries Table
@@ -171,13 +173,36 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <returns></returns>
         public int GetId(CollectionEntry e) => e.Id;
 
-        /// <summary>
-        /// Searches the records
-        /// </summary>
-        /// <param name="users"></param>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public List<CollectionEntry> Search(List<CollectionEntry> expenseEnteries, string text)
+        private void DeleteChanged(ChangeEventArgs e)
+        {
+
+        }
+
+		public override List<CollectionEntry> DeleteRecord(int id)
+		{
+            if (DeleteRelatedEntries)
+            {
+                CollectionEntry entry = _dbContext.Collections.Where(f => f.Id == id).First();
+                List<CollectionEntry> relatedCollections = _dbContext.Collections.Where(f => f.CollectionId == entry.CollectionId).ToList();
+                relatedCollections.ForEach(e => _dbContext.Collections.Remove(e));
+                _dbContext.SaveChanges();
+                Enteries = _dbContext.Collections.ToList();
+                StateHasChanged();
+                return Enteries;
+            }
+            else
+            {
+				return base.DeleteRecord(id);
+			}
+		}
+
+		/// <summary>
+		/// Searches the records
+		/// </summary>
+		/// <param name="users"></param>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		public List<CollectionEntry> Search(List<CollectionEntry> expenseEnteries, string text)
         {
             text = text.ToLower();
             return expenseEnteries.Where(e => e.TrustCode.Equals(text) || e.Source.Equals(text) || e.Trust_Name.Equals(text) || e.Borrower.Equals(text) || e.BorrowerName.Equals(text)).ToList();

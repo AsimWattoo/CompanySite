@@ -54,6 +54,10 @@ namespace Company_Site.DB
 
 		public DbSet<DistributionEntry> DistributionEnteries { get; set; }
 
+		public DbSet<InterestRateChangeModel> InterestRateChangeEntries { get; set; }
+
+		public DbSet<DisburmentModel> Disburments { get; set; }
+
 		#endregion
 
 		#region Constructor

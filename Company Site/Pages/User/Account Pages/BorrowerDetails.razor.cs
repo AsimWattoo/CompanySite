@@ -28,11 +28,22 @@ namespace Company_Site.Pages.User.Account_Pages
             _dbSet = _dbContext.BorrowerDetails;
         }
 
-        #endregion
+		protected override void LoadData()
+		{
+            Enteries = _dbContext.BorrowerDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+		}
 
-        #region Public Methods
+		protected override void SaveResetup()
+		{
+            NewEntry = new BorrowerDetail();
+            NewEntry.BorrowerCode = _applicationState.BorrowerCode == -1 ? null : _applicationState.BorrowerCode;
+		}
 
-        public int GetId(BorrowerDetail t) => t.Id;
+		#endregion
+
+		#region Public Methods
+
+		public int GetId(BorrowerDetail t) => t.Id;
 
         public bool SearchItem(BorrowerDetail e)
         {

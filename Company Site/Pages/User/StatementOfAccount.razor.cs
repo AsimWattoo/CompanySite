@@ -64,7 +64,14 @@ namespace Company_Site.Pages.User
         /// </summary>
         private List<ExpenseEntry> ExpenseEntries = new List<ExpenseEntry>();
 
-        public int GetExpenseId(ExpenseEntry e) => e.Id;
+        private int GetExpenseId(ExpenseEntry e) => e.Id;
+
+        private ExpenseEntry? SelectedExpenseEntry { get; set; } = null;
+
+        private void ExpenseRowClicked(ExpenseEntry e)
+        {
+            SelectedExpenseEntry = e;
+        }
 
         #endregion
 
@@ -85,38 +92,56 @@ namespace Company_Site.Pages.User
 
         private int GetCollectionId(CollectionEntry e) => e.Id;
 
+        private CollectionEntry? SelectedCollectionEntry { get; set; }
+
+        private void CollectionRowClicked(CollectionEntry e)
+        {
+            SelectedCollectionEntry = e;
+        }
+
         #endregion
 
-        #region Distribution Table Fields
+        #region Disbursment Table Fields
 
-        public Dictionary<string, Func<DistributionEntry, string>> DistributionHeaders { get; set; } = new Dictionary<string, Func<DistributionEntry, string>>()
+        public List<DisburmentModel> DisburmentEntries { get; set; } = new List<DisburmentModel>();
+
+        public Dictionary<string, Func<DisburmentModel, string>> DisbursmentHeaders { get; set; } = new Dictionary<string, Func<DisburmentModel, string>>()
         {
-            ["Trust Code"] = e => e.Trust_Code,
-            ["Trust Name"] = e => e.Trust_Name,
-            ["SR Issued"] = e => e.SRIssued.ToString(),
-            ["SR Outstanding"] = e => e.SROutStanding.ToString(),
-            ["Opening"] = e => Number.Round(e.Opening),
-            ["Collections"] = e => Number.Round(e.Collections),
-            ["TS Fee"] = e => Number.Round(e.TSFee),
-            ["RS Fee"] = e => Number.Round(e.RFees),
-            ["C Fee"] = e => Number.Round(e.CFee),
-            ["Other Expenses"] = e => Number.Round(e.OtherExpense),
-            ["Adjustments"] = e => Number.Round(e.Adjustment),
-            ["Balance"] = e => Number.Round(e.Balance),
-            ["TDS Decimal"] = e => Number.Round(e.TDS_Decimal),
-            ["Advance TDS Decimal"] = e => Number.Round(e.Advance_TDS_Decimal),
-            ["Disstribution AMT"] = e => Number.Round(e.Distribution_AMT),
-            ["Normal Dist"] = e => Number.Round(e.NormalDist),
-            ["Surplus"] = e => Number.Round(e.Surplus),
-            ["Provision"] = e => Number.Round(e.Provision),
-            ["Closing Balance"] = e => Number.Round(e.ClosingBalance),
-            ["OPFV"] = e => Number.Round(e.OPFV),
-            ["CLFv"] = e => Number.Round(e.CLFV),
+            ["Date"] = e => e.Date.ToString("dd-MMM-yyyy"),
+            ["Revised Interest Rate"] = e => Number.Round(e.Amount),
+            ["Note"] = e => e.Note
         };
 
-        public List<DistributionEntry> DistributionEntries { get; set; } = new List<DistributionEntry>();
+        private int GetDisbursmentId(DisburmentModel e) => e.Id;
 
-        private int GetDistributionId(DistributionEntry entry) => entry.Id;
+        private DisburmentModel? SelectedDisbursementEntry { get; set; }
+
+        private void DisbursementRowClicked(DisburmentModel e)
+        {
+            SelectedDisbursementEntry = e;
+        }
+
+        #endregion
+
+        #region Interest Rate Change Entries
+
+        private List<InterestRateChangeModel> InterestRateChangeEntries { get; set; } = new List<InterestRateChangeModel>();
+
+        private Dictionary<string, Func<InterestRateChangeModel, string>> InterestRateChangeHeaders { get; set; } = new Dictionary<string, Func<InterestRateChangeModel, string>>()
+        {
+            ["Date"] = e => e.Date.ToString("dd-MMM-yyyy"),
+            ["Revised Interest Rate"] = e => Number.Round(e.RevisedInterestRate),
+            ["Note"] = e => e.Note
+        };
+
+        private int GetInterestRateChangeId(InterestRateChangeModel e) => e.Id;
+
+        private InterestRateChangeModel? SelectedInterestRateEntry { get; set; }
+
+        private void InterestRateRowClicked(InterestRateChangeModel e)
+        {
+            SelectedInterestRateEntry = e;
+        }
 
         #endregion
 
@@ -129,18 +154,9 @@ namespace Company_Site.Pages.User
 
         private StatementOfAccountMode Mode { get; set; } = StatementOfAccountMode.Collections;
 
-        /// <summary>
-        /// The mode of the page for adding
-        /// </summary>
-        private StatementOfAccountMode AddMode { get; set; }
+        private StatementOfAccountDataViewModel NewEntry { get; set; } = new StatementOfAccountDataViewModel();
 
-        #endregion
-
-        #region Form Fields
-
-        public DateTime Date { get; set; } = DateTime.Now;
-
-        public double Amount { get; set; } = 0;
+        private List<string> _errors = new List<string>();
 
         #endregion
 
@@ -163,8 +179,8 @@ namespace Company_Site.Pages.User
         {
             //TODO: Resolve Trust Code issue here.
             //Loading Account Data to Statement of Account View Model
-            List<TrustRelationModel> relations = new List<TrustRelationModel>();
-            List<Account> accounts = new List<Account>();
+            List<TrustRelationModel> relations = _dbContext.TrustRelations.ToList();
+            List<Account> accounts = _dbContext.Accounts.ToList();
             List<Trust> trusts = await _dbContext.Trusts.ToListAsync();
             List<DebtProfileModel> debtProfiles = await _dbContext.DebtProfiles.ToListAsync();
             List<DistributionEntry> distributionEntries = await _dbContext.DistributionEnteries.ToListAsync();
@@ -216,8 +232,35 @@ namespace Company_Site.Pages.User
         private void StatementRowClicked(StatementOfAccountViewModel model)
         {
             Model = model;
-            ExpenseEntries = _dbContext.Expenses.Where(e => e.Borrower_Code == model.Borrower_Code).ToList();
+            ClearEntries();
+            UpdateEntries(model, StatementOfAccountMode.Collections);
+            UpdateEntries(model, StatementOfAccountMode.Expenses);
+            UpdateEntries(model, StatementOfAccountMode.Disbursement);
+            UpdateEntries(model, StatementOfAccountMode.Interest, forceUpdate: true);
             StateHasChanged();
+        }
+
+        private void UpdateEntries(StatementOfAccountViewModel model, StatementOfAccountMode mode, bool forceUpdate = false)
+        {
+            switch (mode)
+            {
+                case StatementOfAccountMode.Expenses:
+                    ExpenseEntries = _dbContext.Expenses.Where(e => e.Borrower_Code == model.Borrower_Code && e.TrustCode == model.Trust_Code).ToList();
+                    break;
+                case StatementOfAccountMode.Collections:
+                    CollectionEntries = _dbContext.Collections.Where(e => e.TrustCode == model.Trust_Code && e.Borrower == model.Borrower_Code).ToList();
+                    break;
+                case StatementOfAccountMode.Disbursement:
+                    DisburmentEntries = _dbContext.Disburments.Where(d => d.BorrowerCode == model.Borrower_Code).ToList();
+                    break;
+                case StatementOfAccountMode.Interest:
+                    InterestRateChangeEntries = _dbContext.InterestRateChangeEntries.Where(f => f.BorrowerCode == model.Borrower_Code).ToList();
+                    break;
+            }
+            if (forceUpdate)
+            {
+                StateHasChanged();
+            }
         }
 
         /// <summary>
@@ -226,7 +269,107 @@ namespace Company_Site.Pages.User
         /// <param name="model"></param>
         private void ChangeMode(StatementOfAccountMode mode)
         {
-            Mode = mode;
+            if(mode != Mode)
+            {
+                ClearEntries();
+                Mode = mode;
+            }
+        }
+
+        /// <summary>
+        /// Adds the entry
+        /// </summary>
+        private void Add()
+        {
+            _errors.Clear();
+            if(NewEntry.Mode == StatementOfAccountMode.Expenses)
+            {
+                ExpenseEntry entry = new ExpenseEntry()
+                {
+                    PaymentAmount = NewEntry.Amount,
+                    Borrower_Code = Model.Borrower_Code,
+                    TrustCode = Model.Trust_Code,
+                    Trust_Name = Model.Trust_Name,
+                    PaymentDate = DateTime.Now,
+                };
+                _dbContext.Expenses.Add(entry);
+            }
+            else if(NewEntry.Mode == StatementOfAccountMode.Collections)
+            {
+                
+            }
+            else if(NewEntry.Mode == StatementOfAccountMode.Disbursement)
+            {
+                DisburmentModel disburment = new DisburmentModel()
+                {
+                    BorrowerCode = Model.Borrower_Code,
+                    Date = NewEntry.Date,
+                    Note = NewEntry.Note,
+                    Amount = NewEntry.Amount,
+                };
+                _dbContext.Disburments.Add(disburment);
+            }
+            else if (NewEntry.Mode == StatementOfAccountMode.Interest)
+            {
+                InterestRateChangeModel interestRate = new InterestRateChangeModel()
+                {
+                    BorrowerCode = Model.Borrower_Code,
+                    Date = NewEntry.Date,
+                    Note = NewEntry.Note,
+                    RevisedInterestRate = NewEntry.ChangeInInterestRate,
+                };
+                _dbContext.InterestRateChangeEntries.Add(interestRate);
+            }
+            
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (Exception exc)
+            {
+                if (exc.InnerException != null)
+                    _errors.Add(exc.InnerException.Message);
+                else
+                    _errors.Add(exc.Message);
+            }
+
+            UpdateEntries(Model, NewEntry.Mode, true);
+            Clear();
+        }
+
+        private void Remove()
+        {
+            if(Mode == StatementOfAccountMode.Collections && SelectedCollectionEntry != null) 
+            {
+                _dbContext.Collections.Remove(SelectedCollectionEntry);
+            }
+            else if (Mode == StatementOfAccountMode.Expenses && SelectedExpenseEntry != null)
+            {
+                _dbContext.Expenses.Remove(SelectedExpenseEntry);
+            }
+            else if(Mode == StatementOfAccountMode.Interest && SelectedInterestRateEntry != null)
+            {
+                _dbContext.InterestRateChangeEntries.Remove(SelectedInterestRateEntry);
+            }
+            else if(Mode == StatementOfAccountMode.Disbursement && SelectedDisbursementEntry != null)
+            {
+                _dbContext.Disburments.Remove(SelectedDisbursementEntry);
+            }
+            _dbContext.SaveChanges();
+            UpdateEntries(Model, Mode, true);
+        }
+
+        private void ClearEntries()
+        {
+            SelectedExpenseEntry = null;
+            SelectedCollectionEntry = null;
+            SelectedDisbursementEntry = null;
+            SelectedInterestRateEntry = null;
+        }
+
+        private void Clear()
+        {
+            NewEntry = new StatementOfAccountDataViewModel();
         }
 
         #endregion

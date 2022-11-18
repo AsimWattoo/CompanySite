@@ -34,8 +34,6 @@ namespace Company_Site.Data
 
         public double PaymentAmount { get; set; }
 
-        public int AccountId { get; set; }
-
         public bool Proportionately { get; set; } = false;
     }
 }

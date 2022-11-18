@@ -10,6 +10,12 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Borrower Name is required")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// The borrower code with which the borrowers are related
+        /// </summary>
+        [Required(ErrorMessage = "Borrower code is required")]
+        public int? BorrowerCode { get; set; }
+
         [Required(ErrorMessage = "Borrower Position is required")]
         public string? Position { get; set; }
 

@@ -123,4 +123,9 @@
     </EditForm>
 </CollapsibleContainer>
 
+<div class="my-4 d-flex justify-content-end">
+    <label>Delete Related Enteries</label>
+    <input type="checkbox" class="form-check mx-1" @bind-value="DeleteRelatedEntries"/>
+</div>
+
 <Table T="CollectionEntry" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
