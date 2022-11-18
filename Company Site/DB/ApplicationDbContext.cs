@@ -54,8 +54,6 @@ namespace Company_Site.DB
 
 		public DbSet<DistributionEntry> DistributionEnteries { get; set; }
 
-		public DbSet<CollectionSubEntry> CollectionSubEntries { get; set; }
-
 		#endregion
 
 		#region Constructor

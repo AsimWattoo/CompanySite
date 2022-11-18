@@ -5,23 +5,15 @@
 
 <div class="container-fluid mt-4 w-100">
 	
-	<div class="modal" id="deleteConfirmModal">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Confirmation</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<p>Are you sure you want to delete the record?</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" @onclick="DeleteRecord"  data-bs-dismiss="modal"  class="btn btn-danger">Confirm</button>
-				</div>
-			</div>
+	<Modal ShowModal=IsDeleteConfirmationVisible>
+		<div class="my-2">
+			<p>Are you sure you want to delete the record?</p>
 		</div>
-	</div>
+		<div class="d-flex justify-content-center my-2">
+			<button type="button" class="btn btn-secondary mx-1" @onclick=CancelDeleteConfirmation>Close</button>
+			<button type="button" @onclick="DeleteRecord" class="btn btn-danger mx-1">Confirm</button>
+		</div>
+	</Modal>
 
 	<!--Table Header-->
 	@if (IsSearchable)
@@ -114,14 +106,7 @@
 							}
 							@if (IsDeleteable(item))
 							{
-								if(ShowDeleteConfirmation)
-								{
-									<a @onclick='@(() => DeleteRecordId(GetId(item)))' data-bs-toggle="modal" class="my-1" data-bs-target="#deleteConfirmModal"><i class="fa fa-trash btn btn-outline-danger"></i></a>
-								}
-								else
-								{
-									<a @onclick='@(() => {DeleteRecordId(GetId(item)); DeleteRecord();})' class="my-1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
-								}
+								<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
 							}
 						}
 					</td>

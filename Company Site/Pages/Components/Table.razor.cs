@@ -134,6 +134,8 @@ namespace Company_Site.Pages.Components
 
         private Dictionary<string, Sorting> Sortings = new Dictionary<string, Sorting>();
 
+        private bool IsDeleteConfirmationVisible { get; set; } = false;
+
         #endregion
 
         #region Overriden Methods
@@ -275,6 +277,17 @@ namespace Company_Site.Pages.Components
         private void DeleteRecordId(T2 id)
         {
             userIdToDelete = id;
+            if (!ShowDeleteConfirmation)
+            {
+                DeleteRecord();
+			}
+            else
+				IsDeleteConfirmationVisible = true;
+		}
+
+		private void CancelDeleteConfirmation()
+        {
+            IsDeleteConfirmationVisible = false;
         }
 
         ///Sorts the table with the specified column
@@ -301,6 +314,7 @@ namespace Company_Site.Pages.Components
             {
                 Items = OnDelete(userIdToDelete);
             }
+            IsDeleteConfirmationVisible = false;
         }
 
         //Edits the record

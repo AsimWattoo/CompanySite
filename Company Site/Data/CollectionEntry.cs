@@ -1,5 +1,6 @@
 ﻿
 using Company_Site.Base;
+using Company_Site.Interfaces;
 
 using MimeKit.Cryptography;
 
@@ -7,8 +8,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class CollectionEntry : BaseModel
+    public class CollectionEntry : BaseModel, ICloneable<CollectionEntry>
     {
+        public int? CollectionId { get; set; } = null;
+
         public string? TrustCode { get; set; }
 
         [Required(ErrorMessage ="Borrower is required")]
@@ -43,5 +46,28 @@ namespace Company_Site.Data
         public bool Proportionately { get; set; }
 
         public int? Distribution_Id { get; set; } = null;
+
+        public CollectionEntry Clone()
+        {
+            return new CollectionEntry()
+            {
+                Id = Id,
+                CollectionId = CollectionId,
+                TrustCode = TrustCode,
+                Trust_Name = Trust_Name,
+                Borrower = Borrower,
+                BorrowerName = BorrowerName,
+                AdjustToward = AdjustToward,
+                CreditAmount = CreditAmount,
+                CreditDate =CreditDate,
+                Distribution_Id = Distribution_Id,
+                KYC= KYC,
+                NoneSeller = NoneSeller,
+                NoneSellerShare= NoneSellerShare,
+                Proportionately = Proportionately,
+                Source = Source,
+                TypeOfRecovery = TypeOfRecovery
+            };
+        }
     }
 }

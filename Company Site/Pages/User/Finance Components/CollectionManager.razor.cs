@@ -28,10 +28,14 @@ namespace Company_Site.Pages.User.Finance_Components
         /// </summary>
         private List<Account> Borrowers { get; set; } = new List<Account>();
 
+        #endregion
+
+        #region Collection Sub Entries Table
+
         /// <summary>
         /// Headers for the relation table header
         /// </summary>
-        private Dictionary<string, Func<CollectionSubEntry, string>> RelationTableHeaders{ get; set; } = new Dictionary<string, Func<CollectionSubEntry, string>>()
+        private Dictionary<string, Func<CollectionSubEntryViewModel, string>> RelationTableHeaders { get; set; } = new Dictionary<string, Func<CollectionSubEntryViewModel, string>>()
         {
             ["Trust Code"] = t => t.TrustCode,
             ["Trust Name"] = t => t.TrustName == null ? "" : t.TrustName,
@@ -40,15 +44,15 @@ namespace Company_Site.Pages.User.Finance_Components
             ["Amount"] = t => t.Amount.ToString()
         };
 
-        private List<CollectionSubEntry> TrustRelationModelEnteries { get; set; } = new List<CollectionSubEntry>();
+        private List<CollectionSubEntryViewModel> TrustRelationModelEnteries { get; set; } = new List<CollectionSubEntryViewModel>();
 
-        private Dictionary<string, TableInput<CollectionSubEntry>> RelationModelEditableFields { get; set; } = new Dictionary<string, TableInput<CollectionSubEntry>>()
+        private Dictionary<string, TableInput<CollectionSubEntryViewModel>> RelationModelEditableFields { get; set; } = new Dictionary<string, TableInput<CollectionSubEntryViewModel>>()
         {
             ["Trust Code"] = null,
             ["Trust Name"] = null,
             ["Holder Name"] = null,
-            ["Share"] = new (t => nameof(t.Share), 0),
-            ["Amount"] = new (t => nameof(t.Amount), 0),
+            ["Share"] = new(t => nameof(t.Share), 0),
+            ["Amount"] = null,
         };
 
         #endregion
@@ -65,7 +69,7 @@ namespace Company_Site.Pages.User.Finance_Components
 
         #region Private Methods
 
-        private int GetRelationId(CollectionSubEntry model) => model.Id;
+        private int GetRelationId(CollectionSubEntryViewModel model) => model.Id;
 
         /// <summary>
         /// Gets and sets the name of the borrower based on id
@@ -74,31 +78,29 @@ namespace Company_Site.Pages.User.Finance_Components
         private void BorrowerChanged(int value)
         {
             NewEntry.Borrower = value;
-            Account? acc = _dbContext.Accounts.Where(f => f.BorrowerCode == value).FirstOrDefault();
-            if (acc != null)
+            List<TrustRelationModel> relationModels = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
+            Account? account = _dbContext.Accounts.Where(f => f.BorrowerCode == NewEntry.Borrower).FirstOrDefault();
+
+            if(account == null)
             {
-                //TODO: Resolve Trust Code Issue 
-                NewEntry.TrustCode = "";
-                //NewEntry.TrustCode = acc.TrustCode;
-                NewEntry.Trust_Name = _dbContext.Trusts.Where(f => f.TrustCode == "").FirstOrDefault()?.Trust_Name;
-                NewEntry.BorrowerName = acc.Company;
-                List<TrustRelationModel> trustRelations= _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
-                TrustRelationModelEnteries.Clear();
-                foreach(TrustRelationModel model in trustRelations)
+                return;
+            }
+            NewEntry.BorrowerName = account.Company;
+            TrustRelationModelEnteries.Clear();
+            foreach (TrustRelationModel relationModel in relationModels)
+            {
+                Trust? t = _dbContext.Trusts.Where(f => f.TrustCode == f.TrustCode).FirstOrDefault();
+                if (t == null)
+                    continue;
+                TrustRelationModelEnteries.Add(new CollectionSubEntryViewModel()
                 {
-                    Trust t = _dbContext.Trusts.Where(f => f.TrustCode == f.TrustCode).FirstOrDefault();
-                    if (t == null)
-                        continue;
-                    TrustRelationModelEnteries.Add(new CollectionSubEntry()
-                    {
-                        TrustCode = model.TrustCode,
-                        TrustName = t?.Trust_Name,
-                        Amount = 0,
-                        Share = 0,
-                        HolderName = t?.SRHolder,
-                        BorrowerCode = NewEntry.Borrower,
-                    });
-                }
+                    TrustCode = relationModel.TrustCode,
+                    TrustName = t.Trust_Name,
+                    Amount = 0,
+                    Share = 0,
+                    HolderName = t.SRHolder,
+                    BorrowerCode = NewEntry.Borrower,
+                });
             }
         }
 
@@ -108,19 +110,58 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <returns></returns>-
         protected override bool SaveSetup()
         {
-            if (base.SaveSetup())
+            if (ShouldAdd)
             {
-                _dbContext.SaveChanges();
-                int id = NewEntry.Id;
-                foreach (CollectionSubEntry model in TrustRelationModelEnteries)
+                try
                 {
-                    model.CollectionEntryId = id;
-                    _dbContext.CollectionSubEntries.Update(model);
+                    //Getting New Collection Id for the related fields
+                    CollectionEntry? cEntry = _dbContext.Collections.OrderByDescending(f => f.CollectionId).FirstOrDefault();
+                    int collectionId = 1;
+
+                    if (cEntry != null)
+                        collectionId = cEntry.CollectionId.Value + 1;
+
+                    //Storing the collections
+                    foreach (CollectionSubEntryViewModel subEntry in TrustRelationModelEnteries)
+                    {
+                        CollectionEntry entry = NewEntry.Clone();
+                        entry.TrustCode = subEntry.TrustCode;
+                        entry.Trust_Name = subEntry.TrustName;
+                        entry.CreditAmount = (NewEntry.CreditAmount * subEntry.Share) / 100;
+                        entry.CollectionId = collectionId;
+                        _dbContext.Collections.Add(entry);
+                    }
+                    _dbContext.SaveChanges();
+                    return true;
                 }
-                return true;
+                catch
+                {
+                    return false;
+                }
             }
             else
-                return false;
+            {
+                foreach(CollectionSubEntryViewModel subEntry in TrustRelationModelEnteries)
+                {
+                    CollectionEntry entry = _dbContext.Collections.Where(f => f.Id == subEntry.Id).First();
+                    entry.Borrower = NewEntry.Borrower;
+                    entry.BorrowerName = NewEntry.BorrowerName;
+                    entry.KYC = NewEntry.KYC;
+                    entry.Source = NewEntry.Source;
+                    entry.AdjustToward = NewEntry.AdjustToward;
+                    entry.CollectionId = subEntry.CollectionId;
+                    entry.CreditDate = NewEntry.CreditDate;
+                    entry.Distribution_Id = NewEntry.Distribution_Id;
+                    entry.NoneSeller = NewEntry.NoneSeller;
+                    entry.NoneSellerShare = NewEntry.NoneSellerShare;
+                    entry.Proportionately = NewEntry.Proportionately;
+                    entry.TypeOfRecovery = NewEntry.TypeOfRecovery;
+                    entry.CreditAmount = (NewEntry.CreditAmount * subEntry.Share) / 100;
+                    _dbContext.Collections.Update(entry);
+                }
+                _dbContext.SaveChanges();
+                return true;
+            }
         }
 
         /// <summary>
@@ -144,13 +185,24 @@ namespace Company_Site.Pages.User.Finance_Components
 
         public override void OnEdit(int id)
         {
-            TrustRelationModelEnteries = _dbContext.CollectionSubEntries.Where(f => f.CollectionEntryId == NewEntry.Id).ToList();
-        }
+            List<CollectionEntry> collections = _dbContext.Collections.ToList();
+            CollectionEntry entry = collections.Where(t => t.Id == id).First();
+            List<CollectionEntry> relatedEnteries = collections.Where(f => f.CollectionId == entry.CollectionId).ToList();
+            double totalAmount = relatedEnteries.Sum(f => f.CreditAmount);
+            Trust t = _dbContext.Trusts.Where(t => t.TrustCode == NewEntry.TrustCode).First();
+            NewEntry = entry.Clone();
+            TrustRelationModelEnteries.Clear();
+            relatedEnteries.ForEach(e =>
+            {
+                TrustRelationModelEnteries.Add(new CollectionSubEntryViewModel(NewEntry.Borrower, NewEntry.BorrowerName, e, t, totalAmount));
+            });
+			NewEntry.CreditAmount = totalAmount;
+		}
 
-        protected override void SaveResetup()
+		protected override void SaveResetup()
         {
             NewEntry = new CollectionEntry();
-            TrustRelationModelEnteries = new List<CollectionSubEntry>();
+            TrustRelationModelEnteries = new List<CollectionSubEntryViewModel>();
         }
 
         #endregion

@@ -23,26 +23,24 @@ namespace Company_Site.Pages.User.Account_Pages
 
         #endregion
 
-        #region Private Members
-
-        private Account? userAccount;
-
-        #endregion
-
         #region Overriden Methods
 
         protected override void Setup()
         {
             _dbSet = _dbContext.DebtProfiles;
-            userAccount = _dbContext.Accounts.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).FirstOrDefault();
         }
 
         protected override void SaveResetup()
         {
             NewEntry = new DebtProfileModel();
-            if(userAccount != null)
-                NewEntry.BorrowerCode = userAccount.BorrowerCode;
+            if(_applicationState.BorrowerCode != -1)
+                NewEntry.BorrowerCode = _applicationState.BorrowerCode;
             RecordData();
+        }
+
+        protected override void LoadData()
+        {
+            Enteries = _dbSet.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
         }
 
         #endregion

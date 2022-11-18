@@ -13,6 +13,9 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public bool ShowModal { get; set; } = false;
 
+        [Parameter]
+        public string Title { get; set; }
+
         #endregion
 
     }

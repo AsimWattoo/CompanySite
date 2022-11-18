@@ -1,6 +1,7 @@
 ﻿@using Company_Site.Base;
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
+@using Company_Site.ViewModels;
 
 @inherits BaseAddPage<CollectionEntry>
 
@@ -103,7 +104,7 @@
         </div>
 
         <div class="row my-3">
-            <Table T="CollectionSubEntry" T2="int" 
+            <Table T="CollectionSubEntryViewModel" T2="int" 
                 ShowSerialNumber=true 
                 Items=TrustRelationModelEnteries 
                 Headers="RelationTableHeaders" 
