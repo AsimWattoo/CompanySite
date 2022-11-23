@@ -26,7 +26,7 @@ namespace Company_Site.Data
 
         public int Vendor_Id { get; set; }
         
-        public string Vendor_Name { get; set; }
+        public string? Vendor_Name { get; set; }
 
         public DateTime PaymentDate { get; set; } = DateTime.Now;
 

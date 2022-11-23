@@ -8,5 +8,6 @@ namespace Company_Site.Data
         public double Amount { get; set; }
         public int BorrowerCode { get; set; }
         public string? Note { get; set; }
+        public string? AdjustTowards { get; set; }
     }
 }

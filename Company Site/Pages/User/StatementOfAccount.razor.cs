@@ -108,7 +108,8 @@ namespace Company_Site.Pages.User
         public Dictionary<string, Func<DisburmentModel, string>> DisbursmentHeaders { get; set; } = new Dictionary<string, Func<DisburmentModel, string>>()
         {
             ["Date"] = e => e.Date.ToString("dd-MMM-yyyy"),
-            ["Revised Interest Rate"] = e => Number.Round(e.Amount),
+            ["Amount"] = e => Number.Round(e.Amount),
+            ["Adjust Towards"] = e => e.AdjustTowards,
             ["Note"] = e => e.Note
         };
 
@@ -130,7 +131,7 @@ namespace Company_Site.Pages.User
         private Dictionary<string, Func<InterestRateChangeModel, string>> InterestRateChangeHeaders { get; set; } = new Dictionary<string, Func<InterestRateChangeModel, string>>()
         {
             ["Date"] = e => e.Date.ToString("dd-MMM-yyyy"),
-            ["Revised Interest Rate"] = e => Number.Round(e.RevisedInterestRate),
+            ["Revised Interest Rate"] = e => Number.Round(e.RevisedInterestRate) + "%",
             ["Note"] = e => e.Note
         };
 
@@ -157,6 +158,8 @@ namespace Company_Site.Pages.User
         private StatementOfAccountDataViewModel NewEntry { get; set; } = new StatementOfAccountDataViewModel();
 
         private List<string> _errors = new List<string>();
+
+        private bool DeleteConfirmationModalShown { get; set; } = false;
 
         #endregion
 
@@ -284,6 +287,7 @@ namespace Company_Site.Pages.User
             _errors.Clear();
             if(NewEntry.Mode == StatementOfAccountMode.Expenses)
             {
+                //TODO: Where should the adjust and note field values go in the expense entry
                 ExpenseEntry entry = new ExpenseEntry()
                 {
                     PaymentAmount = NewEntry.Amount,
@@ -296,7 +300,34 @@ namespace Company_Site.Pages.User
             }
             else if(NewEntry.Mode == StatementOfAccountMode.Collections)
             {
-                
+                int collectionId = 1;
+
+                CollectionEntry? firstEntry = _dbContext.Collections.OrderByDescending(f => f.CollectionId).FirstOrDefault();
+
+                if (firstEntry != null && firstEntry.CollectionId.HasValue)
+                    collectionId = firstEntry.CollectionId.Value + 1;
+
+                //Getting the borrower with the specified code
+                Account acc = _dbContext.Accounts.Where(f => f.BorrowerCode == Model.Borrower_Code).First();
+
+                //TODO: To which field does the note field values goes to
+                //TODO: Specify the fields for the source and type
+
+                CollectionEntry collectionEntry = new CollectionEntry()
+                {
+                    AdjustToward = NewEntry.AdjustTowards,
+                    TrustCode = Model.Trust_Code,
+                    Trust_Name = Model.Trust_Name,
+                    BorrowerName = acc.Company,
+                    Borrower = Model.Borrower_Code,
+                    CollectionId = collectionId,
+                    CreditAmount = NewEntry.Amount,
+                    CreditDate = NewEntry.Date,
+                    Source = "--Source--",
+                    TypeOfRecovery = "--Recovery--"
+                };
+
+                _dbContext.Collections.Add(collectionEntry);
             }
             else if(NewEntry.Mode == StatementOfAccountMode.Disbursement)
             {
@@ -306,6 +337,7 @@ namespace Company_Site.Pages.User
                     Date = NewEntry.Date,
                     Note = NewEntry.Note,
                     Amount = NewEntry.Amount,
+                    AdjustTowards = NewEntry.AdjustTowards
                 };
                 _dbContext.Disburments.Add(disburment);
             }
@@ -321,6 +353,7 @@ namespace Company_Site.Pages.User
                 _dbContext.InterestRateChangeEntries.Add(interestRate);
             }
             
+            //Saving the database and in case of errors showing the errors to the user on the form
             try
             {
                 _dbContext.SaveChanges();
@@ -337,8 +370,19 @@ namespace Company_Site.Pages.User
             Clear();
         }
 
+        private void ShowDeleteConfirmationModal()
+        {
+            DeleteConfirmationModalShown = true;
+        }
+
+        private void CancelDelete()
+        {
+            DeleteConfirmationModalShown = false;
+        }
+
         private void Remove()
         {
+            DeleteConfirmationModalShown = false;
             if(Mode == StatementOfAccountMode.Collections && SelectedCollectionEntry != null) 
             {
                 _dbContext.Collections.Remove(SelectedCollectionEntry);
@@ -370,6 +414,44 @@ namespace Company_Site.Pages.User
         private void Clear()
         {
             NewEntry = new StatementOfAccountDataViewModel();
+        }
+
+        /// <summary>
+        /// Loads data for pdf and excel
+        /// </summary>
+        private void LoadDataToPrint()
+        {
+            List<ExpenseEntry> expenses = _dbContext.Expenses.Where(f => f.Borrower_Code == Model.Borrower_Code).ToList();
+            List<CollectionEntry> collections = _dbContext.Collections.Where(f => f.Borrower == Model.Borrower_Code).ToList();
+            List<DisburmentModel> disburments = _dbContext.Disburments.Where(f => f.BorrowerCode == Model.Borrower_Code).ToList();
+            List<InterestRateChangeModel> interestRateChangeModels = _dbContext.InterestRateChangeEntries.Where(f => f.BorrowerCode == Model.Borrower_Code).ToList();
+            //The list containing data from all the above specified lists
+            List<StatementOfAccountDataViewModel> items = new List<StatementOfAccountDataViewModel>();
+            expenses.ForEach(e =>items.Add(StatementOfAccountDataViewModel.FromExpense(e)));
+            collections.ForEach(e =>items.Add(StatementOfAccountDataViewModel.FromCollection(e)));
+            disburments.ForEach(e =>items.Add(StatementOfAccountDataViewModel.FromDisbursment(e)));
+            interestRateChangeModels.ForEach(e =>items.Add(StatementOfAccountDataViewModel.FromInterestRate(e)));
+            items = items.OrderByDescending(e => e.Date).ToList();
+            //<------------- All the data for the selected borrower is in the above items list sorted in descending order ---------------->
+        }
+
+        /// <summary>
+        /// Loads data for pdf and excel
+        /// </summary>
+        private void LoadSummary()
+        {
+            List<ExpenseEntry> expenses = _dbContext.Expenses.ToList();
+            List<CollectionEntry> collections = _dbContext.Collections.ToList();
+            List<DisburmentModel> disburments = _dbContext.Disburments.ToList();
+            List<InterestRateChangeModel> interestRateChangeModels = _dbContext.InterestRateChangeEntries.ToList();
+            //The list containing data from all the above specified lists
+            List<StatementOfAccountDataViewModel> items = new List<StatementOfAccountDataViewModel>();
+            expenses.ForEach(e => items.Add(StatementOfAccountDataViewModel.FromExpense(e)));
+            collections.ForEach(e => items.Add(StatementOfAccountDataViewModel.FromCollection(e)));
+            disburments.ForEach(e => items.Add(StatementOfAccountDataViewModel.FromDisbursment(e)));
+            interestRateChangeModels.ForEach(e => items.Add(StatementOfAccountDataViewModel.FromInterestRate(e)));
+            items = items.OrderByDescending(e => e.Date).ToList();
+            //<------------- All the data for all the borrowers is in the above items list sorted in descending order ---------------->
         }
 
         #endregion
