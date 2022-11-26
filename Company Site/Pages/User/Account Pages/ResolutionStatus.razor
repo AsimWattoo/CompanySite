@@ -1,0 +1,78 @@
+﻿@page "/resolutionstatus"
+
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+
+<div class="card border-0">
+    <div class="card-header pb-0">
+        <h5>Resolution status</h5>
+    </div>
+    <div class="card-body">
+        
+        <EditForm Model="Model">
+            <div class="my-2">
+                <CollapsibleContainer Id="1" Title="Current Progress">
+                    <RichTextEditor ValueExpression="@(() => Model.Current_Progress)" Value="@Model.Current_Progress" ValueChanged="@CurrentProgressValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="2" Title="RBI Reporting">
+                    <RichTextEditor ValueExpression="@(() => Model.RBI_Reporting)" Value="@Model.RBI_Reporting" ValueChanged="@RBIReportingValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="3" Title="Rating Reporting">
+                    <RichTextEditor ValueExpression="@(() => Model.Rating_Reporting)" Value="@Model.Rating_Reporting" ValueChanged="@RatingReportingValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div  class="my-2">
+                <CollapsibleContainer Id="4" Title="Case Update">
+                    <RichTextEditor ValueExpression="@(() => Model.Case_Update)" Value="@Model.Case_Update" ValueChanged="@CaseUpdateValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="5" Title="Important Information">
+                    <RichTextEditor ValueExpression="@(() => Model.Important_information)" Value="@Model.Important_information" ValueChanged="@ImportantInformationValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="6" Title="Challanges">
+                    <RichTextEditor ValueExpression="@(() => Model.Challenges)" Value="@Model.Challenges" ValueChanged="@ChallangesValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="7" Title="Recommend Strategy">
+                    <RichTextEditor ValueExpression="@(() => Model.Recommended_Strategy)" Value="@Model.Recommended_Strategy" ValueChanged="@RecommendStrategyValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="8" Title="Next Steps">
+                    <RichTextEditor ValueExpression="@(() => Model.Next_steps)" Value="@Model.Next_steps" ValueChanged="@NextStepsValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="9" Title="Resolution Plan">
+                    <RichTextEditor ValueExpression="@(() => Model.Resolution_plan)" Value="@Model.Resolution_plan" ValueChanged="@ResolutionPlanValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+
+            <div class="my-2">
+                <CollapsibleContainer Id="10" Title="Restructing Plan">
+                    <RichTextEditor ValueExpression="@(() => Model.Restructuring_plan)" Value="@Model.Restructuring_plan" ValueChanged="@RestructuringPlanValueChanged"/>
+                </CollapsibleContainer>
+            </div>
+        </EditForm>
+
+    </div>
+</div>
+

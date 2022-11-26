@@ -1030,6 +1030,52 @@ namespace Company_Site.Migrations
                     b.ToTable("Memos");
                 });
 
+            modelBuilder.Entity("Company_Site.Data.ResolutionStatusModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Case_Update")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Challenges")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Current_Progress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Important_information")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Next_steps")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RBI_Reporting")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rating_Reporting")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Recommended_Strategy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Resolution_plan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Restructuring_plan")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResolutionStatusModels");
+                });
+
             modelBuilder.Entity("Company_Site.Data.Trust", b =>
                 {
                     b.Property<int>("Id")

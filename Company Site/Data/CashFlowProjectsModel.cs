@@ -1,8 +1,7 @@
-﻿using System;
-using Company_Site.Base;
+﻿using Company_Site.Base;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Company_Site.Data
 {

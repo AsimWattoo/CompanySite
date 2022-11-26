@@ -60,6 +60,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXERvY3VtZW50c2xpc3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/ResolutionStatus.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXFJlc29sdXRpb25TdGF0dXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/NewAcquisition.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxOZXdBY3F1aXNpdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

@@ -58,6 +58,8 @@ namespace Company_Site.DB
 
 		public DbSet<DisburmentModel> Disburments { get; set; }
 
+		public DbSet<ResolutionStatusModel> ResolutionStatusModels { get; set; }
+
 		#endregion
 
 		#region Constructor
