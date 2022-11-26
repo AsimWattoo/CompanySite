@@ -254,7 +254,7 @@ namespace Company_Site.Migrations
                     b.ToTable("BorrowerDetails");
                 });
 
-            modelBuilder.Entity("Company_Site.Data.CashFlowProjects", b =>
+            modelBuilder.Entity("Company_Site.Data.CashFlowProjectsModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -262,16 +262,14 @@ namespace Company_Site.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Year")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Facilty")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.Property<long>("amount")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("facilty")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("quarter")
                         .IsRequired()
@@ -661,10 +659,10 @@ namespace Company_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Document")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DocumentAmount")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime?>("Document_Date")
+                    b.Property<DateTime>("Document_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Execution_Place")
@@ -673,7 +671,7 @@ namespace Company_Site.Migrations
                     b.Property<string>("Original_Held_With")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Stamp_Date")
+                    b.Property<string>("Stamp_Duty")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")

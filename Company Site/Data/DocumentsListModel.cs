@@ -1,5 +1,5 @@
-﻿using System;
-using Company_Site.Base;
+﻿using Company_Site.Base;
+
 using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
@@ -18,11 +18,11 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Document Type is required!")]
         public string? Doc_type { get; set; }
 
-        public string? Document { get; set; }
+        public int DocumentAmount { get; set; }
 
-        public DateTime? Document_Date { get; set; }
+        public DateTime Document_Date { get; set; } = DateTime.Now;
 
-        public string? Stamp_Date { get; set; }
+        public string? Stamp_Duty { get; set; }
 
         public string? Original_Held_With { get; set; }
 

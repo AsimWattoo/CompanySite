@@ -30,6 +30,16 @@ namespace Company_Site.Pages.User.Account_Pages
             _dbSet = _dbContext.DebtProfiles;
         }
 
+        protected override bool SaveSetup()
+        {
+            if(_applicationState.BorrowerCode == -1)
+            {
+                _errors.Add("Please select an account before adding a debt profile");
+                return false;
+            }
+            return base.SaveSetup();
+        }
+
         protected override void SaveResetup()
         {
             NewEntry = new DebtProfileModel();

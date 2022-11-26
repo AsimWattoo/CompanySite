@@ -35,6 +35,9 @@ namespace Company_Site.Pages.Components
         public Dictionary<string, Func<T, string>> Headers { get; set; } = new Dictionary<string, Func<T, string>>();
 
         [Parameter]
+        public Func<string, T, string>? ValueCallback { get; set; }
+
+        [Parameter]
         public List<T> Items
         {
             get => _items;

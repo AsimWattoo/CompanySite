@@ -7,8 +7,6 @@ using Company_Site.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
-using Org.BouncyCastle.Bcpg.OpenPgp;
-
 namespace Company_Site.Pages.User
 {
     public partial class StatementOfAccount : ComponentBase

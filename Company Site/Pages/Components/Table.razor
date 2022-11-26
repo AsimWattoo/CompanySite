@@ -86,7 +86,7 @@
 						}
 						else
 						{
-							<td class="text-start fs-5">@GetHeaderValue(header, item)</td>
+							<td class="text-start fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
 						}
 					}
 					<td>

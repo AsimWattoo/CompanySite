@@ -1,0 +1,82 @@
+
+@page "/Documentslist"
+
+@inherits BaseAddPage<DocumentsListsModel>
+
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+<h2 class="ms-3">Documentslist</h2>
+
+<CollapsibleContainer>
+    <div class="mx-2">
+        <EditForm Model="NewEntry" OnValidSubmit="Save">
+
+            <DataAnnotationsValidator/>
+
+            <MultiErrorView Errors="_errors"/>
+                <div class="row">
+                <div class="col-md-5">
+                    <label for="title">Title</label>
+                    <InputText @bind-Value=NewEntry.Title id="Title" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Title)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label for="type">Type</label>
+                    <InputText @bind-Value=NewEntry.Type id="Type" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Type)"/>
+                </div>
+            </div>
+            <label for="desc">Description</label>
+            <InputTextArea id="desc" class="form-control" @bind-Value=NewEntry.Description></InputTextArea>
+            <ValidationMessage For="@(() => NewEntry.Description)" />
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="type2">Type</label>
+                    <InputSelect id="type2" @bind-Value=NewEntry.Doc_type class="form-select">
+                        <option value="" selected>------ Select Document Type -----</option>
+                        <option value="original">Original</option>
+                        <option value="photocopy">Photocopy</option>
+                        <option value="certTrueCopy">Certified True Copy</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => NewEntry.Doc_type)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label for="docAmount">Document Amount</label>
+                    <InputNumber @bind-Value=NewEntry.DocumentAmount id="Document Amount" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="docDate">Document Date</label>
+                    <input @bind-value=NewEntry.Document_Date id="Document Date" class="form-control" type="date"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label for="stampDuty">Stamp Duty</label>
+                    <InputText @bind-Value=NewEntry.Stamp_Duty id="Stamp duty" class="form-control" type="text"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="origHeldWith">Original Held With</label>
+                    <InputText @bind-Value=NewEntry.Original_Held_With Held With id="Original Held With" class="form-control" type="text"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label for="execPlace">Execution Place</label>
+                    <InputText @bind-Value=NewEntry.Execution_Place id="Execution Place" class="form-control" type="text"/>
+                </div>
+            </div>
+            <p class="text-center mt-3">
+                <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
+                <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary mx-1"/> 
+            </p>
+        </EditForm>
+    </div>
+</CollapsibleContainer>
+
+<Table T="DocumentsListsModel" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>

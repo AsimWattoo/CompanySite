@@ -1,0 +1,71 @@
+@page "/CashFlowProjects"
+@inherits BaseAddPage<CashFlowProjectsModel>    
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+<h2 class="ms-3">CashFlowProjects </h2>
+
+<CollapsibleContainer>
+    <div class="mx-2">
+        <EditForm Model="NewEntry" OnValidSubmit="Save">
+
+            <DataAnnotationsValidator/>
+
+            <MultiErrorView Errors="_errors"/>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="year">Year</label>
+                    <InputSelect id="year" @bind-Value=NewEntry.Year class="form-select">
+                        @for (int i = DateTime.Now.Year; i <= DateTime.Now.Year + 20; i++)
+                        {
+                            <option selected="@(i == NewEntry.Year ? true : false)" value="@i">@i</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => NewEntry.Year)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="quarter">Quarter</label>
+                    <InputSelect @bind-Value="NewEntry.quarter" id="quarter" class="form-select">
+                        <option value="Jan-Mar">Jan-Mar</option>
+                        <option value="Apr-Jun">Apr-Jun</option>
+                        <option value="Jul-Sept">Jul-Sept</option>
+                        <option value="Oct-Dec">Oct-Dec</option>
+                    </InputSelect>
+                    <ValidationMessage For="@(() => NewEntry.quarter)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="amount">Amount</label>
+                    <InputNumber  @bind-Value=NewEntry.amount id="Amount" class="form-control"/>
+                    <ValidationMessage For="@(() => NewEntry.amount)"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="facility">Facility</label>
+                    <InputSelect id="facility" @bind-Value=NewEntry.Facilty class="form-select">
+                        @foreach(DebtProfileModel debtProfile in debtProfiles)
+                        {
+                            <option value="@debtProfile.Id">@debtProfile.Facility</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => NewEntry.FacilityName)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="source">Source</label>
+                    <InputText @bind-Value=NewEntry.source id="Source" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.source)"/>
+                </div>
+            </div>
+            <p class="text-center my-3">
+                <a class="btn btn-danger" @onclick=Clear>Clear</a>
+                <input type="submit" class="btn btn-primary" value="@(ShouldAdd ? "Add" : "Edit")"/>
+            </p>
+        </EditForm>
+    </div>
+</CollapsibleContainer>
+
+<Table T="CashFlowProjectsModel" T2="int" ShowSerialNumber=true Items="@Enteries" ValueCallback=GetValue Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>

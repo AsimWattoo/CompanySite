@@ -48,8 +48,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xNb2RhbC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/CashFlowProjects.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXENhc2hGbG93UHJvamVjdHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/DebtProfile.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXERlYnRQcm9maWxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/Documentslist.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXERvY3VtZW50c2xpc3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/NewAcquisition.razor]

@@ -46,7 +46,7 @@ namespace Company_Site.DB
 		
 		public DbSet<FinancialDataModel> FinancialDatas { get; set; }
 
-		public DbSet<CashFlowProjects> CashFlows { get; set; }
+		public DbSet<CashFlowProjectsModel> CashFlows { get; set; }
 
 		public DbSet<DocumentsListsModel> DocumentLists { get; set; }
 
