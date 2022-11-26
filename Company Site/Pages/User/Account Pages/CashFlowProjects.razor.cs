@@ -11,7 +11,7 @@ namespace Company_Site.Pages.User.Account_Pages
 
         public Dictionary<string, Func<CashFlowProjectsModel, string>> Headers { get; set; } = new Dictionary<string, Func<CashFlowProjectsModel, string>>()
         {
-            ["Year"] = p => p.Year.ToString(),
+            ["Year"] = p => p.Year,
             ["Apr-Jun"] = p => "0",
             ["Jul-Sept"] = p => "0",
             ["Oct-Dec"] = p => "0",

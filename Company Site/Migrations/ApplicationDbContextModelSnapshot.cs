@@ -265,8 +265,9 @@ namespace Company_Site.Migrations
                     b.Property<int>("Facilty")
                         .HasColumnType("int");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("amount")
                         .HasColumnType("bigint");

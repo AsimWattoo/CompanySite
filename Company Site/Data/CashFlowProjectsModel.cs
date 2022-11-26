@@ -9,7 +9,7 @@ namespace Company_Site.Data
     public class CashFlowProjectsModel : BaseModel
     {
         [Required(ErrorMessage = "Year is required!")]
-        public int Year { get; set; }
+        public string? Year { get; set; }
 
         [Required(ErrorMessage = "Quarter is required!")]
         public string? quarter { get; set; }

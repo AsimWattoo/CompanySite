@@ -17,9 +17,10 @@
                 <div class="col-md-3">
                     <label for="year">Year</label>
                     <InputSelect id="year" @bind-Value=NewEntry.Year class="form-select">
+                        <option selected>--------- Select Year --------</option>
                         @for (int i = DateTime.Now.Year; i <= DateTime.Now.Year + 20; i++)
                         {
-                            <option selected="@(i == NewEntry.Year ? true : false)" value="@i">@i</option>
+                            <option value="@i - @(i + 1)">@i - @(i + 1)</option>
                         }
                     </InputSelect>
                     <ValidationMessage For="@(() => NewEntry.Year)"/>
@@ -28,6 +29,7 @@
                 <div class="col-md-3">
                     <label for="quarter">Quarter</label>
                     <InputSelect @bind-Value="NewEntry.quarter" id="quarter" class="form-select">
+                        <option selected>--------- Select Quater -----------</option>
                         <option value="Jan-Mar">Jan-Mar</option>
                         <option value="Apr-Jun">Apr-Jun</option>
                         <option value="Jul-Sept">Jul-Sept</option>
