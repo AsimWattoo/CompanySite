@@ -18,6 +18,12 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public Func<T, T2> GetId { get; set; }
 
+        [Parameter]
+        public bool ShowTotal { get; set; } = false;
+
+        [Parameter]
+        public Func<string, string> GetTotal { get; set; }
+
         /// <summary>
         /// Fires when a row is clicked
         /// </summary>

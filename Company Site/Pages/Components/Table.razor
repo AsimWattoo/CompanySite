@@ -113,6 +113,19 @@
 				</tr>
 				SR++;
 			}
+			@if (ShowTotal && GetTotal != null)
+			{
+				<tr>
+					@if (ShowSerialNumber)
+					{
+							<td class="text-start fs-5">Total</td>
+					}
+					@foreach (string header in Headers.Keys)
+					{
+							<td class="text-start fs-5">@(GetTotal(header))</td>
+					}
+				</tr>
+			}
 		</table>
 	</div>
 	<!--Table Footer-->
