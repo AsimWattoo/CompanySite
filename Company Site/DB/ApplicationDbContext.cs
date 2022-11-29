@@ -60,6 +60,16 @@ namespace Company_Site.DB
 
 		public DbSet<ResolutionStatusModel> ResolutionStatusModels { get; set; }
 
+		public DbSet<ContactsModel> Contacts { get; set; }
+
+		public DbSet<NcltNetModel> NcltNets { get; set; }
+
+		public DbSet<RADetailsModel> RADetails { get; set; }
+
+		public DbSet<ClaimsAndShareModel> ClaimsAndShares { get; set; }
+
+		public DbSet<TimelineModel> Timelines { get; set; }
+
 		#endregion
 
 		#region Constructor

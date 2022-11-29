@@ -1,0 +1,176 @@
+
+@page "/ncltnet"
+
+@inherits BaseAddPage<NcltNetModel>
+
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+<h2 class="ms-3">Nclt Net</h2>
+
+<div class="mx-2">
+    <EditForm Model="NewEntry" OnValidSubmit="Save">
+
+        <DataAnnotationsValidator/>
+
+        <MultiErrorView Errors="_errors"/>
+
+        <div class="row">
+            <div class="col-md-3">
+                <label for="caseName">Case Name</label>
+                <InputText @bind-Value=NewEntry.case_name id="case_name" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewEntry.case_name)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="court">Court</label>
+                <InputText @bind-Value=NewEntry.court id="court" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewEntry.court)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="applicant">Applicant</label>
+                <InputText @bind-Value=NewEntry.Applicant_name id="applicant" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewEntry.Applicant_name)"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="insolveryDate">Insolvery Commitment Date</label>
+                <input type="date" @bind-value=NewEntry.insolvery_commencement_date id="insolveryDate" class="form-control"/>
+                <ValidationMessage For="@(() => NewEntry.insolvery_commencement_date)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="ipr">IPR</label>
+                <InputText @bind-Value=NewEntry.IPR id="ipr" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="rp">RP</label>
+                <InputText @bind-Value=NewEntry.RP id="rp" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="IPE">IPE</label>
+                <InputText @bind-Value=NewEntry.IPE id="IPE" class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewEntry.IPE)"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="liquidator">Liquidator</label>
+                <InputText @bind-Value=NewEntry.liquidator id="liquidator" class="form-control" type="text"/>
+                
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="liquidationValue">Liquidation Value</label>
+                <InputNumber @bind-Value=NewEntry.Liquidation_Value id="liquidationValue" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="PRA">PRA</label>
+                <InputText @bind-Value=NewEntry.PRA id="PRA" class="form-control" type="text"/>
+               
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="ra">RA</label>
+                <InputText @bind-Value=NewEntry.RA id="ra" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="currentStage">Current Stage</label>
+                <InputText @bind-Value=NewEntry.current_stage id="currentStage" class="form-control" type="text"/>
+            </div>
+        </div>
+        <label for="assetDetails">Asset Details</label>
+        <InputTextArea @bind-Value=NewEntry.Asset_Details class="form-control" id="assetDetails"></InputTextArea>
+
+        <div class="row my-2">
+
+            <Modal Title="RA Details Form" ShowModal=RADetailsFormShown>
+                <EditForm Model="NewRADetailsEntry" OnValidSubmit="SaveRADetails">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="PRA">Name</label>
+                            <InputText @bind-Value=NewRADetailsEntry.Name class="form-control" type="text"/>
+               
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <label for="ra">Plan Value</label>
+                            <InputNumber @bind-Value=NewRADetailsEntry.PlanValue class="form-control" type="text"/>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <label for="currentStage">Our Share</label>
+                            <InputNumber @bind-Value=NewRADetailsEntry.OurShare class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="PRA">Payment Timeline</label>
+                            <InputText @bind-Value=NewRADetailsEntry.PaymentTimeline class="form-control" type="text"/>
+               
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <label for="ra">Plan Details</label>
+                            <InputText @bind-Value=NewRADetailsEntry.Name class="form-control" type="text"/>
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <label for="currentStage">Scoring</label>
+                            <InputNumber @bind-Value=NewRADetailsEntry.Scoring class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <a class="btn btn-danger mx-1" @onclick=CancelRADetails>Cancel</a>
+                        <a class="btn btn-danger mx-1" @onclick=ClearRADetails>Clear</a>
+                        <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
+                    </div>
+                </EditForm>
+            </Modal>
+
+
+            <div class="d-flex justify-content-end">
+                <a class="btn btn-primary" @onclick=AddRADetials>
+                    <i class="fa fa-plus me-2"></i>
+                    Add
+                </a>
+            </div>
+            <Table T="RADetailsModel" T2="int" Headers="RADetailsHeaders" Items="RADetailsEnteries" GetId="GetRADetailsId" IsSearchable=false OnDelete="DeleteRADetails" OnEdit="EditRADetails"/>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+                <label for="plan">Plan</label>
+                <InputTextArea @bind-Value=NewEntry.Plan id="plan" class="form-control" type="text"/>
+            </div>
+            <div class="col-md-3">
+                <h3>Timeline Table</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <label for="liquidationDetails">Liquidation Details</label>
+                <InputTextArea @bind-Value=NewEntry.LiquidationDetails id="liquidationDetails" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <label for="scheme">IBC-Scheme 230-Companies Act</label>
+                <InputText @bind-Value=NewEntry.CompaniesAct id="scheme" class="form-control" type="text"/>
+            </div>
+        </div>
+        <div class="row my-2">
+            <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
+            <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
+        </div>
+    </EditForm>
+</div>
+
