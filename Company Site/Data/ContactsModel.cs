@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class ContactsModel : BaseModel
+    public class ContactsModel : BaseModel<int>
     {
         [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }

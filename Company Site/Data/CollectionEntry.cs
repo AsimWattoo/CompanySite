@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class CollectionEntry : BaseModel, ICloneable<CollectionEntry>
+    public class CollectionEntry : BaseModel<int>, ICloneable<CollectionEntry>
     {
         public int? CollectionId { get; set; } = null;
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class NcltNetModel : BaseModel
+    public class NcltNetModel : BaseModel<int>
     {
         [Required(ErrorMessage = "Case name is required")]
         public string case_name { get; set; }

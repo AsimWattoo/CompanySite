@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class DocumentsListsModel : BaseModel
+    public class DocumentsListsModel : BaseModel<int>
     {
         [Required(ErrorMessage = "Title is required!")]
         public string Title { get; set; }

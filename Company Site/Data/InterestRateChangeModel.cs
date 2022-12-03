@@ -4,7 +4,7 @@ using System.Security.Principal;
 
 namespace Company_Site.Data
 {
-	public class InterestRateChangeModel : BaseModel
+	public class InterestRateChangeModel : BaseModel<int>
 	{
 		public DateTime Date { get; set; } = DateTime.Now;
 		public double RevisedInterestRate { get; set; }

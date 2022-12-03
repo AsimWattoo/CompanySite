@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class BorrowerDetail : BaseModel
+    public class BorrowerDetail : BaseModel<int>
     {
         [Required(ErrorMessage = "Borrower Name is required")]
         public string Name { get; set; }

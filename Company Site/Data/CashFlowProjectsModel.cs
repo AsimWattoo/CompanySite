@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class CashFlowProjectsModel : BaseModel
+    public class CashFlowProjectsModel : BaseModel<int>
     {
         [Required(ErrorMessage = "Year is required!")]
         public string? Year { get; set; }

@@ -5,8 +5,8 @@ using System.Xml.Linq;
 
 namespace Company_Site.Base
 {
-    public partial class BaseModifierAddPage<T> : BaseAddPage<T>
-        where T: BaseModifierModel, new()
+    public partial class BaseModifierAddPage<T, Id> : BaseAddPage<T, Id>
+        where T: BaseModifierModel<Id>, new()
     {
         #region Public Properties
 
@@ -54,7 +54,7 @@ namespace Company_Site.Base
             }
         }
 
-        public override void OnEdit(int id)
+        public override void OnEdit(Id id)
         {
             RecordData();
         }

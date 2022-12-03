@@ -2,7 +2,7 @@
 
 namespace Company_Site.Data
 {
-    public class ResolutionStatusModel : BaseModel
+    public class ResolutionStatusModel : BaseModel<int>
     {
         public int BorrowerCode { get; set; }
 

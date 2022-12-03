@@ -6,7 +6,7 @@ using Company_Site.Base;
 
 namespace Company_Site.Data
 {
-    public class ExpenseEntry : BaseModel
+    public class ExpenseEntry : BaseModel<int>
     {
 
         [Required]

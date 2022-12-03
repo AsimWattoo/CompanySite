@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Company_Site.Base
 {
-	public partial class BasePage<T> : ComponentBase
-		where T: BaseModel, new()
+	public partial class BasePage<T, Id> : ComponentBase
+		where T: BaseModel<Id>, new()
 	{
 
         #region Protected Properties

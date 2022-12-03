@@ -2,7 +2,7 @@
 
 namespace Company_Site.Data
 {
-    public class DisburmentModel : BaseModel
+    public class DisburmentModel : BaseModel<int>
     {
         public DateTime Date { get; set; } = DateTime.Now;
         public double Amount { get; set; }

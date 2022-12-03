@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Base
 {
-    public class BaseModel
+    public class BaseModel<T>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public T Id { get; set; }
     }
 }

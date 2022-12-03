@@ -2,7 +2,7 @@
 
 namespace Company_Site.Data
 {
-    public class ClaimsAndShareModel : BaseModel
+    public class ClaimsAndShareModel : BaseModel<int>
     {
         public int BorrowerCode { get; set; }
 

@@ -186,6 +186,131 @@ namespace Company_Site.Migrations
                     b.ToTable("AccountDetails");
                 });
 
+            modelBuilder.Entity("Company_Site.Data.AccountNetModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Advance")
+                        .HasColumnType("float");
+
+                    b.Property<double>("AmountPaid")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Bench")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("BillNumber")
+                        .HasColumnType("float");
+
+                    b.Property<double>("BilledAmount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CNRNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CaseDetails")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CaseNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CaseTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CaseType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ClaimAmount")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ContactEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactMobile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Court")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("CourtFees")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CurrentStage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Development")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("FeePerHearing")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("FilingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FinalOrder")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Firm")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Forum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JudgeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NextDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("OSAmount")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Petitioner")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PetitionerMultiLine")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RegistrationNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Respondent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Respondent_adv")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalFeesQuotation")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AccountNets");
+                });
+
             modelBuilder.Entity("Company_Site.Data.BorrowerDetail", b =>
                 {
                     b.Property<int>("Id")

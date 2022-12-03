@@ -5,7 +5,7 @@ using Company_Site.Interfaces;
 
 namespace Company_Site.Pages.User.Legal_Management_Pages
 {
-    public partial class NcltNet : BaseAddPage<NcltNetModel>
+    public partial class NcltNet : BaseAddPage<NcltNetModel, int>
     {
         #region Claims and Shares Properties
 

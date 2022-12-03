@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class TrustRelationModel : BaseModel
+    public class TrustRelationModel : BaseModel<int>
     {
         [NotMapped]
         public Trust? Trust { get; set; }

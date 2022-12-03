@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Company_Site.Pages.User.Finance_Components
 {
-    public partial class ExpenseManager : BaseAddPage<ExpenseEntry>, ITable<ExpenseEntry, int>
+    public partial class ExpenseManager : BaseAddPage<ExpenseEntry, int>, ITable<ExpenseEntry, int>
     {
         #region Private Members
 

@@ -5,7 +5,7 @@ using Company_Site.Interfaces;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class BorrowerDetails : BaseAddPage<BorrowerDetail>, ITable<BorrowerDetail, int>
+    public partial class BorrowerDetails : BaseAddPage<BorrowerDetail, int>, ITable<BorrowerDetail, int>
     {
         #region Public Properties
 

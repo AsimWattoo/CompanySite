@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class Trust : BaseModifierModel
+    public class Trust : BaseModifierModel<int>
     {
         [Required(ErrorMessage = "Trust Code is required")]
         public string TrustCode { get; set; }

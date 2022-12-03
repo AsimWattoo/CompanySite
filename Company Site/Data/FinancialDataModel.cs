@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class FinancialDataModel : BaseModel
+    public class FinancialDataModel : BaseModel<int>
     {
         public string? Year { get; set; }
 

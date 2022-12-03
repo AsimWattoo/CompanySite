@@ -5,7 +5,7 @@ using Company_Site.Interfaces;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class CashFlowProjects : BaseAddPage<CashFlowProjectsModel>, ITable<CashFlowProjectsModel, int>
+    public partial class CashFlowProjects : BaseAddPage<CashFlowProjectsModel, int>, ITable<CashFlowProjectsModel, int>
     {
         #region Public Properties
 

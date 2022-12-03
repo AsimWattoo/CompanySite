@@ -2,7 +2,7 @@
 
 namespace Company_Site.Data
 {
-    public class RADetailsModel : BaseModel
+    public class RADetailsModel : BaseModel<int>
     {
         public int BorrowerCode { get; set; }
 

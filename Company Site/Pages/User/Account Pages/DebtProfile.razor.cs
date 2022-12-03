@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class DebtProfile : BaseModifierAddPage<DebtProfileModel>, ITable<DebtProfileModel, int>
+    public partial class DebtProfile : BaseModifierAddPage<DebtProfileModel, int>, ITable<DebtProfileModel, int>
     {
 
         #region Public Properties

@@ -2,7 +2,7 @@
 
 namespace Company_Site.Data
 {
-    public class TimelineModel : BaseModel
+    public class TimelineModel : BaseModel<int>
     {
         public int BorrowerCode { get; set; }
 

@@ -7,7 +7,7 @@ using Company_Site.ViewModels;
 namespace Company_Site.Pages.User.Turst_Components
 {
 
-    public partial class TrustMaster : BaseModifierAddPage<Trust>, ITable<Trust, int>
+    public partial class TrustMaster : BaseModifierAddPage<Trust, int>, ITable<Trust, int>
     {
         #region Private Members
 

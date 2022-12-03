@@ -5,7 +5,7 @@ using Company_Site.Interfaces;
 
 namespace Company_Site.Pages.User.Account_Pages
 {
-    public partial class Documentslist : BaseAddPage<DocumentsListsModel>, ITable<DocumentsListsModel, int>
+    public partial class Documentslist : BaseAddPage<DocumentsListsModel, int>, ITable<DocumentsListsModel, int>
     {
         #region Public Properties
 

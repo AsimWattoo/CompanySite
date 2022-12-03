@@ -1,0 +1,186 @@
+﻿@page "/accountnet"
+
+@inherits BaseAddPage<AccountNetModel, string>
+
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+<h2 class="ms-3">Account Net</h2>
+
+<CollapsibleContainer>
+    <div class="mx-2">
+        <EditForm Model="NewEntry" OnValidSubmit="Save">
+
+            <DataAnnotationsValidator />
+			
+            <MultiErrorView Errors="_errors" />
+
+            <label for="caseTitle">Case Title</label>
+            <InputText @bind-Value=NewEntry.CaseTitle id="caseTitle" type="text" class="form-control"/>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="caseType">Case Type</label>
+                    <InputText @bind-Value=NewEntry.CaseType id="caseType" type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="court">Court</label>
+                    <InputText @bind-Value=NewEntry.Court id="court" type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="caseNum">Case Number</label>
+                    <InputNumber @bind-Value=NewEntry.CaseNumber id="caseNum" type="number" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="forum">Forum</label>
+                    <InputSelect @bind-Value=NewEntry.Forum id="forum" class="form-select">
+						<option selected value="">----- Select option -----</option>
+                        <option value="drt">DRT</option>
+                        <option value="drat">DRAT</option>
+                        <option value="highCourt">Hight Court</option>
+                        <option value="civilCourt">Civil Court</option>
+                        <option value="supremeCourt">Supreme Court</option>
+                    </InputSelect>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="claimAmount">Claim Amount</label>
+                    <InputNumber @bind-Value=NewEntry.ClaimAmount id="claimAmount" type="number" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="cnrNum">CNR Number</label>
+                    <InputText @bind-Value=NewEntry.CNRNumber id="cnrNum" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="judgeName">Judge Name</label>
+                    <InputText @bind-Value=NewEntry.JudgeName id="judgeName" type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="bench">Bench</label>
+                    <InputText @bind-Value=NewEntry.Bench id="bench" type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="regNum">Registeration Number</label>
+                    <InputNumber @bind-Value=NewEntry.RegistrationNumber id="regNum" type="text" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="petitioner">Petitioner</label>
+                    <InputTextArea @bind-Value=NewEntry.Petitioner class="form-control" id="petitioner"></InputTextArea>
+                </div>
+                <div class="col-md-6">
+                    <label for="respondent">Respondent</label>
+                    <InputText @bind-Value=NewEntry.Respondent class="form-control" id="respondent"></InputText>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="petitioner2">Petitioner</label>
+                    <InputText @bind-Value=NewEntry.PetitionerMultiLine id="petitioner2" type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="respondentAdv">Respondent Advocate</label>
+                    <InputText @bind-Value=NewEntry.Respondent_adv id="respondentAdv" type="text" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="nextDate">Next Date</label>
+                    <input @bind-value=NewEntry.NextDate id="nextDate" type="date" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="firm">Firm</label>
+                    <InputText @bind-Value=NewEntry.Firm id="firm" type="text" class="form-control"/>
+                </div>
+                <!-- Firm duplicated field -->
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <label for="filingDate">Filing Date</label>
+                    <input @bind-value=NewEntry.FilingDate id="filingDate" type="date" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="contactEmail">Contact Email</label>
+                    <InputText @bind-Value=NewEntry.ContactEmail id="contactEmail" type="email" class="form-control"/>
+                </div>
+                <!-- Email duplicated field -->
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <label for="currentStage">Current Stage</label>
+                    <InputText @bind-Value=NewEntry.CurrentStage id="currentStage" type="date" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label for="contactMob">Contact Mobile</label>
+                    <InputText @bind-Value=NewEntry.ContactMobile id="contactMob" type="tel" class="form-control"/>
+                </div>
+                <!-- Mobile number duplicated field -->
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <label for="appointmentDate">Appointment Date</label>
+                    <input @bind-value=NewEntry.AppointmentDate id="appointmentDate" type="date" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="feeQuote">Total Fees Quotation</label>
+                    <InputNumber @bind-Value=NewEntry.TotalFeesQuotation id="feeQuote" type="number" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="advance">Advance</label>
+                    <InputNumber @bind-Value=NewEntry.Advance id="advance" type="number" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="feePerHearing">Fee per hearing</label>
+                    <InputNumber @bind-Value=NewEntry.FeePerHearing id="feePerHearing" type="number" class="form-control"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="courtFees">Court Fees</label>
+                    <InputNumber @bind-Value=NewEntry.CourtFees id="courtFees" type="number" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="regDate">Registeration Date</label>
+                    <input @bind-value=NewEntry.RegistrationDate id="regDate" type="date" class="form-control"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="billNum">Bill Number</label>
+                    <InputNumber @bind-Value=NewEntry.BillNumber id="billNum" type="number" class="form-control"/>
+                </div>
+            </div>
+            <label for="caseDetails">Case Details</label>
+            <InputTextArea @bind-Value=NewEntry.CaseDetails class="form-control" id="caseDetails"></InputTextArea>
+            <label for="development">Development</label>
+            <InputTextArea @bind-Value=NewEntry.Development class="form-control" id="development"></InputTextArea>
+            <label for="orderDate">Order Date</label>
+            <input @bind-value=NewEntry.OrderDate id="orderDate" type="date" class="form-control" style="width: 200px;"/>
+            <label for="finalOrder">Final Order</label>
+            <InputTextArea @bind-Value=NewEntry.FinalOrder class="form-control" id="finalOrder"></InputTextArea>
+            <p class="mt-3 text-center">
+                <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
+                <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAdd ? "Add" : "Edit")"/> 
+            </p>
+        </EditForm>
+    </div>
+</CollapsibleContainer>
+
+<Table T="AccountNetModel" T2="string" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>

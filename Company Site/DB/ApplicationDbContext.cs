@@ -11,9 +11,6 @@ namespace Company_Site.DB
 	{
 		#region DbSets
 
-		/// <summary>
-		/// The list of access for each user defined for pages
-		/// </summary>
 		public DbSet<UserAccess> AccessList { get; set; }
 
 		public DbSet<Memo> Memos { get; set; }
@@ -69,6 +66,8 @@ namespace Company_Site.DB
 		public DbSet<ClaimsAndShareModel> ClaimsAndShares { get; set; }
 
 		public DbSet<TimelineModel> Timelines { get; set; }
+
+		public DbSet<AccountNetModel> AccountNets { get; set; }
 
 		#endregion
 

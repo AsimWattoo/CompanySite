@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace Company_Site.Pages.User.Finance_Components
 {
-    public partial class CollectionManager : BaseAddPage<CollectionEntry>, ITable<CollectionEntry, int>
+    public partial class CollectionManager : BaseAddPage<CollectionEntry, int>, ITable<CollectionEntry, int>
     {
         #region Private Members
 

@@ -2,7 +2,7 @@
 
 namespace Company_Site.Base
 {
-    public class BaseModifierModel : BaseModel
+    public class BaseModifierModel<Id> : BaseModel<Id>
     {
         [Required(ErrorMessage = "Creator Name is required")]
         public string CreatorName { get; set; }

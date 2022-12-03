@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class Account : BaseModel
+    public class Account : BaseModel<int>
     {
         //[Required(ErrorMessage = "Trust code is required")]
         //public string TrustCode { get; set; }

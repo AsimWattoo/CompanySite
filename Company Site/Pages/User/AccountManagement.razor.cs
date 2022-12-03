@@ -10,7 +10,7 @@ using Radzen;
 
 namespace Company_Site.Pages.User
 {
-    public partial class AccountManagement : BaseAddPage<TrustRelationModel>
+    public partial class AccountManagement : BaseAddPage<TrustRelationModel, int>
     {
 
         #region Public Properties

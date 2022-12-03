@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Company_Site.Base
 {
-	public partial class BaseAddPage<T> : ComponentBase
-		where T: BaseModel, new()
+	public partial class BaseAddPage<T, Id> : ComponentBase
+		where T: BaseModel<Id>, new()
 	{
         #region Protected Properties
 
@@ -99,10 +99,10 @@ namespace Company_Site.Base
             NewEntry = new T();
         }
 
-        public void EditRecord(int id)
+        public void EditRecord(Id id)
         {
             ShouldAdd = false;
-            NewEntry = _dbSet.Where(t => t.Id == id).First();
+            NewEntry = _dbSet.Where(t => t.Id.Equals(id)).First();
             OnEdit(id);
             StateHasChanged();
         }
@@ -110,11 +110,12 @@ namespace Company_Site.Base
         /// <summary>
         /// Allows the child class to perform some operation when edit button is clicked
         /// </summary>
-        public virtual void OnEdit(int id)
+        public virtual void OnEdit(Id id)
         {}
 
         protected void Clear()
 		{
+            _errors.Clear();
             SaveResetup();
             OnClear();
             StateHasChanged();
@@ -125,9 +126,9 @@ namespace Company_Site.Base
         /// </summary>
         protected virtual void OnClear() { ShouldAdd = true; }
 
-        public virtual List<T> DeleteRecord(int id)
+        public virtual List<T> DeleteRecord(Id id)
         {
-            _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
+            _dbSet.Remove(_dbSet.Where(f => f.Id.Equals(id)).First());
             _dbContext.SaveChanges();
             Enteries = _dbSet.ToList();
             StateHasChanged();

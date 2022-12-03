@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
-    public class DebtProfileModel : BaseModifierModel
+    public class DebtProfileModel : BaseModifierModel<int>
     {
         #region Debt Profile Fields
 
