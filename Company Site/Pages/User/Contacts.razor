@@ -1,3 +1,286 @@
 ﻿@page "/contacts"
 
-<h3>Contacts</h3>
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+<h2 class="ms-3">Borrower Details</h2>
+
+<div class="row">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-0">
+        <ContactList Enteries="Enteries" GetContactId="@(e => e.ContactId)" GetContactName="@(e => $"{e.FirstName} {e.LastName}")" OnClick="EditRecord" OnDelete="DeleteRecord"/>
+    </div>
+
+    <div class="col-xl-9 col-lg-8 col-md-6 col-sm-12 p-0">
+        <CollapsibleContainer>
+            <div class="mx-2">
+                <EditForm Model="NewEntry" OnValidSubmit="Save">
+
+                    <DataAnnotationsValidator/>
+
+                    <MultiErrorView Errors="_errors"/>
+
+                    <div class="my-2">
+                        <div class="d-flex">
+                            <h3>Full Name</h3>
+                            <p class="ms-2">@NewEntry.FirstName @NewEntry.LastName</p>
+                        </div>
+                        <div class="d-flex mt-2">
+                            <p>Contact_GUID</p>
+                            <p class="ms-2">@NewEntry.ContactId</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="firstName">First Name</label>
+                            <InputText @bind-Value=NewEntry.FirstName id="firstName" type="text" class="form-control"/>
+                            <ValidationMessage For="@(() => NewEntry.FirstName)" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <label for="lastName">Last Name</label>
+                            <InputText @bind-Value=NewEntry.LastName id="lastName" class="form-control" type="text"/>
+                            <ValidationMessage For="@(() => NewEntry.LastName)" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="address">Address</label>
+                            <InputText @bind-Value=NewEntry.Address id="address" type="text" class="form-control"/>
+                            <ValidationMessage For="@(() => NewEntry.Address)" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <label for="city">City</label>
+                            <InputText @bind-Value=NewEntry.City id="city" class="form-control" type="text"/>
+                            <ValidationMessage For="@(() => NewEntry.City)" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="landlineNumber">Landline Number</label>
+                            <InputText @bind-Value=NewEntry.Landline_Number id="landlineNumber" type="tel" class="form-control"/>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <label for="state">State</label>
+                            <InputText @bind-Value=NewEntry.State id="state" class="form-control" type="text"/>
+                            <ValidationMessage For="@(() => NewEntry.State)" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="mobileNumber">Mobile Number</label>
+                            <InputText @bind-Value=NewEntry.Mobile id="mobileNumber" type="tel" class="form-control"/>
+                            <ValidationMessage For="@(() => NewEntry.Mobile)" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <label for="email">Email</label>
+                            <InputText @bind-Value=NewEntry.Email id="email" class="form-control" type="email"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="companyName">Company Name</label>
+                            <InputText @bind-Value=NewEntry.Company_Name id="companyName" type="text" class="form-control"/>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <label for="service">Service</label>
+                            <InputText @bind-Value=NewEntry.Service1 id="service" class="form-control" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="serviceSelect">Service</label>
+                            <InputSelect @bind-Value=NewEntry.Service2 id="serviceSelect" class="form-select">
+                                <option value="" selected>---- Select Option ----</option>
+                                <option value="lawyer">Lawyer</option>
+                                <option value="valuer">Valuer</option>
+                                <option value="publication">Publication</option>
+                                <option value="ipc">IPC</option>
+                                <option value="securityAgency">Security Agency</option>
+                                <option value="assetTracing">Asset Tracing</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => NewEntry.Service2)" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <label for="empanelled">Empanelled</label>
+                            <InputSelect @bind-Value=NewEntry.Empanelled id="empanelled" class="form-select">
+                                <option value="" selected>---- Select Option ----</option>
+                                <option value="pending">Pending</option>
+                                <option value="yes">Yes</option>
+                            </InputSelect>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="note">Note</label>
+                        <InputText @bind-Value=NewEntry.Note id="note" class="form-control" type="text"/>
+                    </div>
+
+                    <div class="row">
+
+                        <Modal Title="Grant Access Form" ShowModal=IsContactsAccessGrantFormShown>
+                            <EditForm Model="NewAccessGrant" Context="AccessGrant" OnValidSubmit="SaveAccessGrant">
+
+                                <DataAnnotationsValidator/>
+
+                                <MultiErrorView Errors="AccessGrantErrors"/>
+
+                                <div class="my-1">
+                                    <label for="PRA">Access Given By</label>
+                                    <InputText @bind-Value=NewAccessGrant.AccessGivenBy class="form-control" type="text"/>
+                                    <ValidationMessage For="@(() => NewAccessGrant.AccessGivenBy)" />
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Access To</label>
+                                    <InputText @bind-Value=NewAccessGrant.AccessTo class="form-control" type="text"/>
+                                    <ValidationMessage For="@(() => NewAccessGrant.AccessTo)" />
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Start Date</label>
+                                    <input type="date" @bind-value=NewAccessGrant.StartDate class="form-control"/>
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Access Given By</label>
+                                    <input @bind-value=NewAccessGrant.EndDate class="form-control" type="date"/>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <a class="btn btn-danger me-3" @onclick=@(() => IsContactsAccessGrantFormShown = false)>Cancel</a>
+                                    <a class="btn btn-secondary me-3" @onclick=ClearAccessGrant>Clear</a>
+                                    <input type="submit" class="btn btn-primary" value="@(ShouldAddContactsAccessGrant ? "Add" : "Edit")" /> 
+                                </div>
+                            </EditForm>
+                        </Modal>
+
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-end mb-2">
+                                <a class="btn btn-primary" @onclick=AddAccessGrant>Grant Access</a>
+                            </div>
+                            <Table T="ContactAccessGrantModel" T2="int" GetId=@(e => e.Id) Headers="GrantAccessHeaders" Items="AccessGrants" OnEdit="EditAccessGrant" OnDelete="DeleteAccessGrant" IsSearchable=false/>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <Modal Title="Account Details" ShowModal=IsAccountDetailsFormShown>
+                            <EditForm Model="NewAccountDetail" Context="AccountDetails" OnValidSubmit="SaveAccountDetail">
+
+                                <DataAnnotationsValidator/>
+
+                                <MultiErrorView Errors="AccountDetailsErrors"/>
+
+                                <div class="my-1">
+                                    <label for="PRA">Bank Name</label>
+                                    <InputText @bind-Value=NewAccountDetail.BankName class="form-control" type="text"/>
+                                    <ValidationMessage For="@(() => NewAccountDetail.BankName)" />
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Branch</label>
+                                    <InputText @bind-Value=NewAccountDetail.Branch class="form-control" type="text"/>
+                                    <ValidationMessage For="@(() => NewAccountDetail.Branch)" />
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Account Number</label>
+                                    <InputNumber type="date" @bind-Value=NewAccountDetail.AccountNumber class="form-control"/>
+                                    <ValidationMessage For="@(() => NewAccountDetail.AccountNumber)" />
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Account Type</label>
+                                    <InputText @bind-Value=NewAccountDetail.AccountType class="form-control" type="date"/>
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">IFSCI Code</label>
+                                    <InputText @bind-Value=NewAccountDetail.IFSCI_Code class="form-control" type="date"/>
+                                </div>
+                                <div class="my-1">
+                                    <label for="PRA">Additional</label>
+                                    <InputText @bind-Value=NewAccountDetail.Additional class="form-control" type="date"/>
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <a class="btn btn-danger me-3" @onclick=@(() => IsAccountDetailsFormShown = false)>Cancel</a>
+                                    <a class="btn btn-secondary me-3" @onclick=ClearAccountDetails>Clear</a>
+                                    <input type="submit" class="btn btn-primary" value="@(ShouldAddAccountDetails ? "Add" : "Edit")" /> 
+                                </div>
+                            </EditForm>
+                        </Modal>
+
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-end mb-2">
+                                <a class="btn btn-primary" @onclick=AddAccountDetails>Add Account Details</a>
+                            </div>
+                            <Table T="ContactAccountDetailsModel" T2="int" GetId=@(e => e.Id) Headers="AccountDetailsHeaders" Items="AccountDetails" OnEdit="EditAccountDetails" OnDelete="DeleteAccountDetails" IsSearchable=false/>
+                        </div>
+
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-3">
+                        <a class="btn btn-danger me-3" @onclick=Clear>Clear</a>
+                        <input type="submit" class="btn btn-primary" value="@(ShouldAdd ? "Add" : "Edit")" /> 
+                    </div>
+                </EditForm>
+            </div>
+        </CollapsibleContainer>
+    </div>
+</div>
+
+<div class="row">
+
+    <Modal Title="Payment History" ShowModal=IsPaymentHistoryFormShown>
+        <EditForm Model="NewPaymentHistory" Context="PaymentHistory" OnValidSubmit="SavePaymentHistory">
+
+            <DataAnnotationsValidator/>
+
+            <MultiErrorView Errors="PaymentHistoryErrors"/>
+
+            <div class="my-1">
+                <label for="PRA">Bill Number</label>
+                <InputNumber @bind-Value=NewPaymentHistory.BillNo class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewPaymentHistory.BillNo)" />
+            </div>
+            <div class="my-1">
+                <label for="PRA">Service</label>
+                <InputText @bind-Value=NewPaymentHistory.Service class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewPaymentHistory.Service)" />
+            </div>
+            <div class="my-1">
+                <label for="PRA">Bill Amount</label>
+                <InputNumber type="date" @bind-Value=NewPaymentHistory.BillAmount class="form-control"/>
+                <ValidationMessage For="@(() => NewPaymentHistory.BillAmount)" />
+            </div>
+            <div class="my-1">
+                <label for="PRA">Bill Date</label>
+                <input @bind-value=NewPaymentHistory.BillDate class="form-control" type="date"/>
+            </div>
+            <div class="my-1">
+                <label for="PRA">Payment Date</label>
+                <input @bind-value=NewPaymentHistory.PaymentDate class="form-control" type="date"/>
+            </div>
+            <div class="my-1">
+                <label for="PRA">Payment Amount</label>
+                <InputNumber @bind-Value=NewPaymentHistory.PaymentAmount class="form-control" type="date"/>
+            </div>
+            <div class="my-1">
+                <label for="PRA">Amount O/S</label>
+                <InputNumber @bind-Value=NewPaymentHistory.AmountO_S class="form-control" type="date"/>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <a class="btn btn-danger me-3" @onclick=@(() => IsPaymentHistoryFormShown = false)>Cancel</a>
+                <a class="btn btn-secondary me-3" @onclick=ClearPaymentHistory>Clear</a>
+                <input type="submit" class="btn btn-primary" value="@(ShouldAddPaymentHistory ? "Add" : "Edit")" /> 
+            </div>
+        </EditForm>
+    </Modal>
+
+    <div class="mt-3">
+        <div class="d-flex justify-content-end mb-2">
+            <a class="btn btn-primary" @onclick=AddPaymentHistory>Add Payment History</a>
+        </div>
+        <Table T="ContactPaymentHistoryModel" T2="int" GetId=@(e => e.Id) ShowSerialNumber=true ShowTotal=true GetTotal=GetTotal Headers="PaymentHistoryHeaders" Items="PaymentHistories" OnEdit="EditPaymentHistory" OnDelete="DeletePaymentHistory" IsSearchable=false/>
+    </div>
+
+</div>

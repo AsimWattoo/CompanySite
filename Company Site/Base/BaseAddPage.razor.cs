@@ -75,8 +75,7 @@ namespace Company_Site.Base
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Show the exception to the user
-                    Console.WriteLine(ex);
+                    _errors.Add(ex.Message);
                 }
                 LoadData();
                 ShouldAdd = true;

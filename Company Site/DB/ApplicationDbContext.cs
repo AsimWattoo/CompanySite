@@ -57,8 +57,6 @@ namespace Company_Site.DB
 
 		public DbSet<ResolutionStatusModel> ResolutionStatusModels { get; set; }
 
-		public DbSet<ContactsModel> Contacts { get; set; }
-
 		public DbSet<NcltNetModel> NcltNets { get; set; }
 
 		public DbSet<RADetailsModel> RADetails { get; set; }
@@ -68,6 +66,14 @@ namespace Company_Site.DB
 		public DbSet<TimelineModel> Timelines { get; set; }
 
 		public DbSet<AccountNetModel> AccountNets { get; set; }
+
+		public DbSet<ContactsModel> Contacts { get; set; }
+
+		public DbSet<ContactAccessGrantModel> AccessGrants { get; set; }
+
+		public DbSet<ContactAccountDetailsModel> ContactAccountDetails { get; set; }
+
+		public DbSet<ContactPaymentHistoryModel> ContactPaymentHistories { get; set; }
 
 		#endregion
 

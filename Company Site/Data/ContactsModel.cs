@@ -1,12 +1,12 @@
-using Company_Site.Base;
-
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
-    public class ContactsModel : BaseModel<int>
+    public class ContactsModel
     {
+        [Key]
+        public string ContactId { get; set; } = Guid.NewGuid().ToString();
+
         [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }
 
@@ -66,13 +66,12 @@ namespace Company_Site.Data
 
         public long Bill_Amount { get; set; }
 
-        public DateTime Bill_Date { get; set; } = DateTime.Now; 
+        public DateTime Bill_Date { get; set; } = DateTime.Now;
 
-        public DateTime Payment_Date { get; set; } = DateTime.Now; 
+        public DateTime Payment_Date { get; set; } = DateTime.Now;
 
         public long Payment_Amount { get; set; }
 
         public long Amount_OS { get; set; }
-
     }
 }
