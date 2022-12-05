@@ -1,13 +1,13 @@
 ﻿using Company_Site.Data;
 
-using File = Company_Site.Data.File;
-
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+using File = Company_Site.Data.File;
+
 namespace Company_Site.DB
 {
-    public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
+	public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
 	{
 		#region DbSets
 
@@ -74,6 +74,10 @@ namespace Company_Site.DB
 		public DbSet<ContactAccountDetailsModel> ContactAccountDetails { get; set; }
 
 		public DbSet<ContactPaymentHistoryModel> ContactPaymentHistories { get; set; }
+
+		public DbSet<EventTimelineModel> EventTimeLines { get; set; }
+
+		public DbSet<ApprovalsAndMemoModel> ApprovalsAndMemoModels { get; set; }
 
 		#endregion
 

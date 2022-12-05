@@ -1,0 +1,8 @@
+﻿<div class="d-flex align-items-center text-align-center">
+    <p class="mx-1 mb-0 w-75">Filter By Date</p>
+    <input type="date" @bind-value=StartDate class="form-control" />
+    <p class="mx-2 mb-0">to</p>
+    <input type="date" @bind-value=EndDate class="form-control" />
+    <a class="btn btn-outline-primary mx-1 btn-search" @onclick="@(() => SearchRecords?.Invoke(StartDate, EndDate))"><i class="fa fa-search"></i></a>
+    <a class="btn btn-outline-secondary mx-1" @onclick="@(() => Clear?.Invoke())">Clear</a>
+</div>

@@ -1,0 +1,54 @@
+﻿@page "/ApprovalsAndMemo"
+
+@inherits BaseAddPage<ApprovalsAndMemoModel, int>
+
+@using Company_Site.Base;
+@using Company_Site.Data;
+@using Company_Site.Pages.Components
+
+<h2 class="ms-3">Approvals And Memo</h2>
+
+<CollapsibleContainer>
+    <div class="mx-2">
+        <EditForm Model="NewEntry" OnValidSubmit="Save"> 
+            
+            <DataAnnotationsValidator/>
+
+            <MultiErrorView Errors="_errors"/>
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="approval">Approval</label>
+                    <input @bind-value=NewEntry.Approval_Date Approval  class="form-control" type="date"/>
+                    <ValidationMessage For="@(() => NewEntry.Approval_Date)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="type">Type</label>
+                    <InputText @bind-Value=NewEntry.Type id="Type" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Type)"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <label for="committee">Committee</label>
+                    <InputText @bind-Value=NewEntry.Committee id="Committee" class="form-control" type="text"/>
+                    <ValidationMessage For="@(() => NewEntry.Committee)"/>
+                </div>
+            </div>
+            <label for="details">Details</label>
+            <InputText @bind-Value=NewEntry.Details id="details" class="form-control"></InputText>
+            <ValidationMessage For="@(() => NewEntry.Details)"/>
+            <div class="my-3">
+                <a class="btn btn-danger me-2" @onclick=Clear>Clear</a>
+                <input type="submit" class="btn btn-primary" value="@(ShouldAdd ? "Add" : "Edit")"/>
+            </div>
+            <label for="supporting">Supporting</label>
+            <div class="input-group w-50">
+                <InputFile OnChange="SupportingFileChanged" @bind-Value=NewEntry.FilePath class="form-control" form="employeeForm" type="file"/>
+                <ValidationMessage For="@(() => NewEntry.FilePath)"/>
+            </div>
+</EditForm>
+    </div>
+</CollapsibleContainer>
+
+<Table T="ApprovalsAndMemoModel" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
