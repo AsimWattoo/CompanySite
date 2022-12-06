@@ -53,6 +53,7 @@ namespace Company_Site.Pages.User.Legal_Management_Pages
             ShouldAddDraft = false;
             int id = int.Parse(_id);
             NewDraft = _dbContext.SavedDrafts.Where(f => f.Id == id).First();
+            StateHasChanged();
         }
 
         private void Delete(string _id)
