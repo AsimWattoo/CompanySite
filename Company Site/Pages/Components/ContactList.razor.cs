@@ -28,6 +28,9 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public Action<string> OnClick { get; set; }
 
+        [Parameter]
+        public string Title { get; set; } = "Contacts List";
+
         #endregion
 
         #region Private Members

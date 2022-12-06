@@ -84,6 +84,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxMZWdhbCBNYW5hZ2VtZW50IFBhZ2VzXE5jbHROZXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Legal Management Pages/NoticeAutomation.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxMZWdhbCBNYW5hZ2VtZW50IFBhZ2VzXE5vdGljZUF1dG9tYXRpb24ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/NewAcquisition.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxOZXdBY3F1aXNpdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 

@@ -78,7 +78,31 @@ body[b-3xgbuq7h4v] {
     }
 
 .btn-delete[b-3xgbuq7h4v] {
-    font-size: 0.7rem;
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+}
+
+.scrollable[b-3xgbuq7h4v]{
+    overflow: scroll;
+}
+
+.header-item[b-3xgbuq7h4v]{
+    height: 20%;
+    background-color: white;
+    margin-bottom: 1.7rem;
+}
+
+.items-list[b-3xgbuq7h4v]{
+    height:75%;
+    width: 100%;
+}
+
+.item-text[b-3xgbuq7h4v] {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
 }
 /* _content/Company Site/Pages/Components/LoginRedirect.razor.rz.scp.css */
 .full-screen[b-hhpooac1pp]{

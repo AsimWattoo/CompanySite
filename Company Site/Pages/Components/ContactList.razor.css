@@ -28,5 +28,29 @@
     }
 
 .btn-delete {
-    font-size: 0.7rem;
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+}
+
+.scrollable{
+    overflow: scroll;
+}
+
+.header-item{
+    height: 20%;
+    background-color: white;
+    margin-bottom: 1.7rem;
+}
+
+.items-list{
+    height:75%;
+    width: 100%;
+}
+
+.item-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
 }

@@ -79,6 +79,10 @@ namespace Company_Site.DB
 
 		public DbSet<ApprovalsAndMemoModel> ApprovalsAndMemoModels { get; set; }
 
+		public DbSet<NoticeAutomationModel> NoticeAutomations { get; set; }
+
+		public DbSet<DraftModel> SavedDrafts { get; set; }
+
 		#endregion
 
 		#region Constructor

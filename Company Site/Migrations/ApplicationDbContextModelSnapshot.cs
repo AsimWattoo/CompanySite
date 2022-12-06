@@ -1070,6 +1070,26 @@ namespace Company_Site.Migrations
                     b.ToTable("DocumentLists");
                 });
 
+            modelBuilder.Entity("Company_Site.Data.DraftModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Draft")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SavedDrafts");
+                });
+
             modelBuilder.Entity("Company_Site.Data.Employee", b =>
                 {
                     b.Property<string>("Id")
@@ -1505,6 +1525,37 @@ namespace Company_Site.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NcltNets");
+                });
+
+            modelBuilder.Entity("Company_Site.Data.NoticeAutomationModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Forum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notice")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoticeTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NoticeType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SearchSavedDraft")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NoticeAutomations");
                 });
 
             modelBuilder.Entity("Company_Site.Data.RADetailsModel", b =>
