@@ -83,6 +83,12 @@ namespace Company_Site.DB
 
 		public DbSet<DraftModel> SavedDrafts { get; set; }
 
+		public DbSet<AssetDetailsModel> AssetDetails { get; set; }
+
+		public DbSet<AuctionDetails> AuctionDetails { get; set; }
+
+		public DbSet<ValuationDetails> ValuationDetails { get; set; }
+
 		#endregion
 
 		#region Constructor

@@ -343,6 +343,204 @@ namespace Company_Site.Migrations
                     b.ToTable("ApprovalsAndMemoModels");
                 });
 
+            modelBuilder.Entity("Company_Site.Data.AssetDetailsModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Area")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AssetDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("BookValue")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cersai_ID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Charge")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("CouponRate")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Custodian")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DP_ID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DP_Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DepositTitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("East")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Encumbrance")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FaceValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Form")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FreeHold")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("From")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("HoldingPercentage")
+                        .HasColumnType("float");
+
+                    b.Property<string>("ISIN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("InsuranceValue")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LeasedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LegalDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lessee")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lessor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Listed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Locality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MortageDeed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MortgageType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mortgagor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("NDC_Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("North")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Owner")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("PinCode")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Possession")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Rate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("RateOfHolding")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SecurityTrustee")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("South")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tenor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TitleDeed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeOfSecurity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("West")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AssetDetails");
+                });
+
+            modelBuilder.Entity("Company_Site.Data.AuctionDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("AuctionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
+                    b.Property<double>("BuyPrice")
+                        .HasColumnType("float");
+
+                    b.Property<int>("NumberOfBidder")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Outcome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PublicationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("ReservePrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuctionDetails");
+                });
+
             modelBuilder.Entity("Company_Site.Data.BorrowerDetail", b =>
                 {
                     b.Property<int>("Id")
@@ -2036,6 +2234,47 @@ namespace Company_Site.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Company_Site.Data.ValuationDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DVS")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FMV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Property")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RSV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Scrap")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ValuationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Valuer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ValuationDetails");
                 });
 
             modelBuilder.Entity("Company_Site.Data.Vendor", b =>
