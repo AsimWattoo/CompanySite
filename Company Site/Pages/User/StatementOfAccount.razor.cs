@@ -58,6 +58,11 @@ namespace Company_Site.Pages.User
         };
 
         /// <summary>
+        /// Indicates whether to add a record or edit
+        /// </summary>
+        private bool ShouldAddExpense = true;
+
+        /// <summary>
         /// List of expense enteries
         /// </summary>
         private List<ExpenseEntry> ExpenseEntries = new List<ExpenseEntry>();
@@ -69,6 +74,9 @@ namespace Company_Site.Pages.User
         private void ExpenseRowClicked(ExpenseEntry e)
         {
             SelectedExpenseEntry = e;
+            NewEntry = StatementOfAccountDataViewModel.FromExpense(e);
+            ShouldAddExpense = false;
+            StateHasChanged();
         }
 
         #endregion
@@ -95,7 +103,15 @@ namespace Company_Site.Pages.User
         private void CollectionRowClicked(CollectionEntry e)
         {
             SelectedCollectionEntry = e;
+            NewEntry = StatementOfAccountDataViewModel.FromCollection(e);
+            ShouldAddCollection = false;
+            StateHasChanged();
         }
+
+        /// <summary>
+        /// Indicates whether to add a record or edit
+        /// </summary>
+        private bool ShouldAddCollection = true;
 
         #endregion
 
@@ -118,7 +134,15 @@ namespace Company_Site.Pages.User
         private void DisbursementRowClicked(DisburmentModel e)
         {
             SelectedDisbursementEntry = e;
+            NewEntry = StatementOfAccountDataViewModel.FromDisbursment(e);
+            ShouldAddDisbursment = false;
+            StateHasChanged();
         }
+
+        /// <summary>
+        /// Indicates whether to add a record or edit
+        /// </summary>
+        private bool ShouldAddDisbursment = true;
 
         #endregion
 
@@ -140,7 +164,12 @@ namespace Company_Site.Pages.User
         private void InterestRateRowClicked(InterestRateChangeModel e)
         {
             SelectedInterestRateEntry = e;
+            NewEntry = StatementOfAccountDataViewModel.FromInterestRate(e);
+            ShouldAddInterestRate = false;
+            StateHasChanged();
         }
+
+        private bool ShouldAddInterestRate = true;
 
         #endregion
 
@@ -158,6 +187,16 @@ namespace Company_Site.Pages.User
         private List<string> _errors = new List<string>();
 
         private bool DeleteConfirmationModalShown { get; set; } = false;
+
+        /// <summary>
+        /// The list of debt profile models
+        /// </summary>
+        private List<DebtProfileModel> DebtProfiles { get; set; } = new List<DebtProfileModel>();
+
+        /// <summary>
+        /// The account for filtering
+        /// </summary>
+        private string? Account { get; set; } = "all";
 
         #endregion
 
@@ -178,7 +217,6 @@ namespace Company_Site.Pages.User
         /// </summary>
         protected override async Task OnInitializedAsync()
         {
-            //TODO: Resolve Trust Code issue here.
             //Loading Account Data to Statement of Account View Model
             List<TrustRelationModel> relations = _dbContext.TrustRelations.ToList();
             List<Account> accounts = _dbContext.Accounts.ToList();
@@ -227,12 +265,26 @@ namespace Company_Site.Pages.User
         #region Private Methods
 
         /// <summary>
+        /// Fires when the account is changed
+        /// </summary>
+        /// <param name="value"></param>
+        private void AccountChanged(string value)
+        {
+            Account = value;
+            UpdateEntries(Model, StatementOfAccountMode.Collections, forceUpdate: true);
+            UpdateEntries(Model, StatementOfAccountMode.Expenses, forceUpdate: true);
+            UpdateEntries(Model, StatementOfAccountMode.Disbursement, forceUpdate: true);
+            UpdateEntries(Model, StatementOfAccountMode.Interest, forceUpdate: true);
+        }
+
+        /// <summary>
         /// Fires when the statement of row item is clicked
         /// </summary>
         /// <param name="model"></param>
         private void StatementRowClicked(StatementOfAccountViewModel model)
         {
             Model = model;
+            DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == Model.Borrower_Code).ToList();
             ClearEntries();
             UpdateEntries(model, StatementOfAccountMode.Collections);
             UpdateEntries(model, StatementOfAccountMode.Expenses);
@@ -246,13 +298,13 @@ namespace Company_Site.Pages.User
             switch (mode)
             {
                 case StatementOfAccountMode.Expenses:
-                    ExpenseEntries = _dbContext.Expenses.Where(e => e.Borrower_Code == model.Borrower_Code && e.TrustCode == model.Trust_Code).ToList();
+                    ExpenseEntries = Account == "all" ? _dbContext.Expenses.Where(e => e.Borrower_Code == model.Borrower_Code && e.TrustCode == model.Trust_Code).ToList() : _dbContext.Expenses.Where(e => e.Borrower_Code == model.Borrower_Code && e.TrustCode == model.Trust_Code && (e.AdjustTowards == "prop" || e.AdjustTowards.Equals(Account))).ToList();
                     break;
                 case StatementOfAccountMode.Collections:
-                    CollectionEntries = _dbContext.Collections.Where(e => e.TrustCode == model.Trust_Code && e.Borrower == model.Borrower_Code).ToList();
+                    CollectionEntries = Account == "all" ? _dbContext.Collections.Where(e => e.TrustCode == model.Trust_Code && e.Borrower == model.Borrower_Code).ToList() : _dbContext.Collections.Where(e => e.TrustCode == model.Trust_Code && e.Borrower == model.Borrower_Code && (e.Adjustment == "prop" || e.Adjustment.Equals(Account))).ToList();
                     break;
                 case StatementOfAccountMode.Disbursement:
-                    DisburmentEntries = _dbContext.Disburments.Where(d => d.BorrowerCode == model.Borrower_Code).ToList();
+                    DisburmentEntries = Account == "all" ? _dbContext.Disburments.Where(d => d.BorrowerCode == model.Borrower_Code).ToList() : _dbContext.Disburments.Where(d => d.BorrowerCode == model.Borrower_Code && (d.AdjustTowards == "prop" || d.AdjustTowards.Equals(Account))).ToList();
                     break;
                 case StatementOfAccountMode.Interest:
                     InterestRateChangeEntries = _dbContext.InterestRateChangeEntries.Where(f => f.BorrowerCode == model.Borrower_Code).ToList();
@@ -285,72 +337,240 @@ namespace Company_Site.Pages.User
             _errors.Clear();
             if(NewEntry.Mode == StatementOfAccountMode.Expenses)
             {
-                //TODO: Where should the adjust and note field values go in the expense entry
-                ExpenseEntry entry = new ExpenseEntry()
+                ExpenseEntry entry;
+                //TODO: Where should the note field values go in the expense entry
+                if (ShouldAddExpense)
                 {
-                    PaymentAmount = NewEntry.Amount,
-                    Borrower_Code = Model.Borrower_Code,
-                    TrustCode = Model.Trust_Code,
-                    Trust_Name = Model.Trust_Name,
-                    PaymentDate = DateTime.Now,
-                };
-                _dbContext.Expenses.Add(entry);
+                    entry = new ExpenseEntry()
+                    {
+                        PaymentAmount = NewEntry.Amount,
+                        Borrower_Code = Model.Borrower_Code,
+                        TrustCode = Model.Trust_Code,
+                        Trust_Name = Model.Trust_Name,
+                        PaymentDate = DateTime.Now,
+                        AdjustTowards = NewEntry.AdjustTowards
+                    };
+                    _dbContext.Expenses.Add(entry);
+                }
+                else
+                {
+                    entry = _dbContext.Expenses.Where(f => f.Id == NewEntry.Id).First();
+                    entry.PaymentAmount = NewEntry.Amount;
+                    entry.AdjustTowards = NewEntry.AdjustTowards;
+                    _dbContext.Expenses.Update(entry);
+                }
+                Save();
+
+                if (!ShouldAddExpense)
+                {
+                    List<ExpenseAdjustmentModel> expenseAdjustments = _dbContext.ExpenseAdjustments.Where(f => f.ExpenseId == entry.Id).ToList();
+                    _dbContext.ExpenseAdjustments.RemoveRange(expenseAdjustments);
+                    _dbContext.SaveChanges();
+                }
+
+                if (NewEntry.AdjustTowards == "prop")
+                {
+                    double totalPos = DebtProfiles.Sum(f => f.POS);
+                    DebtProfiles.ForEach(f =>
+                    {
+                        double proportion = f.POS / totalPos;
+                        double amount = proportion * NewEntry.Amount;
+                        _dbContext.ExpenseAdjustments.Add(new ExpenseAdjustmentModel()
+                        {
+                            AccountNumber = f.AccountNumber,
+                            ExpenseId = entry.Id,
+                            Amount = amount,
+                            BorrowerCode = Model.Borrower_Code,
+                        });
+                    });
+                }
+                else
+                {
+                    _dbContext.ExpenseAdjustments.Add(new ExpenseAdjustmentModel()
+                    {
+                        AccountNumber = int.Parse(NewEntry.AdjustTowards),
+                        Amount = NewEntry.Amount,
+                        ExpenseId = entry.Id,
+                        BorrowerCode = Model.Borrower_Code
+                    });
+                }
+
             }
             else if(NewEntry.Mode == StatementOfAccountMode.Collections)
             {
                 int collectionId = 1;
-
-                CollectionEntry? firstEntry = _dbContext.Collections.OrderByDescending(f => f.CollectionId).FirstOrDefault();
-
-                if (firstEntry != null && firstEntry.CollectionId.HasValue)
-                    collectionId = firstEntry.CollectionId.Value + 1;
-
-                //Getting the borrower with the specified code
-                Account acc = _dbContext.Accounts.Where(f => f.BorrowerCode == Model.Borrower_Code).First();
-
-                //TODO: To which field does the note field values goes to
-                //TODO: Specify the fields for the source and type
-
-                CollectionEntry collectionEntry = new CollectionEntry()
+                CollectionEntry collectionEntry;
+                if (ShouldAddCollection)
                 {
-                    AdjustToward = NewEntry.AdjustTowards,
-                    TrustCode = Model.Trust_Code,
-                    Trust_Name = Model.Trust_Name,
-                    BorrowerName = acc.Company,
-                    Borrower = Model.Borrower_Code,
-                    CollectionId = collectionId,
-                    CreditAmount = NewEntry.Amount,
-                    CreditDate = NewEntry.Date,
-                    Source = "--Source--",
-                    TypeOfRecovery = "--Recovery--"
-                };
+                    CollectionEntry? firstEntry = _dbContext.Collections.OrderByDescending(f => f.CollectionId).FirstOrDefault();
 
-                _dbContext.Collections.Add(collectionEntry);
+                    if (firstEntry != null && firstEntry.CollectionId.HasValue)
+                        collectionId = firstEntry.CollectionId.Value + 1;
+
+                    //Getting the borrower with the specified code
+                    Account acc = _dbContext.Accounts.Where(f => f.BorrowerCode == Model.Borrower_Code).First();
+
+                    collectionEntry = new CollectionEntry()
+                    {
+                        Adjustment = NewEntry.AdjustTowards,
+                        AdjustToward = "----",
+                        TrustCode = Model.Trust_Code,
+                        Trust_Name = Model.Trust_Name,
+                        BorrowerName = acc.Company,
+                        Borrower = Model.Borrower_Code,
+                        CollectionId = collectionId,
+                        CreditAmount = NewEntry.Amount,
+                        CreditDate = NewEntry.Date,
+                        Source = "--Source--",
+                        TypeOfRecovery = "--Recovery--"
+                    };
+
+                    _dbContext.Collections.Add(collectionEntry);
+                }
+                else
+                {
+                    collectionEntry = _dbContext.Collections.Where(f => f.Id == NewEntry.Id).First();
+                    collectionId = collectionEntry.CollectionId.Value;
+                    collectionEntry.Adjustment = NewEntry.AdjustTowards;
+                    collectionEntry.CreditAmount = NewEntry.Amount;
+                    collectionEntry.CreditDate = NewEntry.Date;
+                    _dbContext.Collections.Update(collectionEntry);
+                }
+
+                Save();
+
+                if (!ShouldAddCollection)
+                {
+                    List<CollectionAdjustmentModel> collectionAdjustments = _dbContext.CollectionAdjustments.Where(f => f.CombinedCollectionId == collectionId).ToList();
+                    _dbContext.CollectionAdjustments.RemoveRange(collectionAdjustments);
+                    _dbContext.SaveChanges();
+                }
+
+                //Setting up Adjustment Data
+                if (NewEntry.AdjustTowards == "prop")
+                {
+                    double totalPos = DebtProfiles.Sum(f => f.POS);
+                    DebtProfiles.ForEach(f =>
+                    {
+                        double proportion = f.POS / totalPos;
+                        double amount = proportion * NewEntry.Amount;
+                        _dbContext.CollectionAdjustments.Add(new CollectionAdjustmentModel()
+                        {
+                            AccountNumber = f.AccountNumber,
+                            Amount = amount,
+                            BorrowerCode = collectionEntry.Borrower,
+                            CollectionId = collectionEntry.Id,
+                            CombinedCollectionId = collectionEntry.CollectionId,
+                            TrustCode = collectionEntry.TrustCode,
+                        });
+                    });
+                }
+                else
+                {
+                    _dbContext.CollectionAdjustments.Add(new CollectionAdjustmentModel()
+                    {
+                        AccountNumber = int.Parse(NewEntry.AdjustTowards),
+                        Amount = collectionEntry.CreditAmount,
+                        BorrowerCode = collectionEntry.Borrower,
+                        CollectionId = collectionEntry.Id,
+                        CombinedCollectionId = collectionEntry.CollectionId,
+                        TrustCode = collectionEntry.TrustCode,
+                    });
+                }
             }
             else if(NewEntry.Mode == StatementOfAccountMode.Disbursement)
             {
-                DisburmentModel disburment = new DisburmentModel()
+                DisburmentModel disburment;
+
+                if (ShouldAddDisbursment)
                 {
-                    BorrowerCode = Model.Borrower_Code,
-                    Date = NewEntry.Date,
-                    Note = NewEntry.Note,
-                    Amount = NewEntry.Amount,
-                    AdjustTowards = NewEntry.AdjustTowards
-                };
-                _dbContext.Disburments.Add(disburment);
+                    disburment = new DisburmentModel()
+                    {
+                        BorrowerCode = Model.Borrower_Code,
+                        Date = NewEntry.Date,
+                        Note = NewEntry.Note,
+                        Amount = NewEntry.Amount,
+                        AdjustTowards = NewEntry.AdjustTowards
+                    };
+                    _dbContext.Disburments.Add(disburment);
+                }
+                else
+                {
+                    disburment = _dbContext.Disburments.Where(f => f.Id == NewEntry.Id).First();
+                    disburment.Date = NewEntry.Date;
+                    disburment.Amount = NewEntry.Amount;
+                    disburment.AdjustTowards = NewEntry.AdjustTowards;
+                    _dbContext.Disburments.Update(disburment);
+                }
+
+                Save();
+
+                if (!ShouldAddDisbursment)
+                {
+                    List<DisbursmentAdjustmentModel> disbursmentAdjustments = _dbContext.DisbursmentAdjustments.Where(f => f.DisbursmentId == disburment.Id).ToList();
+                    _dbContext.DisbursmentAdjustments.RemoveRange(disbursmentAdjustments);
+                    _dbContext.SaveChanges();
+                }
+
+                //Setting up Adjustment Data
+                if (NewEntry.AdjustTowards == "prop")
+                {
+                    double totalPos = DebtProfiles.Sum(f => f.POS);
+                    DebtProfiles.ForEach(f =>
+                    {
+                        double proportion = f.POS / totalPos;
+                        double amount = proportion * NewEntry.Amount;
+                        _dbContext.DisbursmentAdjustments.Add(new DisbursmentAdjustmentModel()
+                        {
+                            AccountNumber = f.AccountNumber,
+                            Amount = amount,
+                            BorrowerCode = Model.Borrower_Code,
+                            DisbursmentId = disburment.Id
+                        });
+                    });
+                }
+                else
+                {
+                    _dbContext.DisbursmentAdjustments.Add(new DisbursmentAdjustmentModel()
+                    {
+                        AccountNumber = int.Parse(NewEntry.AdjustTowards),
+                        Amount = NewEntry.Amount,
+                        BorrowerCode = Model.Borrower_Code,
+                        DisbursmentId= disburment.Id
+                    });
+                }
             }
             else if (NewEntry.Mode == StatementOfAccountMode.Interest)
             {
-                InterestRateChangeModel interestRate = new InterestRateChangeModel()
+                if (ShouldAddInterestRate)
                 {
-                    BorrowerCode = Model.Borrower_Code,
-                    Date = NewEntry.Date,
-                    Note = NewEntry.Note,
-                    RevisedInterestRate = NewEntry.ChangeInInterestRate,
-                };
-                _dbContext.InterestRateChangeEntries.Add(interestRate);
+                    InterestRateChangeModel interestRate = new InterestRateChangeModel()
+                    {
+                        BorrowerCode = Model.Borrower_Code,
+                        Date = NewEntry.Date,
+                        Note = NewEntry.Note,
+                        RevisedInterestRate = NewEntry.ChangeInInterestRate,
+                    };
+                    _dbContext.InterestRateChangeEntries.Add(interestRate);
+                }
+                else
+                {
+                    InterestRateChangeModel interestRate = _dbContext.InterestRateChangeEntries.Where(f => f.Id == NewEntry.Id).First();
+                    interestRate.Date = NewEntry.Date;
+                    interestRate.RevisedInterestRate = NewEntry.ChangeInInterestRate;
+                    interestRate.Note = NewEntry.Note;
+                    _dbContext.InterestRateChangeEntries.Update(interestRate);
+                }
             }
-            
+
+            Save();
+
+            UpdateEntries(Model, NewEntry.Mode, true);
+            ClearSubEntry();
+        }
+
+        private void Save()
+        {
             //Saving the database and in case of errors showing the errors to the user on the form
             try
             {
@@ -363,9 +583,6 @@ namespace Company_Site.Pages.User
                 else
                     _errors.Add(exc.Message);
             }
-
-            UpdateEntries(Model, NewEntry.Mode, true);
-            Clear();
         }
 
         private void ShowDeleteConfirmationModal()
@@ -383,10 +600,16 @@ namespace Company_Site.Pages.User
             DeleteConfirmationModalShown = false;
             if(Mode == StatementOfAccountMode.Collections && SelectedCollectionEntry != null) 
             {
+                List<CollectionAdjustmentModel> collectionAdjustments = _dbContext.CollectionAdjustments.Where(f => f.CombinedCollectionId == SelectedCollectionEntry.CollectionId).ToList();
+                _dbContext.CollectionAdjustments.RemoveRange(collectionAdjustments);
+                _dbContext.SaveChanges();
                 _dbContext.Collections.Remove(SelectedCollectionEntry);
             }
             else if (Mode == StatementOfAccountMode.Expenses && SelectedExpenseEntry != null)
             {
+                List<ExpenseAdjustmentModel> expenseAdjustments = _dbContext.ExpenseAdjustments.Where(f => f.ExpenseId == SelectedExpenseEntry.Id).ToList();
+                _dbContext.ExpenseAdjustments.RemoveRange(expenseAdjustments);
+                _dbContext.SaveChanges();
                 _dbContext.Expenses.Remove(SelectedExpenseEntry);
             }
             else if(Mode == StatementOfAccountMode.Interest && SelectedInterestRateEntry != null)
@@ -395,10 +618,14 @@ namespace Company_Site.Pages.User
             }
             else if(Mode == StatementOfAccountMode.Disbursement && SelectedDisbursementEntry != null)
             {
+                List<DisbursmentAdjustmentModel> disbursmentAdjustments = _dbContext.DisbursmentAdjustments.Where(f => f.DisbursmentId == SelectedDisbursementEntry.Id).ToList();
+                _dbContext.DisbursmentAdjustments.RemoveRange(disbursmentAdjustments);
+                _dbContext.SaveChanges();
                 _dbContext.Disburments.Remove(SelectedDisbursementEntry);
             }
             _dbContext.SaveChanges();
             UpdateEntries(Model, Mode, true);
+            ClearSubEntry();
         }
 
         private void ClearEntries()
@@ -452,6 +679,20 @@ namespace Company_Site.Pages.User
             //<------------- All the data for all the borrowers is in the above items list sorted in descending order ---------------->
         }
 
+        /// <summary>
+        /// Clears sub entry data
+        /// </summary>
+        private void ClearSubEntry()
+        {
+            Clear();
+            SelectedCollectionEntry = null;
+            SelectedDisbursementEntry = null;
+            SelectedExpenseEntry = null;
+            SelectedInterestRateEntry = null;
+            ShouldAddCollection = ShouldAddDisbursment = ShouldAddExpense = ShouldAddInterestRate = true;
+            StateHasChanged();
+        }
+
         #endregion
 
         #region Public Methods
@@ -459,6 +700,5 @@ namespace Company_Site.Pages.User
         public int GetId(StatementOfAccountViewModel t) => t.Borrower_Code;
 
         #endregion
-
     }
 }

@@ -54,6 +54,11 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <returns></returns>
         public int GetId(ExpenseEntry e) => e.Id;
 
+        public override void OnEdit(int id)
+        {
+            DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == NewEntry.Borrower_Code).ToList();
+        }
+
         /// <summary>
         /// Searches the records
         /// </summary>

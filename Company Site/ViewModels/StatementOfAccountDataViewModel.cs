@@ -7,6 +7,8 @@ namespace Company_Site.ViewModels
     {
         public StatementOfAccountMode Mode { get; set; } = StatementOfAccountMode.Expenses;
 
+        public int Id { get; set; }
+
         public double Amount { get; set; }
 
         public DateTime Date { get; set; } = DateTime.Now;
@@ -26,9 +28,12 @@ namespace Company_Site.ViewModels
         public static StatementOfAccountDataViewModel FromExpense(ExpenseEntry e)
         {
             StatementOfAccountDataViewModel model = new StatementOfAccountDataViewModel();
+            model.Mode = StatementOfAccountMode.Expenses;
             model.Amount = e.PaymentAmount;
             model.BorrowerCode = e.Borrower_Code;
             model.Date = e.PaymentDate;
+            model.Id = e.Id;
+            model.AdjustTowards = e.AdjustTowards;
             return model;
         }
 
@@ -36,9 +41,11 @@ namespace Company_Site.ViewModels
         {
             StatementOfAccountDataViewModel model = new StatementOfAccountDataViewModel();
             model.Amount = e.CreditAmount;
+            model.Mode = StatementOfAccountMode.Collections;
             model.Date = e.CreditDate;
             model.BorrowerCode = e.Borrower;
-            model.AdjustTowards = e.AdjustToward;
+            model.AdjustTowards = e.Adjustment;
+            model.Id = e.Id;
             return model;
         }
 
@@ -46,10 +53,12 @@ namespace Company_Site.ViewModels
         {
             StatementOfAccountDataViewModel model = new StatementOfAccountDataViewModel();
             model.Amount = d.Amount;
+            model.Mode = StatementOfAccountMode.Disbursement;
             model.Date = d.Date;
             model.BorrowerCode = d.BorrowerCode;
             model.AdjustTowards = d.AdjustTowards;
             model.Note = d.Note;
+            model.Id = d.Id;
             return model;
         }
 
@@ -58,8 +67,10 @@ namespace Company_Site.ViewModels
             StatementOfAccountDataViewModel model = new StatementOfAccountDataViewModel();
             model.ChangeInInterestRate = i.RevisedInterestRate;
             model.Date = i.Date;
+            model.Mode = StatementOfAccountMode.Interest;
             model.BorrowerCode = i.BorrowerCode;
             model.Note = i.Note;
+            model.Id = i.Id;
             return model;
         }
 
