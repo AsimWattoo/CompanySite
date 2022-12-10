@@ -91,6 +91,8 @@ namespace Company_Site.DB
 
 		public DbSet<ExpenseAdjustmentModel> ExpenseAdjustments { get; set; }
 
+		public DbSet<CollectionAdjustmentModel> CollectionAdjustments { get; set; }
+
 		#endregion
 
 		#region Constructor

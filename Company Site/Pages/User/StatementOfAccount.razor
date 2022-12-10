@@ -38,15 +38,15 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-3">
+        <div class="col-3 d-flex justify-content-center">
             <a class="text-center btn @(Mode == StatementOfAccountMode.Collections ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Collections))>Collection</a>
         </div>
-        <div class="col-3">
+        <div class="col-3 d-flex justify-content-center">
             <a class="text-center btn @(Mode == StatementOfAccountMode.Expenses ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Expenses))>Expenses</a>
         </div>
-        <div class="col-3">
+        <div class="col-3 d-flex justify-content-center">
             <a class="text-center btn @(Mode == StatementOfAccountMode.Disbursement ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Disbursement))>Disbursment</a> 
-        </div><div class="col-3">
+        </div><div class="col-3 d-flex justify-content-center">
             <a class="text-center btn @(Mode == StatementOfAccountMode.Interest ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Interest))>Interest Rate</a> 
         </div>
     </div>

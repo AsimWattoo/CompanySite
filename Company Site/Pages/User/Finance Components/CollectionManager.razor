@@ -103,6 +103,21 @@
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <label for="adjustTowards">Account</label>
+                <InputSelect @bind-Value="NewEntry.Adjustment" id="adjustment" class="form-select">
+                    <option selected value="">---- Select Option ----</option>
+                    <option value="prop">Proportionality</option>
+                    @foreach(DebtProfileModel debtProfile in DebtProfiles)
+                    {
+                        <option value="@debtProfile.AccountNumber">@debtProfile.AccountNumber - @debtProfile.Facility</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => NewEntry.AdjustToward)"/>
+            </div>
+        </div>
+
         <div class="row my-3">
             <Table T="CollectionSubEntryViewModel" T2="int" 
                 ShowSerialNumber=true 

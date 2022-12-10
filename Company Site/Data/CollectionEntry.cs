@@ -41,7 +41,10 @@ namespace Company_Site.Data
         public double NoneSellerShare { get; set; }
 
         [Required(ErrorMessage =  "Adjust towards is required")]
-        public string AdjustToward { get; set; }
+        public string? AdjustToward { get; set; }
+
+        [Required(ErrorMessage = "Account value is required")]
+        public string? Adjustment { get; set; }
 
         public bool Proportionately { get; set; }
 
@@ -66,7 +69,8 @@ namespace Company_Site.Data
                 NoneSellerShare= NoneSellerShare,
                 Proportionately = Proportionately,
                 Source = Source,
-                TypeOfRecovery = TypeOfRecovery
+                TypeOfRecovery = TypeOfRecovery,
+                Adjustment = Adjustment,
             };
         }
     }

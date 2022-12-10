@@ -30,6 +30,11 @@ namespace Company_Site.Pages.User.Finance_Components
 
         public bool DeleteRelatedEntries { get; set; } = false;
 
+        /// <summary>
+        /// The list fo debt profiles for the borrower code
+        /// </summary>
+        private List<DebtProfileModel> DebtProfiles { get; set; } = new List<DebtProfileModel>();
+
         #endregion
 
         #region Collection Sub Entries Table
@@ -88,6 +93,7 @@ namespace Company_Site.Pages.User.Finance_Components
                 return;
             }
             NewEntry.BorrowerName = account.Company;
+            DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == value).ToList();
             TrustRelationModelEnteries.Clear();
             foreach (TrustRelationModel relationModel in relationModels)
             {
@@ -112,12 +118,20 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <returns></returns>-
         protected override bool SaveSetup()
         {
+            if (!ShouldAdd)
+            {
+                List<CollectionAdjustmentModel> collectionAdjustments = _dbContext.CollectionAdjustments.Where(f => f.CombinedCollectionId == NewEntry.CollectionId).ToList();
+                _dbContext.CollectionAdjustments.RemoveRange(collectionAdjustments);
+                _dbContext.SaveChanges();
+            }
+
             if (ShouldAdd)
             {
                 try
                 {
                     //Getting New Collection Id for the related fields
                     CollectionEntry? cEntry = _dbContext.Collections.OrderByDescending(f => f.CollectionId).FirstOrDefault();
+                    List<CollectionEntry> collections = new List<CollectionEntry>();
                     int collectionId = 1;
 
                     if (cEntry != null)
@@ -131,9 +145,13 @@ namespace Company_Site.Pages.User.Finance_Components
                         entry.Trust_Name = subEntry.TrustName;
                         entry.CreditAmount = (NewEntry.CreditAmount * subEntry.Share) / 100;
                         entry.CollectionId = collectionId;
+                        collections.Add(entry);
                         _dbContext.Collections.Add(entry);
                     }
                     _dbContext.SaveChanges();
+
+                    AddAdjustments(collections);
+
                     return true;
                 }
                 catch
@@ -143,6 +161,7 @@ namespace Company_Site.Pages.User.Finance_Components
             }
             else
             {
+                List<CollectionEntry> collections = new List<CollectionEntry>();
                 foreach(CollectionSubEntryViewModel subEntry in TrustRelationModelEnteries)
                 {
                     CollectionEntry entry = _dbContext.Collections.Where(f => f.Id == subEntry.Id).First();
@@ -158,12 +177,62 @@ namespace Company_Site.Pages.User.Finance_Components
                     entry.NoneSellerShare = NewEntry.NoneSellerShare;
                     entry.Proportionately = NewEntry.Proportionately;
                     entry.TypeOfRecovery = NewEntry.TypeOfRecovery;
+                    entry.Adjustment = NewEntry.Adjustment;
                     entry.CreditAmount = (NewEntry.CreditAmount * subEntry.Share) / 100;
                     _dbContext.Collections.Update(entry);
+                    collections.Add(entry);
                 }
                 _dbContext.SaveChanges();
+                AddAdjustments(collections);
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Generates adjustments based on choosen option
+        /// </summary>
+        /// <param name="collections"></param>
+        private void AddAdjustments(List<CollectionEntry> collections)
+        {
+            //Setting up
+
+            if (NewEntry.Adjustment == "prop")
+            {
+                double totalPos = DebtProfiles.Sum(f => f.POS);
+                collections.ForEach(c =>
+                {
+                    DebtProfiles.ForEach(f =>
+                    {
+                        double proportion = f.POS / totalPos;
+                        double amount = proportion * c.CreditAmount;
+                        _dbContext.CollectionAdjustments.Add(new CollectionAdjustmentModel()
+                        {
+                            AccountNumber = f.AccountNumber,
+                            Amount = amount,
+                            BorrowerCode = c.Borrower,
+                            CollectionId = c.Id,
+                            CombinedCollectionId = c.CollectionId,
+                            TrustCode = c.TrustCode,
+                        });
+                    });
+                });
+            }
+            else
+            {
+                collections.ForEach(c =>
+                {
+                    _dbContext.CollectionAdjustments.Add(new CollectionAdjustmentModel()
+                    {
+                        AccountNumber = int.Parse(NewEntry.Adjustment),
+                        Amount = c.CreditAmount,
+                        BorrowerCode = c.Borrower,
+                        CollectionId = c.Id,
+                        CombinedCollectionId = c.CollectionId,
+                        TrustCode = c.TrustCode,
+                    });
+                });
+            }
+            _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -172,11 +241,6 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <param name="e"></param>
         /// <returns></returns>
         public int GetId(CollectionEntry e) => e.Id;
-
-        private void DeleteChanged(ChangeEventArgs e)
-        {
-
-        }
 
 		public override List<CollectionEntry> DeleteRecord(int id)
 		{
@@ -213,6 +277,7 @@ namespace Company_Site.Pages.User.Finance_Components
             List<CollectionEntry> collections = _dbContext.Collections.ToList();
             CollectionEntry entry = collections.Where(t => t.Id == id).First();
             List<CollectionEntry> relatedEnteries = collections.Where(f => f.CollectionId == entry.CollectionId).ToList();
+            DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == entry.Borrower).ToList();
             double totalAmount = relatedEnteries.Sum(f => f.CreditAmount);
             Trust t = _dbContext.Trusts.Where(t => t.TrustCode == NewEntry.TrustCode).First();
             NewEntry = entry.Clone();
@@ -228,6 +293,12 @@ namespace Company_Site.Pages.User.Finance_Components
         {
             NewEntry = new CollectionEntry();
             TrustRelationModelEnteries = new List<CollectionSubEntryViewModel>();
+        }
+
+        protected override void OnDelete(CollectionEntry item)
+        {
+            List<CollectionAdjustmentModel> collectionAdjustments = _dbContext.CollectionAdjustments.Where(f => f.CombinedCollectionId == item.CollectionId).ToList();
+            _dbContext.CollectionAdjustments.RemoveRange(collectionAdjustments);
         }
 
         #endregion
