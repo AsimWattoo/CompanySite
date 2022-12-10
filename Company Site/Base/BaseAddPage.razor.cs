@@ -64,6 +64,8 @@ namespace Company_Site.Base
 
         protected virtual void Setup(){}
 
+        protected virtual void AfterSave() { }
+
 		protected virtual void Save()
 		{
             _errors.Clear();
@@ -72,6 +74,7 @@ namespace Company_Site.Base
                 try
                 {
                     _dbContext.SaveChanges();
+                    AfterSave();
                 }
                 catch (Exception ex)
                 {
@@ -125,9 +128,13 @@ namespace Company_Site.Base
         /// </summary>
         protected virtual void OnClear() { ShouldAdd = true; }
 
+        protected virtual void OnDelete(T item) { }
+
         public virtual List<T> DeleteRecord(Id id)
         {
-            _dbSet.Remove(_dbSet.Where(f => f.Id.Equals(id)).First());
+            T item = _dbSet.Where(f => f.Id.Equals(id)).First();
+            OnDelete(item);
+            _dbSet.Remove(item);
             _dbContext.SaveChanges();
             Enteries = _dbSet.ToList();
             StateHasChanged();

@@ -89,6 +89,8 @@ namespace Company_Site.DB
 
 		public DbSet<ValuationDetails> ValuationDetails { get; set; }
 
+		public DbSet<ExpenseAdjustmentModel> ExpenseAdjustments { get; set; }
+
 		#endregion
 
 		#region Constructor

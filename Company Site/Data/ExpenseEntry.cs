@@ -1,8 +1,6 @@
-﻿using Microsoft.Build.Framework;
+﻿using Company_Site.Base;
 
-using Key = System.ComponentModel.DataAnnotations.KeyAttribute;
-using System.ComponentModel.DataAnnotations.Schema;
-using Company_Site.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace Company_Site.Data
 {
@@ -19,6 +17,9 @@ namespace Company_Site.Data
         public string Trust_Name { get; set; }
 
         public int? Distribution_Id { get; set; } = null;
+
+        [Required(ErrorMessage = "Adjust towards is required")]
+        public string? AdjustTowards { get; set; }
 
         public string? Service { get; set; }
 

@@ -4,6 +4,8 @@ using Company_Site.Interfaces;
 
 using Microsoft.AspNetCore.Components;
 
+using System.Data.Common;
+
 namespace Company_Site.Pages.User.Finance_Components
 {
     public partial class ExpenseManager : BaseAddPage<ExpenseEntry, int>, ITable<ExpenseEntry, int>
@@ -26,6 +28,8 @@ namespace Company_Site.Pages.User.Finance_Components
         private List<Account> Borrowers { get; set; } = new List<Account>();
 
         private List<Vendor> Vendors { get; set; } = new List<Vendor>();
+
+        private List<DebtProfileModel> DebtProfiles = new List<DebtProfileModel>();
 
         #endregion
 
@@ -71,6 +75,53 @@ namespace Company_Site.Pages.User.Finance_Components
         private void BorrowerCodeChanged(int code)
         {
             NewEntry.Borrower_Code = code;
+            DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == NewEntry.Borrower_Code).ToList();
+            StateHasChanged();
+        }
+
+        protected override void OnDelete(ExpenseEntry item)
+        {
+            List<ExpenseAdjustmentModel> adjustments = _dbContext.ExpenseAdjustments.Where(f => f.ExpenseId == item.Id).ToList();
+            _dbContext.ExpenseAdjustments.RemoveRange(adjustments);
+        }
+
+        protected override void AfterSave()
+        {
+            if (!ShouldAdd)
+            {
+                List<ExpenseAdjustmentModel> expenseAdjustments = _dbContext.ExpenseAdjustments.Where(f => f.ExpenseId == NewEntry.Id).ToList();
+                _dbContext.ExpenseAdjustments.RemoveRange(expenseAdjustments);
+                _dbContext.SaveChanges();
+            }
+
+            if (NewEntry.AdjustTowards == "prop")
+            {
+                double totalPos = DebtProfiles.Sum(f => f.POS);
+                DebtProfiles.ForEach(f =>
+                {
+                    double proportion = f.POS / totalPos;
+                    double amount = proportion * NewEntry.BillAmount;
+                    _dbContext.ExpenseAdjustments.Add(new ExpenseAdjustmentModel()
+                    {
+                        AccountNumber = f.AccountNumber,
+                        ExpenseId = NewEntry.Id,
+                        Amount = amount,
+                        BorrowerCode = NewEntry.Borrower_Code,
+                    });
+                });
+            }
+            else
+            {
+                _dbContext.ExpenseAdjustments.Add(new ExpenseAdjustmentModel()
+                {
+                    AccountNumber = int.Parse(NewEntry.AdjustTowards),
+                    Amount = NewEntry.BillAmount,
+                    ExpenseId = NewEntry.Id,
+                    BorrowerCode = NewEntry.Borrower_Code
+                });
+            }
+
+            _dbContext.SaveChanges();
         }
 
         private void VendorChanged(int code)
