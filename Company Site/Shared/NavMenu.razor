@@ -26,19 +26,14 @@
                 <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Vendors</p>
             </div>
         </a>
+        <a class="@((SelectedOption == "TrustMaster" ? "active" : "")) nav-item my-2 text-start" href="/trustmaster"  @onclick='(() => {SelectedOption = "TrustMaster";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-building me-2" aria-hidden="true"></span> <p class="m-0">Trust Master</p>
+            </div>
+        </a>
         <a class="@((SelectedOption == "Finance" ? "active" : "")) nav-item my-2 text-start" href="/finance"  @onclick='(() => {SelectedOption = "Finance";})'>
             <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-file-invoice-dollar me-2" aria-hidden="true"></span> <p class="m-0">Finance</p>
-            </div>
-        </a>
-        <a class="@((SelectedOption == "Contacts" ? "active" : "")) nav-item my-2 text-start" href="/contacts"  @onclick='(() => {SelectedOption = "Contacts";})'>
-            <div class="nav-link d-flex align-items-center">
-                <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Contacts</p>
-            </div>
-        </a>
-        <a class="@((SelectedOption == "Policy" ? "active" : "")) nav-item my-2 text-start" href="/companypolicy"  @onclick='(() => {SelectedOption = "Policy";})'>
-            <div class="nav-link d-flex align-items-center">
-                <span class="fa fa-file-archive me-2" aria-hidden="true"></span> <p class="m-0">Policy</p>
             </div>
         </a>
         <a class="@((SelectedOption == "AccountManagement" ? "active" : "")) nav-item my-2 text-start" href="/accounts"  @onclick='(() => {SelectedOption = "AccountManagement";})'>
@@ -46,19 +41,29 @@
                 <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Accounts</p>
             </div>
         </a>
+        <a class="@((SelectedOption == "Legal" ? "active" : "")) nav-item my-2 text-start" href="/legalmanagement"  @onclick='(() => {SelectedOption = "Legal";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-balance-scale me-2" aria-hidden="true"></span> <p class="m-0">Legal</p>
+            </div>
+        </a>
         <a class="@((SelectedOption == "StatementOfAccount" ? "active" : "")) nav-item my-2 text-start" href="/statement_of_account"  @onclick='(() => {SelectedOption = "StatementOfAccount";})'>
             <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-space-shuttle me-2" aria-hidden="true"></span> <p class="m-0">Statement Of Account</p>
             </div>
         </a>
-        <a class="@((SelectedOption == "EmployeeManagement" ? "active" : "")) nav-item my-2 text-start" href="/employeelist"  @onclick='(() => {SelectedOption = "EmployeeManagement";})'>
-            <div class="nav-link d-flex align-items-center">
-                <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Employee List</p>
-            </div>
-        </a>
         <a class="@((SelectedOption == "Contacts" ? "active" : "")) nav-item my-2 text-start" href="/contacts"  @onclick='(() => {SelectedOption = "Contacts";})'>
             <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Contacts</p>
+            </div>
+        </a>
+        <a class="@((SelectedOption == "EmployeeManagement" ? "active" : "")) nav-item my-2 text-start" href="/employeelist"  @onclick='(() => {SelectedOption = "EmployeeManagement";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-users me-2" aria-hidden="true"></span> <p class="m-0">Employee Management</p>
+            </div>
+        </a>
+        <a class="@((SelectedOption == "Policy" ? "active" : "")) nav-item my-2 text-start" href="/companypolicy"  @onclick='(() => {SelectedOption = "Policy";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-file-archive me-2" aria-hidden="true"></span> <p class="m-0">Policy</p>
             </div>
         </a>
         @if(IsAdmin)
