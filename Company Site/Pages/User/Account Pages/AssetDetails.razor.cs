@@ -4,12 +4,29 @@ using Company_Site.Helpers;
 
 using Microsoft.AspNetCore.Components;
 
+using System.ComponentModel;
+
 namespace Company_Site.Pages.User.Account_Pages
 {
     public partial class AssetDetails : ComponentBase
     {
 
         #region Private Properties
+
+        /// <summary>
+        /// The list of all the auction details enteries
+        /// </summary>
+        private List<AuctionDetails> AllAuctionDetailsEnteries { get; set; } = new List<AuctionDetails>();
+
+        /// <summary>
+        /// The list of all the valuation details enteries
+        /// </summary>
+        private List<ValuationDetails> AllValuationDetailEnteries { get; set; } = new List<ValuationDetails>();
+
+        /// <summary>
+        /// The list of asset details for the borrower
+        /// </summary>
+        private List<AssetDetailsModel> AssetDetailsEnteries { get; set; } = new List<AssetDetailsModel>();
 
         /// <summary>
         /// The entry for the asset details
@@ -25,6 +42,16 @@ namespace Company_Site.Pages.User.Account_Pages
         /// The list of errors which have occurred while processing
         /// </summary>
         private List<string> _errors { get; set; } = new List<string>();
+
+        /// <summary>
+        /// The record to remove
+        /// </summary>
+        private int RecordIdToRemove { get; set; } = -1;
+
+        /// <summary>
+        /// Handles when the delete confirmaiton should be shown
+        /// </summary>
+        private bool IsDeleteConfirmationVisible = false;
 
         #endregion
 
@@ -62,10 +89,10 @@ namespace Company_Site.Pages.User.Account_Pages
             ["Valuer"] = p => p.Valuer,
             ["Valuation Date"] = p => p.ValuationDate.ToString("dd-MMM-yyyy"),
             ["Property"] = p => p.Property,
-            ["FMV"] = p => p.FMV,
-            ["RSV"] = p => p.RSV,
-            ["DVS"] = p => p.DVS,
-            ["SCRAP"] = p => p.Scrap,
+            ["FMV"] = p => p.FMV.ToString(),
+            ["RSV"] = p => p.RSV.ToString(),
+            ["DVS"] = p => p.DVS.ToString(),
+            ["SCRAP"] = p => p.Share.ToString(),
             ["Note"] = p => p.Note,
 
         };
@@ -98,20 +125,10 @@ namespace Company_Site.Pages.User.Account_Pages
 
         protected override void OnInitialized()
         {
-            AssetDetailsModel? model = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).FirstOrDefault();
-            AuctionDetailEntries = _dbContext.AuctionDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
-            ValuationDetailEnteries = _dbContext.ValuationDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
-
-            if(model == null)
-            {
-                NewEntry = new AssetDetailsModel();
-                NewEntry.BorrowerCode = _applicationState.BorrowerCode;
-            }
-            else
-            {
-                NewEntry = model;
-                IsNewEntry = false;
-            }
+            AssetDetailsEnteries = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+            AllAuctionDetailsEnteries = _dbContext.AuctionDetails.ToList();
+            AllValuationDetailEnteries = _dbContext.ValuationDetails.ToList();
+            Reset();
         }
 
         #endregion
@@ -123,13 +140,8 @@ namespace Company_Site.Pages.User.Account_Pages
         /// </summary>
         private void Reset()
         {
-            if (IsNewEntry)
-            {
-                NewEntry = new AssetDetailsModel();
-                NewEntry.BorrowerCode = _applicationState.BorrowerCode;
-            }
-            else
-                NewEntry = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).First();
+            NewEntry = new AssetDetailsModel();
+            NewEntry.BorrowerCode = _applicationState.BorrowerCode;
             StateHasChanged();
         }
 
@@ -149,13 +161,13 @@ namespace Company_Site.Pages.User.Account_Pages
             if (IsNewEntry)
             {
                 _dbContext.AssetDetails.Add(NewEntry);
-                IsNewEntry = false;
             }
             else
                 _dbContext.AssetDetails.Update(NewEntry);
             try
             {
                 _dbContext.SaveChanges();
+                Clear();
             }
             catch(Exception ex)
             {
@@ -167,6 +179,105 @@ namespace Company_Site.Pages.User.Account_Pages
             StateHasChanged();
         }
 
+        /// <summary>
+        /// Sets the table form to edit
+        /// </summary>
+        /// <param name="id"></param>
+        private void Edit(int id)
+        {
+            NewEntry = _dbContext.AssetDetails.Where(f => f.Id == id).First();
+            IsNewEntry = false;
+            AuctionDetailEntries = _dbContext.AuctionDetails.Where(f => f.AssetDetailsId == id).ToList();
+            ValuationDetailEnteries = _dbContext.ValuationDetails.Where(f => f.AssetDetailsId == id).ToList();
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// Clears and reset the table
+        /// </summary>
+        private void Clear()
+        {
+            AuctionDetailEntries.Clear();
+            ValuationDetailEnteries.Clear();
+            NewEntry = new AssetDetailsModel();
+            NewEntry.BorrowerCode = _applicationState.BorrowerCode;
+            AssetDetailsEnteries = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+            AllValuationDetailEnteries = _dbContext.ValuationDetails.ToList();
+            AllAuctionDetailsEnteries = _dbContext.AuctionDetails.ToList();
+            IsNewEntry = true;
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// Removes the specified record
+        /// </summary>
+        /// <param name="id"></param>
+        private void RemoveRecord(int id)
+        {
+            IsDeleteConfirmationVisible = true;
+            RecordIdToRemove = id;
+        }
+
+        /// <summary>
+        /// Deletes the record
+        /// </summary>
+        private void DeleteRecord()
+        {
+            if (RecordIdToRemove == -1)
+                return;
+
+            AssetDetailsModel details = _dbContext.AssetDetails.Where(f => f.Id == RecordIdToRemove).First();
+            List<ValuationDetails> valuationDetails = _dbContext.ValuationDetails.Where(f => f.AssetDetailsId == details.Id).ToList(); 
+            List<AuctionDetails> auctionDetails = _dbContext.AuctionDetails.Where(f => f.AssetDetailsId == details.Id).ToList();
+            _dbContext.AuctionDetails.RemoveRange(auctionDetails);
+            _dbContext.ValuationDetails.RemoveRange(valuationDetails);
+            _dbContext.AssetDetails.Remove(details);
+            _dbContext.SaveChanges();
+            IsDeleteConfirmationVisible = false;
+            AssetDetailsEnteries = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+            AllValuationDetailEnteries = _dbContext.ValuationDetails.ToList();
+            AllAuctionDetailsEnteries = _dbContext.AuctionDetails.ToList();
+        }
+
+        /// <summary>
+        /// Cancels the confirmation notification
+        /// </summary>
+        private void CancelDeleteConfirmation()
+        {
+            IsDeleteConfirmationVisible = false;
+            RecordIdToRemove = -1;
+        }
+
+        /// <summary>
+        /// Returns the total FMV
+        /// </summary>
+        /// <returns></returns>
+        private double TotalFMV()
+        {
+            List<int> ids = AssetDetailsEnteries.Select(f => f.Id).ToList();
+            return AllValuationDetailEnteries.Where(f => ids.Contains(f.AssetDetailsId)).Sum(f => f.FMV);
+        }
+
+        /// <summary>
+        /// Returns total RSV value
+        /// </summary>
+        /// <returns></returns>
+        private double TotalRSV()
+        {
+            List<int> ids = AssetDetailsEnteries.Select(f => f.Id).ToList();
+            return AllValuationDetailEnteries.Where(f => ids.Contains(f.AssetDetailsId)).Sum(f => f.RSV);
+        }
+
+        /// <summary>
+        /// Returns total share value
+        /// </summary>
+        /// <returns></returns>
+        private double TotalShare()
+        {
+            List<int> ids = AssetDetailsEnteries.Select(f => f.Id).ToList();
+            return AllValuationDetailEnteries.Where(f => ids.Contains(f.AssetDetailsId)).Sum(f => f.Share);
+        }
+
         #endregion
 
         #region Auction Details Methods
@@ -175,16 +286,16 @@ namespace Company_Site.Pages.User.Account_Pages
         {
             ShouldAddAuctionDetails = true;
             NewAuctionDetailsEntry = new AuctionDetails();
-            NewAuctionDetailsEntry.BorrowerCode = _applicationState.BorrowerCode;
+            NewAuctionDetailsEntry.AssetDetailsId = NewEntry.Id;
             AuctionDetailsFormShown = true;
         }
 
         private void SaveAuctionDetails()
         {
             _errors.Clear();
-            if (_applicationState.BorrowerCode < 0)
+            if (IsNewEntry)
             {
-                AuctionDetailsErrors.Add("No borrower is selected");
+                AuctionDetailsErrors.Add("Please insert auction details first otherwise inner enteries cannot be added.");
                 return;
             }
 
@@ -193,7 +304,8 @@ namespace Company_Site.Pages.User.Account_Pages
             else
                 _dbContext.AuctionDetails.Update(NewAuctionDetailsEntry);
             _dbContext.SaveChanges();
-            AuctionDetailEntries = _dbContext.AuctionDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+            AuctionDetailEntries = _dbContext.AuctionDetails.Where(f => f.AssetDetailsId == NewEntry.Id).ToList();
+            AllAuctionDetailsEnteries = _dbContext.AuctionDetails.ToList();
             AuctionDetailsFormShown = false;
             StateHasChanged();
         }
@@ -210,7 +322,7 @@ namespace Company_Site.Pages.User.Account_Pages
         {
             ShouldAddAuctionDetails = true;
             NewAuctionDetailsEntry = new AuctionDetails();
-            NewAuctionDetailsEntry.BorrowerCode = _applicationState.BorrowerCode;
+            NewAuctionDetailsEntry.AssetDetailsId = NewEntry.Id;
         }
 
         private void CancelAuctionDetails()
@@ -223,7 +335,8 @@ namespace Company_Site.Pages.User.Account_Pages
             AuctionDetails model = _dbContext.AuctionDetails.Where(f => f.Id == id).First();
             _dbContext.AuctionDetails.Remove(model);
             _dbContext.SaveChanges();
-            AuctionDetailEntries = _dbContext.AuctionDetails.ToList();
+            AuctionDetailEntries = _dbContext.AuctionDetails.Where(f => f.AssetDetailsId == NewEntry.Id).ToList();
+            AllAuctionDetailsEnteries = _dbContext.AuctionDetails.ToList();
             StateHasChanged();
             return AuctionDetailEntries;
         }
@@ -236,16 +349,16 @@ namespace Company_Site.Pages.User.Account_Pages
         {
             ShouldAddValuationDetails = true;
             NewValuationDetailsEntry = new ValuationDetails();
-            NewValuationDetailsEntry.BorrowerCode = _applicationState.BorrowerCode;
+            NewValuationDetailsEntry.AssetDetailsId = NewEntry.Id;
             ValuationDetailsFormShown = true;
         }
 
         private void SaveValuationDetails()
         {
             _errors.Clear();
-            if (_applicationState.BorrowerCode < 0)
+            if (IsNewEntry)
             {
-                ValuationDetailsErrors.Add("No borrower is selected");
+                ValuationDetailsErrors.Add("Please insert Asset Details first");
                 return;
             }
 
@@ -254,7 +367,8 @@ namespace Company_Site.Pages.User.Account_Pages
             else
                 _dbContext.ValuationDetails.Update(NewValuationDetailsEntry);
             _dbContext.SaveChanges();
-            ValuationDetailEnteries = _dbContext.ValuationDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+            ValuationDetailEnteries = _dbContext.ValuationDetails.Where(f => f.AssetDetailsId == NewEntry.Id).ToList();
+            AllValuationDetailEnteries = _dbContext.ValuationDetails.ToList();
             ValuationDetailsFormShown = false;
             StateHasChanged();
         }
@@ -271,7 +385,7 @@ namespace Company_Site.Pages.User.Account_Pages
         {
             ShouldAddValuationDetails = true;
             NewValuationDetailsEntry = new ValuationDetails();
-            NewValuationDetailsEntry.BorrowerCode = _applicationState.BorrowerCode;
+            NewValuationDetailsEntry.AssetDetailsId = NewEntry.Id;
         }
 
         private void CancelValuationDetails()
@@ -284,7 +398,8 @@ namespace Company_Site.Pages.User.Account_Pages
             ValuationDetails model = _dbContext.ValuationDetails.Where(f => f.Id == id).First();
             _dbContext.ValuationDetails.Remove(model);
             _dbContext.SaveChanges();
-            ValuationDetailEnteries = _dbContext.ValuationDetails.ToList();
+            ValuationDetailEnteries = _dbContext.ValuationDetails.Where(f => f.AssetDetailsId == NewEntry.Id).ToList();
+            AllValuationDetailEnteries = _dbContext.ValuationDetails.ToList();
             StateHasChanged();
             return ValuationDetailEnteries;
         }

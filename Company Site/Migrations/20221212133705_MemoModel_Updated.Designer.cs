@@ -4,6 +4,7 @@ using Company_Site.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Site.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221212133705_MemoModel_Updated")]
+    partial class MemoModel_Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -515,11 +517,11 @@ namespace Company_Site.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AssetDetailsId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("AuctionDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
 
                     b.Property<double>("BuyPrice")
                         .HasColumnType("float");
@@ -2337,14 +2339,14 @@ namespace Company_Site.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AssetDetailsId")
+                    b.Property<int>("BorrowerCode")
                         .HasColumnType("int");
 
-                    b.Property<double>("DVS")
-                        .HasColumnType("float");
+                    b.Property<string>("DVS")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("FMV")
-                        .HasColumnType("float");
+                    b.Property<string>("FMV")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -2352,11 +2354,11 @@ namespace Company_Site.Migrations
                     b.Property<string>("Property")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("RSV")
-                        .HasColumnType("float");
+                    b.Property<string>("RSV")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Share")
-                        .HasColumnType("float");
+                    b.Property<string>("Scrap")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ValuationDate")
                         .HasColumnType("datetime2");

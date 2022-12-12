@@ -5,379 +5,456 @@
 @using Company_Site.Pages.Components
 @using Company_Site.Pages.User
 
-<h2 class="ms-3">Asset Details</h2>
-
-<CollapsibleContainer>
-    <div class="mx-2">
-        <EditForm Model="NewEntry" OnValidSubmit="Save">
-
-            <DataAnnotationsValidator/>
-
-            <MultiErrorView Errors="_errors"/>
-
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="charge">Charge</label>
-                    <InputSelect @bind-Value="NewEntry.Charge" id="charge" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="firstPassu">First Pari Passu</option>
-                        <option value="secondPassu">Second Pari Passu</option>
-                        <option value="exlusive">Exclusive</option>
-                        <option value="hypotycation">Hypotycation</option>
-                        <option value="pledge">Pledge</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => NewEntry.Charge)"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="assetDesc">Asset Description</label>
-                    <InputSelect @bind-Value="NewEntry.AssetDescription" id="assetDesc" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="agriLand">Agricultural Land</option>
-                        <option value="naLand">NA Land</option>
-                        <option value="vacantLand">Vacant Land</option>
-                        <option value="land">Land</option>
-                        <option value="factoryBuilding">Factory building</option>
-                        <option value="residentialBuilding">Residential building</option>
-                        <option value="commBuilding">Commercial building</option>
-                        <option value="mall">mall</option>
-                        <option value="hospital">Hospital</option>
-                        <option value="school">School</option>
-                        <option value="equity">Equity</option>
-                        <option value="plantMac">Plant Machinvery</option>
-                        <option value="stock">Stock</option>
-                        <option value="ncd">NCD</option>
-                        <option value="instrument">Instrument</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => NewEntry.AssetDescription)"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="freehold">Freehold/Lockin</label>
-                    <InputSelect @bind-Value="NewEntry.FreeHold" id="freehold" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => NewEntry.FreeHold)"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="owner">Owner</label>
-                    <InputText @bind-Value="NewEntry.Owner" id="owner" class="form-control" type="text"/>
-                    <ValidationMessage For="@(() => NewEntry.Owner)"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="mortgagor">Mortgagor</label>
-                    <InputText @bind-Value="NewEntry.Mortgagor" id="mortgagor" class="form-control" type="text"/>
-                    <ValidationMessage For="@(() => NewEntry.Mortgagor)"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="mortgageType">Mortgage Type</label>
-                    <InputText @bind-Value="NewEntry.MortgageType" id="mortgageType" class="form-control" type="text"/>
-                    <ValidationMessage For="@(() => NewEntry.MortgageType)"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="status">Status</label>
-                    <InputSelect @bind-Value="NewEntry.Status" id="status" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="ledersCharge">Leders Charge</option>
-                        <option value="charge">Charge</option>
-                        <option value="dispute">Dispute</option>
-                        <option value="stay">Stay</option>
-                        <option value="sold">Sold</option>
-                        <option value="underAuction">Under Auction</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => NewEntry.Status)"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="possession">Possession</label>
-                    <InputSelect @bind-Value="NewEntry.Possession" id="possession" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="owned">Owned</option>
-                        <option value="rent">Rent</option>
-                        <option value="ol">OL</option>
-                    </InputSelect>
-                    <ValidationMessage For="@(() => NewEntry.Possession)"/>
-                </div>
-                <label for="address">Address</label>
-                <InputTextArea @bind-Value=NewEntry.Address id="address" class="form-control"></InputTextArea>
-                <label for="legalDesc">Legal Description</label>
-                <InputTextArea @bind-Value=NewEntry.LegalDescription id="legalDesc" class="form-control r-none"></InputTextArea>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-3 border">
-                    <label for="locality">Locality</label>
-                    <InputText @bind-Value="NewEntry.Locality" id="locality" class="form-control" type="text"/>
-                    <label for="city">City</label>
-                    <InputText @bind-Value="NewEntry.City" id="city" class="form-control" type="text"/>
-                    <label for="state">State</label>
-                    <InputText @bind-Value="NewEntry.State" id="state" class="form-control" type="text"/>
-                    <label for="pinCode">PIN Code</label>
-                    <InputNumber @bind-Value="NewEntry.PinCode" id="pinCode" class="form-control mb-2" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 border">
-                    <label for="east">East</label>
-                    <InputText @bind-Value="NewEntry.East" id="east" class="form-control" type="text"/>
-                    <label for="west">West</label>
-                    <InputText @bind-Value="NewEntry.West" id="west" class="form-control" type="text"/>
-                    <label for="north">North</label>
-                    <InputText @bind-Value="NewEntry.North" id="north" class="form-control" type="text"/>
-                    <label for="south">South</label>
-                    <InputText @bind-Value="NewEntry.South" id="south" class="form-control mb-2" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 border">
-                    <label for="leasedDate">Leased Date</label>
-                    <input @bind-value="NewEntry.LeasedDate" id="leasedDate" class="form-control" type="date"/>
-                    <label for="lessor">Lessor</label>
-                    <InputText @bind-Value="NewEntry.Lessor" id="lessor" class="form-control" type="text"/>
-                    <label for="lessee">Lessee</label>
-                    <InputText @bind-Value="NewEntry.Lessee" id="lessee" class="form-control" type="text"/>
-                    <label for="tenor">Tenor</label>
-                    <InputText @bind-Value="NewEntry.Tenor" id="tenor" class="form-control mb-2" type="text"/>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-3 border">
-                    <label for="area">Area</label>
-                    <InputText @bind-Value="NewEntry.Area" id="area" class="form-control" type="text"/>
-                    <ValidationMessage For="@(() => NewEntry.Area)"/>
-                    <label for="rate">Rate</label>
-                    <InputText @bind-Value="NewEntry.Rate" id="rate" class="form-control mb-1" type="text"/>
-                    <ValidationMessage For="@(() => NewEntry.Rate)"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 border">
-                    <label for="insurance">Insurance</label>
-                    <InputNumber @bind-Value="NewEntry.InsuranceValue" id="insurance" class="form-control" type="number"/>
-                    <label for="bookValue">Book Value</label>
-                    <InputNumber @bind-Value="NewEntry.BookValue" id="bookValue" class="form-control mb-1" type="number"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 border">
-                    <label for="ndcDate">NDC Date</label>
-                    <input @bind-value="NewEntry.NDC_Date" id="ndcDate" class="form-control" type="date"/>
-                    <label for="encumbrance">Encumbrance</label>
-                    <InputText @bind-Value="NewEntry.Encumbrance" id="encumbrance" class="form-control mb-1" type="text"/>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-3 border">
-                    <label for="form">Form_8_13</label>
-                    <InputText @bind-Value="NewEntry.Form" id="form" class="form-control" type="text"/>
-                    <label for="cersai">Cersai ID</label>
-                    <InputText @bind-Value="NewEntry.Cersai_ID" id="cersai" class="form-control mb-1" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 border">
-                    <label for="custodian">Custodian</label>
-                    <InputSelect @bind-Value="NewEntry.Custodian" id="custodian" class="form-select">
-                        <option value="lender">Lender</option>
-                        <option value="drt">DRT</option>
-                        <option value="other">Other</option>
-                    </InputSelect>
-                    <label for="securityTrustee">Security Trustee</label>
-                    <InputText @bind-Value="NewEntry.SecurityTrustee" id="securityTrustee" class="form-control mb-1" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3 border">
-                    <label for="mortgageDeed">Mortgage Deed</label>
-                    <InputText @bind-Value="NewEntry.MortageDeed" id="mortgageDeed" class="form-control" type="text"/>
-                    <label for="depositTitle">Deposit Title</label>
-                    <InputText @bind-Value="NewEntry.DepositTitle" id="depositTitle" class="form-control" type="text"/>
-                    <label for="titleDeed">Title Deed</label>
-                    <InputText @bind-Value="NewEntry.TitleDeed" id="titleDeed" class="form-control mb-1" type="text"/>
-                </div>
-            </div>
-            <label for="note">Note</label>
-            <InputTextArea @bind-Value=NewEntry.Note id="note" class="form-control"></InputTextArea>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="secType">Type of Security</label>
-                    <InputSelect @bind-Value="NewEntry.TypeOfSecurity" id="secType" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="pledge">Pledge</option>
-                        <option value="lockin">Lockin</option>
-                        <option value="freehold">Freehold</option>
-                    </InputSelect>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="holdingPercentage">Holding Percentage</label>
-                    <InputNumber @bind-Value="NewEntry.HoldingPercentage" id="holdingPercentage" class="form-control" type="number"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="listed">Listed</label>
-                    <InputSelect @bind-Value="NewEntry.Listed" id="listed" class="form-select">
-                        <option value="" selected>--------- Select </option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </InputSelect>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="rateOfHolding">Rate of holding</label>
-                    <InputNumber @bind-Value="NewEntry.RateOfHolding" id="rateofHolding" class="form-control" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="faceValue">Face Value</label>
-                    <InputText @bind-Value="NewEntry.FaceValue" id="faceValue" class="form-control" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="couponRate">Coupon Rate</label>
-                    <InputNumber @bind-Value="NewEntry.CouponRate" id="couponRate" class="form-control" type="text"/>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <label for="isin">ISIN</label>
-                    <InputText @bind-Value="NewEntry.ISIN" id="isin" class="form-control" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="dpId">DP ID</label>
-                    <InputText @bind-Value="NewEntry.DP_ID" id="dpId" class="form-control" type="text"/>
-                </div>
-                <div class="col-md-1"></div>
-                <div class="col-md-3">
-                    <label for="dpName">DP Name</label>
-                    <InputText @bind-Value="NewEntry.DP_Name" class="form-control" />
-                </div>
-            </div>
-
-            <!--Auction Details-->
-            <div class="row my-2">
-
-                <Modal Title="Auction Details" ShowModal=AuctionDetailsFormShown>
-                    <EditForm Model="NewAuctionDetailsEntry" OnValidSubmit="SaveAuctionDetails" Context="AuctionDetails">
-                        <div class="my-1">
-                            <label for="PRA">Publication Date</label>
-                            <input @bind-value=NewAuctionDetailsEntry.PublicationDate class="form-control" type="date"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="ra">Auction Date</label>
-                            <input @bind-value=NewAuctionDetailsEntry.AuctionDate class="form-control" type="date"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="currentStage">Reserve Price</label>
-                            <InputNumber @bind-Value=NewAuctionDetailsEntry.ReservePrice class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="PRA">Outcome</label>
-                            <InputSelect @bind-Value=NewAuctionDetailsEntry.Outcome class="form-select">
-                                <option selected option="">---- Select Option ----</option>
-                                <option value="Sold">Sold</option>
-                                <option value="Failed">Failed</option>
-                                <option value="Withdrawn">Withdrawn</option>
-                            </InputSelect>
-                        </div>
-                        <div class="my-1">
-                            <label for="ra">Number of Bidders</label>
-                            <InputNumber @bind-Value=NewAuctionDetailsEntry.NumberOfBidder class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="currentStage">Buy Price</label>
-                            <InputNumber @bind-Value=NewAuctionDetailsEntry.BuyPrice class="form-control" type="text"/>
-                        </div>
-                        <div class="d-flex justify-content-center my-2">
-                            <a class="btn btn-danger mx-1" @onclick=CancelAuctionDetails>Cancel</a>
-                            <a class="btn btn-secondary mx-1" @onclick=ClearAuctionDetails>Clear</a>
-                            <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAddAuctionDetails ? "Add" : "Edit")"/> 
-                        </div>
-                    </EditForm>
-                </Modal>
-
-
-                <div class="row mt-3 mx-0 px-0 align-items-center">
-                    <div class="col-8 d-flex justify-content-start">
-                        <h4>Auction Details</h4>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <a class="btn btn-primary" @onclick=AddAuctionDetails>
-                            <i class="fa fa-plus me-2"></i>
-                            Add
-                        </a>
-                    </div>
-                </div>
-                <Table T="AuctionDetails" T2="int" Headers="AuctionDetailsHeaders" Items="AuctionDetailEntries" GetId="GetAuctionId" IsSearchable=false OnDelete="DeleteAuctionDetails" OnEdit="EditAuctionDetails"/>
-            </div>
-
-            <!--Auction Details-->
-            <div class="row my-2">
-
-                <Modal Title="Valuation Details" ShowModal=ValuationDetailsFormShown>
-                    <EditForm Model="NewValuationDetailsEntry" OnValidSubmit="SaveValuationDetails" Context="ValuationDetails">
-                        <div class="my-1">
-                            <label for="PRA">Valuer</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.Valuer class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="ra">Valuation Date</label>
-                            <input @bind-value=NewValuationDetailsEntry.ValuationDate class="form-control" type="date"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="currentStage">Property</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.Property class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="PRA">FMV</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.FMV class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="ra">RSV</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.RSV class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="currentStage">DVS</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.DVS class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="currentStage">SCRAP</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.Scrap class="form-control" type="text"/>
-                        </div>
-                        <div class="my-1">
-                            <label for="currentStage">Note</label>
-                            <InputText @bind-Value=NewValuationDetailsEntry.Note class="form-control" type="text"/>
-                        </div>
-                        <div class="d-flex justify-content-center my-2">
-                            <a class="btn btn-danger mx-1" @onclick=CancelValuationDetails>Cancel</a>
-                            <a class="btn btn-secondary mx-1" @onclick=ClearValuationDetailsDetails>Clear</a>
-                            <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAddValuationDetails ? "Add" : "Edit")"/> 
-                        </div>
-                    </EditForm>
-                </Modal>
-
-
-                <div class="row mt-3 mx-0 px-0 align-items-center">
-                    <div class="col-8 d-flex justify-content-start">
-                        <h4>Valuation Details</h4>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <a class="btn btn-primary" @onclick=AddValuationDetails>
-                            <i class="fa fa-plus me-2"></i>
-                            Add
-                        </a>
-                    </div>
-                </div>
-                <Table T="ValuationDetails" T2="int" Headers="ValuationDetailsHeaders" Items="ValuationDetailEnteries" GetId="GetValuationId" IsSearchable=false OnDelete="DeleteValuationDetails" OnEdit="EditValuationDetails"/>
-            </div>
-            
-            <div class="my-2 d-flex justify-content-center">
-                <input type="submit" class="btn btn-primary mx-1" value="@(IsNewEntry ? "Add" : "Edit")"/>
-            </div>
-       
-        </EditForm>
+<Modal ShowModal=IsDeleteConfirmationVisible>
+    <div class="my-2">
+        <p>Are you sure you want to delete the record?</p>
     </div>
-</CollapsibleContainer>
+    <div class="d-flex justify-content-center my-2">
+        <button type="button" class="btn btn-secondary mx-1" @onclick=CancelDeleteConfirmation>Close</button>
+        <button type="button" @onclick="DeleteRecord" class="btn btn-danger mx-1">Confirm</button>
+    </div>
+</Modal>
+
+<h2 class="ms-3">Asset Details</h2>
+<div class="mb-2">
+    <CollapsibleContainer>
+        <div class="mx-2">
+            <EditForm Model="NewEntry" OnValidSubmit="Save">
+
+                <DataAnnotationsValidator/>
+
+                <MultiErrorView Errors="_errors"/>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="charge">Charge</label>
+                        <InputSelect @bind-Value="NewEntry.Charge" id="charge" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="firstPassu">First Pari Passu</option>
+                            <option value="secondPassu">Second Pari Passu</option>
+                            <option value="exlusive">Exclusive</option>
+                            <option value="hypotycation">Hypotycation</option>
+                            <option value="pledge">Pledge</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => NewEntry.Charge)"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="assetDesc">Asset Description</label>
+                        <InputSelect @bind-Value="NewEntry.AssetDescription" id="assetDesc" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="agriLand">Agricultural Land</option>
+                            <option value="naLand">NA Land</option>
+                            <option value="vacantLand">Vacant Land</option>
+                            <option value="land">Land</option>
+                            <option value="factoryBuilding">Factory building</option>
+                            <option value="residentialBuilding">Residential building</option>
+                            <option value="commBuilding">Commercial building</option>
+                            <option value="mall">mall</option>
+                            <option value="hospital">Hospital</option>
+                            <option value="school">School</option>
+                            <option value="equity">Equity</option>
+                            <option value="plantMac">Plant Machinvery</option>
+                            <option value="stock">Stock</option>
+                            <option value="ncd">NCD</option>
+                            <option value="instrument">Instrument</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => NewEntry.AssetDescription)"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="freehold">Freehold/Lockin</label>
+                        <InputSelect @bind-Value="NewEntry.FreeHold" id="freehold" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => NewEntry.FreeHold)"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="owner">Owner</label>
+                        <InputText @bind-Value="NewEntry.Owner" id="owner" class="form-control" type="text"/>
+                        <ValidationMessage For="@(() => NewEntry.Owner)"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="mortgagor">Mortgagor</label>
+                        <InputText @bind-Value="NewEntry.Mortgagor" id="mortgagor" class="form-control" type="text"/>
+                        <ValidationMessage For="@(() => NewEntry.Mortgagor)"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="mortgageType">Mortgage Type</label>
+                        <InputText @bind-Value="NewEntry.MortgageType" id="mortgageType" class="form-control" type="text"/>
+                        <ValidationMessage For="@(() => NewEntry.MortgageType)"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="status">Status</label>
+                        <InputSelect @bind-Value="NewEntry.Status" id="status" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="ledersCharge">Leders Charge</option>
+                            <option value="charge">Charge</option>
+                            <option value="dispute">Dispute</option>
+                            <option value="stay">Stay</option>
+                            <option value="sold">Sold</option>
+                            <option value="underAuction">Under Auction</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => NewEntry.Status)"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="possession">Possession</label>
+                        <InputSelect @bind-Value="NewEntry.Possession" id="possession" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="owned">Owned</option>
+                            <option value="rent">Rent</option>
+                            <option value="ol">OL</option>
+                        </InputSelect>
+                        <ValidationMessage For="@(() => NewEntry.Possession)"/>
+                    </div>
+                    <label for="address">Address</label>
+                    <InputTextArea @bind-Value=NewEntry.Address id="address" class="form-control"></InputTextArea>
+                    <label for="legalDesc">Legal Description</label>
+                    <InputTextArea @bind-Value=NewEntry.LegalDescription id="legalDesc" class="form-control r-none"></InputTextArea>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label for="locality">Locality</label>
+                        <InputText @bind-Value="NewEntry.Locality" id="locality" class="form-control" type="text"/>
+                        <label for="city">City</label>
+                        <InputText @bind-Value="NewEntry.City" id="city" class="form-control" type="text"/>
+                        <label for="state">State</label>
+                        <InputText @bind-Value="NewEntry.State" id="state" class="form-control" type="text"/>
+                        <label for="pinCode">PIN Code</label>
+                        <InputNumber @bind-Value="NewEntry.PinCode" id="pinCode" class="form-control mb-2" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="east">East</label>
+                        <InputText @bind-Value="NewEntry.East" id="east" class="form-control" type="text"/>
+                        <label for="west">West</label>
+                        <InputText @bind-Value="NewEntry.West" id="west" class="form-control" type="text"/>
+                        <label for="north">North</label>
+                        <InputText @bind-Value="NewEntry.North" id="north" class="form-control" type="text"/>
+                        <label for="south">South</label>
+                        <InputText @bind-Value="NewEntry.South" id="south" class="form-control mb-2" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="leasedDate">Leased Date</label>
+                        <input @bind-value="NewEntry.LeasedDate" id="leasedDate" class="form-control" type="date"/>
+                        <label for="lessor">Lessor</label>
+                        <InputText @bind-Value="NewEntry.Lessor" id="lessor" class="form-control" type="text"/>
+                        <label for="lessee">Lessee</label>
+                        <InputText @bind-Value="NewEntry.Lessee" id="lessee" class="form-control" type="text"/>
+                        <label for="tenor">Tenor</label>
+                        <InputText @bind-Value="NewEntry.Tenor" id="tenor" class="form-control mb-2" type="text"/>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label for="area">Area</label>
+                        <InputText @bind-Value="NewEntry.Area" id="area" class="form-control" type="text"/>
+                        <ValidationMessage For="@(() => NewEntry.Area)"/>
+                        <label for="rate">Rate</label>
+                        <InputText @bind-Value="NewEntry.Rate" id="rate" class="form-control mb-1" type="text"/>
+                        <ValidationMessage For="@(() => NewEntry.Rate)"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="insurance">Insurance</label>
+                        <InputNumber @bind-Value="NewEntry.InsuranceValue" id="insurance" class="form-control" type="number"/>
+                        <label for="bookValue">Book Value</label>
+                        <InputNumber @bind-Value="NewEntry.BookValue" id="bookValue" class="form-control mb-1" type="number"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="ndcDate">NDC Date</label>
+                        <input @bind-value="NewEntry.NDC_Date" id="ndcDate" class="form-control" type="date"/>
+                        <label for="encumbrance">Encumbrance</label>
+                        <InputText @bind-Value="NewEntry.Encumbrance" id="encumbrance" class="form-control mb-1" type="text"/>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label for="form">Form_8_13</label>
+                        <InputText @bind-Value="NewEntry.Form" id="form" class="form-control" type="text"/>
+                        <label for="cersai">Cersai ID</label>
+                        <InputText @bind-Value="NewEntry.Cersai_ID" id="cersai" class="form-control mb-1" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="custodian">Custodian</label>
+                        <InputSelect @bind-Value="NewEntry.Custodian" id="custodian" class="form-select">
+                            <option value="lender">Lender</option>
+                            <option value="drt">DRT</option>
+                            <option value="other">Other</option>
+                        </InputSelect>
+                        <label for="securityTrustee">Security Trustee</label>
+                        <InputText @bind-Value="NewEntry.SecurityTrustee" id="securityTrustee" class="form-control mb-1" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="mortgageDeed">Mortgage Deed</label>
+                        <InputText @bind-Value="NewEntry.MortageDeed" id="mortgageDeed" class="form-control" type="text"/>
+                        <label for="depositTitle">Deposit Title</label>
+                        <InputText @bind-Value="NewEntry.DepositTitle" id="depositTitle" class="form-control" type="text"/>
+                        <label for="titleDeed">Title Deed</label>
+                        <InputText @bind-Value="NewEntry.TitleDeed" id="titleDeed" class="form-control mb-1" type="text"/>
+                    </div>
+                </div>
+                <label for="note">Note</label>
+                <InputTextArea @bind-Value=NewEntry.Note id="note" class="form-control"></InputTextArea>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="secType">Type of Security</label>
+                        <InputSelect @bind-Value="NewEntry.TypeOfSecurity" id="secType" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="pledge">Pledge</option>
+                            <option value="lockin">Lockin</option>
+                            <option value="freehold">Freehold</option>
+                        </InputSelect>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="holdingPercentage">Holding Percentage</label>
+                        <InputNumber @bind-Value="NewEntry.HoldingPercentage" id="holdingPercentage" class="form-control" type="number"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="listed">Listed</label>
+                        <InputSelect @bind-Value="NewEntry.Listed" id="listed" class="form-select">
+                            <option value="" selected>--------- Select </option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </InputSelect>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="rateOfHolding">Rate of holding</label>
+                        <InputNumber @bind-Value="NewEntry.RateOfHolding" id="rateofHolding" class="form-control" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="faceValue">Face Value</label>
+                        <InputText @bind-Value="NewEntry.FaceValue" id="faceValue" class="form-control" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="couponRate">Coupon Rate</label>
+                        <InputNumber @bind-Value="NewEntry.CouponRate" id="couponRate" class="form-control" type="text"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="isin">ISIN</label>
+                        <InputText @bind-Value="NewEntry.ISIN" id="isin" class="form-control" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="dpId">DP ID</label>
+                        <InputText @bind-Value="NewEntry.DP_ID" id="dpId" class="form-control" type="text"/>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <label for="dpName">DP Name</label>
+                        <InputText @bind-Value="NewEntry.DP_Name" class="form-control" />
+                    </div>
+                </div>
+
+                <!--Auction Details-->
+                <div class="row my-2">
+
+                    <Modal Title="Auction Details" ShowModal=AuctionDetailsFormShown>
+                        <EditForm Model="NewAuctionDetailsEntry" OnValidSubmit="SaveAuctionDetails" Context="AuctionDetails">
+                            <div class="my-1">
+                                <label for="PRA">Publication Date</label>
+                                <input @bind-value=NewAuctionDetailsEntry.PublicationDate class="form-control" type="date"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="ra">Auction Date</label>
+                                <input @bind-value=NewAuctionDetailsEntry.AuctionDate class="form-control" type="date"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="currentStage">Reserve Price</label>
+                                <InputNumber @bind-Value=NewAuctionDetailsEntry.ReservePrice class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="PRA">Outcome</label>
+                                <InputSelect @bind-Value=NewAuctionDetailsEntry.Outcome class="form-select">
+                                    <option selected option="">---- Select Option ----</option>
+                                    <option value="Sold">Sold</option>
+                                    <option value="Failed">Failed</option>
+                                    <option value="Withdrawn">Withdrawn</option>
+                                </InputSelect>
+                            </div>
+                            <div class="my-1">
+                                <label for="ra">Number of Bidders</label>
+                                <InputNumber @bind-Value=NewAuctionDetailsEntry.NumberOfBidder class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="currentStage">Buy Price</label>
+                                <InputNumber @bind-Value=NewAuctionDetailsEntry.BuyPrice class="form-control" type="text"/>
+                            </div>
+                            <div class="d-flex justify-content-center my-2">
+                                <a class="btn btn-danger mx-1" @onclick=CancelAuctionDetails>Cancel</a>
+                                <a class="btn btn-secondary mx-1" @onclick=ClearAuctionDetails>Clear</a>
+                                <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAddAuctionDetails ? "Add" : "Edit")"/> 
+                            </div>
+                        </EditForm>
+                    </Modal>
+
+
+                    <div class="row mt-3 mx-0 px-0 align-items-center">
+                        <div class="col-8 d-flex justify-content-start">
+                            <h4>Auction Details</h4>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                            <a class="btn btn-primary" @onclick=AddAuctionDetails>
+                                <i class="fa fa-plus me-2"></i>
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                    <Table T="AuctionDetails" T2="int" Headers="AuctionDetailsHeaders" Items="AuctionDetailEntries" GetId="GetAuctionId" IsSearchable=false OnDelete="DeleteAuctionDetails" OnEdit="EditAuctionDetails"/>
+                </div>
+
+                <!--Auction Details-->
+                <div class="row my-2">
+
+                    <Modal Title="Valuation Details" ShowModal=ValuationDetailsFormShown>
+                        <EditForm Model="NewValuationDetailsEntry" OnValidSubmit="SaveValuationDetails" Context="ValuationDetails">
+                            <div class="my-1">
+                                <label for="PRA">Valuer</label>
+                                <InputText @bind-Value=NewValuationDetailsEntry.Valuer class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="ra">Valuation Date</label>
+                                <input @bind-value=NewValuationDetailsEntry.ValuationDate class="form-control" type="date"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="currentStage">Property</label>
+                                <InputText @bind-Value=NewValuationDetailsEntry.Property class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="PRA">FMV</label>
+                                <InputNumber @bind-Value=NewValuationDetailsEntry.FMV class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="ra">RSV</label>
+                                <InputNumber @bind-Value=NewValuationDetailsEntry.RSV class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="currentStage">DVS</label>
+                                <InputNumber @bind-Value=NewValuationDetailsEntry.DVS class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="currentStage">Share</label>
+                                <InputNumber @bind-Value=NewValuationDetailsEntry.Share class="form-control" type="text"/>
+                            </div>
+                            <div class="my-1">
+                                <label for="currentStage">Note</label>
+                                <InputText @bind-Value=NewValuationDetailsEntry.Note class="form-control" type="text"/>
+                            </div>
+                            <div class="d-flex justify-content-center my-2">
+                                <a class="btn btn-danger mx-1" @onclick=CancelValuationDetails>Cancel</a>
+                                <a class="btn btn-secondary mx-1" @onclick=ClearValuationDetailsDetails>Clear</a>
+                                <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAddValuationDetails ? "Add" : "Edit")"/> 
+                            </div>
+                        </EditForm>
+                    </Modal>
+
+
+                    <div class="row mt-3 mx-0 px-0 align-items-center">
+                        <div class="col-8 d-flex justify-content-start">
+                            <h4>Valuation Details</h4>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                            <a class="btn btn-primary" @onclick=AddValuationDetails>
+                                <i class="fa fa-plus me-2"></i>
+                                Add
+                            </a>
+                        </div>
+                    </div>
+                    <Table T="ValuationDetails" T2="int" Headers="ValuationDetailsHeaders" Items="ValuationDetailEnteries" GetId="GetValuationId" IsSearchable=false OnDelete="DeleteValuationDetails" OnEdit="EditValuationDetails"/>
+                </div>
+
+                <div class="my-2 d-flex justify-content-center">
+                    <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
+                    <input type="submit" class="btn btn-primary mx-1" value="@(IsNewEntry ? "Add" : "Edit")"/>
+                </div>
+
+            </EditForm>
+        </div>
+    </CollapsibleContainer>
+
+</div>
+
+<div class="mx-3">
+    @foreach(AssetDetailsModel model in AssetDetailsEnteries)
+    {
+        <div class="card my-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9">
+                        <p>Property Name: @model.AssetDescription</p>
+                        <div class="row">
+                            <div class="col-3">
+                                <p>Charge: @model.Charge</p>
+                            </div>
+                            <div class="col-3">
+                                <p>Owner: @model.Owner</p>
+                            </div>
+                            <div class="col-3">
+                                <p>City: @model.City</p>
+                            </div>
+                            <div class="col-3">
+                                <p>State: @model.State</p>
+                            </div>
+                        </div>
+                        <p>Possession: @model.Possession</p>
+                        <p>Share: @AllValuationDetailEnteries.Where(f => f.AssetDetailsId == model.Id).Sum(f => f.Share)</p>
+                    </div>
+                    <div class="col-2 border-left text-center">
+                        <div>
+                            <p class="border-bottom w-100 table-item">FMV: @AllValuationDetailEnteries.Where(f => f.AssetDetailsId == model.Id).Sum(f => f.FMV)</p>
+                            <p class="border-bottom w-100 table-item">RSV: @AllValuationDetailEnteries.Where(f => f.AssetDetailsId == model.Id).Sum(f => f.RSV)</p>
+                            <p class="border-bottom w-100 table-item">DSV: @AllValuationDetailEnteries.Where(f => f.AssetDetailsId == model.Id).Sum(f => f.DVS)</p>
+                            <div>
+                                <a class="btn btn-primary my-2 py-1 px-2 mx-1" @onclick=@(() => Edit(model.Id))>
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a class="btn btn-danger my-2 py-1 px-2 mx-1" @onclick=@(() => RemoveRecord(model.Id))>
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <p>Total Value</p>
+                </div>
+                <div class="col-3">
+                    <p>FMV: @TotalFMV()</p>
+                </div>
+                <div class="col-3">
+                    <p>RSV: @TotalRSV()</p>
+                </div>
+                <div class="col-3">
+                    <p>Our Share: @TotalShare()</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

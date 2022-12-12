@@ -88,13 +88,13 @@ body[b-3xgbuq7h4v] {
 }
 
 .header-item[b-3xgbuq7h4v]{
-    height: 20%;
+    height: 55px;
     background-color: white;
     margin-bottom: 1.7rem;
 }
 
 .items-list[b-3xgbuq7h4v]{
-    height:75%;
+    max-height: 500px;
     width: 100%;
 }
 
@@ -280,6 +280,18 @@ td[b-12yh34qg01]{
     padding-top: 1rem;
 }
 /* _content/Company Site/Pages/User/Account Pages/AccountDetails.razor.rz.scp.css */
+/* _content/Company Site/Pages/User/Account Pages/AssetDetails.razor.rz.scp.css */
+body[b-pith83z8pi] {
+}
+
+.border-left[b-pith83z8pi]{
+	border-left: 1px solid #dedede;
+}
+
+.border-bottom[b-pith83z8pi]{
+	border-bottom: 1px solid #dedede;
+}
+
 /* _content/Company Site/Pages/User/Account Pages/BorrowerDetails.razor.rz.scp.css */
 body[b-fe6314thq8] {
 }

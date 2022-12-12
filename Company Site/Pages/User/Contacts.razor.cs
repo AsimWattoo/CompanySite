@@ -152,9 +152,18 @@ namespace Company_Site.Pages.User
             StateHasChanged();
         }
 
-        public void DeleteRecord(string id)
+        public void DeleteRecord()
         {
-            _dbContext.Contacts.Remove(_dbContext.Contacts.Where(f => f.ContactId == id).First());
+            if(NewEntry == null)
+            {
+                return;
+            }
+            ContactsModel? contact = _dbContext.Contacts.Where(f => f.ContactId == NewEntry.ContactId).FirstOrDefault();
+
+            if (contact == null)
+                return;
+
+            _dbContext.Contacts.Remove(contact);
             _dbContext.SaveChanges();
             Enteries = _dbContext.Contacts.ToList();
             NewEntry = new ContactsModel();

@@ -31,6 +31,9 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public string Title { get; set; } = "Contacts List";
 
+        [Parameter]
+        public bool ShowDeleteButton { get; set; } = true;
+
         #endregion
 
         #region Private Members

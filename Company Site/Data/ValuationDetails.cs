@@ -6,7 +6,7 @@ namespace Company_Site.Data
 {
     public class ValuationDetails : BaseModel<int>
     {
-        public int BorrowerCode { get; set; }
+        public int AssetDetailsId { get; set; }
 
         [Required(ErrorMessage = "Valuer is required")]
         public string Valuer { get; set; }
@@ -15,13 +15,13 @@ namespace Company_Site.Data
 
         public string? Property { get; set; }
 
-        public string? FMV { get; set; }
+        public double FMV { get; set; }
 
-        public string? RSV { get; set; }
+        public double RSV { get; set; }
 
-        public string? DVS { get; set; }
+        public double DVS { get; set; }
 
-        public string? Scrap { get; set; }
+        public double Share{ get; set; }
 
         public string? Note { get; set; }
     }

@@ -73,6 +73,8 @@ namespace Company_Site.ViewModels
         /// </summary>
         public bool IsDraft { get; set; } = false;
 
+        public int BorrowerCode { get; set; }
+
         #endregion
     }
 }

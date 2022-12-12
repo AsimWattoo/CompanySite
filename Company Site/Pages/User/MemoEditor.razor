@@ -7,6 +7,7 @@
 @using Company_Site.ViewModels
 @using Microsoft.AspNetCore.WebUtilities
 @using Microsoft.Extensions.Primitives
+@using Radzen.Blazor
 @inject ApplicationDbContext dbContext
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
@@ -106,6 +107,18 @@
 										<option value="@vendor.VendorName">@vendor.VendorName</option>
 									}
 								</InputSelect>
+							</div>
+						</div>
+					</div>
+
+				</fieldset>
+
+				<fieldset>
+
+					<div class="row">
+						<div class="col-6">
+							<div class="form-floating mb-3 mx-1">
+								<RadzenDropDown class="ms-1" AllowFiltering="true" TValue="int" Value=NewMemo.BorrowerCode Data="Accounts" TextProperty="Company" ValueProperty="BorrowerCode" Change="OnBorrowerAccountChanged"/>
 							</div>
 						</div>
 					</div>
@@ -289,11 +302,24 @@
 
 	public string id{ get; set; }
 
+	/// <summary>
+	/// The list of accounts
+	/// </summary>
+	private List<Account> Accounts { get; set; } = new List<Account>();
+
 	private PageMode PageMode = PageMode.Add;
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
 
 	private List<Vendor> Vendors { get; set; }
+
+	private void OnBorrowerAccountChanged(object account)
+	{
+		if (account is int borrowerCode)
+		{
+			NewMemo.BorrowerCode = borrowerCode;
+		}
+	}
 
 	//Files change
 	private void FilesChanged(InputFileChangeEventArgs e){
@@ -309,6 +335,7 @@
 		if (UserId == null)
 			return;
 
+		Accounts = dbContext.Accounts.ToList();
 		string[] param = navManager.Uri.Split("?");
 		if(param.Count() > 1){
 			Dictionary<string, StringValues> parameters = QueryHelpers.ParseQuery(param[1]);
@@ -332,24 +359,25 @@
 			//Getting the Memo and Loading in the view model
 			Memo memo = dbContext.Memos.Where(m => m.MemoNumber == id).First();
 			NewMemo = new MemoViewModel()
-				{
-					Amount = memo.Amount,
-					Branch = memo.Branch,
-					CaseName = memo.CaseName,
-					Date = memo.Date,
-					Department = memo.Department,
-					MemoNumber = memo.MemoNumber,
-					Financial = memo.Financial,
-					Frequency = memo.Frequency,
-					IsDraft = memo.IsDraft,
-					MemoStatus = memo.MemoStatus,
-					Subject = memo.Subject,
-					Vendor = memo.Vendor,
-					ValidTill = memo.ValidTill,
-					Text = memo.Text,
-					Periodicity = memo.Periodicity,
-					Type = memo.Type
-				};
+			{
+				Amount = memo.Amount,
+				Branch = memo.Branch,
+				CaseName = memo.CaseName,
+				Date = memo.Date,
+				Department = memo.Department,
+				MemoNumber = memo.MemoNumber,
+				Financial = memo.Financial,
+				Frequency = memo.Frequency,
+				IsDraft = memo.IsDraft,
+				MemoStatus = memo.MemoStatus,
+				Subject = memo.Subject,
+				Vendor = memo.Vendor,
+				ValidTill = memo.ValidTill,
+				Text = memo.Text,
+				Periodicity = memo.Periodicity,
+				Type = memo.Type,
+				BorrowerCode = memo.BorrowerCode
+			};
 			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> toIds = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
@@ -408,25 +436,26 @@
 	private async void SaveDraft(){
 		//string text = await textEditor.GetHTML();
 		Memo memo = new Memo()
-		{
-			WriterId = UserId.Value,
-			Amount = NewMemo.Amount,
-			Branch = NewMemo.Branch,
-			CaseName = NewMemo.CaseName,
-			Date = NewMemo.Date,
-			Department = NewMemo.Department,
-			Financial = NewMemo.Financial,
-			Frequency = NewMemo.Frequency,
-			IsDraft = true,
-			MemoNumber = NewMemo.MemoNumber,
-			MemoStatus = Company_Site.Enum.MemoStatus.Pending,
-			Periodicity = NewMemo.Periodicity,
-			Subject = NewMemo.Subject,
-			Text = NewMemo.Text,
-			Type = NewMemo.Type,
-			Vendor = NewMemo.Vendor,
-			ValidTill = NewMemo.ValidTill,
-		};
+			{
+				WriterId = UserId.Value,
+				Amount = NewMemo.Amount,
+				Branch = NewMemo.Branch,
+				CaseName = NewMemo.CaseName,
+				Date = NewMemo.Date,
+				Department = NewMemo.Department,
+				Financial = NewMemo.Financial,
+				Frequency = NewMemo.Frequency,
+				IsDraft = true,
+				MemoNumber = NewMemo.MemoNumber,
+				MemoStatus = Company_Site.Enum.MemoStatus.Pending,
+				Periodicity = NewMemo.Periodicity,
+				Subject = NewMemo.Subject,
+				Text = NewMemo.Text,
+				Type = NewMemo.Type,
+				Vendor = NewMemo.Vendor,
+				ValidTill = NewMemo.ValidTill,
+				BorrowerCode = NewMemo.BorrowerCode,
+			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));
 		dbContext.Files.RemoveRange(dbContext.Files.Where(f => f.MemoId == this.id));
@@ -505,6 +534,7 @@
 				Type = NewMemo.Type,
 				Vendor = NewMemo.Vendor,
 				ValidTill = NewMemo.ValidTill,
+				BorrowerCode = NewMemo.BorrowerCode,
 			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));

@@ -74,6 +74,12 @@ namespace Company_Site.Data
         /// </summary>
         public bool IsDraft { get; set; } = false;
 
+        /// <summary>
+        /// The selected Borrower code
+        /// </summary>
+        [Required]
+        public int BorrowerCode { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -97,6 +103,7 @@ namespace Company_Site.Data
             this.Vendor = vm.Vendor;
             this.ValidTill = vm.ValidTill;
             this.Type = vm.Type;
+            this.BorrowerCode = vm.BorrowerCode;
         }
 
         /// <summary>
@@ -123,8 +130,9 @@ namespace Company_Site.Data
                 Type = Type,
                 ValidTill = ValidTill,
                 Vendor = Vendor,
+                BorrowerCode = BorrowerCode
             };
-        }
+		}
 
         #endregion
 

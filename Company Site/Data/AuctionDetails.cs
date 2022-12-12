@@ -4,7 +4,7 @@ namespace Company_Site.Data
 {
     public class AuctionDetails : BaseModel<int>
     {
-        public int BorrowerCode { get; set; }
+        public int AssetDetailsId { get; set; }
 
         public DateTime PublicationDate { get; set; } = DateTime.Now;
 

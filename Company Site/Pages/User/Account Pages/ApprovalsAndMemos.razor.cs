@@ -1,11 +1,9 @@
 ﻿using Company_Site.Base;
 using Company_Site.Data;
-using Company_Site.Helpers;
 using Company_Site.Interfaces;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Company_Site.Pages.User.Account_Pages
 {

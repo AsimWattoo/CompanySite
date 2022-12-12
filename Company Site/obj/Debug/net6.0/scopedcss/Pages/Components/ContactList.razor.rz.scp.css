@@ -38,13 +38,13 @@ body[b-3xgbuq7h4v] {
 }
 
 .header-item[b-3xgbuq7h4v]{
-    height: 20%;
+    height: 55px;
     background-color: white;
     margin-bottom: 1.7rem;
 }
 
 .items-list[b-3xgbuq7h4v]{
-    height:75%;
+    max-height: 500px;
     width: 100%;
 }
 

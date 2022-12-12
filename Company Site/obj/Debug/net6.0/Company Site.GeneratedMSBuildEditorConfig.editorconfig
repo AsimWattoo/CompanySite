@@ -56,10 +56,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEFwcHJvdmFsc0FuZE1lbW9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/AssetDetails.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEFzc2V0RGV0YWlscy5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/CashFlowProjects.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXENhc2hGbG93UHJvamVjdHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -155,6 +151,10 @@ build_metadata.AdditionalFiles.CssScope = b-12yh34qg01
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/AccountDetails.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEFjY291bnREZXRhaWxzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-ppg6o38ab6
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/AssetDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEFzc2V0RGV0YWlscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-pith83z8pi
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Account Pages/BorrowerDetails.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxBY2NvdW50IFBhZ2VzXEJvcnJvd2VyRGV0YWlscy5yYXpvcg==
