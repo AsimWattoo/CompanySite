@@ -396,6 +396,23 @@
 </div>
 
 <div class="mx-3">
+
+    <div class="my-2 d-flex justify-content-center align-items-center">
+        <div class="w-50">
+            <EditForm Model="this">
+                <div class="d-flex">
+                    <InputText class="form-control" @bind-Value=SearchText/>
+                    <a class="btn btn-primary px-2 py-1 mx-1" @onclick=Search>
+                        <i class="fa fa-search"></i>
+                    </a>
+                    <a class="btn btn-secondary px-2 py-1 mx-1" @onclick=ClearSearch>
+                        Clear
+                    </a>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+
     @foreach(AssetDetailsModel model in AssetDetailsEnteries)
     {
         <div class="card my-3">

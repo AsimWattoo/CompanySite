@@ -53,6 +53,11 @@ namespace Company_Site.Pages.User.Account_Pages
         /// </summary>
         private bool IsDeleteConfirmationVisible = false;
 
+        /// <summary>
+        /// The text which is being typed in the search box
+        /// </summary>
+        private string? SearchText { get; set; }
+
         #endregion
 
         #region Auction Details Properties
@@ -151,7 +156,7 @@ namespace Company_Site.Pages.User.Account_Pages
         private void Save()
         {
             _errors.Clear();
-            if(_applicationState.BorrowerCode < 0)
+            if (_applicationState.BorrowerCode < 0)
             {
                 _errors.Add("No Account Selected. Please select account from the account management page");
                 return;
@@ -169,9 +174,9 @@ namespace Company_Site.Pages.User.Account_Pages
                 _dbContext.SaveChanges();
                 Clear();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                if(ex.InnerException != null)
+                if (ex.InnerException != null)
                     _errors.Add(ex.InnerException.Message);
                 else
                     _errors.Add(ex.Message);
@@ -227,7 +232,7 @@ namespace Company_Site.Pages.User.Account_Pages
                 return;
 
             AssetDetailsModel details = _dbContext.AssetDetails.Where(f => f.Id == RecordIdToRemove).First();
-            List<ValuationDetails> valuationDetails = _dbContext.ValuationDetails.Where(f => f.AssetDetailsId == details.Id).ToList(); 
+            List<ValuationDetails> valuationDetails = _dbContext.ValuationDetails.Where(f => f.AssetDetailsId == details.Id).ToList();
             List<AuctionDetails> auctionDetails = _dbContext.AuctionDetails.Where(f => f.AssetDetailsId == details.Id).ToList();
             _dbContext.AuctionDetails.RemoveRange(auctionDetails);
             _dbContext.ValuationDetails.RemoveRange(valuationDetails);
@@ -276,6 +281,33 @@ namespace Company_Site.Pages.User.Account_Pages
         {
             List<int> ids = AssetDetailsEnteries.Select(f => f.Id).ToList();
             return AllValuationDetailEnteries.Where(f => ids.Contains(f.AssetDetailsId)).Sum(f => f.Share);
+        }
+
+        #endregion
+
+        #region Search Methods
+
+        /// <summary>
+        /// Searches records based on property
+        /// </summary>
+        private void Search()
+        {
+            if (SearchText == null)
+            {
+                return;
+            }
+
+            //Searching records
+            AssetDetailsEnteries = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode && (f.AssetDescription.Contains(SearchText) || f.Owner.Contains(SearchText))).ToList();
+        }
+
+        /// <summary>
+        /// Clears the search
+        /// </summary>
+        private void ClearSearch()
+        {
+            SearchText = null;
+            AssetDetailsEnteries = _dbContext.AssetDetails.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
         }
 
         #endregion

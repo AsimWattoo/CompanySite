@@ -1568,80 +1568,68 @@ namespace Company_Site.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<long?>("Changes_in_inventries")
-                        .HasColumnType("bigint");
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
 
-                    b.Property<long?>("Depreciation_And_Amortisation_Expenses")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Changes_in_inventries")
+                        .HasColumnType("float");
 
-                    b.Property<string>("EBDITA")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Depreciation_And_Amortisation_Expenses")
+                        .HasColumnType("float");
 
-                    b.Property<string>("EBDITA_per")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("EBDITA_per")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Employee_Benefit_Expenses")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Employee_Benefit_Expenses")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Equity")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Equity")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Exceptional_items")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Exceptional_items")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Finance_Costs")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Expenses")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Fixed_Assets")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Finance_Costs")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("LTB")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Fixed_Assets")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Networth")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("LTB")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Operating_and_Direct_Expenses")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Operating_and_Direct_Expenses")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Other_Current_Liabilities")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Other_Current_Liabilities")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Other_Expenses")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Other_Expenses")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Profit_Loss")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Reserves")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Reserves")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Revenue")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Revenue")
-                        .HasColumnType("bigint");
+                    b.Property<double>("STB")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("STB")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Tax")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Tax")
-                        .HasColumnType("bigint");
+                    b.Property<double>("Total_Current_Assets")
+                        .HasColumnType("float");
 
-                    b.Property<string>("Total_Assets")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Total_Non_Current_Assets")
+                        .HasColumnType("float");
 
-                    b.Property<long?>("Total_Current_Assets")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Total_Expenses")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long?>("Total_Non_Current_Assets")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Total_liabilities")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Year")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
