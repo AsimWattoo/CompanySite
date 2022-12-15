@@ -26,8 +26,14 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
                     <label for="event">Event</label>
-                    <InputText @bind-Value="NewEntry.Event" id="event" type="text" class="form-control" />
+                    <InputText @bind-Value="NewEntry.Event" id="event" type="text" class="form-control" list="events" autocomplete="true"/>
                     <ValidationMessage For="@(() => NewEntry.Event)" />
+                    <datalist id="events">
+                        @foreach(EventTimelineModel model in Enteries)
+                        {
+                            <option value="@model.Event">@model.Event</option>
+                        }
+                    </datalist>
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-3">

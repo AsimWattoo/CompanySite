@@ -66,6 +66,11 @@
                 <span class="fa fa-file-archive me-2" aria-hidden="true"></span> <p class="m-0">Policy</p>
             </div>
         </a>
+        <a class="@((SelectedOption == "Reports" ? "active" : "")) nav-item my-2 text-start" href="/reports"  @onclick='(() => {SelectedOption = "Reports";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-file-archive me-2" aria-hidden="true"></span> <p class="m-0">Reports</p>
+            </div>
+        </a>
         @if(IsAdmin)
         {
             <a class="@((SelectedOption == "Admin" ? "active" : "")) nav-item my-2 text-start" href="/admin"  @onclick='(() => {SelectedOption = "Admin";})'>
