@@ -102,6 +102,9 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public bool ShowDeleteConfirmation { get; set; } = true;
 
+        [Parameter]
+        public string? ViewHeader { get; set; }
+
         #endregion
 
         #region Private Members
@@ -348,6 +351,13 @@ namespace Company_Site.Pages.Components
             }
             UpdateInitialization();
         }
+
+        private void ClearSearch()
+        {
+			Items = itemsCopy;
+            SearchText = "";
+            UpdateInitialization();
+		}
 
         private void ViewRecord(T2 id)
         {

@@ -92,13 +92,17 @@ namespace Company_Site.Helpers
                     Text = body
                 };
 
-                using (SmtpClient smtp = new SmtpClient())
+                try
                 {
-                    smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                    smtp.Authenticate(_email, _keycode);
-                    smtp.Send(message);
-                    smtp.Disconnect(true);
+                    using (SmtpClient smtp = new SmtpClient())
+                    {
+                        smtp.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
+                        smtp.Authenticate(_email, _keycode);
+                        smtp.Send(message);
+                        smtp.Disconnect(true);
+                    }
                 }
+                catch { }
             });
         }
 

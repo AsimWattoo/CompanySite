@@ -237,6 +237,7 @@
 
 			@if(Memo.MemoStatus == MemoStatus.Pending){
 				<EditForm Model="this" Context="childContext">
+					<MultiErrorView Errors="_errors" />
 					<div>
 						<p class="mb-1">Comment: </p>
 						<RichTextEditor @bind-Value="Comment"/>
@@ -309,6 +310,11 @@
 	/// </summary>
 	private MemoViewModel Memo { get; set; }
 
+	/// <summary>
+	/// The list of errors
+	/// </summary>
+	private List<string> _errors = new	List<string>();
+
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
@@ -364,8 +370,14 @@
 		}
 	}
 
-	private async void Accept(){
+	private async void Accept() {
 		string content = Comment;
+		_errors.Clear();
+		if (content == null)
+		{
+			_errors.Add("Please enter a comment");
+			return;
+		}
 
 		int id = 1;
 		if (dbContext.Comments.Any())
@@ -382,7 +394,8 @@
 		UserMemoReference memoRef = dbContext.MemoReferences.Where(m => m.UserId == UserId && m.MemoId == memoNumber && m.MemoStatus == MemoStatus.Pending).First();
 		memoRef.ApprovalDate = DateTime.Now;
 		memoRef.MemoStatus = MemoStatus.Approved;
-
+		dbContext.MemoReferences.Update(memoRef);
+		dbContext.SaveChanges();
 		Memo memo = dbContext.Memos.Where(f => f.MemoNumber == Memo.MemoNumber).First();
 
 		//Getting is there any reference which has not still approved the memo
@@ -397,7 +410,12 @@
 	private async void Reject()
 	{
 		string content = Comment;
-
+		_errors.Clear();
+		if (content == null)
+		{
+			_errors.Add("Please enter a comment");
+			return;
+		}
 		int id = 1;
 		if (dbContext.Comments.Any())
 			id = dbContext.Comments.OrderBy(f => f.CommentId).Last().CommentId + 1;

@@ -39,16 +39,26 @@
             <InputText @bind-Value=NewEntry.Details id="details" class="form-control"></InputText>
             <ValidationMessage For="@(() => NewEntry.Details)"/>
             <div class="my-3">
-                <a class="btn btn-danger me-2" @onclick=Clear>Clear</a>
+                <a class="btn btn-danger me-2" @onclick=OnClear>Clear</a>
                 <input type="submit" class="btn btn-primary" value="@(ShouldAdd ? "Add" : "Edit")"/>
             </div>
             <label for="supporting">Supporting</label>
-            <div class="input-group w-50">
-                <InputFile OnChange="SupportingFileChanged" @bind-Value=NewEntry.FilePath class="form-control" form="employeeForm" type="file"/>
-                <ValidationMessage For="@(() => NewEntry.FilePath)"/>
+            <div class="">
+                <div class="input-group w-50">
+                    <InputFile OnChange="SupportingFileChanged" @bind-Value=NewEntry.FilePath class="form-control" form="employeeForm" type="file"/>
+                    <ValidationMessage For="@(() => NewEntry.FilePath)"/>
+                </div>
+                <p class="my-2">@(NewEntry.FilePath != null ? new FileInfo(NewEntry.FilePath).Name : "")</p>
             </div>
-</EditForm>
+        </EditForm>
     </div>
 </CollapsibleContainer>
 
-<Table T="ApprovalsAndMemoModel" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+<div class="my-2">
+
+    <div class="d-flex justify-content-end mb-2 mt-4">
+        <DateFilter SearchRecords="ApplyDateFilter" Clear="ClearDateFilter"/>
+    </div>
+
+    <Table T="Memo" T2="string" Headers="Headers" Items="memos" GetId="GetId" OnSearch=SearchMemo IsDeleteable="@(e => false)" IsEditable="@(e => false)" ValueCallback="GetValue" IsViewable="@(t => true)" ViewItem="ViewMemo" ViewHeader="Supporting"/>
+</div>

@@ -322,6 +322,9 @@ namespace Company_Site.Migrations
                     b.Property<DateTime>("Approval_Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
                     b.Property<string>("Committee")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "My1TvwiFER6T+aPBZxD7+pufjgqJyMbhvrei0R0tUjs=",
+  "Hash": "3t8K+tRmG5U5tONju7D+DWjIBzIkbu2kPEJOemX3e8M=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -1664,6 +1664,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Company Site.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Approvals_Docs\\1-Checkout-Product.png",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "Approvals_Docs/1-Checkout-Product.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Approvals_Docs\\1-Checkout-Product.png"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Approvals_Docs\\1-Upvote-Review.png",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "Approvals_Docs/1-Upvote-Review.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Approvals_Docs\\1-Upvote-Review.png"
     },
     {
       "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\assets\\css\\color-1.css",

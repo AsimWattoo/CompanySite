@@ -6,6 +6,12 @@ namespace Company_Site.Data
 {
     public class ApprovalsAndMemoModel : BaseModel<int>
     {
+        /// <summary>
+        /// The borrower code to which this entry is linked
+        /// </summary>
+        [Required(ErrorMessage = "Borrower code is required")]
+        public int BorrowerCode { get; set; }
+
         [Required(ErrorMessage = "Approval Date  is required")]
         public DateTime Approval_Date   { get; set; } = DateTime.Now;
 

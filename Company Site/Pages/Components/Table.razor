@@ -20,8 +20,8 @@
 	{
 		<EditForm Model="SearchModel" Context="searchBar">
 
-			<div class="row">
-				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 fs">
+			<div class="row d-flex align-items-center">
+				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 fs d-flex align-items-center">
 					Show 
 					<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
 						<option value="10">10</option>
@@ -31,11 +31,12 @@
 					</select>
 					enteries
 				</div>
-				<div class="col-xl-10 col-lg-9 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end">
+				<div class="col-xl-10 col-lg-9 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end align-items-center">
 					<div class="fs">
 						<label for="searchBox">Search</label>
 						<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
 						<a class="btn btn-outline-primary mx-1 btn-search" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
+							<a class="btn btn-outline-secondary mx-1" @onclick="ClearSearch">Clear</a>
 					</div>
 				</div>
 			</div>
@@ -65,6 +66,14 @@
 					else{
 						<th></th>
 					}
+				}
+				@if(ViewHeader != null)
+				{
+					<th>
+						<div class="btn-sortable align-content-start justify-content-start row m-0">
+							<p class="d-inline-block text-start col-8 m-0">@ViewHeader</p>
+						</div>
+					</th>
 				}
 			</tr>
 			@foreach (T item in DisplayedItems)

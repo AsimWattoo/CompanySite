@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\Company Site.bundle.scp.css"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Approvals_Docs\\1-Checkout-Product.png",
+      "PackagePath": "staticwebassets\\Approvals_Docs\\1-Checkout-Product.png"
+    },
+    {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Approvals_Docs\\1-Upvote-Review.png",
+      "PackagePath": "staticwebassets\\Approvals_Docs\\1-Upvote-Review.png"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Documents\\document.pdf",
       "PackagePath": "staticwebassets\\Documents\\document.pdf"
     },
