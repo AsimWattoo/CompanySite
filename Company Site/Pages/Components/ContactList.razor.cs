@@ -40,6 +40,11 @@ namespace Company_Site.Pages.Components
 
         private string? _id = null;
 
+        /// <summary>
+        /// Indicates whether the delete confirmation is displayed or not
+        /// </summary>
+        private bool _isDeleteConfirmationShown = false;
+
         #endregion
 
         #region Private Methods
@@ -47,6 +52,18 @@ namespace Company_Site.Pages.Components
         private void OnDeleteRecord(string id)
         {
             _id = id;
+            _isDeleteConfirmationShown = true;
+        }
+
+        private void CancelDelete()
+        {
+            _isDeleteConfirmationShown = false;
+        }
+
+        private void Delete()
+        {
+            _isDeleteConfirmationShown = false;
+            OnDelete(_id);
         }
 
         #endregion

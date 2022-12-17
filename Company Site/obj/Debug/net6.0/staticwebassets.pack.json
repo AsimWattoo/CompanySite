@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\Documents\\document.pdf"
     },
     {
+      "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Notices\\1-Sample-2.png",
+      "PackagePath": "staticwebassets\\Notices\\1-Sample-2.png"
+    },
+    {
       "Id": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\assets\\css\\color-1.css",
       "PackagePath": "staticwebassets\\assets\\css\\color-1.css"
     },

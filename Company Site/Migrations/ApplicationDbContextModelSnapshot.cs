@@ -1817,6 +1817,9 @@ namespace Company_Site.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BorrowerCode")
+                        .HasColumnType("int");
+
                     b.Property<string>("Forum")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1830,9 +1833,6 @@ namespace Company_Site.Migrations
 
                     b.Property<string>("NoticeType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SearchSavedDraft")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

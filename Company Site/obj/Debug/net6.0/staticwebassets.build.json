@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3t8K+tRmG5U5tONju7D+DWjIBzIkbu2kPEJOemX3e8M=",
+  "Hash": "rPInEvguKZrDhpmNE6cvdfbe/RTfj+tQvCE9eCDsAp0=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -37959,6 +37959,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\CKEditorInterop.js"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Notices\\1-Sample-2.png",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "Notices/1-Sample-2.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Notices\\1-Sample-2.png"
     },
     {
       "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\theme-font\\AmandaSignatureRegular.woff",

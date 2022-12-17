@@ -6,6 +6,11 @@ namespace Company_Site.Data
 {
     public class NoticeAutomationModel : BaseModel<int>
     {
+        /// <summary>
+        /// The id of the account to which this notice automation model belongs to
+        /// </summary>
+        public int BorrowerCode { get; set; }
+
         [Required(ErrorMessage = "Notice Type is required")]
         public string NoticeType { get; set; }
 
@@ -15,10 +20,6 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Forum is required")]
         public string Forum { get; set; }
 
-        private string? Account { get; set; }
-
         public string? Notice { get; set; }
-
-        public string? SearchSavedDraft { get; set; }
     }
 }

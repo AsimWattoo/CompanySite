@@ -5,59 +5,61 @@
 @using Company_Site.Pages.Components;
 @using Company_Site.Pages.User
 
+@inherits BaseAddPage<NoticeAutomationModel, int>
+
 <h2 class="ms-3">Notice Automation</h2>
 
 <CollapsibleContainer>
     <div class="mx-2">
-        <EditForm Model="NewDraft" OnValidSubmit="SaveDraft">
+        <EditForm Model="NewEntry" OnValidSubmit="Save" class="my-1">
 
             <DataAnnotationsValidator/>
 
             <MultiErrorView Errors="_errors"/>
 
-            @*<div class="row">
+            <div class="row">
                 <div class="col-md-3">
                     <label for="noticeType">Notice Type</label>
-                    <InputText @bind-Value="NewEntry.noticeType" type="text" id="noticeType" class="form-control"/>
+                    <InputText @bind-Value="NewEntry.NoticeType" type="text" id="noticeType" class="form-control"/>
+                    <ValidationMessage For=@(() => NewEntry.NoticeType) />
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
                     <label for="noticeTitle">Notice Title</label>
-                    <InputText @bind-Value="NewEntry.noticeTitle" id="noticeTitle" type="text" class="form-control"/>
+                    <InputText @bind-Value="NewEntry.NoticeTitle" id="noticeTitle" type="text" class="form-control"/>
+                    <ValidationMessage For=@(() => NewEntry.NoticeTitle) />
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
                     <label for="forum">Forum</label>
-                    <InputText @bind-value="NewEntry.forum" id="forum" type="date" class="form-control"/>
+                    <InputText @bind-Value="NewEntry.Forum" id="forum" class="form-control"/>
+                    <ValidationMessage For=@(() => NewEntry.Forum) />
                 </div>
             </div>
-            <div class="d-flex justify-content-center mt-3">
-                <input type="file" class="form-control w-50"/>
-                <button class="btn btn-primary rounded-0">Upload</button>
+            <div class="mt-3">
+                <div class="input-group w-50">
+                    <InputFile OnChange="FileChanged" @bind-Value=NewFile class="form-control" form="employeeForm" type="file"/>
+                </div>
+                <p class="my-2">@(NewEntry.Notice != null ? new FileInfo(NewEntry.Notice).Name : "")</p>
             </div>
-            <div class="d-flex justify-content-center align-items-center mt-4">
-                <label for="accountSelect" class="me-3">Select Account</label>
-                <InputSelect @bind-Value="NewEntry.accountSelect" class="form-select w-25" id="accountSelect">
-                    <option value="1">1</option>
-                </InputSelect>
+
+            <div class="d-flex justify-content-center align-items-center">
+                <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
+                <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary"/>
             </div>
-            <div class="d-flex justify-content-center align-items-center mt-4">
-                <label for="noticeSelect" class="me-3">Select Notice</label>
-                <InputSelect @bind-Value="NewEntry.noticeSelect" class="form-select w-25" id="noticeSelect">
-                    <option value="1">1</option>
-                </InputSelect>
-            </div>*@
-            <div class="row mt-3" style="height: 300px;">
+        </EditForm>
+
+        <EditForm Model="NewDraft" OnValidSubmit="SaveDraft" class="my-1">
+            <div class="row mt-3" style="">
                 <div class="col-md-3">
-                    <label for="noticeTitle">Search Saved Draft</label>
-                    <div style="height: 250px; width: 100%">
+                    <div style="width: 100%">
                         <ContactList Enteries="SavedDrafts" Title="Drafts" GetContactId="@(e => e.Id.ToString())" GetContactName="@(e => e.Draft)" OnClick="Edit" OnDelete="Delete"/>
                     </div>
                 </div>
                 <div class="offset-md-3 col-md-6">
                     <InputTextArea @bind-Value=NewDraft.Draft class="form-control" style="height: 150px; width: 100% !important;"></InputTextArea>
                     <p class="text-center">
-                        <a type="submit" class="btn btn-danger mt-2 me-2" @onclick=Clear>Clear</a>
+                        <a type="submit" class="btn btn-danger mt-2 me-2" @onclick=ClearDraft>Clear</a>
                         <input type="submit" class="btn btn-primary mt-2" value="Save Draft" />
                     </p>
                 </div>
