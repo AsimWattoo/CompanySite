@@ -1,6 +1,6 @@
 ﻿@typeparam T
 
-<div class="border contacts h-100 w-100 overflow-hidden">
+<div class="card border contacts h-100 w-100 overflow-hidden">
 
     <Modal Title="Delete Confirmation" ShowModal=_isDeleteConfirmationShown>
         <div class="modal-body">
@@ -27,7 +27,7 @@
     </div>
 
     <!--Items-->
-    <div class="px-1 py-2 scrollable">
+    <div class="px-1 scrollable">
         <div class="items-list">
             @foreach (T e in Enteries)
             {

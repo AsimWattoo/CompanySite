@@ -19,6 +19,10 @@ h1:focus {
     outline: none;
 }
 
+.card{
+    background-color: white !important;
+}
+
 .bg-pending{
     background-color: yellow;
 }
