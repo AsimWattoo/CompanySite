@@ -2,10 +2,10 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
 
-<div class="px-5">
 
-    <h3>Account Details</h3>
+<p class="fw-bold text-button-heading mb-2">Account Details</p>
 
+<div class="card py-2 px-3">
     <EditForm Model="Details" OnValidSubmit="Save">
 
         <DataAnnotationsValidator/>
@@ -17,10 +17,10 @@
                 <label for="trustCode">Trust Code</label>
                 <InputSelect @bind-Value=Details class="form-select">
                     <option value="" selected>------ Select Option ------</option>
-                    @foreach(Trust t in Trusts)
-                    {
-                        <option value="@t.TrustCode">@t.TrustCode</option>
-                    }
+                        @foreach (Trust t in Trusts)
+                        {
+                            <option value="@t.TrustCode">@t.TrustCode</option>
+                        }
                 </InputSelect>
                 <ValidationMessage For="@(() => Details.TrustCode)"/>
             </div>
@@ -126,10 +126,10 @@
                 <label for="bank">Bank</label>
                 <InputText @bind-Value=Details.Bank id="bank" class="form-control" type="text"/>
                 <datalist id="bank">
-                    @foreach(string bank in bankSuggestions)
-                    {
-                        <option>@bank</option>
-                    }
+                        @foreach (string bank in bankSuggestions)
+                        {
+                            <option>@bank</option>
+                        }
                 </datalist>
                 <ValidationMessage For="@(() => Details.Bank)"/>
             </div>

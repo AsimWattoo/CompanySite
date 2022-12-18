@@ -2,18 +2,21 @@
     background-color: #C0C0C0;
 }
 
-.btn-list[b-pe2eoguug6]{
-    padding: 50px;
+.color-white[b-pe2eoguug6]{
+    color: white !important;
 }
 
-.text-button-heading[b-pe2eoguug6] {
-    color: #4D8AFF;
-    font-size: 1.4rem;
+.btn-list[b-pe2eoguug6]{
+    padding: 5px 10px;
+}
+
+.bar-header[b-pe2eoguug6]{
+    font-size: 1rem;
 }
 
 .btn-selected[b-pe2eoguug6] {
     background-color: #EDF3FF;
-    color: #4D8AFF;
+    color: #4D8AFF !important;
 }
 
 .btn-list a[b-pe2eoguug6]{

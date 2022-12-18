@@ -3,111 +3,119 @@
 @using Company_Site.Pages.User.Finance_Components;
 
 
-<h5>Company Finance Management</h5>
+<p class="fw-bold text-button-heading mb-2">Company Finance Management</p>
 
-<nav class="navbar navbar-expand-sm navbar-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="card py-2 px-2">
+    <nav class="navbar navbar-expand-sm navbar-light mb-0 pb-0">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item @(CurrentType == FinanceTypes.Expenses ? "active" : "")">
-        <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Expenses))"> Expenses </a>
-      </li>
-      <li class="nav-item @(CurrentType == FinanceTypes.Collection ? "active" : "")">
-        <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Collection))">Collection </a>
-      </li>
-      <li class="nav-item @(CurrentType == FinanceTypes.Distribution ? "active" : "")">
-        <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Distribution))">Distribution </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item @(CurrentType == FinanceTypes.None ? "active" : "")">
+            <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.None))"> Home </a>
+          </li>
+          <li class="nav-item @(CurrentType == FinanceTypes.Expenses ? "active" : "")">
+            <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Expenses))"> Expenses </a>
+          </li>
+          <li class="nav-item @(CurrentType == FinanceTypes.Collection ? "active" : "")">
+            <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Collection))">Collection </a>
+          </li>
+          <li class="nav-item @(CurrentType == FinanceTypes.Distribution ? "active" : "")">
+            <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Distribution))">Distribution </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-@if (CurrentType == FinanceTypes.None)
-{
-    <div class="container-fluid px-4 py-2">
-        <div class="row my-1 gx-5 gy-3">
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-red">
-                    <div class="card-body">
-                        <h5 class="card-title my-2 text-center">Total Trust: 0</h5>
+    <hr class="mt-0"/>
+
+    @if (CurrentType == FinanceTypes.None)
+    {
+        <div class="container-fluid px-4 py-2">
+            <div class="row my-1 gx-5 gy-3">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card card-red">
+                        <div class="card-body">
+                            <h5 class="card-title my-2 text-center">Total Trust: 0</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body card-green">
+                            <h5 class="card-title my-2 text-center">Total Accounts: 0</h5>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
-                    <div class="card-body card-green">
-                        <h5 class="card-title my-2 text-center">Total Accounts: 0</h5>
+            <div class="row my-1 g-5">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body card-blue">
+                            <h5 class="card-title my-2 text-center">Total Repayment: 0</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body card-yellow">
+                            <h5 class="card-title my-2 text-center">Total Resolution Fees: 0</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card card-red">
+                        <div class="card-body">
+                            <h5 class="card-title my-2 text-center">Total Trusteeship: 0</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card card-green">
+                        <div class="card-body">
+                            <h5 class="card-title my-2 text-center">Total Collection: 0</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1 g-5">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card card-blue">
+                        <div class="card-body">
+                            <h5 class="card-title my-2 text-center">Total Collection Financial Year: 0</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-body card-yellow">
+                            <h5 class="card-title my-2 text-center">Pending Distribution: 0</h5>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row my-1 g-5">
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
-                    <div class="card-body card-blue">
-                        <h5 class="card-title my-2 text-center">Total Repayment: 0</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
-                    <div class="card-body card-yellow">
-                        <h5 class="card-title my-2 text-center">Total Resolution Fees: 0</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-red">
-                    <div class="card-body">
-                        <h5 class="card-title my-2 text-center">Total Trusteeship: 0</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-green">
-                    <div class="card-body">
-                        <h5 class="card-title my-2 text-center">Total Collection: 0</h5>
-                    </div>
-                </div>
-            </div>
+    }
+    else if (CurrentType == FinanceTypes.Expenses)
+    {
+        <div class="mt-4 px-2">
+            <ExpenseManager/>
         </div>
-        <div class="row my-1 g-5">
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card card-blue">
-                    <div class="card-body">
-                        <h5 class="card-title my-2 text-center">Total Collection Financial Year: 0</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="card">
-                    <div class="card-body card-yellow">
-                        <h5 class="card-title my-2 text-center">Pending Distribution: 0</h5>
-                    </div>
-                </div>
-            </div>
+    }
+    else if (CurrentType == FinanceTypes.Collection)
+    {
+        <div class="mt-4 px-2">
+            <CollectionManager/>
         </div>
-    </div>
-}
-else if (CurrentType == FinanceTypes.Expenses)
-{
-    <div class="mt-4 px-2">
-        <ExpenseManager/>
-    </div>
-}
-else if(CurrentType == FinanceTypes.Collection)
-{
-    <div class="mt-4 px-2">
-        <CollectionManager/>
-    </div>
-}
-else if(CurrentType == FinanceTypes.Distribution)
-{
-    <div class="mt-4 px-2">
-        <DistributionManager />
-    </div>
-}
+    }
+    else if (CurrentType == FinanceTypes.Distribution)
+    {
+        <div class="mt-4 px-2">
+            <DistributionManager />
+        </div>
+    }
 
+
+</div>

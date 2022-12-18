@@ -2,7 +2,7 @@
 @using Company_Site.Pages.Components
 @using Company_Site.ViewModels;
 <div class="card">
-    <div class="card-header pb-0">
+    <div class="card-header pb-0 my-2">
         <h5>Distribution</h5>
     </div>
     <div class="card">
@@ -187,22 +187,19 @@
 
 
                     <div class="my-2">
-                        <h5 class="my-2">Total Collections</h5>
-                        <CollapsibleContainer Id="3">
+                        <CollapsibleContainer Id="3" Title="Total Collections">
                             <Table T="CombinedTrustCollection" T2="int" OnRowClick=TotalCollectionRowSelected ShowSerialNumber=true Headers="CombinedCollectionHeaders" Items=CombinedCollections GetId=GetCombinedCollectionId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
                         </CollapsibleContainer>
                     </div>
 
                     <div class="my-2">
-                        <h5 class="my-2">Expenses</h5>
-                        <CollapsibleContainer Id="1">
+                        <CollapsibleContainer Id="1" Title="Expenses">
                             <Table T="ExpenseEntry" T2="int" Headers="ExpenseHeaders" Items=ExpenseEntries GetId=GetExpenseId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
                         </CollapsibleContainer>
                     </div>
 
                     <div class="my-2">
-                        <h5 class="my-2">Collections</h5>
-                        <CollapsibleContainer Id="2">
+                        <CollapsibleContainer Id="2" Title="Collections">
                             <Table T="CollectionEntry" T2="int" ShowSerialNumber=true Items="Collections" GetId="GetCollectionId" Headers="CollectionHeaders" IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => true)" OnDelete="CollectionDeleted" ShowDeleteConfirmation=false/>
                         </CollapsibleContainer>
                     </div>

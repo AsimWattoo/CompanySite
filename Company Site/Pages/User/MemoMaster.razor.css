@@ -2,18 +2,21 @@
     background-color: #C0C0C0;
 }
 
-.btn-list{
-    padding: 50px;
+.color-white{
+    color: white !important;
 }
 
-.text-button-heading {
-    color: #4D8AFF;
-    font-size: 1.4rem;
+.btn-list{
+    padding: 5px 10px;
+}
+
+.bar-header{
+    font-size: 1rem;
 }
 
 .btn-selected {
     background-color: #EDF3FF;
-    color: #4D8AFF;
+    color: #4D8AFF !important;
 }
 
 .btn-list a{

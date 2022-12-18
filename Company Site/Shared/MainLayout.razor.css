@@ -164,6 +164,10 @@ div.col-panel{
     padding: 1rem;
 }
 
+.email {
+    font-size: 1rem !important;
+}
+
 .collapsed.user-info-panel{
     padding-top: 0px;
     width: 70%;
@@ -179,7 +183,6 @@ div.col-panel{
 
 .info{
     height: 4rem;
-    overflow: hidden;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -198,7 +201,7 @@ div.col-panel{
     }
 
     .col-collapsed div.col-panel {
-        width: 11%;
+        width: 13%;
     }
 }
 
@@ -208,14 +211,14 @@ div.col-panel{
     }
 
     .col-collapsed div.col-panel {
-        width: 12%;
+        width: 15%;
     }
 }
 
 @media only screen and (max-width: 786px) {
 
     .col-collapsed div.col-panel {
-        width: 14%;
+        width: 17%;
     }
 }
 
@@ -233,7 +236,7 @@ div.col-panel{
     }
 
     .col-collapsed div.col-panel {
-        width: 15%;
+        width: 18%;
     }
 }
 

@@ -4,9 +4,7 @@
 
 @inherits BaseAddPage<ExpenseEntry, int>
 
-<h2 class="text-center">Expense Manager</h2>
-
-<CollapsibleContainer>
+<CollapsibleContainer Title="Expense Manager">
     <EditForm Model="NewEntry" class="mt-3" OnValidSubmit="Save">
 
         <DataAnnotationsValidator/>

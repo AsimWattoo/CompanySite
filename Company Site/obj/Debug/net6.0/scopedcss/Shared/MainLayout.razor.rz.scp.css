@@ -164,6 +164,10 @@ div.col-panel[b-cddauckdx4]{
     padding: 1rem;
 }
 
+.email[b-cddauckdx4] {
+    font-size: 1rem !important;
+}
+
 .collapsed.user-info-panel[b-cddauckdx4]{
     padding-top: 0px;
     width: 70%;
@@ -179,7 +183,6 @@ div.col-panel[b-cddauckdx4]{
 
 .info[b-cddauckdx4]{
     height: 4rem;
-    overflow: hidden;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -198,7 +201,7 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 11%;
+        width: 13%;
     }
 }
 
@@ -208,14 +211,14 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 12%;
+        width: 15%;
     }
 }
 
 @media only screen and (max-width: 786px) {
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 14%;
+        width: 17%;
     }
 }
 
@@ -233,7 +236,7 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 15%;
+        width: 18%;
     }
 }
 

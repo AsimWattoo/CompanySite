@@ -53,10 +53,7 @@ namespace Company_Site.Pages.User
         /// <param name="fType"></param>
         private void _changePage(FinanceTypes fType)
         {
-            if (fType == CurrentType)
-                CurrentType = FinanceTypes.None;
-            else
-                CurrentType = fType;
+            CurrentType = fType;
         }
 
         #endregion

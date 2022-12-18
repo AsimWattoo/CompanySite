@@ -27,15 +27,37 @@ td[b-hscf0vogua], th[b-hscf0vogua] {
     border: 1px solid #DDE9FE;
     padding: 10px;
     border-radius: 0px;
+    background-color: #4d8aff !important;
 }
 
-.accordion-button[b-g7xrgfttpy]{
-	padding: 0px;
-}
-
-.accordion-button:[b-g7xrgfttpy]{
+.accordion-button[b-g7xrgfttpy] {
     border: 0px;
     outline: none;
+    border-width: 0px !important;
+    padding: 10px 10px;
+    color: white !important;
+    font-weight: bold;
+    background-color: #4d8aff !important;
+}
+
+    .accordion-button[b-g7xrgfttpy]::after {
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbt4b-fHgFd04n-XzYutpezTc6dXzxBD8GJg&usqp=CAU');
+        color: white;
+        font-weight: bold;
+        background-color: #4d8aff !important;
+        border-radius: 100%;
+    }
+
+    .accordion-button:not(.collapsed)[b-g7xrgfttpy]::after {
+        color: white;
+        font-weight: bold;
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbt4b-fHgFd04n-XzYutpezTc6dXzxBD8GJg&usqp=CAU');
+        background-color: #4d8aff !important;
+        border-radius: 100%;
+    }
+
+.card-header[b-g7xrgfttpy]{
+    padding: 10px 30px !important;
 }
 
 .accordion-button:not(.collapsed)[b-g7xrgfttpy]{
@@ -300,9 +322,6 @@ body[b-6456s899qs] {
 }
 
 /* _content/Company Site/Pages/User/AccountManagement.razor.rz.scp.css */
-.card[b-f2jt9za03w]{
-	border: 0px;
-}
 /* _content/Company Site/Pages/User/CompanyPolicyPage.razor.rz.scp.css */
 #pdf-container[b-7x0fa6ekom]{
 	width: 100%;
@@ -324,11 +343,8 @@ body[b-lxaqi24n7x] {
 }
 /* _content/Company Site/Pages/User/Finance.razor.rz.scp.css */
 .nav-item[b-srb9vcox66] {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    background-color: #eee;
-    margin-left: 0.2rem;
-    border-radius: 5px;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
@@ -349,31 +365,24 @@ body[b-lxaqi24n7x] {
     font-size: 1rem;
 }
 
-.card[b-srb9vcox66] {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 0px;
-}
-
 .card-red[b-srb9vcox66] {
     background-color: #E24A2A;
-    color: white;
+    color: black;
 }
 
 .card-green[b-srb9vcox66] {
     background-color: #2FB153;
-    color: white;
+    color: black;
 }
 
 .card-blue[b-srb9vcox66] {
-    background-color: #396DE7; 
-    color: white;
+    background-color: #396DE7;
+    color: black;
 }
 
 .card-yellow[b-srb9vcox66] {
     background-color: #F0B501;
-    color: white;
+    color: black;
 }
 /* _content/Company Site/Pages/User/Index.razor.rz.scp.css */
 body[b-0d4lq1jm2i] {
@@ -416,18 +425,21 @@ fieldset[b-5ewobahw9o]{
     background-color: #C0C0C0;
 }
 
-.btn-list[b-pe2eoguug6]{
-    padding: 50px;
+.color-white[b-pe2eoguug6]{
+    color: white !important;
 }
 
-.text-button-heading[b-pe2eoguug6] {
-    color: #4D8AFF;
-    font-size: 1.4rem;
+.btn-list[b-pe2eoguug6]{
+    padding: 5px 10px;
+}
+
+.bar-header[b-pe2eoguug6]{
+    font-size: 1rem;
 }
 
 .btn-selected[b-pe2eoguug6] {
     background-color: #EDF3FF;
-    color: #4D8AFF;
+    color: #4D8AFF !important;
 }
 
 .btn-list a[b-pe2eoguug6]{
@@ -877,6 +889,10 @@ div.col-panel[b-cddauckdx4]{
     padding: 1rem;
 }
 
+.email[b-cddauckdx4] {
+    font-size: 1rem !important;
+}
+
 .collapsed.user-info-panel[b-cddauckdx4]{
     padding-top: 0px;
     width: 70%;
@@ -892,7 +908,6 @@ div.col-panel[b-cddauckdx4]{
 
 .info[b-cddauckdx4]{
     height: 4rem;
-    overflow: hidden;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -911,7 +926,7 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 11%;
+        width: 13%;
     }
 }
 
@@ -921,14 +936,14 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 12%;
+        width: 15%;
     }
 }
 
 @media only screen and (max-width: 786px) {
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 14%;
+        width: 17%;
     }
 }
 
@@ -946,7 +961,7 @@ div.col-panel[b-cddauckdx4]{
     }
 
     .col-collapsed div.col-panel[b-cddauckdx4] {
-        width: 15%;
+        width: 18%;
     }
 }
 
@@ -1007,8 +1022,9 @@ a p[b-madu8pitlo]{
 .nav-item[b-madu8pitlo] {
     font-size: 1.2rem;
     display: flex;
-    padding: 0.5rem 0rem;
     border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .active[b-madu8pitlo] {
@@ -1038,7 +1054,7 @@ a p[b-madu8pitlo]{
 }
 
 .nav-item div[b-madu8pitlo]{
-    padding: 5px;
+    padding: 0px;
 }
 
 .collapsed[b-madu8pitlo]{

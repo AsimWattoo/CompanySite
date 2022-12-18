@@ -1,9 +1,6 @@
 ﻿.nav-item {
-    padding-left: 0.2rem;
-    padding-right: 0.2rem;
-    background-color: #eee;
-    margin-left: 0.2rem;
-    border-radius: 5px;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
@@ -24,29 +21,22 @@
     font-size: 1rem;
 }
 
-.card {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 0px;
-}
-
 .card-red {
     background-color: #E24A2A;
-    color: white;
+    color: black;
 }
 
 .card-green {
     background-color: #2FB153;
-    color: white;
+    color: black;
 }
 
 .card-blue {
-    background-color: #396DE7; 
-    color: white;
+    background-color: #396DE7;
+    color: black;
 }
 
 .card-yellow {
     background-color: #F0B501;
-    color: white;
+    color: black;
 }

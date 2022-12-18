@@ -6,9 +6,7 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
 
-<h2 class="ms-3">Approvals And Memo</h2>
-
-<CollapsibleContainer>
+<CollapsibleContainer Title="Approvals & Memos">
     <div class="mx-2">
         <EditForm Model="NewEntry" OnValidSubmit="Save"> 
             
@@ -54,11 +52,14 @@
     </div>
 </CollapsibleContainer>
 
-<div class="my-2">
+<div class="my-2 px-3">
 
-    <div class="d-flex justify-content-end mb-2 mt-4">
-        <DateFilter SearchRecords="ApplyDateFilter" Clear="ClearDateFilter"/>
+    <div class="card py-2">
+        <div class="d-flex justify-content-end mb-2 mt-4">
+            <DateFilter SearchRecords="ApplyDateFilter" Clear="ClearDateFilter"/>
+        </div>
+
+        <Table T="Memo" T2="string" Headers="Headers" Items="memos" GetId="GetId" OnSearch=SearchMemo IsDeleteable="@(e => false)" IsEditable="@(e => false)" ValueCallback="GetValue" IsViewable="@(t => true)" ViewItem="ViewMemo" ViewHeader="Supporting"/>
     </div>
 
-    <Table T="Memo" T2="string" Headers="Headers" Items="memos" GetId="GetId" OnSearch=SearchMemo IsDeleteable="@(e => false)" IsEditable="@(e => false)" ValueCallback="GetValue" IsViewable="@(t => true)" ViewItem="ViewMemo" ViewHeader="Supporting"/>
 </div>

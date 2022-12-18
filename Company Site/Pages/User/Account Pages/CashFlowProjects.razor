@@ -4,9 +4,7 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
 
-<h2 class="ms-3">CashFlowProjects </h2>
-
-<CollapsibleContainer>
+<CollapsibleContainer Title="Cash Flow Projects">
     <div class="mx-2">
         <EditForm Model="NewEntry" OnValidSubmit="Save">
 
@@ -70,4 +68,8 @@
     </div>
 </CollapsibleContainer>
 
-<Table T="CashFlowProjectsModel" T2="int" ShowSerialNumber=true Items="@Enteries" ValueCallback=GetValue Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+<div class="px-3">
+    <div class="card py-2">
+        <Table T="CashFlowProjectsModel" T2="int" ShowSerialNumber=true Items="@Enteries" ValueCallback=GetValue Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+    </div>
+</div>

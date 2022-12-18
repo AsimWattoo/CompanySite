@@ -33,8 +33,9 @@ a p[b-madu8pitlo]{
 .nav-item[b-madu8pitlo] {
     font-size: 1.2rem;
     display: flex;
-    padding: 0.5rem 0rem;
     border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .active[b-madu8pitlo] {
@@ -64,7 +65,7 @@ a p[b-madu8pitlo]{
 }
 
 .nav-item div[b-madu8pitlo]{
-    padding: 5px;
+    padding: 0px;
 }
 
 .collapsed[b-madu8pitlo]{

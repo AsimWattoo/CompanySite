@@ -10,7 +10,7 @@
 
 
 
-<h2>Trust Master</h2>
+<p class="fw-bold text-button-heading mb-2">Trust Master</p>
 
 <CollapsibleContainer Title="Trust" Id="1">
     <div class="body">
@@ -376,6 +376,8 @@
 
 </CollapsibleContainer>
 
-
-
-<Table T="Trust" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+<div class="px-3 mt-3">
+    <div class="card py-2">
+        <Table T="Trust" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+    </div>
+</div>
