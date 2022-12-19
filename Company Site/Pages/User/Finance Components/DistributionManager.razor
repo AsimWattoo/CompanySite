@@ -11,62 +11,62 @@
                 <div class="col-md-4">
                     <EditForm Model=Model class="form form-theme">
                         <label for="turstCode">Trust Code</label>
-                        <label class="form-control mb-2">@Model.TrustCode</label>
+                        <label class="form-control mb-2 disabled">@Model.TrustCode</label>
                         <label for="turstName">Trust Name</label>
-                        <label class="form-control mb-2">@Model.TrustName</label>
+                        <label class="form-control mb-2 disabled">@Model.TrustName</label>
                         <label for="turstSetupDate">Trust Setup Date</label>
-                        <label class="form-control mb-2">@Model.TrustSetupDate</label>
+                        <label class="form-control mb-2 disabled">@Model.TrustSetupDate</label>
                         <label for="turstAge">Trust Age</label>
-                        <label id="turstAge" class="form-control mb-2">@Model.TrustAge</label>
+                        <label id="turstAge" class="form-control mb-2 disabled">@Model.TrustAge</label>
                         <br>
                         <hr />
                         <br>
                         <h4 for="particulars">Particulars</h4>
                         <label for="openingBalance">Opening Balance</label>
-                        <label id="openingBalance" class="form-control mb-2">@Model.OpeningBalance</label>
+                        <label id="openingBalance" class="form-control mb-2 disabled">@Model.OpeningBalance</label>
                         <label for="totalPayment">Total Collection</label>
-                        <label id="totalPayment" class="form-control mb-2">@Model.TotalCollection</label>
+                        <label id="totalPayment" class="form-control mb-2 disabled">@Model.TotalCollection</label>
                         <label for="totalBalance">Total Balance</label>
-                        <label id="totalBalance" class="form-control mb-2">@Model.TotalBalance</label>
+                        <label id="totalBalance" class="form-control mb-2 disabled">@Model.TotalBalance</label>
                         <br>
                         <hr />
                         <br>
                         <h4 for="expenses">Expenses</h4>
                         <label for="trusteeshipFees">Trusteeship Fees</label>
-                        <label id="trusteeshipFees" class="form-control mb-2">@Model.TrusteeshipFee</label>
+                        <label id="trusteeshipFees" class="form-control mb-2 disabled">@Model.TrusteeshipFee</label>
                         <label for="resFees">Resolution Fees</label>
-                        <label id="resFees" class="form-control mb-2">@Model.ResolutionFee</label>
+                        <label id="resFees" class="form-control mb-2 disabled">@Model.ResolutionFee</label>
                         <label for="collectionFees">Collection Fees</label>
-                        <label id="collectionFees" class="form-control mb-2">@Model.CollectionFee</label>
+                        <label id="collectionFees" class="form-control mb-2 disabled">@Model.CollectionFee</label>
                         <label for="totalOtherExpenses">Total Other Expenses</label>
-                        <label id="totalOtherExpenses" class="form-control mb-2" type="number">@Model.TotalOtherExpenses</label>
-                        <label for="otherAdjustments">Other Adjustments</label>
+                        <label id="totalOtherExpenses" class="form-control mb-2 disabled" type="number">@Model.TotalOtherExpenses</label>
+                        <label for="otherAdjustments">Adjustments</label>
                         <InputNumber @bind-Value=Model.OtherAdjustments id="otherAdjustments" class="form-control mb-2" type="number"/>
                         <label for="totalExpenses">Total Expenses</label>
-                        <label id="totalExpenses" class="form-control mb-2">@Model.TotalExpenses</label>
-                        <label for="balance">Balance</label>
-                        <label id="balance" class="form-control mb-2">@Model.Balance</label>
+                        <label id="totalExpenses" class="form-control mb-2 disabled">@Model.TotalExpenses</label>
+                        <label for="balance">Balance Amount</label>
+                        <label id="balance" class="form-control mb-2 disabled">@Model.Balance</label>
                         <label for="gst">GST:30%</label>
                         <InputNumber @bind-Value=Model.GST_Rate id="gst" class="form-control mb-2" type="number"/>
                         <label for="lessAdvanceTDS">Less: Advance TDS 10%</label>
                         <InputNumber @bind-Value=@Model.LessAdvancedTDS id="lessAdvanceTDS" class="form-control mb-2" type="number"/>
                         <label for="amountAvailable">Amount Available</label>
-                        <label id="amountAvailable" class="form-control mb-2">@Model.AmountAvailable</label>
+                        <label id="amountAvailable" class="form-control mb-2 disabled">@Model.AmountAvailable</label>
                         <label for="normalDistribution">Normal Distribution</label>
                         <InputNumber @bind-Value=Model.TotalSRValue id="normalDistribution" class="form-control mb-2"/>
                         <label for="surplusDistribution">Surplus Distribution</label>
                         <InputNumber @bind-Value=Model.TotalUpsideSRValue id="surplusDistribution" class="form-control mb-2"/>
                         <label for="newSRvalue">New SR value</label>
-                        <label id="newSRvalue" class="form-control mb-2">@Model.NewSRValue</label>
+                        <label id="newSRvalue" class="form-control mb-2 disabled">@Model.NewSRValue</label>
                         <label for="lessProvision">Less: Provision</label>
                         <InputNumber @bind-Value=Model.LessProvision id="lessProvision" class="form-control mb-2" type="number"/>
                         <label for="closingBalance">Closing Balance</label>
-                        <label id="closingBalance" class="form-control mb-2" type="number">@Model.ClosingBalance</label>
+                        <label id="closingBalance" class="form-control mb-2 disabled" type="number">@Model.ClosingBalance</label>
 
                         <label for="trustDesc">Trust description</label>
-                        <label id="trustDesc" class="form-control mb-2">@Model.TrustDescription</label>
+                        <label id="trustDesc" class="form-control mb-2 disabled">@Model.TrustDescription</label>
                         <label for="t&c">Terms & Condition</label>
-                        <label id="t&c" class="form-control mb-2">@Model.TermsAndConditions</label>
+                        <label id="t&c" class="form-control mb-2 disabled">@Model.TermsAndConditions</label>
 
                         <div class="d-flex">
                             <button class="btn btn-primary clear me-1" @onclick=Clear>Clear All</button>

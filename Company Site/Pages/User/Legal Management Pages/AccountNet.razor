@@ -6,9 +6,7 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
 
-<h2 class="ms-3">Account Net</h2>
-
-<CollapsibleContainer>
+<CollapsibleContainer Title="Account Net">
     <div class="mx-2">
         <EditForm Model="NewEntry" OnValidSubmit="Save">
 
@@ -183,4 +181,8 @@
     </div>
 </CollapsibleContainer>
 
-<Table T="AccountNetModel" T2="string" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+<div class="px-3">
+    <div class="card py-2">
+        <Table T="AccountNetModel" T2="string" ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+    </div>
+</div>

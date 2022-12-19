@@ -34,10 +34,10 @@
                 <div class="row contact d-flex align-items-center justify-content-between">
                     @if (ShowDeleteButton)
                     {
-                        <div class="col-8">
+                        <div class="col-7">
                             <p class="item-text mb-0">@GetContactName(e)</p>
                         </div>
-                        <div class="d-flex justify-content-center align-items-center col-4 my-1">
+                        <div class="d-flex justify-content-center align-items-center col-5 my-1">
                             <a @onclick="@(() => OnClick(GetContactId(e)))" class="mx-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
                             <a @onclick='@(() => OnDeleteRecord(GetContactId(e)))' class="mx -1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
                         </div>

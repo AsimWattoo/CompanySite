@@ -20,6 +20,13 @@ label {
     font-size: 1.4rem;
 }
 
+
+.disabled {
+    background-color: #eee !important;
+    color: black !important;
+    opacity: 1 !important;
+}
+
 h1:focus {
     outline: none;
 }

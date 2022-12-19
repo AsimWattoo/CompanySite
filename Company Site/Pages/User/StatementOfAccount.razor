@@ -6,269 +6,277 @@
 @using Company_Site.Pages.Components
 @using Company_Site.ViewModels;
 
+<p class="fw-bold text-button-heading mb-2">Statement of Account</p>
+
+
 <div class="container-md mb-3">
-    <h3 class="text-center">Statement Of Account</h3>
 
-    <div class="row">
-        <div class="col-12 d-flex justify-content-center">
-            <h5>Account Name: @Model.Account_Name</h5>
-        </div>
-    </div>
-
-    <div class="row mt-1">
-        <div class="col-6">
-            <p class="text-center">Borrower Code: @Model.Borrower_Code</p>
-        </div>
-        <div class="col-6">
-            <p class="text-center">Trust Code: @Model.Trust_Code</p>
-        </div>
-    </div>
-
-    <!--Table-->
-    <div class="d-flex justify-content-center">
-        <div class="table mt-1">
-            <Table T="StatementOfAccountViewModel" OnRowClick="StatementRowClicked" T2="int" Headers="Headers" GetId="GetId" IsSearchable=false IsDeleteable="@(t => false)" IsEditable="@(t => false)" Items="Statements" ShowSerialNumber=true/>
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-12 d-flex justify-content-center align-items-center">
-            <label>Account</label>
-            <EditForm Model="this">
-                <InputSelect TValue=string Value="Account" ValueExpression="@(() => Account)"
-                    ValueChanged="AccountChanged" class="form-select ms-2">
-                    <option value="all" selected>All Accounts</option>
-                        @foreach (DebtProfileModel debtProfile in DebtProfiles)
-                        {
-                            <option value="@debtProfile.AccountNumber">@debtProfile.AccountNumber - @debtProfile.Facility</option>
-                        }
-                </InputSelect>
-            </EditForm>
-        </div>
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-3 d-flex justify-content-center">
-            <a class="text-center btn @(Mode == StatementOfAccountMode.Collections ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Collections))>Collection</a>
-        </div>
-        <div class="col-3 d-flex justify-content-center">
-            <a class="text-center btn @(Mode == StatementOfAccountMode.Expenses ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Expenses))>Expenses</a>
-        </div>
-        <div class="col-3 d-flex justify-content-center">
-            <a class="text-center btn @(Mode == StatementOfAccountMode.Disbursement ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Disbursement))>Disbursment</a> 
-        </div><div class="col-3 d-flex justify-content-center">
-            <a class="text-center btn @(Mode == StatementOfAccountMode.Interest ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Interest))>Interest Rate</a> 
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-center">
-        <div class="table mt-3">
-            @if(Mode == StatementOfAccountMode.Expenses)
-            {
-                <Table T="ExpenseEntry" T2="int" OnRowClick=ExpenseRowClicked GetId="GetExpenseId" Headers="ExpenseHeaders" Items="ExpenseEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
-            }
-            else if(Mode == StatementOfAccountMode.Collections)
-            {
-                <Table T="CollectionEntry" T2="int" OnRowClick="CollectionRowClicked" GetId="GetCollectionId" Headers="CollectionHeaders" Items="CollectionEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
-            }
-            else if(Mode == StatementOfAccountMode.Disbursement)
-            {
-                <Table T="DisburmentModel" T2="int" OnRowClick="DisbursementRowClicked" GetId="GetDisbursmentId" Headers="DisbursmentHeaders" Items="DisburmentEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
-            }
-            else if(Mode == StatementOfAccountMode.Interest)
-            {
-                <Table T="InterestRateChangeModel" T2="int" OnRowClick="InterestRateRowClicked" GetId="GetInterestRateChangeId" Headers="InterestRateChangeHeaders" Items="InterestRateChangeEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
-            }
-        </div>
-    </div>
-
-    <div class="row align-items-end justify-content-center">
-        <div class="col-3">
-            <p>Frequency</p>
-            <select class="form-select">
-                <option selected value="">---- Select Option ----</option>
-                <option value="monthly">Monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="yearly">Yearly</option>
-            </select>
-        </div>
-
-        <div class="col-3">
-            <p>Interest Calculation</p>
-            <select class="form-select">
-                <option selected value="">---- Select Option ----</option>
-                <option value="monthly">Simple</option>
-                <option value="quarterly">Compound</option>
-            </select>
-        </div>
-
-        <div class="col-3">
-            <label for="endDate">End Date</label>
-            <input type="date" id="endDate" class="form-control"/>
-        </div>
-
-        <div class="col-3 d-flex justify-content-center">
-            <a class="btn btn-primary me-1" @onclick=LoadDataToPrint>PDF</a>
-            <a class="btn btn-primary" @onclick=LoadDataToPrint>XLS</a>
-        </div>
-
-    </div>
-
-    <div class="row mt-4">
-        <div class="col-9">
-            <div class="row align-items-center">
-                <div class="col-xl-2 col-lg-2 col-md-3">
-                    <label for="saveLocation">Save Location</label>
-                </div>
-                <div class="col-xl-10 col-lg-10 col-md-9">
-                    <input type="text" class="form-control" id="saveLocation"/>
-                </div>
+    <div class="py-2 card">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                <h5>Account Name: @Model.Account_Name</h5>
             </div>
         </div>
 
-        <div class="col-3 px-2 py-1 d-flex justify-content-center">
-            <a class="btn btn-primary" @onclick=LoadSummary>Generate Summary</a>
+        <div class="row mt-1">
+            <div class="col-6">
+                <p class="text-center">Borrower Code: @Model.Borrower_Code</p>
+            </div>
+            <div class="col-6">
+                <p class="text-center">Trust Code: @Model.Trust_Code</p>
+            </div>
         </div>
 
-    </div>
-
-    <!--Delete Confirmation Modal-->
-    <Modal Title="Delete Confirmation" ShowModal=DeleteConfirmationModalShown>
-        @if(SelectedCollectionEntry == null && SelectedDisbursementEntry == null && SelectedInterestRateEntry == null && SelectedExpenseEntry == null)
-        {
-            <div class="my-3">
-                <p>Please select a record to delete</p>
+        <!--Table-->
+        <div class="d-flex justify-content-center">
+            <div class="table mt-1">
+                <Table T="StatementOfAccountViewModel" OnRowClick="StatementRowClicked" T2="int" Headers="Headers" GetId="GetId" IsSearchable=false IsDeleteable="@(t => false)" IsEditable="@(t => false)" Items="Statements" ShowSerialNumber=true/>
             </div>
-            <div class="d-flex justify-content-center my-2">
-                <a class="btn btn-primary mx-1" @onclick=CancelDelete>Ok</a>
-            </div>
-        }
-        else
-        {
-            <div class="my-3">
-                <p>Are you sure you want to delete @Mode.ToString() Entry?</p>
-            </div>
-            <div class="d-flex justify-content-center my-2">
-                <a class="btn btn-primary mx-1" @onclick=CancelDelete>Cancel</a>
-                <a class="btn btn-danger mx-1" @onclick=Remove>Confirm</a>
-            </div>
-        }
-    </Modal>
+        </div>
 
-    <div class="mt-4">
-        <fieldset class="border px-2 py-2">
-            <legend>Admin</legend>
-
-            <EditForm Model="NewEntry" OnValidSubmit="Add">
-
-                <MultiErrorView Errors="_errors"/>
-
-                <div class="my-2">
-                    <InputRadioGroup @bind-Value=NewEntry.Mode>
-                        <div class="row">
-                            <div class="col-3 d-flex align-items-center">
-                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Expenses)"/>
-                                <label class="ms-1">Expenses</label>
-                            </div>
-                            <div class="col-3 d-flex align-items-center">
-                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Collections)"/>
-                                <label class="ms-1">Collections</label>
-                            </div>
-                            <div class="col-3 d-flex align-items-center">
-                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Disbursement)"/>
-                                <label class="ms-1">Disbursement</label>
-                            </div>
-                            <div class="col-3 d-flex align-items-center">
-                                <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Interest)"/>
-                                <label class="ms-1">Change in interest</label>
-                            </div>
-                        </div>
-                    </InputRadioGroup>
-                </div>
-
-                <div class="row my-2">
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="date" class="me-2">Date</label>
-                        <input @bind-value=NewEntry.Date class="form-control" type="date" id="date"/>
-                    </div>
-                    <div class="col-6 d-flex align-items-center">
-                        @if(NewEntry.Mode == StatementOfAccountMode.Interest)
-                        {
-                            <label for="amount" class="me-2">Rate Change</label>
-                            <InputNumber @bind-Value=NewEntry.ChangeInInterestRate class="form-control" type="number" id="amount"/>
-                        }
-                        else
-                        {
-                            <label for="amount" class="me-2">Amount (Rs.)</label>
-                            <InputNumber @bind-Value=NewEntry.Amount class="form-control" type="number" id="amount"/>
-                        }
-                    </div>
-                </div>
-
-                <div class="row my-2">
-                    <div class="col-6 d-flex align-items-center">
-                        @if(NewEntry.Mode == StatementOfAccountMode.Interest){
-                            <input @bind-value=NewEntry.IsInterestRateChanged type="checkbox" id="check"/>
-                            <label for="check" class="me-1 ms-1">Change Interest Rate</label>
-                        }
-                        else{
-                            <label for="adjustment" class="me-1 ms-1">Adjust Towards</label>
-                            <InputSelect @bind-Value=NewEntry.AdjustTowards class="form-select">
-                                <option value="" selected>------ Select Option -------</option>
-                                <option value="prop">Proportionality</option>
-                                @foreach(DebtProfileModel debtProfile in DebtProfiles)
-                                {
+        <div class="row mt-3">
+            <div class="col-12 d-flex justify-content-center align-items-center">
+                <label class="mb-0">Account</label>
+                <EditForm Model="this">
+                    <InputSelect TValue=string Value="Account" ValueExpression="@(() => Account)"
+                        ValueChanged="AccountChanged" class="form-select ms-2">
+                        <option value="all" selected>All Accounts</option>
+                            @foreach (DebtProfileModel debtProfile in DebtProfiles)
+                            {
                                     <option value="@debtProfile.AccountNumber">@debtProfile.AccountNumber - @debtProfile.Facility</option>
+                            }
+                    </InputSelect>
+                </EditForm>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-3 d-flex justify-content-center">
+                <a class="text-center btn @(Mode == StatementOfAccountMode.Collections ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Collections))>Collection</a>
+            </div>
+            <div class="col-3 d-flex justify-content-center">
+                <a class="text-center btn @(Mode == StatementOfAccountMode.Expenses ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Expenses))>Expenses</a>
+            </div>
+            <div class="col-3 d-flex justify-content-center">
+                <a class="text-center btn @(Mode == StatementOfAccountMode.Disbursement ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Disbursement))>Disbursment</a> 
+            </div><div class="col-3 d-flex justify-content-center">
+                <a class="text-center btn @(Mode == StatementOfAccountMode.Interest ? "btn-primary" : "btn-outline-primary")" @onclick=@(() => ChangeMode(StatementOfAccountMode.Interest))>Interest Rate</a> 
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <div class="table mt-3">
+                    @if (Mode == StatementOfAccountMode.Expenses)
+                    {
+                        <Table T="ExpenseEntry" T2="int" OnRowClick=ExpenseRowClicked GetId="GetExpenseId" Headers="ExpenseHeaders" Items="ExpenseEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
+                    }
+                    else if (Mode == StatementOfAccountMode.Collections)
+                    {
+                        <Table T="CollectionEntry" T2="int" OnRowClick="CollectionRowClicked" GetId="GetCollectionId" Headers="CollectionHeaders" Items="CollectionEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
+                    }
+                    else if (Mode == StatementOfAccountMode.Disbursement)
+                    {
+                        <Table T="DisburmentModel" T2="int" OnRowClick="DisbursementRowClicked" GetId="GetDisbursmentId" Headers="DisbursmentHeaders" Items="DisburmentEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
+                    }
+                    else if (Mode == StatementOfAccountMode.Interest)
+                    {
+                        <Table T="InterestRateChangeModel" T2="int" OnRowClick="InterestRateRowClicked" GetId="GetInterestRateChangeId" Headers="InterestRateChangeHeaders" Items="InterestRateChangeEntries" IsDeleteable="@(e => false)" IsEditable="@(e => false)" IsSearchable=false/>
+                    }
+            </div>
+        </div>
+    </div>
+
+    <div class="card py-2 px-2">
+        <div class="row align-items-end justify-content-center">
+            <div class="col-3">
+                <p>Frequency</p>
+                <select class="form-select">
+                    <option selected value="">---- Select Option ----</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="quarterly">Quarterly</option>
+                    <option value="yearly">Yearly</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <p>Interest Calculation</p>
+                <select class="form-select">
+                    <option selected value="">---- Select Option ----</option>
+                    <option value="monthly">Simple</option>
+                    <option value="quarterly">Compound</option>
+                </select>
+            </div>
+
+            <div class="col-3">
+                <label for="endDate">End Date</label>
+                <input type="date" id="endDate" class="form-control"/>
+            </div>
+
+            <div class="col-3 d-flex justify-content-center">
+                <a class="btn btn-primary me-1" @onclick=LoadDataToPrint>PDF</a>
+                <a class="btn btn-primary" @onclick=LoadDataToPrint>XLS</a>
+            </div>
+
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-9">
+                <div class="row align-items-center">
+                    <div class="col-xl-2 col-lg-2 col-md-3">
+                        <label for="saveLocation">Save Location</label>
+                    </div>
+                    <div class="col-xl-10 col-lg-10 col-md-9">
+                        <input type="text" class="form-control" id="saveLocation"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-3 px-2 py-1 d-flex justify-content-center">
+                <a class="btn btn-primary" @onclick=LoadSummary>Generate Summary</a>
+            </div>
+
+        </div>
+
+        <!--Delete Confirmation Modal-->
+        <Modal Title="Delete Confirmation" ShowModal=DeleteConfirmationModalShown>
+                @if (SelectedCollectionEntry == null && SelectedDisbursementEntry == null && SelectedInterestRateEntry == null && SelectedExpenseEntry == null)
+                {
+                    <div class="my-3">
+                        <p>Please select a record to delete</p>
+                    </div>
+                    <div class="d-flex justify-content-center my-2">
+                        <a class="btn btn-primary mx-1" @onclick=CancelDelete>Ok</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="my-3">
+                        <p>Are you sure you want to delete @Mode.ToString() Entry?</p>
+                    </div>
+                    <div class="d-flex justify-content-center my-2">
+                        <a class="btn btn-primary mx-1" @onclick=CancelDelete>Cancel</a>
+                        <a class="btn btn-danger mx-1" @onclick=Remove>Confirm</a>
+                    </div>
+                }
+        </Modal>
+
+        <div class="mt-4">
+            <fieldset class="border px-2 py-2">
+                <legend>Admin</legend>
+
+                <EditForm Model="NewEntry" OnValidSubmit="Add">
+
+                    <MultiErrorView Errors="_errors"/>
+
+                    <div class="my-2">
+                        <InputRadioGroup @bind-Value=NewEntry.Mode>
+                            <div class="row">
+                                <div class="col-3 d-flex align-items-center">
+                                    <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Expenses)"/>
+                                    <label class="ms-1">Expenses</label>
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Collections)"/>
+                                    <label class="ms-1">Collections</label>
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Disbursement)"/>
+                                    <label class="ms-1">Disbursement</label>
+                                </div>
+                                <div class="col-3 d-flex align-items-center">
+                                    <InputRadio TValue="StatementOfAccountMode" class="form-check" type="radio" value="@(StatementOfAccountMode.Interest)"/>
+                                    <label class="ms-1">Change in interest</label>
+                                </div>
+                            </div>
+                        </InputRadioGroup>
+                    </div>
+
+                    <div class="row my-2">
+                        <div class="col-6 d-flex align-items-center">
+                            <label for="date" class="me-2">Date</label>
+                            <input @bind-value=NewEntry.Date class="form-control" type="date" id="date"/>
+                        </div>
+                        <div class="col-6 d-flex align-items-center">
+                                @if (NewEntry.Mode == StatementOfAccountMode.Interest)
+                                {
+                                    <label for="amount" class="me-2">Rate Change</label>
+                                    <InputNumber @bind-Value=NewEntry.ChangeInInterestRate class="form-control" type="number" id="amount"/>
                                 }
-                            </InputSelect>
-                        }
-                    </div>
-                    <div class="col-6 d-flex align-items-center">
-                        <label for="note" class="me-2">Note</label>
-                        <InputText @bind-Value=NewEntry.Note class="form-control" type="text" id="note"/>
-                    </div>
-                </div>
-
-                <div class="row my-2">
-                    <div class="col-3 px-2 d-flex justify-content-center">
-                        <a class="btn btn-danger" @onclick=ShowDeleteConfirmationModal>Remove</a>
-                    </div>
-                    <div class="col-3 px-2 d-flex justify-content-center">
-                        <a class="btn btn-secondary" @onclick=ClearSubEntry>Clear</a>
-                    </div>
-                    <div class="col-3 px-2 d-flex justify-content-center">
-                        <input type="submit" value="@((ShouldAddExpense && ShouldAddCollection && ShouldAddDisbursment && ShouldAddInterestRate) ? "Add" : "Edit")" class="btn btn-primary"/>
-                    </div>
-                    <div class="col-3 px-2 d-flex justify-content-center">
-                        <a class="btn btn-danger">Bulk upload using Excel</a>
-                    </div>
-                </div>
-
-                <div class="my-3">
-                    <div class="d-flex my-2">
-                        <div class="mx-2">
-                            <input type="checkbox" class="form-check" id="expensesInStatement"/>
-                            <label for="expensesInStatement">Show Expenses in Statement</label>
-                        </div>
-                        <div class="mx-2">
-                            <input type="checkbox" class="form-check" id="compound"/>
-                            <label for="compound">Compound Penal Interest</label>
+                                else
+                                {
+                                    <label for="amount" class="me-2">Amount (Rs.)</label>
+                                    <InputNumber @bind-Value=NewEntry.Amount class="form-control" type="number" id="amount"/>
+                                }
                         </div>
                     </div>
-                    <div class="d-flex my-2">
-                        <div class="mx-2">
-                            <input type="checkbox" class="form-check" id="interestBurification"/>
-                            <label for="interestBurification">Show Interest Burification</label>
+
+                    <div class="row my-2">
+                        <div class="col-6 d-flex align-items-center">
+                                @if (NewEntry.Mode == StatementOfAccountMode.Interest)
+                                {
+                                    <input @bind-value=NewEntry.IsInterestRateChanged type="checkbox" id="check"/>
+                                    <label for="check" class="me-1 ms-1">Change Interest Rate</label>
+                                }
+                                else
+                                {
+                                    <label for="adjustment" class="me-1 ms-1">Adjust Towards</label>
+                                    <InputSelect @bind-Value=NewEntry.AdjustTowards class="form-select">
+                                        <option value="" selected>------ Select Option -------</option>
+                                        <option value="prop">Proportionality</option>
+                                        @foreach (DebtProfileModel debtProfile in DebtProfiles)
+                                        {
+                                                <option value="@debtProfile.AccountNumber">@debtProfile.AccountNumber - @debtProfile.Facility</option>
+                                        }
+                                    </InputSelect>
+                                }
                         </div>
-                        <div class="mx-2">
-                            <label for="taxOnInterest">Tax on Interest</label>
-                            <input type="number" class="form-control" id="taxOnInterest"/>
+                        <div class="col-6 d-flex align-items-center">
+                            <label for="note" class="me-2">Note</label>
+                            <InputText @bind-Value=NewEntry.Note class="form-control" type="text" id="note"/>
                         </div>
                     </div>
-                </div>
 
-            </EditForm>
+                    <div class="row my-2">
+                        <div class="col-3 px-2 d-flex justify-content-center">
+                            <a class="btn btn-danger" @onclick=ShowDeleteConfirmationModal>Remove</a>
+                        </div>
+                        <div class="col-3 px-2 d-flex justify-content-center">
+                            <a class="btn btn-secondary" @onclick=ClearSubEntry>Clear</a>
+                        </div>
+                        <div class="col-3 px-2 d-flex justify-content-center">
+                            <input type="submit" value="@((ShouldAddExpense && ShouldAddCollection && ShouldAddDisbursment && ShouldAddInterestRate) ? "Add" : "Edit")" class="btn btn-primary"/>
+                        </div>
+                        <div class="col-3 px-2 d-flex justify-content-center">
+                            <a class="btn btn-danger">Bulk upload using Excel</a>
+                        </div>
+                    </div>
 
-        </fieldset>
+                    <div class="mt-4">
+                        <div class="d-flex my-2">
+                            <div class="mx-2 d-flex align-items-center">
+                                <input type="checkbox" class="form-check me-2" id="expensesInStatement"/>
+                                <label for="expensesInStatement">Show Expenses in Statement</label>
+                            </div>
+                            <div class="mx-2 d-flex align-items-center">
+                                <input type="checkbox" class="form-check me-2" id="compound"/>
+                                <label for="compound">Compound Penal Interest</label>
+                            </div>
+                        </div>
+                        <div class="d-flex my-2">
+                            <div class="mx-2 d-flex align-items-center">
+                                <input type="checkbox" class="form-check me-2" id="interestBurification"/>
+                                <label for="interestBurification">Show Interest Burification</label>
+                            </div>
+                            <div class="mx-2 d-flex align-items-center me-2">
+                                <label for="taxOnInterest">Tax on Interest</label>
+                                <input type="number" class="form-control" id="taxOnInterest"/>
+                            </div>
+                        </div>
+                    </div>
+
+                </EditForm>
+
+            </fieldset>
+        </div>
     </div>
 </div>

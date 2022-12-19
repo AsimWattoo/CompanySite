@@ -21,7 +21,7 @@
 		<EditForm Model="SearchModel" Context="searchBar">
 
 			<div class="row d-flex align-items-center">
-				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 fs d-flex align-items-center">
+				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 title d-flex align-items-center">
 					Show 
 					<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
 						<option value="10">10</option>
@@ -31,7 +31,7 @@
 					</select>
 					enteries
 				</div>
-				<div class="col-xl-10 col-lg-9 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end align-items-center">
+				<div class="col-xl-9 col-lg-8 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end align-items-center">
 					<div class="fs">
 						<label for="searchBox">Search</label>
 						<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>

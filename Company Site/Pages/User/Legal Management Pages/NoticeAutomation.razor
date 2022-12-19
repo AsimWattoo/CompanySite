@@ -7,9 +7,7 @@
 
 @inherits BaseAddPage<NoticeAutomationModel, int>
 
-<h2 class="ms-3">Notice Automation</h2>
-
-<CollapsibleContainer>
+<CollapsibleContainer Title="Notice Automation">
     <div class="mx-2">
         <EditForm Model="NewEntry" OnValidSubmit="Save" class="my-1">
 
@@ -48,6 +46,8 @@
                 <input type="submit" value="@(ShouldAdd ? "Add" : "Edit")" class="btn btn-primary"/>
             </div>
         </EditForm>
+
+        <hr class="my-4"/>
 
         <EditForm Model="NewDraft" OnValidSubmit="SaveDraft" class="my-1">
             <div class="row mt-3" style="">

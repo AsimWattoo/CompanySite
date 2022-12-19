@@ -7,9 +7,7 @@
 @using Company_Site.Pages.Components
 @using Company_Site.Pages.User;
 
-<h2 class="ms-3">Event Timeline</h2>
-
-<CollapsibleContainer>
+<CollapsibleContainer Title="Event Timeline">
     <div class="mx-2">
         <EditForm Model="NewEntry" OnValidSubmit="Save">
 
@@ -54,8 +52,13 @@
     </div>
 </CollapsibleContainer>
 
-<div class="d-flex justify-content-end mb-2 mt-4">
-    <DateFilter SearchRecords="ApplyDateFilter" Clear="ClearDateFilter"/>
-</div>
+<div class="px-3">
+    <div class="card py-2">
+        <div class="d-flex justify-content-end mb-2 me-3 mt-4">
+            <DateFilter SearchRecords="ApplyDateFilter" Clear="ClearDateFilter"/>
+        </div>
 
-<Table T="EventTimelineModel" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+        <Table T="EventTimelineModel" T2="int" ShowSerialNumber=true Items="@Enteries" Headers="Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+
+    </div>
+</div>
