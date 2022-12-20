@@ -34,6 +34,15 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public bool ShowDeleteButton { get; set; } = true;
 
+        [Parameter]
+        public bool ShowDescription { get; set; } = false;
+
+        [Parameter]
+        public bool IsHeaderPrimary { get; set; } = false;
+
+        [Parameter]
+        public Func<T, string> GetDescription { get; set; }
+
         #endregion
 
         #region Private Members

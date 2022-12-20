@@ -3,7 +3,6 @@ body[b-3xgbuq7h4v] {
 
 .contacts[b-3xgbuq7h4v] {
     height: 100%;
-    padding: 10px;
 }
 
 .roundedTextBox[b-3xgbuq7h4v]{
@@ -12,20 +11,33 @@ body[b-3xgbuq7h4v] {
 
 .contact[b-3xgbuq7h4v] {
     padding: 0.8rem;
-    border-radius: 5px;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
     margin-top: 5px;
     margin-bottom: 5px;
     margin-left: 10px;
     margin-right: 10px;
-    border: 1px solid #eee;
+    border-bottom: 1px solid #dedede;
 }
 
     .contact:hover[b-3xgbuq7h4v] {
         transform: scale(1.03, 1.03);
         box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     }
+
+.header-primary[b-3xgbuq7h4v] {
+    color: #4d8aff;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.description[b-3xgbuq7h4v]{
+    font-size: 0.9rem;
+}
+
+.card[b-3xgbuq7h4v]{
+    margin-bottom: 0px;
+}
 
 .btn[b-3xgbuq7h4v]{
     width: 40px;

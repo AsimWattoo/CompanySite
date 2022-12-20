@@ -3,55 +3,56 @@
 @using Company_Site.Pages.Components
 
 
-<div class="row d-flex align-items-center">
-    <div class="col-lg-8 col-md-6 col-12 d-flex justify-content-center">
-        <h3>Reports</h3>
-    </div>
-    <div class="col-lg-4 col-md-6 col-12 d-flex justify-content-center">
-        <EditForm Model="this">
-            <div class="d-flex align-items-center">
-                <label>Table: </label>
-                <InputSelect TValue=string Value=SelectedTable ValueExpression=@(() => SelectedTable) ValueChanged="@(t => TableChanged(t))" class="form-select mx-1">
-                    <option value="" selected>---- Select Option -----</option>
-                    @foreach(string table in Tables.Keys)
-                    {
-                        <option value="@table">@table</option>
-                    }
-                </InputSelect>
-            </div>
-        </EditForm>
-    </div>
-</div>
+<p class="fw-bold text-button-heading mb-2">Trust Master</p>
 
-<div>
-	<div class="mt-3 table-wrapper">
-		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
-			<tr class="border-bottom-1">
-				@foreach (string header in Headers.Keys)
-				{
-					@if (!string.IsNullOrEmpty(header))
-					{
-						<th>
-							<div class="btn-sortable align-content-start justify-content-start row m-0">
-								<p class="d-inline-block text-start col-8 m-0">@header</p>
-							</div>
-						</th>
-					}
-					else
-					{
-						<th></th>
-					}
-				}
-			</tr>
-			@foreach (dynamic item in Enteries)
-			{
-				<tr>
-				@foreach (string header in Headers.Keys)
-				{
-					<td class="text-start fs-5">@Headers[header](item)</td>
-				}
+<div class="card px-2 py-2">
+	<div class="row d-flex align-items-center">
+		<div class="d-flex justify-content-end">
+			<EditForm Model="this">
+				<div class="d-flex align-items-center">
+					<label>Table: </label>
+					<InputSelect TValue=string Value=SelectedTable ValueExpression=@(() => SelectedTable) ValueChanged="@(t => TableChanged(t))" class="form-select mx-1">
+						<option value="" selected>---- Select Option -----</option>
+							@foreach (string table in Tables.Keys)
+							{
+								<option value="@table">@table</option>
+							}
+					</InputSelect>
+				</div>
+			</EditForm>
+		</div>
+	</div>
+
+	<div>
+		<div class="mt-3 table-wrapper">
+			<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
+				<tr class="border-bottom-1">
+						@foreach (string header in Headers.Keys)
+						{
+							@if (!string.IsNullOrEmpty(header))
+							{
+									<th>
+										<div class="btn-sortable align-content-start justify-content-start row m-0">
+											<p class="d-inline-block text-start col-8 m-0">@header</p>
+										</div>
+									</th>
+							}
+							else
+							{
+									<th></th>
+							}
+						}
 				</tr>
-			}
-		</table>
+					@foreach (dynamic item in Enteries)
+					{
+						<tr>
+							@foreach (string header in Headers.Keys)
+							{
+								<td class="text-start fs-5">@Headers[header](item)</td>
+							}
+						</tr>
+					}
+			</table>
+		</div>
 	</div>
 </div>

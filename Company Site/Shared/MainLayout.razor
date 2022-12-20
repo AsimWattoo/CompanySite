@@ -2,83 +2,96 @@
 @using Company_Site.Data
 @using Company_Site.Enum
 @using Company_Site.Helpers;
+@using Company_Site.Pages.Components
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
 @inherits LayoutComponentBase
 @inject AuthenticationStateProvider authStateProvider
 @inject UserManager<User> userManager
 @inject IDbContextFactory<ApplicationDbContext> dbContextFactory
+@inject NavigationManager navigationManager
 
 <PageTitle>Company Site</PageTitle>
 
-<CascadingValue Value="@IsLoggedIn" Name="IsLoggedIn">
-    <CascadingValue Value="@IsAdmin" Name="IsAdmin">
-        <CascadingValue Value="@Pages" Name="Pages">
-            <CascadingValue Value="@UserId" Name="UserId">
-                <div class="page container-fluid">
-                    @if(IsLoggedIn){
-                        <div class="container-fluid overflow-hidden">
-                            <div class="row @(IsCollapsed ? "col-collapsed": "")">
-                                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 user-info col-panel d-flex justify-content-center overflow-hidden">
-                                    <div class="user-info-panel d-flex align-items-center justify-content-center m-0 @(IsCollapsed ? "collapsed" : "")">
-                                        <div class="img">
-                                            <img src="./img/profile.jpg"/>
-                                        </div>
-                                        <div class="info">
-                                            <p class="mb-0 fs-4 fw-bold title-text">Muhammad Asim</p>
-                                            <p class="mb-0 email color-gray title-text">asimwattoo6@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-12 px-0">
-                                    <div class="row p-0 h-100 me-0">
-                                        <div class="d-flex align-items-center overflow-hidden">
-                                            <div class="col-xl-11 col-lg-10 col-md-8 col-sm-9 col-12 d-flex justify-content-center mx-2">
-                                                    <div class="search-bar d-flex align-items-center justify-content-start">
-                                                    <i class="fa fa-search"></i>
-                                                    <input class="" placeholder="Find your Tasks, Projects ..."/>
+<AuthorizeView>
+
+    <Authorized>
+        <CascadingValue Value="@IsLoggedIn" Name="IsLoggedIn">
+            <CascadingValue Value="@IsAdmin" Name="IsAdmin">
+                <CascadingValue Value="@Pages" Name="Pages">
+                    <CascadingValue Value="@UserId" Name="UserId">
+                        <div class="page container-fluid">
+                            @if(IsLoggedIn){
+                                <div class="container-fluid overflow-hidden">
+                                    <div class="row @(IsCollapsed ? "col-collapsed": "")">
+                                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 user-info col-panel d-flex justify-content-center overflow-hidden">
+                                            <div class="user-info-panel d-flex align-items-center justify-content-center m-0 @(IsCollapsed ? "collapsed" : "")">
+                                                <div class="img">
+                                                    <img src="./img/profile.jpg"/>
+                                                </div>
+                                                <div class="info">
+                                                    <p class="mb-0 fs-4 fw-bold title-text">Muhammad Asim</p>
+                                                    <p class="mb-0 email color-gray title-text">asimwattoo6@gmail.com</p>
                                                 </div>
                                             </div>
-                                            <div class="panel"></div>
-                                            <div class=" col-xl-1 col-lg-1 col-md-1 col-sm-3 col-2  ">
-                                                <a class="nav-bar-btn">
-                                                    <i class="fa fa-bell"></i>
-                                                </a>
+                                        </div>
+                                        <div class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-12 px-0">
+                                            <div class="row p-0 h-100 me-0">
+                                                <div class="d-flex align-items-center overflow-hidden">
+                                                    <div class="col-xl-11 col-lg-10 col-md-8 col-sm-9 col-12 d-flex justify-content-center mx-2">
+                                                            <div class="search-bar d-flex align-items-center justify-content-start">
+                                                            <i class="fa fa-search"></i>
+                                                            <input class="" placeholder="Find your Tasks, Projects ..."/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel"></div>
+                                                    <div class=" col-xl-1 col-lg-1 col-md-1 col-sm-3 col-2  ">
+                                                        <a class="nav-bar-btn">
+                                                            <i class="fa fa-bell"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row @(IsCollapsed ? "col-collapsed": "")">
-                                <div class=" col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 p-0 col-panel">
-                                    <div class="@(IsCollapsed ? "collapsed" : "") sidebar">
-                                        <a class="nav-bar-collapse-btn" @onclick="NavBarCollapseBtnClicked">
-                                            <i class="fa fa-angle-double-left"></i>
-                                        </a>
-                                        <NavMenu IsCollapsed="@IsCollapsed"/>
+                                    <div class="row @(IsCollapsed ? "col-collapsed": "")">
+                                        <div class=" col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 p-0 col-panel">
+                                            <div class="@(IsCollapsed ? "collapsed" : "") sidebar">
+                                                <a class="nav-bar-collapse-btn" @onclick="NavBarCollapseBtnClicked">
+                                                    <i class="fa fa-angle-double-left"></i>
+                                                </a>
+                                                <NavMenu IsCollapsed="@IsCollapsed"/>
+                                            </div>
+                                        </div>
+                                        <main class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-12 border-top-light px-2">
+                                            <article class="content px-2 overflow-hidden">
+                                                @Body
+                                            </article>
+                                        </main>
                                     </div>
                                 </div>
-                                <main class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-12 border-top-light px-2">
-                                    <article class="content px-2 overflow-hidden">
+                            }
+                            else
+                            {
+                                <main class="container-fluid ">
+                                        <article class="content overflow-hidden">
                                         @Body
                                     </article>
-                                </main>
-                            </div>
+                                </main>   
+                            }
                         </div>
-                    }
-                    else
-                    {
-                        <main class="container-fluid ">
-                                <article class="content overflow-hidden">
-                                @Body
-                            </article>
-                        </main>   
-                    }
-                </div>
+                    </CascadingValue>
+                </CascadingValue>
             </CascadingValue>
         </CascadingValue>
-    </CascadingValue>
-</CascadingValue>
+
+	</Authorized>
+
+	<NotAuthorized>
+		<LoginRedirect ReturnUrl="@ReturnUrl"/>
+	</NotAuthorized>
+
+</AuthorizeView>
 
 @code{
 
@@ -92,8 +105,15 @@
 
     public bool IsCollapsed { get; set; } = false;
 
+    public string ReturnUrl { get; set; } = "/";
+
     protected override async Task OnInitializedAsync()
     {
+        string newUri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+        if (string.IsNullOrEmpty(newUri))
+            ReturnUrl = "/";
+        else
+            ReturnUrl = $"/{newUri}";
         AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
         if (state.User.Identity.Name == null)
             IsLoggedIn = false;

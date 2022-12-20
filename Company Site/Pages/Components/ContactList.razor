@@ -1,22 +1,23 @@
 ﻿@typeparam T
 
-<div class="card border contacts h-100 w-100 overflow-hidden">
 
-    <Modal Title="Delete Confirmation" ShowModal=_isDeleteConfirmationShown>
-        <div class="modal-body">
-            <p>Are you sure you want to delete the record?</p>
-        </div>
-        <div class="modal-footer">
-            <a type="button" class="btn btn-secondary" @onclick=CancelDelete>Close</a>
-            <button type="button" @onclick="Delete" class="btn btn-danger">Confirm</button>
-        </div>
-    </Modal>
+<Modal Title="Delete Confirmation" ShowModal=_isDeleteConfirmationShown>
+    <div class="my-2">
+        <p>Are you sure you want to delete the record?</p>
+    </div>
+    <div class="d-flex justify-content-center my-2">
+        <button type="button" class="btn btn-primary mx-1 w-50" @onclick=CancelDelete>Close</button>
+        <button type="button" @onclick="Delete" class="btn btn-danger mx-1 w-50">Confirm</button>
+    </div>
+</Modal>
+
+<div class="card border contacts h-100 w-100 overflow-hidden">
 
     <div class="header-item">
         <h5 class="text-center mt-2">@Title</h5>
         <!--Search Box-->
         <div>
-            <div class="py-0 mx-3 d-flex justify-content-center">
+            <div class="py-0 d-flex justify-content-center">
                 <div class="d-flex align-items-center">
                     <label for="searchBox" class="me-1">Search</label>
                     <input type="text" class="roundedTextBox me-1"/>
@@ -45,7 +46,11 @@
                     else
                     {
                         <div class="col-12" @onclick="@(() => OnClick(GetContactId(e)))">
-                            <p class="item-text mb-0">@GetContactName(e)</p>
+                            <p class="item-text mb-0 @(IsHeaderPrimary ? "header-primary": "header-normal")">@GetContactName(e)</p>
+                            @if (ShowDescription)
+                            {
+                                <p class="item-text mb-0 description">@GetDescription(e)</p>
+                            }
                         </div>
                     }
                 </div>

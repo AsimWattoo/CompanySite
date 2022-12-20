@@ -4,9 +4,9 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
 
-<div class="row">
+<div class="row px-2">
     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 p-0 mb-2 mb-md-0 d-flex justify-content-center">
-        <ContactList ShowDeleteButton=false Enteries="Enteries" GetContactId="@(e => e.ContactId)" GetContactName="@(e => $"{e.FirstName} {e.LastName}")" OnClick="EditRecord"/>
+        <ContactList ShowDeleteButton=false Enteries="Enteries" ShowDescription=true IsHeaderPrimary=true GetContactId="@(e => e.ContactId)" GetDescription=@(e => e.Email) GetContactName="@(e => $"{e.FirstName} {e.LastName}")" OnClick="EditRecord"/>
     </div>
 
     <div class="col-xl-9 col-lg-8 col-md-6 col-sm-12 p-0">
@@ -277,7 +277,7 @@
     </EditForm>
 </Modal>
 
-<div class="px-3">
+<div class="px-2">
     <div class="row py-2 px-2 card my-2">
 
         <div class="mt-3">

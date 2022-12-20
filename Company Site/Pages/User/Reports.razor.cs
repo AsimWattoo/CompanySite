@@ -19,7 +19,7 @@ namespace Company_Site.Pages.User
         /// <summary>
         /// The headers for the table to be shown
         /// </summary>
-        private Dictionary<string, Func<dynamic, string>> Headers { get; set; } = new Dictionary<string, Func<dynamic, string>>();
+        private dynamic Headers { get; set; } = new Dictionary<string, Func<dynamic, string>>();
 
         /// <summary>
         /// Returns the id of the table
@@ -79,10 +79,10 @@ namespace Company_Site.Pages.User
             //List of all tables
             Type t = Tables[table];
             PropertyInfo[] properties = t.GetProperties();
-            Headers = new Dictionary<string, Func<dynamic, string>>();
+            Dictionary<string, Func<dynamic, string>> headers= new Dictionary<string, Func<dynamic, string>>();
             foreach(PropertyInfo property in properties)
             {
-                Headers.Add(property.Name, t =>
+                headers.Add(property.Name, t =>
                 {
                     dynamic value = property.GetValue(t);
                     if (value != null)
@@ -97,6 +97,7 @@ namespace Company_Site.Pages.User
 						return "";
 
 				});
+                Headers = headers;
             }
             PropertyInfo prop = typeof(ApplicationDbContext).GetProperties().Where(f =>
             {

@@ -5,13 +5,13 @@
 
 <div class="container-fluid mt-4 w-100">
 	
-	<Modal ShowModal=IsDeleteConfirmationVisible>
+	<Modal ShowModal=IsDeleteConfirmationVisible Title="Confirmation to delete record">
 		<div class="my-2">
 			<p>Are you sure you want to delete the record?</p>
 		</div>
 		<div class="d-flex justify-content-center my-2">
-			<button type="button" class="btn btn-secondary mx-1" @onclick=CancelDeleteConfirmation>Close</button>
-			<button type="button" @onclick="DeleteRecord" class="btn btn-danger mx-1">Confirm</button>
+			<button type="button" class="btn btn-primary mx-1 w-50" @onclick=CancelDeleteConfirmation>Close</button>
+			<button type="button" @onclick="DeleteRecord" class="btn btn-danger mx-1 w-50">Confirm</button>
 		</div>
 	</Modal>
 
@@ -48,92 +48,97 @@
 	<div class="mt-3 table-wrapper">
 		<table class="table" id="MyTable" cellpadding="10" cellspacing="0" width="100%">
 			<tr class="border-bottom-1">
-				@if(ShowSerialNumber){
-					<th scope="col" class="text-center">
-						<div class="btn-sortable align-content-start row m-0">
-							<p class="d-inline-block text-start col-8 m-0">Serial Number</p>
-						</div>
-					</th>
-				}
-				@foreach(string header in Headers.Keys){
-					@if(!string.IsNullOrEmpty(header)){
-						<th>
-							<div class="btn-sortable align-content-start justify-content-start row m-0" @onclick='(() => Sort(header))'>
-								<p class="d-inline-block text-start col-8 m-0">@header</p>
+				@if (ShowSerialNumber)
+				{
+						<th scope="col" class="text-center">
+							<div class="btn-sortable align-content-start row m-0">
+								<p class="d-inline-block text-start col-8 m-0">Serial Number</p>
 							</div>
 						</th>
+				}
+				@foreach (string header in Headers.Keys)
+				{
+					@if (!string.IsNullOrEmpty(header))
+					{
+								<th>
+									<div class="btn-sortable align-content-start justify-content-start row m-0" @onclick='(() => Sort(header))'>
+										<p class="d-inline-block text-start col-8 m-0">@header</p>
+									</div>
+								</th>
 					}
-					else{
-						<th></th>
+					else
+					{
+								<th></th>
 					}
 				}
-				@if(ViewHeader != null)
+				@if (ViewHeader != null)
 				{
-					<th>
-						<div class="btn-sortable align-content-start justify-content-start row m-0">
-							<p class="d-inline-block text-start col-8 m-0">@ViewHeader</p>
-						</div>
-					</th>
+						<th>
+							<div class="btn-sortable align-content-start justify-content-start row m-0">
+								<p class="d-inline-block text-start col-8 m-0">@ViewHeader</p>
+							</div>
+						</th>
 				}
 			</tr>
 			@foreach (T item in DisplayedItems)
 			{
-				<tr @onclick="@(() => OnRowClick?.Invoke(item))">
-					@if(ShowSerialNumber){
-						<td class="text-start fs-5">@SR</td>
-					}
-					@foreach(string header in Headers.Keys)
+					<tr @onclick="@(() => OnRowClick?.Invoke(item))">
+					@if (ShowSerialNumber)
 					{
-						@if(CheckInput(header))
+								<td class="text-start fs-5">@SR</td>
+					}
+					@foreach (string header in Headers.Keys)
+					{
+						@if (CheckInput(header))
 						{
-							<td class="align-middle">
-								<input class="form-control" 
-									value="@(GetHeaderValue(header, item))" 
-									@oninput="@(t => SetInputValue(header, t, item))"
-								/>
-							</td>
+										<td class="align-middle">
+											<input class="form-control" 
+								value="@(GetHeaderValue(header, item))" 
+								@oninput="@(t => SetInputValue(header, t, item))"
+							/>
+										</td>
 						}
 						else
 						{
-							<td class="text-start fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
+										<td class="text-start fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
 						}
 					}
-					<td>
+						<td>
 						@if (IsSaveable && OnSave != null)
 						{
-							<a @onclick='@(() => OnSave(item))' class="my-1"><i class="fa fa-save btn btn-outline-primary"></i></a>
+									<a @onclick='@(() => OnSave(item))' class="my-1"><i class="fa fa-save btn btn-outline-primary"></i></a>
 						}
 						else
 						{
 							@if (IsViewable(item))
 							{
-								<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1"><i class="fa fa-eye btn btn-outline-primary"></i></a>
+											<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1"><i class="fa fa-eye btn btn-outline-primary"></i></a>
 							}
 							@if (IsEditable(item))
 							{
-								<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
+											<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
 							}
 							@if (IsDeleteable(item))
 							{
-								<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+											<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
 							}
 						}
-					</td>
-				</tr>
+						</td>
+					</tr>
 				SR++;
 			}
 			@if (ShowTotal && GetTotal != null)
 			{
-				<tr>
+					<tr>
 					@if (ShowSerialNumber)
 					{
-							<td class="text-start fs-5">Total</td>
+									<td class="text-start fs-5">Total</td>
 					}
 					@foreach (string header in Headers.Keys)
 					{
-							<td class="text-start fs-5">@(GetTotal(header))</td>
+									<td class="text-start fs-5">@(GetTotal(header))</td>
 					}
-				</tr>
+					</tr>
 			}
 		</table>
 	</div>
