@@ -1,6 +1,7 @@
 ﻿using Company_Site.Data;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 using File = Company_Site.Data.File;
@@ -94,6 +95,10 @@ namespace Company_Site.DB
 		public DbSet<CollectionAdjustmentModel> CollectionAdjustments { get; set; }
 
 		public DbSet<DisbursmentAdjustmentModel> DisbursmentAdjustments { get; set; }
+
+		public DbSet<TaskAssignment> TaskAssignments { get; set; }
+
+		public DbSet<WorkTask> Tasks { get; set; }
 
 		#endregion
 

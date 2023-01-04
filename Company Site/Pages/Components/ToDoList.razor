@@ -1,0 +1,94 @@
+﻿@using Company_Site.Data;
+@using Radzen.Blazor
+@using Radzen;
+
+<Modal Title="Add Task" ShowModal=IsTaskFormShown>
+    <EditForm Model="NewTask" Context="Task" OnValidSubmit="SaveTask">
+
+        <DataAnnotationsValidator/>
+
+        <MultiErrorView Errors="_errors"/>
+
+        <div class="my-1">
+            <label for="title">Title</label>
+            <InputText @bind-Value=NewTask.Title class="form-control" type="text"/>
+            <ValidationMessage For="@(() => NewTask.Title)" />
+        </div>
+        <div class="my-1 d-flex align-items-center mt-2">
+            <InputCheckbox @bind-Value=NewTask.ShouldRemind/>
+            <p for="title" class="mx-2 form-label mb-0">Remind On</p>
+            <input @bind-value=NewTask.ReminderDate disabled="@(!NewTask.ShouldRemind)" class="form-control" type="date"/>
+            <input @bind-value=NewTask.ReminderTime disabled="@(!NewTask.ShouldRemind)" class="form-control" type="time" />
+        </div>
+        <div>
+            <label>Assignees</label>
+            <RadzenDropDown Multiple="true" 
+                Chips="true" 
+                AllowClear="true" 
+                AllowFiltering="true" 
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+                @bind-Value=@SelectedUsers
+                Data=@users 
+                TextProperty="UserName" 
+                ValueProperty="Id" 
+                Change=@(args => OnChange(args))
+                class="w-100" />
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-danger me-3" @onclick=@Cancel>Cancel</a>
+            <a class="btn btn-primary me-3" @onclick=Clear>Clear</a>
+            <input type="submit" class="btn btn-primary" value="Add" /> 
+        </div>
+    </EditForm>
+</Modal>
+
+<!--Header-->
+<div class="row">
+    <div class="col-6">
+        <h5>To-Do</h5>
+    </div>
+    <div class="col-6 d-flex justify-content-end align-items-center">
+        <p class="mb-0 me-1 text-danger fw-bold">Mark all as Finished</p>
+        <Checkbox Color="red" Checked=FinishAllCheck ValueChanged="ToggleFinishAll"/>
+    </div>
+</div>
+
+<hr />
+
+<div class="tasks-container">
+    @foreach(WorkTask task in tasks)
+    {
+        <div class="card px-3 py-3 my-0">
+            <div class="row d-flex align-items-center">
+                @if (task.Completed)
+                {
+                    <p class="mb-0 col-9 lead">
+                        <s>@task.Title</s>
+                    </p>
+                }
+                else
+                {
+                    <p class="mb-0 col-9 lead">@task.Title</p>
+                }
+                <div class="d-flex col-3 justify-content-end align-items-center">
+                    <a class="mx-2" @onclick=@(() => Delete(task.Id))><i class="fa fa-trash task-action"></i></a>
+                    @if (task.Completed)
+                    {
+                        <a class="mx-2 task-action fs-4 text-danger mb-1" @onclick=@(() => ChangeState(task.Id, false))>x</a>
+                    }
+                    else
+                    {
+                        <a class="mx-2" @onclick=@(() => ChangeState(task.Id, true))><i class="fa fa-check task-action"></i></a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="mt-2">
+    <a class="btn btn-primary" @onclick=AddTask>
+        <i class="fa fa-plus me-2"></i>
+        Add New Task
+    </a>
+</div>

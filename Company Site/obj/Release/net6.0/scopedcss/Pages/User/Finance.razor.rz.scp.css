@@ -1,0 +1,42 @@
+.nav-item[b-srb9vcox66] {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+    .nav-item:hover[b-srb9vcox66] {
+        background-color: #DDE9FE;
+    }
+
+.active[b-srb9vcox66] {
+    background-color: #DDE9FE;
+}
+
+    .active a[b-srb9vcox66] {
+        color: #0157FF !important;
+    }
+
+.card p[b-srb9vcox66]{
+    font-size: 1rem;
+}
+
+.card-red[b-srb9vcox66] {
+    background-color: #E24A2A;
+    color: black;
+}
+
+.card-green[b-srb9vcox66] {
+    background-color: #2FB153;
+    color: black;
+}
+
+.card-blue[b-srb9vcox66] {
+    background-color: #396DE7;
+    color: black;
+}
+
+.card-yellow[b-srb9vcox66] {
+    background-color: #F0B501;
+    color: black;
+}

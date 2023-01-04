@@ -100,8 +100,8 @@ main {
 
 .nav-bar-btn {
     color: black;
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
     font-size: 1.4rem;
     border-radius: 100%;
     display: flex;

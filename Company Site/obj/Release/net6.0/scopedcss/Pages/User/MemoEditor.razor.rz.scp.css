@@ -1,0 +1,32 @@
+fieldset[b-5ewobahw9o]{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.file-box[b-5ewobahw9o] {
+    border: 1px solid lightgray;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.file-box .cancel-btn[b-5ewobahw9o]{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background-color: lightgray;
+    text-decoration: none;
+    padding: 0 6px;
+    opacity: 0;
+    cursor:pointer;
+    transition: all 0.2s ease-in-out;
+}
+.file-box:hover .cancel-btn[b-5ewobahw9o]{
+    opacity: 1;
+}
+
+.rich-editor-razor-wrapper[b-5ewobahw9o]{
+    height: 250px;
+    overflow-y: auto;
+}

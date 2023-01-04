@@ -1,0 +1,29 @@
+body[b-hpaqz8cw7t] {
+}
+
+.tasks-container[b-hpaqz8cw7t]{
+	max-height: 250px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.card[b-hpaqz8cw7t]{
+}
+
+.task-action[b-hpaqz8cw7t] {
+    color: #4d8aff;
+	cursor: pointer;
+	transition:all 0.2s ease-in-out;
+}
+
+    .task-action:hover[b-hpaqz8cw7t] {
+        transform: scale(1.1, 1.1);
+    }
+
+s[b-hpaqz8cw7t] {
+    color: #4d8aff;
+}
+
+.form-label[b-hpaqz8cw7t]{
+	white-space: nowrap;
+}

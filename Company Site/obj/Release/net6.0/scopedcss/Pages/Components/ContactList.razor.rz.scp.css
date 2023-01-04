@@ -1,0 +1,74 @@
+body[b-3xgbuq7h4v] {
+}
+
+.contacts[b-3xgbuq7h4v] {
+    height: 100%;
+}
+
+.roundedTextBox[b-3xgbuq7h4v]{
+    height: 30px;
+}
+
+.contact[b-3xgbuq7h4v] {
+    padding: 0.8rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-bottom: 1px solid #dedede;
+}
+
+    .contact:hover[b-3xgbuq7h4v] {
+        transform: scale(1.03, 1.03);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
+
+.header-primary[b-3xgbuq7h4v] {
+    color: #4d8aff;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.description[b-3xgbuq7h4v]{
+    font-size: 0.9rem;
+}
+
+.card[b-3xgbuq7h4v]{
+    margin-bottom: 0px;
+}
+
+.btn[b-3xgbuq7h4v]{
+    width: 40px;
+    padding: 10px;
+}
+
+.btn-delete[b-3xgbuq7h4v] {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+}
+
+.scrollable[b-3xgbuq7h4v]{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.header-item[b-3xgbuq7h4v]{
+    height: 55px;
+    background-color: white;
+    margin-bottom: 1.7rem;
+}
+
+.items-list[b-3xgbuq7h4v]{
+    max-height: 500px;
+    width: 100%;
+}
+
+.item-text[b-3xgbuq7h4v] {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100%;
+}

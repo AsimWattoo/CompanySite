@@ -1,0 +1,36 @@
+.bg-gray[b-pe2eoguug6] {
+    background-color: #C0C0C0;
+}
+
+.color-white[b-pe2eoguug6]{
+    color: white !important;
+}
+
+.btn-list[b-pe2eoguug6]{
+    padding: 5px 10px;
+}
+
+.bar-header[b-pe2eoguug6]{
+    font-size: 1rem;
+}
+
+.btn-selected[b-pe2eoguug6] {
+    background-color: #EDF3FF;
+    color: #4D8AFF !important;
+}
+
+.btn-list a[b-pe2eoguug6]{
+    text-decoration: none;
+    color: black;
+    margin: 5px 0px;
+    display: inline-block;
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+    width: 100%;
+    padding: 10px;
+}
+
+.btn-list a:hover[b-pe2eoguug6] {
+    background-color: #EDF3FF;
+    color: #4D8AFF;
+}

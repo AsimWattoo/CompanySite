@@ -1,0 +1,29 @@
+﻿body {
+}
+
+.tasks-container{
+	max-height: 250px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.card{
+}
+
+.task-action {
+    color: #4d8aff;
+	cursor: pointer;
+	transition:all 0.2s ease-in-out;
+}
+
+    .task-action:hover {
+        transform: scale(1.1, 1.1);
+    }
+
+s {
+    color: #4d8aff;
+}
+
+.form-label{
+	white-space: nowrap;
+}

@@ -1,0 +1,12 @@
+﻿<div @onclick=ToggleState>
+    <div class="d-flex main-container">
+        <div class="checkbox-container" style="border: 1px solid @(Color); @(Checked ? $"background-color: {Color} !important" : "")">
+        </div>
+        @if (Checked)
+        {
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+        }
+    </div>
+</div>

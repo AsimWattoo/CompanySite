@@ -30,24 +30,27 @@
                                                     <img src="./img/profile.jpg"/>
                                                 </div>
                                                 <div class="info">
-                                                    <p class="mb-0 fs-4 fw-bold title-text">Muhammad Asim</p>
-                                                    <p class="mb-0 email color-gray title-text">asimwattoo6@gmail.com</p>
+                                                    <p class="mb-0 fs-4 fw-bold title-text">@user.UserName</p>
+                                                    <p class="mb-0 email color-gray title-text">@user.Email</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-12 px-0">
                                             <div class="row p-0 h-100 me-0">
                                                 <div class="d-flex align-items-center overflow-hidden">
-                                                    <div class="col-xl-11 col-lg-10 col-md-8 col-sm-9 col-12 d-flex justify-content-center mx-2">
+                                                    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-8 col-12 d-flex justify-content-center mx-2">
                                                             <div class="search-bar d-flex align-items-center justify-content-start">
                                                             <i class="fa fa-search"></i>
                                                             <input class="" placeholder="Find your Tasks, Projects ..."/>
                                                         </div>
                                                     </div>
                                                     <div class="panel"></div>
-                                                    <div class=" col-xl-1 col-lg-1 col-md-1 col-sm-3 col-2  ">
-                                                        <a class="nav-bar-btn">
+                                                    <div class=" col-xl-2 col-lg-2 col-md-2 col-sm-4 col-3 d-flex justify-content-end pe-5">
+                                                        <a class="nav-bar-btn mx-1">
                                                             <i class="fa fa-bell"></i>
+                                                        </a>
+                                                        <a class="nav-bar-btn btn btn-outline-danger mx-1 p-0" href="/logout">
+                                                            <i class="fa fa-lock"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -107,6 +110,8 @@
 
     public string ReturnUrl { get; set; } = "/";
 
+    public User user;
+
     protected override async Task OnInitializedAsync()
     {
         string newUri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
@@ -119,8 +124,6 @@
             IsLoggedIn = false;
         else
         {
-            User user = null;
-
             using(ApplicationDbContext dbContext = dbContextFactory.CreateDbContext()){
                 user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
                 Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();

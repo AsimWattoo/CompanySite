@@ -1,0 +1,46 @@
+.accordion-header[b-g7xrgfttpy] {
+    border: 1px solid #DDE9FE;
+    padding: 10px;
+    border-radius: 0px;
+    background-color: #4d8aff !important;
+}
+
+.accordion-button[b-g7xrgfttpy] {
+    border: 0px;
+    outline: none;
+    border-width: 0px !important;
+    padding: 10px 10px;
+    color: white !important;
+    font-weight: bold;
+    background-color: #4d8aff !important;
+}
+
+    .accordion-button[b-g7xrgfttpy]::after {
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbt4b-fHgFd04n-XzYutpezTc6dXzxBD8GJg&usqp=CAU');
+        color: white;
+        font-weight: bold;
+        background-color: #4d8aff !important;
+        border-radius: 100%;
+    }
+
+    .accordion-button:not(.collapsed)[b-g7xrgfttpy]::after {
+        color: white;
+        font-weight: bold;
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbt4b-fHgFd04n-XzYutpezTc6dXzxBD8GJg&usqp=CAU');
+        background-color: #4d8aff !important;
+        border-radius: 100%;
+    }
+
+.card-header[b-g7xrgfttpy]{
+    padding: 10px 30px !important;
+}
+
+.accordion-button:not(.collapsed)[b-g7xrgfttpy]{
+    background-color: white;
+    box-shadow: none !important;
+}
+
+.accordion[b-g7xrgfttpy]{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}

@@ -1,0 +1,25 @@
+body[b-ghzd5daywz] {
+}
+
+.main-container[b-ghzd5daywz]{
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+}
+
+.checkbox-container[b-ghzd5daywz] {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+.icon[b-ghzd5daywz]{
+	position: relative;
+	top: 0px;
+	left: 0px;
+    width: 15px;
+    height: 15px;
+    margin: -2px -14px;
+	color: white;
+}

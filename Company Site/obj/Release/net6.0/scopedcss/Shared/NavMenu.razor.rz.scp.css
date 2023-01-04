@@ -1,0 +1,98 @@
+.navbar[b-madu8pitlo] {
+    transition: all 0.2s ease-in-out;
+}
+
+.top-row[b-madu8pitlo] {
+    height: 3.5rem;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.navbar-brand[b-madu8pitlo] {
+    font-size: 1.1rem;
+}
+
+.oi[b-madu8pitlo] {
+    width: 2rem;
+    font-size: 1.1rem;
+    vertical-align: text-top;
+    top: -2px;
+}
+
+.oi[b-madu8pitlo], .fa[b-madu8pitlo]{
+    color: black;
+}
+
+a[b-madu8pitlo]{
+    text-decoration: none;
+}
+
+a p[b-madu8pitlo]{
+    color: black;
+}
+
+.nav-item[b-madu8pitlo] {
+    font-size: 1.2rem;
+    display: flex;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.active[b-madu8pitlo] {
+    background-color: #DDE9FE;
+}
+
+    .active p[b-madu8pitlo] {
+        color: #0157FF;
+    }
+
+    .active .fa[b-madu8pitlo],
+    .active .oi[b-madu8pitlo] {
+        color: #0157FF;
+    }
+
+.nav-item p[b-madu8pitlo] {
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+    width: 150px;
+}
+
+.nav-item span[b-madu8pitlo] {
+    transition: all 0.2s ease-in-out;
+    margin: 1px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.nav-item div[b-madu8pitlo]{
+    padding: 0px;
+}
+
+.collapsed[b-madu8pitlo]{
+    /*width: 5rem;*/
+    overflow: hidden;
+}
+
+.collapsed a div p[b-madu8pitlo]{
+    width: 0px;
+}
+
+.collapsed a div[b-madu8pitlo]{
+    padding: 0px;
+}
+
+.collapsed a div span[b-madu8pitlo]{
+    margin-left: 10px;
+    margin-right: 0px;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler[b-madu8pitlo] {
+        display: none;
+    }
+
+    .collapse[b-madu8pitlo] {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

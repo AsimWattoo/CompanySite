@@ -22,6 +22,32 @@
 td[b-hscf0vogua], th[b-hscf0vogua] {
     text-align: center;
 }
+/* _content/Company Site/Pages/Components/Checkbox.razor.rz.scp.css */
+body[b-ghzd5daywz] {
+}
+
+.main-container[b-ghzd5daywz]{
+    position: absolute;
+    cursor: pointer;
+    top: 7px;
+}
+
+.checkbox-container[b-ghzd5daywz] {
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 5px;
+}
+
+.icon[b-ghzd5daywz]{
+	position: relative;
+	top: 0px;
+	left: 0px;
+    width: 15px;
+    height: 15px;
+    margin: -2px -14px;
+	color: white;
+}
 /* _content/Company Site/Pages/Components/CollapsibleContainer.razor.rz.scp.css */
 .accordion-header[b-g7xrgfttpy] {
     border: 1px solid #DDE9FE;
@@ -324,6 +350,36 @@ td[b-12yh34qg01]{
 .table-wrapper[b-12yh34qg01] {
     padding-top: 1rem;
 }
+/* _content/Company Site/Pages/Components/ToDoList.razor.rz.scp.css */
+body[b-hpaqz8cw7t] {
+}
+
+.tasks-container[b-hpaqz8cw7t]{
+	max-height: 250px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.card[b-hpaqz8cw7t]{
+}
+
+.task-action[b-hpaqz8cw7t] {
+    color: #4d8aff;
+	cursor: pointer;
+	transition:all 0.2s ease-in-out;
+}
+
+    .task-action:hover[b-hpaqz8cw7t] {
+        transform: scale(1.1, 1.1);
+    }
+
+s[b-hpaqz8cw7t] {
+    color: #4d8aff;
+}
+
+.form-label[b-hpaqz8cw7t]{
+	white-space: nowrap;
+}
 /* _content/Company Site/Pages/User/Account Pages/AccountDetails.razor.rz.scp.css */
 /* _content/Company Site/Pages/User/Account Pages/AssetDetails.razor.rz.scp.css */
 body[b-pith83z8pi] {
@@ -409,6 +465,19 @@ body[b-lxaqi24n7x] {
 }
 /* _content/Company Site/Pages/User/Index.razor.rz.scp.css */
 body[b-0d4lq1jm2i] {
+}
+
+table[b-0d4lq1jm2i]{
+	width: 100%;
+	text-align: center;
+}
+
+tr[b-0d4lq1jm2i], td[b-0d4lq1jm2i], th[b-0d4lq1jm2i]{
+	border: 1px solid lightgray;
+}
+
+td[b-0d4lq1jm2i], th[b-0d4lq1jm2i]{
+	padding: 0.3rem 0rem;
 }
 /* _content/Company Site/Pages/User/MemoEditor.razor.rz.scp.css */
 fieldset[b-5ewobahw9o]{
@@ -848,8 +917,8 @@ main[b-cddauckdx4] {
 
 .nav-bar-btn[b-cddauckdx4] {
     color: black;
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
     font-size: 1.4rem;
     border-radius: 100%;
     display: flex;
