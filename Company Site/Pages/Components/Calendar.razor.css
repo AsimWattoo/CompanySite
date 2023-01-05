@@ -1,0 +1,43 @@
+﻿body {
+}
+
+.calendar-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.day-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    border: 1px solid #ededed;
+    height: 55px;
+}
+
+.day-header{
+    font-weight:bold;
+    font-size: 1rem;
+}
+
+.day-item{
+    /*align-items: flex-start;
+    justify-content: flex-start;*/
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.day-item:hover{
+    transform: scale(1.05, 1.05);
+}
+
+.day-item-number{
+    margin: 5px;
+    font-size: 1rem;
+}
+
+.weekend {
+    color: #cc0000;
+}

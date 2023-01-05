@@ -49,9 +49,11 @@
                                                         <a class="nav-bar-btn mx-1">
                                                             <i class="fa fa-bell"></i>
                                                         </a>
-                                                        <a class="nav-bar-btn btn btn-outline-danger mx-1 p-0" href="/logout">
-                                                            <i class="fa fa-lock"></i>
-                                                        </a>
+                                                        @if(IsAdmin){
+                                                            <a class="nav-bar-btn mx-1" href="/admin">
+                                                                <i class="fa fa-user-tie"></i>
+                                                            </a>                                                            
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>

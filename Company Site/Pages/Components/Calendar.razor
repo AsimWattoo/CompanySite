@@ -1,0 +1,40 @@
+﻿<div class="calendar-container">
+    <div>
+        <div class="d-flex">
+            @foreach (string day in DayNames)
+            {
+                <div class="day-container">
+                    <p class="mb-0 day-header @(Weekends.Contains(day) ? "weekend" : "")">@day</p>
+                </div>
+            }
+        </div>
+        @{
+            int index = 0;
+            for (int i = 0; i < 5; i++)
+            {
+
+                <div class="d-flex">
+                    @for (int j = 0; j < DayNames.Length; j++)
+                    {
+                        if (index < Days.Count)
+                        {
+                            (string, int) item = Days[index];
+                            <div class="day-container day-item">
+                                @if (DayNames[j] == item.Item1)
+                                {
+                                    <p class="mb-0 day-item-number @(Weekends.Contains(DayNames[j]) ? "weekend" : "")">@item.Item2</p>
+                                    index++;
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="day-container">
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

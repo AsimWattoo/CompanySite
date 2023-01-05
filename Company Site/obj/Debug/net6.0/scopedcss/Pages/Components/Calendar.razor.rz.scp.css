@@ -1,0 +1,43 @@
+body[b-ejj6aupphn] {
+}
+
+.calendar-container[b-ejj6aupphn]{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.day-container[b-ejj6aupphn] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    border: 1px solid #ededed;
+    height: 55px;
+}
+
+.day-header[b-ejj6aupphn]{
+    font-weight:bold;
+    font-size: 1rem;
+}
+
+.day-item[b-ejj6aupphn]{
+    /*align-items: flex-start;
+    justify-content: flex-start;*/
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.day-item:hover[b-ejj6aupphn]{
+    transform: scale(1.05, 1.05);
+}
+
+.day-item-number[b-ejj6aupphn]{
+    margin: 5px;
+    font-size: 1rem;
+}
+
+.weekend[b-ejj6aupphn] {
+    color: #cc0000;
+}
