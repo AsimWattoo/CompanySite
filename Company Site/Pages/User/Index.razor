@@ -4,100 +4,88 @@
 
 <PageTitle>Dashboard</PageTitle>
 
-<AuthorizeView>
-
-	<Authorized>
-		
-		<AccessChecker Page="UserPages.Dashboard" ReturnUrl="~/">
-            <div class="card border-0">
-                <div class="card-header pb-0">
-                  <h5>Dashboard</h5>
-                </div>
-                <div class="card border-0">
+<AccessChecker Page="UserPages.Dashboard" ReturnUrl="~/">
+    <div class="card border-0">
+        <div class="card-header pb-0">
+            <h5>Dashboard</h5>
+        </div>
+        <div class="card border-0">
+            <div class="card-body">
+                <div class="card">
                     <div class="card-body">
-                        <div class="card">
+                        <table>
+                            <tr class="col-md-4">
+                                <th>Total Number of Cases</th>
+                                <th>Total SR Issued</th>
+                                <th>Total SR O/s</th>
+                                <th>Total Collection</th>
+                                <th>Memo Pending</th>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="card mt-3">
+                    <div class="row card-body">
+                        <div class="col-md-6">
+                            <Calendar @ref="calender"/>
+                        </div>
+                        <div class="col-md-6">
+                            <ToDoList RefreshState="RefreshState"/>
+                        </div>
+                    </div> 
+                </div>
+                <br>
+                <div class="card border-0">
+                    <div class="row card-body">
+                        <div class="col-md-4 col-12 card my-md-0 my-2">
+                            <div class="row card-body">
+                                <div class="col-md-6">
+                                    <p>Litigation</p>
+                                    <p>Sarfasi</p>
+                                    <p>Number of cases</p>
+                                    <p>Notice issued</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Possession taken</p>
+                                    <p>Auction</p>
+                                    <p>DRT</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 card my-md-0 my-2">
                             <div class="card-body">
-                                <table>
-                                    <tr class="col-md-4">
-                                        <th>Total Number of Cases</th>
-                                        <th>Total SR Issued</th>
-                                        <th>Total SR O/s</th>
-                                        <th>Total Collection</th>
-                                        <th>Memo Pending</th>
-                                    </tr>
-                                    <tr>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                    </tr>
-                                </table>
+                                <p>IBC</p>
+                                <p>Number of cases</p>
+                                <p>Claim filed</p>
+                                <p>Liquidation</p>
                             </div>
                         </div>
-                        <div class="card mt-3">
+                        <div class="col-md-4 card my-md-0 my-2">
                             <div class="row card-body">
                                 <div class="col-md-6">
-                                    <Calendar />
+                                    <p>Settlement</p>
+                                    <p>Number of cases</p>
+                                    <p>Resolved</p>
+                                    <p>Failed</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <ToDoList />
+                                    <p>Restructuring</p>
                                 </div>
-                            </div> 
-                        </div>
-                        <br>
-                        <div class="card border-0">
-                            <div class="row card-body">
-                                <div class="col-md-4 col-12 card my-md-0 my-2">
-                                    <div class="row card-body">
-                                        <div class="col-md-6">
-                                            <p>Litigation</p>
-                                            <p>Sarfasi</p>
-                                            <p>Number of cases</p>
-                                            <p>Notice issued</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Possession taken</p>
-                                            <p>Auction</p>
-                                            <p>DRT</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4 card my-md-0 my-2">
-                                    <div class="card-body">
-                                        <p>IBC</p>
-                                        <p>Number of cases</p>
-                                        <p>Claim filed</p>
-                                        <p>Liquidation</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 card my-md-0 my-2">
-                                    <div class="row card-body">
-                                        <div class="col-md-6">
-                                            <p>Settlement</p>
-                                            <p>Number of cases</p>
-                                            <p>Resolved</p>
-                                            <p>Failed</p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p>Restructuring</p>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-		</AccessChecker>
-
-	</Authorized>
-
-	<NotAuthorized>
-		<LoginRedirect ReturnUrl="/"/>
-	</NotAuthorized>
-
-</AuthorizeView>
+        </div>
+    </div>
+</AccessChecker>
 

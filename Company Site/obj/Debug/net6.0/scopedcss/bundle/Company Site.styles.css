@@ -48,8 +48,9 @@ body[b-ejj6aupphn] {
 }
 
 .day-item[b-ejj6aupphn]{
-    /*align-items: flex-start;
-    justify-content: flex-start;*/
+    position: absolute;
+    top: 0%;
+    left: 0%;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
@@ -65,6 +66,65 @@ body[b-ejj6aupphn] {
 
 .weekend[b-ejj6aupphn] {
     color: #cc0000;
+}
+
+.day-item-container[b-ejj6aupphn]{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.day-task[b-ejj6aupphn] {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    margin: 5px;
+    transition: all 0.2s ease-in-out;
+    padding: 0px 6px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-data-color[b-ejj6aupphn] {
+    color: #1a68ff;
+}
+
+.task-title[b-ejj6aupphn] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.day-task:hover[b-ejj6aupphn] {
+    width: 200px;
+    height: auto;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.task-title-container[b-ejj6aupphn] {
+    display: none;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    margin: 5px 0px 5px 0px;
+    border-radius: 4px;
+    padding: 0px 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+    .day-task:hover .task-title-container[b-ejj6aupphn]{
+        display: block;
+    }
+
+.day-task:hover .task-title-container:hover[b-ejj6aupphn] {
+    transform: scale(1.06, 1.06);
 }
 /* _content/Company Site/Pages/Components/Checkbox.razor.rz.scp.css */
 body[b-ghzd5daywz] {

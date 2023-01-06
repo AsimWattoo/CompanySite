@@ -51,6 +51,12 @@ namespace Company_Site.Pages.Components
         [CascadingParameter(Name = "UserId")]
         public int? UserId { get; set; }
 
+        /// <summary>
+        /// Refreshes the state
+        /// </summary>
+        [Parameter]
+        public Action? RefreshState { get; set; }
+
         #endregion
 
         #region Injected Members
@@ -90,6 +96,7 @@ namespace Company_Site.Pages.Components
                 else
                     FinishAllCheck = false;
                 StateHasChanged();
+                RefreshState?.Invoke();
             }
         }
 
