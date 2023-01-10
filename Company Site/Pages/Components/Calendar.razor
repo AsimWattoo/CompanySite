@@ -1,59 +1,147 @@
 ﻿@using Company_Site.Data;
+@using Company_Site.Enum;
+
+<div class="row calendar-container mb-2">
+    <div class="col-6">
+        <h5>CURRENT</h5>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        @if(Mode == CalendarMode.Month)
+        {
+            <h5 class="mb-0">@Date.ToString("MMMM, yyyy")</h5>
+        }
+        else if(Mode == CalendarMode.Year)
+        {
+            <h5 class="mb-0">@Date.ToString("yyyy")</h5>
+        }
+        else if(Mode == CalendarMode.Decade)
+        {
+            <h5 class="mb-0">@DecadeStart - @DecadeEnd</h5>
+        }
+    </div>
+</div>
+
+<div class="row calendar-container mb-2">
+    <div class="col-6 d-flex justify-content-start">
+        <EditForm Model="this">
+            <InputSelect Value="Mode" ValueExpression=@(() => Mode) TValue=CalendarMode ValueChanged="@ModeChanged" class="form-select">
+                @foreach (string mode in Enum.GetNames(typeof(CalendarMode)))
+                {
+                    <option value="@mode">@mode</option>
+                }
+            </InputSelect>
+        </EditForm>
+    </div>
+    <div class="col-6 d-flex justify-content-end">
+        <div>
+            <a class="btn btn-primary btn-control mx-1" @onclick=Prev>
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="btn btn-primary btn-control mx-1" @onclick=Next>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
 <div class="calendar-container">
-    <div>
-        <div class="d-flex">
-            @foreach (string day in DayNames)
+    @if(Mode == CalendarMode.Month)
+    {
+            <div>
+            <div class="d-flex">
+                @foreach (string day in DayNames)
+                {
+                    <div class="day-container">
+                        <p class="mb-0 day-header @(Weekends.Contains(day) ? "weekend" : "")">@day</p>
+                    </div>
+                }
+            </div>
+            @{
+                int index = 0;
+                for (int i = 0; i < 6; i++)
+                {
+                    <div class="d-flex">
+                        @for (int j = 0; j < DayNames.Length; j++)
+                        {
+                            if (index < Days.Count)
+                            {
+                                (string, int) item = Days[index];
+                                <div class="day-container">
+                                    <div class="day-item-container">
+                                        <div class="day-item">
+                                            @if (DayNames[j] == item.Item1)
+                                            {
+                                                <p class="mb-0 day-item-number @(Weekends.Contains(DayNames[j]) ? "weekend" : "")">@item.Item2</p>
+                                                index++;
+                                            }
+                                        </div>
+                                        @if (DayNames[j] == item.Item1 && _tasks.ContainsKey(item.Item2))
+                                        {
+                                            <div class="day-task">
+                                                <div>
+                                                    @foreach (WorkTask task in _tasks[item.Item2])
+                                                    {
+                                                        <div class="task-title-container">
+                                                            <p class="mb-0 task-title task-data-color">@task.Title</p>
+                                                            <p class="mb-0 task-data-color">@task.ReminderTime.ToShortTimeString()</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="day-container">
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+    else if(Mode == CalendarMode.Year)
+    {
+        int index = 0;
+        <div class="month-container">
+            @for(int i = 1; i <= 3; i++)
             {
-                <div class="day-container">
-                    <p class="mb-0 day-header @(Weekends.Contains(day) ? "weekend" : "")">@day</p>
+                <div class="month-row">
+                    @for(int j = 1; j <= 4; j++)
+                    {
+                        int monthIndex = index;
+                        <div class="month-item" @onclick=@(() => MonthClicked(monthIndex))>
+                            @Months[monthIndex]
+                        </div>
+                        index++;
+                    }
                 </div>
             }
         </div>
-        @{
-            int index = 0;
-            for (int i = 0; i < 5; i++)
+    }
+    else if (Mode == CalendarMode.Decade)
+    {
+        int currentYear = DecadeStart;
+        <div class="month-container">
+            @for (int i = 1; i <= 3; i++)
             {
-
-                <div class="d-flex">
-                    @for (int j = 0; j < DayNames.Length; j++)
+                <div class="month-row">
+                    @for (int j = 1; j <= 4; j++)
                     {
-                        if (index < Days.Count)
+                        if(currentYear <= DecadeEnd)
                         {
-                            (string, int) item = Days[index];
-                            <div class="day-container">
-                                <div class="day-item-container">
-                                    <div class="day-item">
-                                        @if (DayNames[j] == item.Item1)
-                                        {
-                                            <p class="mb-0 day-item-number @(Weekends.Contains(DayNames[j]) ? "weekend" : "")">@item.Item2</p>
-                                            index++;
-                                        }
-                                    </div>
-                                    @if(DayNames[j] == item.Item1 && _tasks.ContainsKey(item.Item2))
-                                    {
-                                        <div class="day-task">
-                                            <div>
-                                                @foreach (WorkTask task in _tasks[item.Item2])
-                                                {
-                                                    <div class="task-title-container">
-                                                        <p class="mb-0 task-title task-data-color">@task.Title</p>
-                                                        <p class="mb-0 task-data-color">@task.ReminderTime.ToShortTimeString()</p>
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
+                            int year = currentYear;
+                            <div class="month-item" @onclick=@(() => YearClicked(year))>
+                                @year
                             </div>
-                        }
-                        else
-                        {
-                            <div class="day-container">
-                            </div>
+                            currentYear++;
                         }
                     }
                 </div>
             }
-        }
-    </div>
+        </div>
+    }
 </div>

@@ -126,6 +126,32 @@ body[b-ejj6aupphn] {
 .day-task:hover .task-title-container:hover[b-ejj6aupphn] {
     transform: scale(1.06, 1.06);
 }
+
+.btn-control[b-ejj6aupphn]{
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.3rem;
+    padding: 0.3rem;
+}
+
+.month-row[b-ejj6aupphn]{
+    display: flex;
+}
+
+.month-item[b-ejj6aupphn] {
+    border: 1px solid #ededed;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+        .month-item:hover[b-ejj6aupphn]{
+            transform: scale(1.05, 1.05);
+        }
 /* _content/Company Site/Pages/Components/Checkbox.razor.rz.scp.css */
 body[b-ghzd5daywz] {
 }
