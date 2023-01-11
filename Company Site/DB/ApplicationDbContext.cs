@@ -100,6 +100,8 @@ namespace Company_Site.DB
 
 		public DbSet<WorkTask> Tasks { get; set; }
 
+		public DbSet<FileItem> FileItems { get; set; }
+
 		#endregion
 
 		#region Constructor

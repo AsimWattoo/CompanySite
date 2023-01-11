@@ -92,7 +92,7 @@ namespace Company_Site.Pages.Components
         /// <summary>
         /// The current mode of the calender
         /// </summary>
-        private CalendarMode Mode = CalendarMode.Year;
+        private CalendarMode Mode = CalendarMode.Month;
 
         #endregion
 

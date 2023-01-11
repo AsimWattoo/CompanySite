@@ -1,0 +1,66 @@
+.data-table[b-iwy9ytc9st]{
+	width: 100%;
+	margin-top: 2rem;
+}
+
+    .data-table th[b-iwy9ytc9st] {
+    }
+
+        .data-table th div[b-iwy9ytc9st] {
+            height: 40px;
+            background-color: #ededed;
+            width: 100%;
+            border-radius: 20px;
+            display: flex;
+            padding: 0px 10px;
+            align-items: center;
+            color: gray;
+            justify-content: center;
+        }
+
+.file-row[b-iwy9ytc9st]{
+    border-bottom: 1px solid lightgray;
+}
+
+
+
+    .file-row div[b-iwy9ytc9st] {
+        margin: 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+    }
+
+    .file-row div .file-name[b-iwy9ytc9st]{
+        color: black;
+        font-weight: bold;
+    }
+
+    .file-row div .file-extension[b-iwy9ytc9st]{
+        color: #ababab;
+    }
+
+.btn-row[b-iwy9ytc9st]{
+    display: flex;
+    justify-content: center;
+}
+
+.row-btn[b-iwy9ytc9st]{
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    margin: 0px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+        .row-btn:hover[b-iwy9ytc9st]{
+            background-color: dodgerblue;
+            color: white;
+            transform: scale(1.1, 1.1);
+        }

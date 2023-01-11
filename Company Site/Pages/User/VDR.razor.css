@@ -1,0 +1,66 @@
+﻿.data-table{
+	width: 100%;
+	margin-top: 2rem;
+}
+
+    .data-table th {
+    }
+
+        .data-table th div {
+            height: 40px;
+            background-color: #ededed;
+            width: 100%;
+            border-radius: 20px;
+            display: flex;
+            padding: 0px 10px;
+            align-items: center;
+            color: gray;
+            justify-content: center;
+        }
+
+.file-row{
+    border-bottom: 1px solid lightgray;
+}
+
+
+
+    .file-row div {
+        margin: 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+    }
+
+    .file-row div .file-name{
+        color: black;
+        font-weight: bold;
+    }
+
+    .file-row div .file-extension{
+        color: #ababab;
+    }
+
+.btn-row{
+    display: flex;
+    justify-content: center;
+}
+
+.row-btn{
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    margin: 0px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+        .row-btn:hover{
+            background-color: dodgerblue;
+            color: white;
+            transform: scale(1.1, 1.1);
+        }

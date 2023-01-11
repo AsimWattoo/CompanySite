@@ -61,6 +61,11 @@
                 <span class="fa fa-file-archive me-2" aria-hidden="true"></span> <p class="m-0">Reports</p>
             </div>
         </a>
+        <a class="@((SelectedOption == "vdr" ? "active" : "")) nav-item my-2 text-start" href="/vdr"  @onclick='(() => {SelectedOption = "vdr";})'>
+            <div class="nav-link d-flex align-items-center">
+                <span class="fa fa-folder me-2" aria-hidden="true"></span> <p class="m-0">VDR</p>
+            </div>
+        </a>
         <a class="@((SelectedOption == "Logout" ? "active" : "")) nav-item my-2 text-start" href="/logout"  @onclick='(() => {SelectedOption = "Logout";})'>
             <div class="nav-link d-flex align-items-center">
                 <span class="fa fa-lock me-2"></span> <p class="m-0">Logout</p>
