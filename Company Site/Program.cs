@@ -25,6 +25,11 @@ string email = mailSection.GetValue<string>("Email");
 string code = mailSection.GetValue<string>("Code");
 string server = mailSection.GetValue<string>("Server");
 int port = mailSection.GetValue<int>("Port");
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    // 100 MB
+    options.MaxRequestBodySize = 52428800;
+});
 builder.Services.AddSingleton<MailManager>(new MailManager(email, code, server, port));
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSession();

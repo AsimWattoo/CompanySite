@@ -64,3 +64,55 @@
             color: white;
             transform: scale(1.1, 1.1);
         }
+
+
+.file-item[b-iwy9ytc9st] {
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 5px 10px;
+    margin: 10px 0px;
+    background-color: white;
+    overflow: hidden;
+}
+
+    .file-item p[b-iwy9ytc9st]{
+        overflow-wrap: break-word;
+        width: 330px;
+    }
+
+    .file-item a[b-iwy9ytc9st]{
+        margin: 0px 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .file-item a:hover[b-iwy9ytc9st]{
+        background-color: black;
+    }
+
+        .file-item a i[b-iwy9ytc9st] {
+            color: black;
+        }
+
+    .file-item a:hover i[b-iwy9ytc9st]{
+        color: white;
+    }
+
+.file-upload-box[b-iwy9ytc9st] {
+    height: 150px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    color: #b6b6b6;
+    transition: all 0.2s ease-in-out;
+}
+
+.file-upload-box:hover[b-iwy9ytc9st]{
+    color: black;
+    border: 1px solid black;
+}
