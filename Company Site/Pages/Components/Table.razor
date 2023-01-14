@@ -91,16 +91,16 @@
 					{
 						@if (CheckInput(header))
 						{
-										<td class="align-middle">
-											<input class="form-control" 
-								value="@(GetHeaderValue(header, item))" 
-								@oninput="@(t => SetInputValue(header, t, item))"
-							/>
-										</td>
+							<td class="align-middle">
+								<input class="form-control" 
+									value="@(GetHeaderValue(header, item))" 
+									@oninput="@(t => SetInputValue(header, t, item))"
+								/>
+							</td>
 						}
 						else
 						{
-										<td class="text-start fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
+							<td class="text-start fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
 						}
 					}
 						<td>

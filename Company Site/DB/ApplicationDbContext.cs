@@ -102,6 +102,8 @@ namespace Company_Site.DB
 
 		public DbSet<FileItem> FileItems { get; set; }
 
+		public DbSet<AccessEntry> FileAccessEntries { get; set; }
+
 		#endregion
 
 		#region Constructor

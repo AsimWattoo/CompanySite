@@ -35,6 +35,7 @@
     .file-row div .file-name[b-iwy9ytc9st]{
         color: black;
         font-weight: bold;
+        text-decoration: none;
     }
 
     .file-row div .file-extension[b-iwy9ytc9st]{
@@ -44,6 +45,11 @@
 .btn-row[b-iwy9ytc9st]{
     display: flex;
     justify-content: center;
+}
+
+.files-container[b-iwy9ytc9st]{
+    max-height: 400px;
+    overflow-y: scroll;
 }
 
 .row-btn[b-iwy9ytc9st]{
@@ -116,3 +122,33 @@
     color: black;
     border: 1px solid black;
 }
+
+
+        .progress-bar-container[b-iwy9ytc9st]{
+            height: 10px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #dedede;
+        }
+
+    .progress-bar[b-iwy9ytc9st]{
+        background-color: dodgerblue;
+        height: 10px;
+    }
+
+    
+
+    .no-wrap[b-iwy9ytc9st]{
+        white-space: nowrap;
+    }
+
+.btn-secondary[b-iwy9ytc9st] {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+    .btn-secondary:hover[b-iwy9ytc9st] {
+        background-color: #333333 !important;
+        border-color: #333333 !important;
+    }

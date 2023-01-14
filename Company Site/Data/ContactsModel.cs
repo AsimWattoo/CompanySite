@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Company_Site.Data
 {
@@ -14,6 +15,8 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Last Position is required")]
         public string LastName { get; set; }
 
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
 
         [Required(ErrorMessage = "Address is required")]
         public string? Address { get; set; }

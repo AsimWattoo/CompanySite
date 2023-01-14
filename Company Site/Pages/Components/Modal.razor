@@ -1,5 +1,5 @@
-﻿<div class="modal @(ShowModal ? "show d-block" : "d-none")" role="dialog" id="addModal">
-    <div class="modal-dialog modal-dialog-centered">
+﻿<div class="modal @(ShowModal ? "show d-block" : "d-none")" role="dialog" id="@Guid.NewGuid().ToString()">
+    <div class="modal-dialog modal-dialog-centered @(CustomWidth ? "mw-100" : "")" style="width: @(CustomWidth ? $"{Width}%" : "auto");">
         <div class="modal-content px-4 py-4">
             @if (!string.IsNullOrEmpty(Title))
             {

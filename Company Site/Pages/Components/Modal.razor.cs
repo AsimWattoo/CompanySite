@@ -16,6 +16,12 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public string Title { get; set; }
 
+        [Parameter]
+        public int Width { get; set; }
+
+        [Parameter]
+        public bool CustomWidth { get; set; } = false;
+
         #endregion
 
     }

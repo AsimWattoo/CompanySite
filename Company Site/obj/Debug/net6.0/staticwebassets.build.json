@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "x+GMi2clN6P1W9KVyvTyV7kS52mL2aIUJBcRaLcb5pk=",
+  "Hash": "HWykufs4h9i8oKz0SGce4tQl2voh7Fx4EfF6x2mA5BE=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -38420,12 +38420,12 @@
       "OriginalItemSpec": "wwwroot\\theme-font\\SFProText-SemiboldItalic.woff2"
     },
     {
-      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\Final Project$$13-01-2023-06-04-29.ipynb",
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\algorithms-15-00438$$14-01-2023-03-01-27.pdf",
       "SourceId": "Company Site",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
       "BasePath": "_content/Company Site",
-      "RelativePath": "VDR-Files/Final Project$$13-01-2023-06-04-29.ipynb",
+      "RelativePath": "VDR-Files/algorithms-15-00438$$14-01-2023-03-01-27.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -38434,15 +38434,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\VDR-Files\\Final Project$$13-01-2023-06-04-29.ipynb"
+      "OriginalItemSpec": "wwwroot\\VDR-Files\\algorithms-15-00438$$14-01-2023-03-01-27.pdf"
     },
     {
-      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\PrevFinal Project$$13-01-2023-06-04-29.ipynb",
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\Final Project$$14-01-2023-03-01-27.ipynb",
       "SourceId": "Company Site",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
       "BasePath": "_content/Company Site",
-      "RelativePath": "VDR-Files/PrevFinal Project$$13-01-2023-06-04-29.ipynb",
+      "RelativePath": "VDR-Files/Final Project$$14-01-2023-03-01-27.ipynb",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -38451,7 +38451,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\VDR-Files\\PrevFinal Project$$13-01-2023-06-04-29.ipynb"
+      "OriginalItemSpec": "wwwroot\\VDR-Files\\Final Project$$14-01-2023-03-01-27.ipynb"
     }
   ]
 }
