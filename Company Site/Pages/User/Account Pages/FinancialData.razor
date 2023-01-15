@@ -1,5 +1,4 @@
-﻿@page "/financialData"
-@using Company_Site.Data;
+﻿@using Company_Site.Data;
 @using Company_Site.Pages.Components
 
 <Modal ShowModal=IsDeleteConfirmationShown>
@@ -13,7 +12,7 @@
 </Modal>
 
 <div class="card">
-    <div class="card-header pb-0">
+    <div class="card-header pb-0 mb-3">
         <h5>Financial Data</h5>
     </div>
     <div class="card">
@@ -212,7 +211,7 @@
                         <DataAnnotationsValidator/>
                         <MultiErrorView Errors="_errors"/>
 
-                        <div class="row g-0 mb-1 text-center">
+                        <div class="row g-0 mt-3 mb-1 text-center">
                             <div class="col-6">Year</div>
                             <div class="col-6">
                                 <InputSelect @bind-Value=NewEntry.Year id="year" name="year" type="number" class="form-control rounded-0">
@@ -224,110 +223,129 @@
                                 </InputSelect>
                             </div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Equity</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Equity id="equity" name="equity" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Reserves</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Reserves id="reserves" name="reserves" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6 fw-bold">Networth</div>
-                            <div class="col-6">@NewEntry.Networth</div>
-                        </div>
-                        <br>
-                        <div class="row g-0 text-center">
+                            <div class="col-6">
+                                <label class="form-control empty-label disabled fw-bold mb-0 text-left">@NewEntry.Networth</label>
+                            </div>
+                        </div
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">LTB</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.LTB id="mtb" name="mtb" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">STB</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.STB id="stb" name="stb" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Other current Liabilities</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Other_Current_Liabilities id="other-current" name="other-current" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6 fw_bold">Total Liabilities</div>
-                            <div class="col-6">@NewEntry.TotalLiabilities</div>
+                            <div class="col-6">
+                                <label class="form-control empty-label disabled fw-bold mb-0 text-left">
+                                    @NewEntry.TotalLiabilities
+                                </label>
+                            </div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Fixed Assets</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Fixed_Assets id="fixed-assets" name="fixed-assets" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Total non-current Assets</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Total_Non_Current_Assets id="total-non-current" name="total-non-current" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Total current Assets</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Total_Current_Assets id="total-current" name="total-current" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-md-6 fw-bold">Total Assets</div>
-                            <div class="col-6">@NewEntry.Total_Assets</div>
+                            <div class="col-6">
+                                <label class="form-control empty-label disabled fw-bold mb-0 text-left">
+                                    @NewEntry.Total_Assets
+                                </label>
+                            </div>
                         </div>
-                        <br>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6 fw-bold">Revenue</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Revenue id="revenue" name="revenue" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Expenses</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Expenses id="expenses" name="expenses" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Operating and Direct expenses</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Operating_and_Direct_Expenses id="operating&direct" name="operating&direct" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Changes in inventories</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Changes_in_inventries id="changes-inventory" name="changes-inventory" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Employee Benefit expenses</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Employee_Benefit_Expenses id="employee-benefit" name="employee-benefit" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Other expenses</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Other_Expenses id="other-exp" name="other-exp" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6 fw_bold">EBDITA</div>
-                            <div class="col-6">@NewEntry.EBDITA</div>
+                            <div class="col-6">
+                                <label class="form-control empty-label disabled fw-bold mb-0 text-left">
+                                    @NewEntry.EBDITA
+                                </label>
+                            </div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">EBDITA_per</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.EBDITA_per id="ebdita-per" name="ebdita-per" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6 fw-bold">Total Expenses</div>
-                            <div class="col-6">@NewEntry.Total_Expenses</div>
+                            <div class="col-6">
+                                <label class="form-control empty-label disabled fw-bold mb-0 text-left">
+                                    @NewEntry.Total_Expenses
+                                </label>
+                            </div>
                         </div>
-                        <br>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Finance Costs</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Finance_Costs id="finance-cost" name="finance-cost" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Depreciation & Amortisation Expenses</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Depreciation_And_Amortisation_Expenses id="depreciation&amortisation" name="depreciation&amortisation" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Exceptional items</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Exceptional_items id="exceptional-items" name="exceptional-items" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6">Tax</div>
                             <div class="col-6"><InputNumber @bind-Value=NewEntry.Tax id="tax" name="tax" type="number" class="form-control"/></div>
                         </div>
-                        <div class="row g-0 text-center">
+                        <div class="row g-0 mt-3 text-center">
                             <div class="col-6 fw-bold">Profit/Loss</div>
-                            <div class="col-6">@NewEntry.Profit_Loss</div>
+                            <div class="col-6">
+                                <label class="form-control empty-label disabled fw-bold mb-0 text-left">
+                                    @NewEntry.Profit_Loss
+                                </label>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-center my-2">
+                        <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-danger mx-1" @onclick=DeleteRecord>
                                 Delete
                             </a>

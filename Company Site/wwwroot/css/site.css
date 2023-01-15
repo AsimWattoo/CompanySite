@@ -1,18 +1,25 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 @font-face {
-    font-family: "SF Pro Text";
-    src: url("./theme-font/SFPro-Text-Medium.woff") format('woff');
+    font-family: "Poppins Regular";
+    src: url("./assets/fonts/poppins/Poppins-Regular.ttf") format('truetype');
 }
 
-input,
-select,
-p,
-a,
-button,
-label {
-    font-family: Garamond;
-    font-size: 1rem;
+/**{
+    font-family: 'Poppins Regular';
+}*/
+
+.normal-text{
+    font-size: 1.2rem !important;
+}
+
+.empty-label {
+    height: 2.3rem;
+    width: 100%;
+}
+
+.text-left{
+    text-align: left !important;
 }
 
 .text-button-heading {
@@ -132,6 +139,7 @@ a, .btn-link {
 
 .tagline{
     color: lightgray;
+    font-size: 1rem;
 }
 
 .input-container{

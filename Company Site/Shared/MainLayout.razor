@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="row @(IsCollapsed ? "col-collapsed": "")">
                                         <div class=" col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 p-0 col-panel">
-                                            <div class="@(IsCollapsed ? "collapsed" : "") sidebar">
+                                            <div class="@(IsCollapsed ? "collapsed" : "") sidebar h-100">
                                                 <a class="nav-bar-collapse-btn" @onclick="NavBarCollapseBtnClicked">
                                                     <i class="fa fa-angle-double-left"></i>
                                                 </a>
@@ -93,7 +93,6 @@
 	</Authorized>
 
 	<NotAuthorized>
-		<LoginRedirect ReturnUrl="@ReturnUrl"/>
 	</NotAuthorized>
 
 </AuthorizeView>
@@ -123,7 +122,11 @@
             ReturnUrl = $"/{newUri}";
         AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
         if (state.User.Identity.Name == null)
+        {
+            //If the user is not logged in then send to login page
             IsLoggedIn = false;
+            navigationManager.NavigateTo($"login?returnUrl={ReturnUrl}", true);
+        }
         else
         {
             using(ApplicationDbContext dbContext = dbContextFactory.CreateDbContext()){

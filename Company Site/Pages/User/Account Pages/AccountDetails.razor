@@ -1,5 +1,4 @@
-﻿@page "/accountDetails"
-@using Company_Site.Data;
+﻿@using Company_Site.Data;
 @using Company_Site.Pages.Components
 
 
@@ -12,7 +11,7 @@
 
         <MultiErrorView Errors="_errors"/>
 
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="trustCode">Trust Code</label>
                 <InputSelect @bind-Value=Details class="form-select">
@@ -40,7 +39,7 @@
                 <InputText @bind-Value=Details.GroupHead id="groupHead" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="companyName">Company Name</label>
                 <InputText @bind-Value=Details.Company_Name id="companyName" class="form-control" type="text"/>
@@ -69,7 +68,7 @@
                 <InputText @bind-Value=Details.DD_Official id="ddOff" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="location">Location</label>
                 <InputText @bind-Value=Details.Location id="location" class="form-control" type="text"/>
@@ -99,7 +98,7 @@
                 <InputText @bind-Value=Details.DD_Firm id="ddFirm" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="plantLoc">Plant Location</label>
                 <InputText @bind-Value=Details.Plant_Location id="plantLoc" class="form-control" type="text"/>
@@ -121,7 +120,7 @@
                 <input @bind-value=Details.DD_Date id="ddDate" class="form-control" type="date">
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="bank">Bank</label>
                 <InputText @bind-Value=Details.Bank id="bank" class="form-control" type="text"/>
@@ -150,7 +149,7 @@
                 <input @bind-value=Details.FinalDate id="finalDate" class="form-control" type="date">
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="dateOfDefault">Date of Default</label>
                 <input @bind-value=Details.DateOfDefault id="dateOfDefault" class="form-control" type="date">
@@ -161,20 +160,24 @@
                 <InputText @bind-Value=Details.Last_Payment id="lastPayment" class="form-control" type="text"/>
             </div>
             <div class="col-md-1"></div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <label for="statDues">Statutory Dues</label>
-                <InputTextArea @bind-Value=Details.Statutory_Dues id="statDues" class="form-control"></InputTextArea>
+                <InputText @bind-Value=Details.Statutory_Dues id="statDues" class="form-control"></InputText>
             </div>
         </div>
-        <label for="background">Background</label>
-        <InputTextArea @bind-Value=Details.Background id="background" class="form-control r-none"></InputTextArea>
-        <ValidationMessage For="@(() => Details.Background)"/>
-        <label for="reasonNpa">Reason NPA</label>
-        <InputTextArea @bind-Value=Details.Reason_NPA id="reasonNpa" class="form-control r-none"></InputTextArea>
-        <ValidationMessage For="@(() => Details.Reason_NPA)"/>
-        <label for="caseExit">Case Exit</label>
-        <InputTextArea @bind-Value=Details.Case_Exit id="caseExit" class="form-control r-none"></InputTextArea>
         <div class="row">
+            <div class="col-11">
+                <label for="background" class="mt-3">Background</label>
+                <InputTextArea @bind-Value=Details.Background id="background" class="form-control r-none"></InputTextArea>
+                <ValidationMessage For="@(() => Details.Background)"/>
+                <label for="reasonNpa" class="mt-3">Reason NPA</label>
+                <InputTextArea @bind-Value=Details.Reason_NPA id="reasonNpa" class="form-control r-none"></InputTextArea>
+                <ValidationMessage For="@(() => Details.Reason_NPA)"/>
+                <label for="caseExit" class="mt-3">Case Exit</label>
+                <InputTextArea @bind-Value=Details.Case_Exit id="caseExit" class="form-control r-none"></InputTextArea>
+            </div>
+        </div>
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="status">Status</label>
                 <InputSelect @bind-Value=Details.Status id="status" class="form-select">
@@ -192,23 +195,23 @@
             <div class="col-md-1"></div>
             <div class="col-md-2">
                 <label for="creatorName">Creator Name</label>
-                <label class="form-control" type="text">@Details.CreatorName</label>
+                <label class="form-control empty-label disabled" type="text">@Details.CreatorName</label>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-2">
                 <label for="creationDate">Creation Date</label>
-                <label class="form-control">@Details.CreationDate.ToString("dd-MMM-yyyy")</label>
+                <label class="form-control disabled">@Details.CreationDate.ToString("dd-MMM-yyyy")</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="mod">Modification</label>
-                <label class="form-control">@Details.Modifier</label>
+                <label class="form-control empty-label disabled">@Details.Modifier</label>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-2">
                 <label for="modDate">Modification Date</label>
-                <label class="form-control">@Details.ModificationDate.ToString("dd-MMM-yyyy")</label>
+                <label class="form-control disabled">@Details.ModificationDate.ToString("dd-MMM-yyyy")</label>
             </div>
         </div>
         <p class="text-center my-3">

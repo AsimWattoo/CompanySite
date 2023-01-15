@@ -1,6 +1,7 @@
 ﻿using Company_Site.Base;
 using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Enum;
 using Company_Site.Helpers;
 
 using Microsoft.AspNetCore.Components;
@@ -24,6 +25,11 @@ namespace Company_Site.Pages.User
         #endregion
 
         #region Private Members
+
+        /// <summary>
+        /// The currently selected tab of the accounts page
+        /// </summary>
+        private AccountTypes CurrentType { get; set; } = AccountTypes.Home;
 
         /// <summary>
         /// The selected account
@@ -100,6 +106,15 @@ namespace Company_Site.Pages.User
                 e.Account = _dbContext.Accounts.Where(a => a.BorrowerCode == e.BorrowerCode).FirstOrDefault();
                 e.Trust = _dbContext.Trusts.Where(t => t.TrustCode == e.TrustCode).FirstOrDefault();
             });
+        }
+
+        /// <summary>
+        /// Changes the display of the Accounts Page
+        /// </summary>
+        /// <param name="type"></param>
+        private void _changePage(AccountTypes type)
+        {
+            CurrentType = type;
         }
 
         #endregion

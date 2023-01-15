@@ -11,13 +11,7 @@ namespace Company_Site.Pages.User.Account_Pages
 
         #region Private Members
 
-        private List<int> Years = new List<int>()
-        {
-            2022,
-            2023,
-            2024,
-            2025
-        };
+        private List<int> Years = new List<int>();
 
         /// <summary>
         /// The dictionary of financial data enteries
@@ -91,6 +85,7 @@ namespace Company_Site.Pages.User.Account_Pages
         private void LoadData()
         {
             FinancialEnteries = _dbContext.FinancialDatas.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).OrderBy(f => f.Year).ToList();
+            Years = FinancialEnteries.Select(f => f.Year).Distinct().ToList();
             _financialDataEnteries = FinancialEnteries.ToDictionary(f => f.Year, f => f);
         }
 

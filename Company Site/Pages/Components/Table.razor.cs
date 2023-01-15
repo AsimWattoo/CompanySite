@@ -31,6 +31,12 @@ namespace Company_Site.Pages.Components
         public Action<T> OnRowClick { get; set; }
 
         /// <summary>
+        /// Indicates whether to show the paging buttons or not
+        /// </summary>
+        [Parameter]
+        public bool ShowPaging { get; set; } = true;
+
+        /// <summary>
         /// Indicates whether the table is searchable or not
         /// </summary>
         [Parameter]
@@ -267,7 +273,14 @@ namespace Company_Site.Pages.Components
         private void UpdateRows()
         {
             SR = 1;
-            DisplayedItems = Items.Take(_CurrentPage * SearchModel.RowsToShow).Skip((_CurrentPage - 1) * SearchModel.RowsToShow).ToList();
+            if (ShowPaging)
+            {
+                DisplayedItems = Items.Take(_CurrentPage * SearchModel.RowsToShow).Skip((_CurrentPage - 1) * SearchModel.RowsToShow).ToList();
+            }
+            else
+            {
+                DisplayedItems = Items;
+            }
             string sortingColumn = Sortings.Where(s => s.Value != Sorting.None).FirstOrDefault().Key;
             if (sortingColumn != null)
             {

@@ -3,6 +3,8 @@
 @using Company_Site.Data;
 @using Company_Site.Pages.Components;
 @using Radzen.Blazor
+@using Company_Site.Enum;
+@using Company_Site.Pages.User.Account_Pages;
 
 @inherits BaseAddPage<TrustRelationModel, int>
 
@@ -25,60 +27,136 @@
         </div>
 
         <!-- Navbar -->
-        <div class="mt-3 text-center">
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/accountDetails">Account Details</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/borrowerdetails">Borrower Details</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/financialData">Finance</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/debtprofile">Debt Profile</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/AssetDetails">Asset Details</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/resolutionstatus">Resolution</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/CashFlowProjects">Cash flow</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/Documentslist">Documents</a>
-            <a class="btn btn-primary d-inline-block mb-3 navBtn" href="/ApprovalsAndMemo">Approvals</a>
-        </div>
-        <div class="card">
+        <div class="mt-3 text-center card">
             <div class="card-body">
-                <div class="row mx-2">
-                    <div class="col-4">
-                        <label for="officer">Officer</label>
-                        <input id="officer" class="form-control" type="text">
-                        <label for="borrowerName" class="mt-3">Borrower Name</label>
-                        <input type="text" id="borrowerName" class="form-control">
-                        <label for="numOfLenders">Number Of Lenders</label>
-                        <input type="text" id="numOfLenders" class="form-control">
-                        <label for="resStrategy">Resolution Strategy</label>
-                        <input type="text" id="resStrategy" class="form-control">
-                    </div>
-                    <div class="col-4">
-                        <label for="group">Group</label>
-                        <input type="text" id="group" class="form-control">
-                        <label for="guarantorName">Guarantor Name</label>
-                        <input type="text" id="guarantorName" class="form-control">
-                        <label for="share">Our Share</label>
-                        <input type="text" id="share" class="form-control">
-                        <label for="currStatus">Current Status</label>
-                        <input type="text" id="currStatus" class="form-control">
-                    </div>
-                    <div class="col-4">
-                        <label for="recTillDate">Recovery till Date</label>
-                        <input type="text" id="recTillDate" class="form-control">
-                        <label for="expRec">Expected Recovery</label>
-                        <input type="text" id="expRec" class="form-control">
-                        <label for="expLife">Expected Life time recovery</label>
-                        <input type="text" id="expLife" class="form-control">
-                        <label for="secVal">Secrity Value</label>
-                        <input type="text" id="secVal" class="form-control">
-                        <label for="resTimeline">Resolution timeline</label>
-                        <input type="text" id="resTimeline" class="form-control">
-                    </div>
-                </div>
+                <nav class="navbar navbar-expand-sm navbar-light mb-2 pb-0">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <!--Modal to enter new record-->
-                <div class="mt-4">
-                    <div>
-                        <Table T="TrustRelationModel" T2="int" Items="Enteries" GetId="GetId" Headers=Headers IsEditable="@(e => false)" IsDeleteable=@(e => false) IsSearchable=false></Table>
-                    </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item @(CurrentType == AccountTypes.Home ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.Home))"> Home </a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.AccountDetails ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.AccountDetails))"> Account Details </a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.BorrowerDetails ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.BorrowerDetails))">Borrower Details</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.Finance ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.Finance))">Finance</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.DebtProfile ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.DebtProfile))">Debt Profile</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.AssetDetails ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.AssetDetails))">Asset Details</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.Resolution ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.Resolution))">Resolution</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.CashFlow ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.CashFlow))">Cash Flow</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.Documents ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.Documents))">Documents</a>
+                    </li>
+                    <li class="nav-item @(CurrentType == AccountTypes.Approvals ? "active" : "")">
+                        <a class="nav-link" @onclick="@(() => _changePage(AccountTypes.Approvals))">Approvals</a>
+                    </li>
+                </ul>
                 </div>
+            </nav>
+
+            <hr />
+
+            <!--Rendering data-->
+                @if (CurrentType == AccountTypes.Home)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mx-2">
+                                <div class="col-4">
+                                    <label for="officer">Officer</label>
+                                    <input id="officer" class="form-control" type="text">
+                                    <label for="borrowerName" class="mt-3">Borrower Name</label>
+                                    <input type="text" id="borrowerName" class="form-control">
+                                        <label for="numOfLenders" class="mt-3">Number Of Lenders</label>
+                                    <input type="text" id="numOfLenders" class="form-control">
+                                        <label for="resStrategy" class="mt-3">Resolution Strategy</label>
+                                    <input type="text" id="resStrategy" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                    <label for="group">Group</label>
+                                    <input type="text" id="group" class="form-control">
+                                    <label for="guarantorName" class="mt-3">Guarantor Name</label>
+                                    <input type="text" id="guarantorName" class="form-control">
+                                        <label for="share" class="mt-3">Our Share</label>
+                                    <input type="text" id="share" class="form-control">
+                                        <label for="currStatus" class="mt-3">Current Status</label>
+                                    <input type="text" id="currStatus" class="form-control">
+                                </div>
+                                <div class="col-4">
+                                        <label for="recTillDate">Recovery till Date</label>
+                                    <input type="text" id="recTillDate" class="form-control">
+                                        <label for="expRec" class="mt-3">Expected Recovery</label>
+                                    <input type="text" id="expRec" class="form-control">
+                                        <label for="expLife" class="mt-3">Expected Life time recovery</label>
+                                    <input type="text" id="expLife" class="form-control">
+                                        <label for="secVal" class="mt-3">Secrity Value</label>
+                                    <input type="text" id="secVal" class="form-control">
+                                        <label for="resTimeline" class="mt-3">Resolution timeline</label>
+                                    <input type="text" id="resTimeline" class="form-control">
+                                </div>
+                            </div>
+
+                            <!--Modal to enter new record-->
+                            <div class="mt-4">
+                                <div>
+                                    <Table T="TrustRelationModel" T2="int" ShowPaging=false Items="Enteries" GetId="GetId" Headers=Headers IsEditable="@(e => false)" IsDeleteable=@(e => false) IsSearchable=false></Table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (CurrentType == AccountTypes.AccountDetails)
+                {
+                    <AccountDetails />
+                }
+                else if (CurrentType == AccountTypes.BorrowerDetails)
+                {
+                    <BorrowerDetails />
+                }
+                else if(CurrentType == AccountTypes.Finance)
+                {
+                    <FinancialData />
+                }
+                else if (CurrentType == AccountTypes.DebtProfile)
+                {
+                    <DebtProfile />
+                }
+                else if (CurrentType == AccountTypes.AssetDetails)
+                {
+                    <AssetDetails />
+                }
+                else if (CurrentType == AccountTypes.Resolution)
+                {
+                    <ResolutionStatus />
+                }
+                else if (CurrentType == AccountTypes.CashFlow)
+                {
+                    <CashFlowProjects />
+                }
+                else if (CurrentType == AccountTypes.Documents)
+                {
+                    <Documentslist />
+                }
+                else if (CurrentType == AccountTypes.Approvals)
+                {
+                    <ApprovalsAndMemos />
+                }
             </div>
         </div>
     </div>

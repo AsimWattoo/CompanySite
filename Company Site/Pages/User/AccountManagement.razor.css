@@ -1,1 +1,18 @@
-﻿
+﻿.nav-item {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+    .nav-item:hover {
+        background-color: #DDE9FE;
+    }
+
+.active {
+    background-color: #DDE9FE;
+}
+
+    .active a {
+        color: #0157FF !important;
+    }

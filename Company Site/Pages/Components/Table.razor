@@ -21,7 +21,7 @@
 		<EditForm Model="SearchModel" Context="searchBar">
 
 			<div class="row d-flex align-items-center">
-				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 title d-flex align-items-center">
+				<div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 title d-flex align-items-center normal-text">
 					Show 
 					<select id="enteriesSelection" class="select-box mx-1 w-20" @onchange="@RowsToShowChange">
 						<option value="10">10</option>
@@ -33,10 +33,10 @@
 				</div>
 				<div class="col-xl-9 col-lg-8 col-md-7 col-sm-6 col-12 p-0 d-flex justify-content-end align-items-center">
 					<div class="fs">
-						<label for="searchBox">Search</label>
-						<input type="text" class="roundedTextBox" @bind-value="@SearchText"/>
-						<a class="btn btn-outline-primary mx-1 btn-search" @onclick="SearchRecords"><i class="fa fa-search"></i></a>
-							<a class="btn btn-outline-secondary mx-1" @onclick="ClearSearch">Clear</a>
+						<label for="searchBox" class="normal-text">Search</label>
+						<input type="text" class="roundedTextBox normal-text" @bind-value="@SearchText"/>
+						<a class="btn btn-outline-primary mx-1 btn-search normal-text" @onclick="SearchRecords"><i class="fa fa-search normal-text"></i></a>
+						<a class="btn btn-outline-secondary mx-1 normal-text" @onclick="ClearSearch">Clear</a>
 					</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 				{
 						<th scope="col" class="text-center">
 							<div class="btn-sortable align-content-start row m-0">
-								<p class="d-inline-block text-start col-8 m-0">Serial Number</p>
+								<p class="d-inline-block text-start col-8 m-0 normal-text">Serial Number</p>
 							</div>
 						</th>
 				}
@@ -61,8 +61,8 @@
 					@if (!string.IsNullOrEmpty(header))
 					{
 								<th>
-									<div class="btn-sortable align-content-start justify-content-start row m-0" @onclick='(() => Sort(header))'>
-										<p class="d-inline-block text-start col-8 m-0">@header</p>
+									<div class="btn-sortable align-content-start justify-content-start row m-0 normal-text" @onclick='(() => Sort(header))'>
+										<p class="d-inline-block text-start col-8 m-0 normal-text">@header</p>
 									</div>
 								</th>
 					}
@@ -74,8 +74,8 @@
 				@if (ViewHeader != null)
 				{
 						<th>
-							<div class="btn-sortable align-content-start justify-content-start row m-0">
-								<p class="d-inline-block text-start col-8 m-0">@ViewHeader</p>
+							<div class="btn-sortable align-content-start justify-content-start normal-text row m-0">
+								<p class="d-inline-block text-start col-8 m-0 normal-text">@ViewHeader</p>
 							</div>
 						</th>
 				}
@@ -85,14 +85,14 @@
 					<tr @onclick="@(() => OnRowClick?.Invoke(item))">
 					@if (ShowSerialNumber)
 					{
-								<td class="text-start fs-5">@SR</td>
+								<td class="text-start fs-5 normal-text">@SR</td>
 					}
 					@foreach (string header in Headers.Keys)
 					{
 						@if (CheckInput(header))
 						{
 							<td class="align-middle">
-								<input class="form-control" 
+								<input class="form-control normal-text" 
 									value="@(GetHeaderValue(header, item))" 
 									@oninput="@(t => SetInputValue(header, t, item))"
 								/>
@@ -100,27 +100,27 @@
 						}
 						else
 						{
-							<td class="text-start fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
+							<td class="text-start normal-text fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
 						}
 					}
 						<td>
 						@if (IsSaveable && OnSave != null)
 						{
-									<a @onclick='@(() => OnSave(item))' class="my-1"><i class="fa fa-save btn btn-outline-primary"></i></a>
+									<a @onclick='@(() => OnSave(item))' class="my-1 normal-text"><i class="fa fa-save btn btn-outline-primary"></i></a>
 						}
 						else
 						{
 							@if (IsViewable(item))
 							{
-											<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1"><i class="fa fa-eye btn btn-outline-primary"></i></a>
+											<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1 normal-text"><i class="fa fa-eye btn btn-outline-primary"></i></a>
 							}
 							@if (IsEditable(item))
 							{
-											<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1"><i class="fa fa-edit btn btn-outline-primary"></i></a>
+														<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1 normal-text"><i class="fa fa-edit btn btn-outline-primary"></i></a>
 							}
 							@if (IsDeleteable(item))
 							{
-											<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+											<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1 normal-text"><i class="fa fa-trash btn btn-outline-danger"></i></a>
 							}
 						}
 						</td>
@@ -132,11 +132,11 @@
 					<tr>
 					@if (ShowSerialNumber)
 					{
-									<td class="text-start fs-5">Total</td>
+											<td class="text-start fs-5 normal-text">Total</td>
 					}
 					@foreach (string header in Headers.Keys)
 					{
-									<td class="text-start fs-5">@(GetTotal(header))</td>
+											<td class="text-start fs-5 normal-text">@(GetTotal(header))</td>
 					}
 					</tr>
 			}
@@ -145,25 +145,31 @@
 	<!--Table Footer-->
 	<div class="row mt-2">
 		<div class="col-4">
-			<p class="lead page-footer">Showing @(DisplayedItems.Count > 0 ? (_CurrentPage - 1) * SearchModel.RowsToShow + 1 : 0) to @(DisplayedItems.Count + ((_CurrentPage - 1) * SearchModel.RowsToShow)) out of @Items.Count enteries</p>
+			@if (ShowPaging)
+			{
+				<p class="lead page-footer normal-text">Showing @(DisplayedItems.Count > 0 ? (_CurrentPage - 1) * SearchModel.RowsToShow + 1 : 0) to @(DisplayedItems.Count + ((_CurrentPage - 1) * SearchModel.RowsToShow)) out of @Items.Count enteries</p>
+			}
 		</div>
 		<div class="col-8">
 			<nav>
 				<ul class="pagination d-flex justify-content-end">
-				<li class="page-item">
-					<a class="page-link @(_CurrentPage == 1 ?  "disabled" : "")" @onclick='@(() => PreviousPage())' aria-label="Previous">
-						<span>Previous</span>
-					</a>
-				</li>
-				@foreach(int p in Pages)
-				{
-					<li class="page-item mouse-pointer"><a class="page-link" @onclick='@(() => ChangePage(p))'>@p</a></li>
-				}
-				<li class="page-item">
-					<a class="page-link @(_CurrentPage == 1 ?  "disabled" : "")" @onclick='@(() => NextPage())' aria-label="Next">
-						<span>Next</span>
-					</a>
-				</li>
+					@if (ShowPaging)
+					{
+						<li class="page-item">
+							<a class="page-link normal-text @(_CurrentPage == 1 ?  "disabled" : "")" @onclick='@(() => PreviousPage())' aria-label="Previous">
+								<span class="normal-text">Previous</span>
+							</a>
+						</li>
+						@foreach(int p in Pages)
+						{
+							<li class="page-item mouse-pointer"><a class="page-link normal-text" @onclick='@(() => ChangePage(p))'>@p</a></li>
+						}
+						<li class="page-item">
+							<a class="page-link normal-text @(_CurrentPage == 1 ?  "disabled" : "")" @onclick='@(() => NextPage())' aria-label="Next">
+								<span class="normal-text">Next</span>
+							</a>
+						</li>
+					}
 				</ul>
 			</nav>
 		</div>

@@ -4,6 +4,10 @@
     white-space: nowrap;
 }
 
+.normal-text{
+    font-size: 1rem !important;
+}
+
 .title{
     font-size: 1rem;
     font-weight: 600;
