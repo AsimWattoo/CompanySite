@@ -22,6 +22,136 @@
 td[b-hscf0vogua], th[b-hscf0vogua] {
     text-align: center;
 }
+/* _content/Company Site/Pages/Components/Calendar.razor.rz.scp.css */
+body[b-ejj6aupphn] {
+}
+
+.calendar-container[b-ejj6aupphn]{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+}
+
+.day-container[b-ejj6aupphn] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    border: 1px solid #ededed;
+    height: 55px;
+}
+
+.day-header[b-ejj6aupphn]{
+    font-weight:bold;
+    font-size: 1rem;
+}
+
+.day-item[b-ejj6aupphn]{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.day-item:hover[b-ejj6aupphn]{
+    transform: scale(1.05, 1.05);
+}
+
+.day-item-number[b-ejj6aupphn]{
+    margin: 5px;
+    font-size: 1rem;
+}
+
+.weekend[b-ejj6aupphn] {
+    color: #cc0000;
+}
+
+.day-item-container[b-ejj6aupphn]{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.day-task[b-ejj6aupphn] {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 15px;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    margin: 5px;
+    transition: all 0.2s ease-in-out;
+    padding: 0px 6px;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-data-color[b-ejj6aupphn] {
+    color: #1a68ff;
+}
+
+.task-title[b-ejj6aupphn] {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.day-task:hover[b-ejj6aupphn] {
+    width: 200px;
+    height: auto;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.task-title-container[b-ejj6aupphn] {
+    display: none;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    margin: 5px 0px 5px 0px;
+    border-radius: 4px;
+    padding: 0px 5px;
+    transition: all 0.2s ease-in-out;
+}
+
+    .day-task:hover .task-title-container[b-ejj6aupphn]{
+        display: block;
+    }
+
+.day-task:hover .task-title-container:hover[b-ejj6aupphn] {
+    transform: scale(1.06, 1.06);
+}
+
+.btn-control[b-ejj6aupphn]{
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1.3rem;
+    padding: 0.3rem;
+}
+
+.month-row[b-ejj6aupphn]{
+    display: flex;
+}
+
+.month-item[b-ejj6aupphn] {
+    border: 1px solid #ededed;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+        .month-item:hover[b-ejj6aupphn]{
+            transform: scale(1.05, 1.05);
+        }
 /* _content/Company Site/Pages/Components/Checkbox.razor.rz.scp.css */
 body[b-ghzd5daywz] {
 }
@@ -29,6 +159,7 @@ body[b-ghzd5daywz] {
 .main-container[b-ghzd5daywz]{
     position: absolute;
     cursor: pointer;
+    top: 7px;
 }
 
 .checkbox-container[b-ghzd5daywz] {
@@ -267,6 +398,10 @@ ul[b-w6etei924s]{
     white-space: nowrap;
 }
 
+.normal-text[b-12yh34qg01]{
+    font-size: 1rem !important;
+}
+
 .title[b-12yh34qg01]{
     font-size: 1rem;
     font-weight: 600;
@@ -353,9 +488,31 @@ td[b-12yh34qg01]{
 body[b-hpaqz8cw7t] {
 }
 
+.tasks-container[b-hpaqz8cw7t]{
+	max-height: 250px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
 
-input[type='checkbox'][b-hpaqz8cw7t]{
-	color: red;
+.card[b-hpaqz8cw7t]{
+}
+
+.task-action[b-hpaqz8cw7t] {
+    color: #4d8aff;
+	cursor: pointer;
+	transition:all 0.2s ease-in-out;
+}
+
+    .task-action:hover[b-hpaqz8cw7t] {
+        transform: scale(1.1, 1.1);
+    }
+
+s[b-hpaqz8cw7t] {
+    color: #4d8aff;
+}
+
+.form-label[b-hpaqz8cw7t]{
+	white-space: nowrap;
 }
 /* _content/Company Site/Pages/User/Account Pages/AccountDetails.razor.rz.scp.css */
 /* _content/Company Site/Pages/User/Account Pages/AssetDetails.razor.rz.scp.css */
@@ -378,6 +535,24 @@ body[b-6456s899qs] {
 }
 
 /* _content/Company Site/Pages/User/AccountManagement.razor.rz.scp.css */
+.nav-item[b-f2jt9za03w] {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+    .nav-item:hover[b-f2jt9za03w] {
+        background-color: #DDE9FE;
+    }
+
+.active[b-f2jt9za03w] {
+    background-color: #DDE9FE;
+}
+
+    .active a[b-f2jt9za03w] {
+        color: #0157FF !important;
+    }
 /* _content/Company Site/Pages/User/CompanyPolicyPage.razor.rz.scp.css */
 #pdf-container[b-7x0fa6ekom]{
 	width: 100%;
@@ -657,6 +832,161 @@ legend[b-xwwcr866nd]{
 /* _content/Company Site/Pages/User/Turst Components/TrustMaster.razor.rz.scp.css */
 body[b-im6x3mqqsp] {
 }
+/* _content/Company Site/Pages/User/VDR.razor.rz.scp.css */
+.data-table[b-iwy9ytc9st]{
+	width: 100%;
+	margin-top: 2rem;
+}
+
+    .data-table th[b-iwy9ytc9st] {
+    }
+
+        .data-table th div[b-iwy9ytc9st] {
+            height: 40px;
+            background-color: #ededed;
+            width: 100%;
+            border-radius: 20px;
+            display: flex;
+            padding: 0px 10px;
+            align-items: center;
+            color: gray;
+            justify-content: center;
+        }
+
+.file-row[b-iwy9ytc9st]{
+    border-bottom: 1px solid lightgray;
+}
+
+
+
+    .file-row div[b-iwy9ytc9st] {
+        margin: 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+    }
+
+    .file-row div .file-name[b-iwy9ytc9st]{
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .file-row div .file-extension[b-iwy9ytc9st]{
+        color: #ababab;
+    }
+
+.btn-row[b-iwy9ytc9st]{
+    display: flex;
+    justify-content: center;
+}
+
+.files-container[b-iwy9ytc9st]{
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.row-btn[b-iwy9ytc9st]{
+    border: 1px solid dodgerblue;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    margin: 0px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+        .row-btn:hover[b-iwy9ytc9st]{
+            background-color: dodgerblue;
+            color: white;
+            transform: scale(1.1, 1.1);
+        }
+
+
+.file-item[b-iwy9ytc9st] {
+    display: flex;
+    align-items: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 5px 10px;
+    margin: 10px 0px;
+    background-color: white;
+    overflow: hidden;
+}
+
+    .file-item p[b-iwy9ytc9st]{
+        overflow-wrap: break-word;
+        width: 330px;
+    }
+
+    .file-item a[b-iwy9ytc9st]{
+        margin: 0px 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .file-item a:hover[b-iwy9ytc9st]{
+        background-color: black;
+    }
+
+        .file-item a i[b-iwy9ytc9st] {
+            color: black;
+        }
+
+    .file-item a:hover i[b-iwy9ytc9st]{
+        color: white;
+    }
+
+.file-upload-box[b-iwy9ytc9st] {
+    height: 150px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    color: #b6b6b6;
+    transition: all 0.2s ease-in-out;
+}
+
+.file-upload-box:hover[b-iwy9ytc9st]{
+    color: black;
+    border: 1px solid black;
+}
+
+
+        .progress-bar-container[b-iwy9ytc9st]{
+            height: 10px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #dedede;
+        }
+
+    .progress-bar[b-iwy9ytc9st]{
+        background-color: dodgerblue;
+        height: 10px;
+    }
+
+    
+
+    .no-wrap[b-iwy9ytc9st]{
+        white-space: nowrap;
+    }
+
+.btn-secondary[b-iwy9ytc9st] {
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+}
+
+    .btn-secondary:hover[b-iwy9ytc9st] {
+        background-color: #333333 !important;
+        border-color: #333333 !important;
+    }
 /* _content/Company Site/Shared/AdminLayout.razor.rz.scp.css */
 .page[b-y3fmicphz7] {
     position: relative;
@@ -894,8 +1224,8 @@ main[b-cddauckdx4] {
 
 .nav-bar-btn[b-cddauckdx4] {
     color: black;
-    width: 40px;
-    height: 40px;
+    width: 40px !important;
+    height: 40px !important;
     font-size: 1.4rem;
     border-radius: 100%;
     display: flex;

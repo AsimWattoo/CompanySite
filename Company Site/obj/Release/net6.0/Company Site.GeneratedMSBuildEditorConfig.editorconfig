@@ -116,6 +116,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cQWRtaW5EYXNoYm9hcmQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-hscf0vogua
 
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/Calendar.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xDYWxlbmRhci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-ejj6aupphn
+
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/Components/Checkbox.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcG9uZW50c1xDaGVja2JveC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-ghzd5daywz
@@ -227,6 +231,10 @@ build_metadata.AdditionalFiles.CssScope = b-xwwcr866nd
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/Turst Components/TrustMaster.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxUdXJzdCBDb21wb25lbnRzXFRydXN0TWFzdGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-im6x3mqqsp
+
+[D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Pages/User/VDR.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVXNlclxWRFIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-iwy9ytc9st
 
 [D:/Work/Programming/Visual Studio 2022/C\#/.Net Core/Blazor/Company Site/Company Site/Shared/AdminLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXEFkbWluTGF5b3V0LnJhem9y
