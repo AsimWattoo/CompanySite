@@ -8,7 +8,7 @@
 @inherits LayoutComponentBase
 @inject AuthenticationStateProvider authStateProvider
 @inject UserManager<User> userManager
-@inject IDbContextFactory<ApplicationDbContext> dbContextFactory
+@inject ApplicationDbContext dbContext
 @inject NavigationManager navigationManager
 
 <PageTitle>Company Site</PageTitle>
@@ -129,12 +129,10 @@
         }
         else
         {
-            using(ApplicationDbContext dbContext = dbContextFactory.CreateDbContext()){
-                user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
-                Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();
-                IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
-                UserId = user.Id;
-            }
+            user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
+            Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();
+            IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
+            UserId = user.Id;
             IsLoggedIn = true;
         }
         base.OnInitialized();

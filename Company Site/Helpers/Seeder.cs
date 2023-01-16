@@ -46,16 +46,15 @@ namespace Company_Site.Helpers
                 //No user exists then create a user as admin
                 if (!userManager.Users.Any())
 				{
-
-					Console.WriteLine("--> Seeding Data");
+                    Console.WriteLine("--> Seeding Data");
 					User user = new User()
 					{
-						UserName = "HarshalGandhi",
-						Email = "Harshal_gandhi20055@yahoo.com",
+						UserName = "ParasGandhi",
+						Email = "admin@debtnet.in",
 						Department = "Legal",
 						Designation="CEO",
 						OfficeLocation = "Office",
-						FirstName = "Harshal",
+						FirstName = "Paras",
 						LastName="Gandhi",
 						Status="Active",
 						Mobile="-------",
