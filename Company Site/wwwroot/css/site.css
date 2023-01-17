@@ -27,6 +27,9 @@
     font-size: 1.4rem;
 }
 
+.description{
+    color:gray;
+}
 
 .disabled {
     background-color: #eee !important;

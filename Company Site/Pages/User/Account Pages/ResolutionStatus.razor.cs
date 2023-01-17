@@ -8,9 +8,27 @@ namespace Company_Site.Pages.User.Account_Pages
 {
     public partial class ResolutionStatus
     {
+        #region Public Members
+
+        /// <summary>
+        /// The id of the logged in user
+        /// </summary>
+        [CascadingParameter(Name = "UserId")]
+        public int? UserId { get; set; }
+
+        #endregion
+
         #region Private Members
 
+        /// <summary>
+        /// The resolution model
+        /// </summary>
         private ResolutionStatusModel Model { get; set; }
+
+        /// <summary>
+        /// The logged in user
+        /// </summary>
+        private Data.User User;
 
         #endregion
 
@@ -38,6 +56,7 @@ namespace Company_Site.Pages.User.Account_Pages
                 _dbContext.ResolutionStatusModels.Add(Model);
                 _dbContext.SaveChanges();
             }
+            User = _dbContext.Users.Where(f => f.Id == UserId.Value).First();
         }
 
         #endregion
@@ -46,61 +65,81 @@ namespace Company_Site.Pages.User.Account_Pages
 
         private void CurrentProgressValueChanged(string value)
         {
-            Model.Current_Progress = value; 
+            Model.Current_Progress = value;
+            Model.Current_Progress_Modification_Date = DateTime.Now;
+            Model.Current_Progress_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void RBIReportingValueChanged(string value)
         {
             Model.RBI_Reporting = value;
+            Model.RBI_Reporting_Modification_Date = DateTime.Now;
+            Model.RBI_Reporting_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void RatingReportingValueChanged(string value)
         {
             Model.Rating_Reporting = value;
+            Model.Rating_Reporting_Modification_Date = DateTime.Now;
+            Model.Rating_Reporting_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void CaseUpdateValueChanged(string value)
         {
             Model.Case_Update = value;
+            Model.Case_Update_Modification_Date = DateTime.Now;
+            Model.Case_Update_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void ImportantInformationValueChanged(string value)
         {
             Model.Important_information = value;
+            Model.Important_Information_Modification_Date = DateTime.Now;
+            Model.Important_Information_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void ChallangesValueChanged(string value)
         {
             Model.Challenges = value;
+            Model.Challenges_Modification_Date = DateTime.Now;
+            Model.Challenges_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void RecommendStrategyValueChanged(string value)
         {
             Model.Recommended_Strategy = value;
+            Model.Recommended_Strategy_Modification_Date = DateTime.Now;
+            Model.Recommended_Strategy_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void NextStepsValueChanged(string value)
         {
             Model.Next_steps = value;
+            Model.Next_Steps_Modification_Date = DateTime.Now;
+            Model.Next_Steps_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void ResolutionPlanValueChanged(string value)
         {
             Model.Resolution_plan = value;
+            Model.Resolution_Plan_Modification_Date = DateTime.Now;
+            Model.Resolution_Plan_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 
         private void RestructuringPlanValueChanged(string value)
         {
             Model.Resolution_plan = value;
+            Model.Restructuring_Plan_Modification_Date = DateTime.Now;
+            Model.Restructuring_Plan_Modified_By = $"{User.FirstName} {User.LastName}";
             Update();
         }
 

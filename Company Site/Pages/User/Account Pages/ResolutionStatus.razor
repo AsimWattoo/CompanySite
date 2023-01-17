@@ -13,60 +13,170 @@
             <div class="my-2">
                 <CollapsibleContainer Id="1" Title="Current Progress">
                     <RichTextEditor ValueExpression="@(() => Model.Current_Progress)" Value="@Model.Current_Progress" ValueChanged="@CurrentProgressValueChanged"/>
+                    @if(Model.Current_Progress_Modification_Date != new DateTime())
+                    {
+                        <div class="d-flex justify-content-end mt-2">
+                            <div class="me-2">
+                                <p class="mb-0 description">Modified By: @Model.Current_Progress_Modified_By</p>
+                            </div>
+                            <div class="ms-2">
+                                <p class="mb-0 description">Modification Date: @Model.Current_Progress_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                            </div>
+                        </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="2" Title="RBI Reporting">
                     <RichTextEditor ValueExpression="@(() => Model.RBI_Reporting)" Value="@Model.RBI_Reporting" ValueChanged="@RBIReportingValueChanged"/>
+                    @if (Model.RBI_Reporting_Modification_Date != new DateTime())
+                    {
+                        <div class="d-flex justify-content-end mt-2">
+                            <div class="me-2">
+                                <p class="mb-0 description">Modified By: @Model.RBI_Reporting_Modified_By</p>
+                            </div>
+                            <div class="ms-2">
+                                <p class="mb-0 description">Modification Date: @Model.RBI_Reporting_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                            </div>
+                        </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="3" Title="Rating Reporting">
                     <RichTextEditor ValueExpression="@(() => Model.Rating_Reporting)" Value="@Model.Rating_Reporting" ValueChanged="@RatingReportingValueChanged"/>
+                    @if (Model.Rating_Reporting_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Rating_Reporting_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Rating_Reporting_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div  class="my-2">
                 <CollapsibleContainer Id="4" Title="Case Update">
                     <RichTextEditor ValueExpression="@(() => Model.Case_Update)" Value="@Model.Case_Update" ValueChanged="@CaseUpdateValueChanged"/>
+                    @if (Model.Case_Update_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Case_Update_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Case_Update_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="5" Title="Important Information">
                     <RichTextEditor ValueExpression="@(() => Model.Important_information)" Value="@Model.Important_information" ValueChanged="@ImportantInformationValueChanged"/>
+                    @if (Model.Important_Information_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Important_Information_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Important_Information_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="6" Title="Challanges">
                     <RichTextEditor ValueExpression="@(() => Model.Challenges)" Value="@Model.Challenges" ValueChanged="@ChallangesValueChanged"/>
+                    @if (Model.Challenges_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Challenges_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Challenges_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="7" Title="Recommend Strategy">
                     <RichTextEditor ValueExpression="@(() => Model.Recommended_Strategy)" Value="@Model.Recommended_Strategy" ValueChanged="@RecommendStrategyValueChanged"/>
+                    @if (Model.Recommended_Strategy_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Recommended_Strategy_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Recommended_Strategy_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="8" Title="Next Steps">
                     <RichTextEditor ValueExpression="@(() => Model.Next_steps)" Value="@Model.Next_steps" ValueChanged="@NextStepsValueChanged"/>
+                    @if (Model.Next_Steps_Modification_Date != new DateTime())
+                    {
+                        <div class="d-flex justify-content-end mt-2">
+                            <div class="me-2">
+                                <p class="mb-0 description">Modified By: @Model.Next_Steps_Modified_By</p>
+                            </div>
+                            <div class="ms-2">
+                                <p class="mb-0 description">Modification Date: @Model.Next_Steps_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                            </div>
+                        </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="9" Title="Resolution Plan">
                     <RichTextEditor ValueExpression="@(() => Model.Resolution_plan)" Value="@Model.Resolution_plan" ValueChanged="@ResolutionPlanValueChanged"/>
+                    @if (Model.Resolution_Plan_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Resolution_Plan_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Resolution_Plan_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
 
             <div class="my-2">
                 <CollapsibleContainer Id="10" Title="Restructing Plan">
                     <RichTextEditor ValueExpression="@(() => Model.Restructuring_plan)" Value="@Model.Restructuring_plan" ValueChanged="@RestructuringPlanValueChanged"/>
+                    @if (Model.Resolution_Plan_Modification_Date != new DateTime())
+                    {
+                            <div class="d-flex justify-content-end mt-2">
+                                <div class="me-2">
+                                    <p class="mb-0 description">Modified By: @Model.Resolution_Plan_Modified_By</p>
+                                </div>
+                                <div class="ms-2">
+                                    <p class="mb-0 description">Modification Date: @Model.Resolution_Plan_Modification_Date.ToString("hh:mm tt dd-MM-yyyy")</p>
+                                </div>
+                            </div>
+                    }
                 </CollapsibleContainer>
             </div>
         </EditForm>
