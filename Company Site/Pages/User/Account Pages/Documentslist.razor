@@ -19,51 +19,55 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
-                    <label for="type">Type</label>
-                    <InputText @bind-Value=NewEntry.Type id="Type" class="form-control" type="text"/>
-                    <ValidationMessage For="@(() => NewEntry.Type)"/>
-                </div>
-            </div>
-            <label for="desc">Description</label>
-            <InputTextArea id="desc" class="form-control" @bind-Value=NewEntry.Description></InputTextArea>
-            <ValidationMessage For="@(() => NewEntry.Description)" />
-            <div class="row">
-                <div class="col-md-5">
                     <label for="type2">Type</label>
-                    <InputSelect id="type2" @bind-Value=NewEntry.Doc_type class="form-select">
+                    <InputSelect id="type2" @bind-Value=NewEntry.Type class="form-select">
                         <option value="" selected>------ Select Document Type -----</option>
                         <option value="original">Original</option>
                         <option value="photocopy">Photocopy</option>
                         <option value="certTrueCopy">Certified True Copy</option>
                     </InputSelect>
-                    <ValidationMessage For="@(() => NewEntry.Doc_type)"/>
+                    <ValidationMessage For="@(() => NewEntry.Type)"/>
                 </div>
-                <div class="col-md-1"></div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-11">
+                    <label for="desc">Description</label>
+                    <InputTextArea id="desc" class="form-control" @bind-Value=NewEntry.Description></InputTextArea>
+                    <ValidationMessage For="@(() => NewEntry.Description)" />
+                </div>
+            </div>
+            <div class="row mt-3">
                 <div class="col-md-5">
                     <label for="docAmount">Document Amount</label>
                     <InputNumber @bind-Value=NewEntry.DocumentAmount id="Document Amount" class="form-control"/>
                 </div>
-            </div>
-            <div class="row">
+                <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="docDate">Document Date</label>
                     <input @bind-value=NewEntry.Document_Date id="Document Date" class="form-control" type="date"/>
                 </div>
-                <div class="col-md-1"></div>
+            </div>
+            <div class="row mt-3">
                 <div class="col-md-5">
                     <label for="stampDuty">Stamp Duty</label>
-                    <InputText @bind-Value=NewEntry.Stamp_Duty id="Stamp duty" class="form-control" type="text"/>
+                    <InputText @bind-Value=NewEntry.Stamp_Duty id="Stamp duty" class="form-control" type="text"/>                    
                 </div>
-            </div>
-            <div class="row">
+                <div class="col-md-1"></div>
                 <div class="col-md-5">
                     <label for="origHeldWith">Original Held With</label>
                     <InputText @bind-Value=NewEntry.Original_Held_With Held With id="Original Held With" class="form-control" type="text"/>
                 </div>
-                <div class="col-md-1"></div>
+            </div>
+            <div class="row mt-3">
                 <div class="col-md-5">
                     <label for="execPlace">Execution Place</label>
                     <InputText @bind-Value=NewEntry.Execution_Place id="Execution Place" class="form-control" type="text"/>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-5">
+                    <label>Document</label>
+                    <InputFile class="form-control" OnChange="FileChanged"/>
+                    <p class="mb-0 description">@NewEntry.Document</p>
                 </div>
             </div>
             <p class="text-center mt-3">

@@ -66,10 +66,10 @@ namespace Company_Site.Base
 
         protected virtual void AfterSave() { }
 
-		protected virtual void Save()
+		protected virtual async void Save()
 		{
             _errors.Clear();
-            if(SaveSetup())
+            if(SaveSetup() || await SaveSetup(NewEntry))
             {
                 try
                 {
@@ -86,6 +86,11 @@ namespace Company_Site.Base
                 StateHasChanged();
             }
 		}
+
+        protected virtual async Task<bool> SaveSetup(T entry)
+        {
+            return true;
+        }
 
         protected virtual bool SaveSetup()
         {

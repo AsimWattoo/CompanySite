@@ -10,7 +10,7 @@
             <DataAnnotationsValidator/>
 
             <MultiErrorView Errors="_errors"/>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-md-3">
                     <label for="year">Year</label>
                     <InputSelect id="year" @bind-Value=NewEntry.Year class="form-select">
@@ -41,7 +41,7 @@
                     <ValidationMessage For="@(() => NewEntry.amount)"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-md-3">
                     <label for="facility">Facility</label>
                     <InputSelect id="facility" @bind-Value=NewEntry.Facilty class="form-select">
