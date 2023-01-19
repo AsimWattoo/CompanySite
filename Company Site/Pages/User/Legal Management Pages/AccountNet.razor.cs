@@ -13,7 +13,7 @@ namespace Company_Site.Pages.User.Legal_Management_Pages
         {
             ["CaseTitle"] = p => p.CaseTitle,
             ["Forum"] = p => p.Forum,
-            ["Status"] = p => p.Status,
+            ["Current Stage"] = p => p.CurrentStage,
             ["Next Date"] = p => p.NextDate.ToString("dd-MMM-yyyy"),
             ["Order/Outcome"] = p => p.FinalOrder,
         };

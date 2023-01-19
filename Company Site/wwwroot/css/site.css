@@ -9,6 +9,14 @@
     font-family: 'Poppins Regular';
 }*/
 
+.top-search-bar {
+    border-radius: 50px !important;
+}
+
+.search-bar{
+    padding-right: 0px !important;
+}
+
 .normal-text{
     font-size: 1.2rem !important;
 }

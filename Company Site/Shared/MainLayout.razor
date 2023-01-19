@@ -5,11 +5,14 @@
 @using Company_Site.Pages.Components
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore
+@using Radzen.Blazor
+@using Radzen;
 @inherits LayoutComponentBase
 @inject AuthenticationStateProvider authStateProvider
 @inject UserManager<User> userManager
 @inject ApplicationDbContext dbContext
 @inject NavigationManager navigationManager
+@inject ApplicationState _applicationState
 
 <PageTitle>Company Site</PageTitle>
 
@@ -41,7 +44,15 @@
                                                     <div class="col-xl-10 col-lg-10 col-md-10 col-sm-8 col-12 d-flex justify-content-center mx-2">
                                                             <div class="search-bar d-flex align-items-center justify-content-start">
                                                             <i class="fa fa-search"></i>
-                                                            <input class="" placeholder="Find your Tasks, Projects ..."/>
+                                                            <RadzenDropDown class="form-select top-search-bar ms-1" 
+                                                                LoadData="LoadAccountData" 
+                                                                AllowFiltering="true" 
+                                                                TValue="string" 
+                                                                Value=_applicationState.BorrowerCode 
+                                                                Data="FilteredAccounts" 
+                                                                TextProperty="Company" 
+                                                                ValueProperty="BorrowerCode" 
+                                                                Change="OnAccountChange"/>
                                                         </div>
                                                     </div>
                                                     <div class="panel"></div>
@@ -113,6 +124,21 @@
 
     public User user;
 
+    /// <summary>
+    /// The selected account
+    /// </summary>
+    private Account? _Account { get; set; }
+
+    /// <summary>
+    /// The list of all the accounts
+    /// </summary>
+    private List<Account> Accounts { get; set; } = new List<Account>();
+
+    /// <summary>
+    /// The list of filtered accounts
+    /// </summary>
+    private List<Account> FilteredAccounts { get; set; } = new List<Account>();
+
     protected override async Task OnInitializedAsync()
     {
         string newUri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
@@ -134,6 +160,8 @@
             IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
             UserId = user.Id;
             IsLoggedIn = true;
+            Accounts = dbContext.Accounts.ToList();
+            FilteredAccounts = Accounts;
         }
         base.OnInitialized();
     }
@@ -146,6 +174,30 @@
     {
         //Toggling the nav bar
         IsCollapsed = !IsCollapsed;
+    }
+
+    private void OnAccountChange(object account)
+    {
+        if (account is int borrowerCode)
+        {
+            _applicationState.BorrowerCode = borrowerCode;
+            _Account = Accounts.Where(f => f.BorrowerCode == borrowerCode).First();
+            navigationManager.NavigateTo(navigationManager.Uri, true);
+        }
+    }
+
+    void LoadAccountData(LoadDataArgs args)
+    {
+        var query = Accounts.AsQueryable();
+
+        if (!string.IsNullOrEmpty(args.Filter))
+        {
+            query = query.Where(c => c.Company.ToLower().Contains(args.Filter.ToLower()));
+        }
+
+        FilteredAccounts = query.ToList();
+
+        InvokeAsync(StateHasChanged);
     }
 
 }

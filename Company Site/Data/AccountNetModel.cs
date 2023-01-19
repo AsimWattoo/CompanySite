@@ -31,11 +31,7 @@ namespace Company_Site.Data
         
         public string? ContactMobile { get; set; }
 
-        public double TotalFeesQuotation { get; set; }
-
         public double BilledAmount { get; set; }
-
-        public double CourtFees { get; set; }
 
         public string? CaseDetails { get; set; }
 
@@ -57,8 +53,6 @@ namespace Company_Site.Data
 
         public string? Respondent_adv { get; set; }
 
-        public double Advance { get; set; }
-        
         public double AmountPaid { get; set; }
         
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
@@ -76,14 +70,14 @@ namespace Company_Site.Data
 
         public string? CurrentStage { get; set; }
 
-        public DateTime AppointmentDate { get; set; } = DateTime.Now;
-
-        public double FeePerHearing { get; set; }
-
         public double OSAmount { get; set; }
 
-        public double BillNumber { get; set; }
-
         public string? Status { get; set; }
+
+        public DateTime LastDebtAcknowledgement { get; set; } = DateTime.Now;
+
+        public int DaysToLimitation { get; set; } = 0;
+
+        public DateTime LimitationDate => LastDebtAcknowledgement.AddDays(DaysToLimitation);
     }
 }

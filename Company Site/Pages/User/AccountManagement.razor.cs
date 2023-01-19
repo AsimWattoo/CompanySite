@@ -31,21 +31,6 @@ namespace Company_Site.Pages.User
         /// </summary>
         private AccountTypes CurrentType { get; set; } = AccountTypes.Home;
 
-        /// <summary>
-        /// The selected account
-        /// </summary>
-        private Account? _Account { get; set; }
-
-        /// <summary>
-        /// The list of all the accounts
-        /// </summary>
-        private List<Account> Accounts { get; set; } = new List<Account>();
-
-        /// <summary>
-        /// The list of filtered accounts
-        /// </summary>
-        private List<Account> FilteredAccounts { get; set; } = new List<Account>();
-
         private Dictionary<string, Func<TrustRelationModel, string>> Headers { get; set; } = new Dictionary<string, Func<TrustRelationModel, string>>()
         {
             ["Trust"] = t => t.Trust.Trust_Name,
@@ -62,39 +47,11 @@ namespace Company_Site.Pages.User
         protected override void Setup()
         {
             _dbSet = _dbContext.TrustRelations;
-            Accounts = _dbContext.Accounts.ToList();
-            FilteredAccounts = Accounts;
         }
 
         #endregion
 
         #region Private Methods
-
-
-        private void OnAccountChange(object account)
-        {
-            if(account is int borrowerCode) 
-            {
-                _applicationState.BorrowerCode = borrowerCode;
-                LoadData();
-                _Account = Accounts.Where(f => f.BorrowerCode == borrowerCode).First();
-                SaveResetup();
-            }
-        }
-
-        void LoadAccountData(LoadDataArgs args)
-        {
-            var query = Accounts.AsQueryable();
-
-            if (!string.IsNullOrEmpty(args.Filter))
-            {
-                query = query.Where(c => c.Company.ToLower().Contains(args.Filter.ToLower()));
-            }
-
-            FilteredAccounts = query.ToList();
-
-            InvokeAsync(StateHasChanged);
-        }
 
         private int GetId(TrustRelationModel model) => model.Id;
 
