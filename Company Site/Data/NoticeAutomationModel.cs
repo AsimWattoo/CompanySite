@@ -14,12 +14,11 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Notice Type is required")]
         public string NoticeType { get; set; }
 
-        [Required(ErrorMessage = "Notice Title is required")]
-        public string NoticeTitle { get; set; }
+        /// <summary>
+        /// The notice format
+        /// </summary>
+        public string? NoticeFormat { get; set; }
 
-        [Required(ErrorMessage = "Forum is required")]
-        public string Forum { get; set; }
-
-        public string? Notice { get; set; }
+        public string? FormatName { get; set; }
     }
 }

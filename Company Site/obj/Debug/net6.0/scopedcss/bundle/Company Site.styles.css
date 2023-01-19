@@ -631,6 +631,25 @@ tr[b-0d4lq1jm2i], td[b-0d4lq1jm2i], th[b-0d4lq1jm2i]{
 td[b-0d4lq1jm2i], th[b-0d4lq1jm2i]{
 	padding: 0.3rem 0rem;
 }
+/* _content/Company Site/Pages/User/LegalManagement.razor.rz.scp.css */
+.nav-item[b-r9mw6damfn] {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+    .nav-item:hover[b-r9mw6damfn] {
+        background-color: #DDE9FE;
+    }
+
+.active[b-r9mw6damfn] {
+    background-color: #DDE9FE;
+}
+
+    .active a[b-r9mw6damfn] {
+        color: #0157FF !important;
+    }
 /* _content/Company Site/Pages/User/MemoEditor.razor.rz.scp.css */
 fieldset[b-5ewobahw9o]{
     border: 1px solid lightgray;

@@ -1,11 +1,90 @@
-﻿
-@page "/ncltnet"
-
-@inherits BaseAddPage<NcltNetModel, int>
+﻿@inherits BaseAddPage<NcltNetModel, int>
 
 @using Company_Site.Base;
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
+
+<Modal Title="RA Details Form" ShowModal=RADetailsFormShown>
+    <EditForm Model="NewRADetailsEntry" OnValidSubmit="SaveRADetails" Context="RADetails">
+        <div class="my-1">
+            <label for="PRA">Name</label>
+            <InputText @bind-Value=NewRADetailsEntry.Name class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Plan Value</label>
+            <InputNumber @bind-Value=NewRADetailsEntry.PlanValue class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="currentStage">Our Share</label>
+            <InputNumber @bind-Value=NewRADetailsEntry.OurShare class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="PRA">Payment Timeline</label>
+            <InputText @bind-Value=NewRADetailsEntry.PaymentTimeline class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Plan Details</label>
+            <InputText @bind-Value=NewRADetailsEntry.PlanDetails class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="currentStage">Scoring</label>
+            <InputNumber @bind-Value=NewRADetailsEntry.Scoring class="form-control" type="text"/>
+        </div>
+        <div class="d-flex justify-content-center my-2">
+            <a class="btn btn-danger mx-1" @onclick=CancelRADetails>Cancel</a>
+            <a class="btn btn-secondary mx-1" @onclick=ClearRADetails>Clear</a>
+            <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
+        </div>
+    </EditForm>
+</Modal>
+
+<Modal Title="Timeline Form" ShowModal=TimelineFormShown>
+    <EditForm Model="NewTimelineEntry" OnValidSubmit="SaveTimeline" Context="Timelines">
+        <div class="my-1">
+            <label for="PRA">Name</label>
+            <input type="date" @bind-value=NewTimelineEntry.Date class="form-control"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Plan Value</label>
+            <InputText @bind-Value=NewTimelineEntry.Particulars class="form-control" type="text"/>
+        </div>
+        <div class="d-flex justify-content-center my-2">
+            <a class="btn btn-danger mx-1" @onclick=CancelTimeline>Cancel</a>
+            <a class="btn btn-secondary mx-1" @onclick=ClearTimeline>Clear</a>
+            <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
+        </div>
+    </EditForm>
+</Modal>
+
+<Modal Title="Claims & Share Form" ShowModal=ClaimsAndShareFormShown>
+    <EditForm Model="NewClaimsAndSharesEntry" OnValidSubmit="SaveClaimsAndShare" Context="ClaimsAndShares">
+        <div class="my-1">
+            <label for="PRA">Lender Name</label>
+            <InputText @bind-Value=NewClaimsAndSharesEntry.LenderName class="form-control"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Claim Submitted</label>
+            <InputNumber @bind-Value=NewClaimsAndSharesEntry.ClaimSubmitted class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Admitted</label>
+            <InputNumber @bind-Value=NewClaimsAndSharesEntry.Admitted class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Share</label>
+            <InputNumber @bind-Value=NewClaimsAndSharesEntry.Share class="form-control" type="text"/>
+        </div>
+        <div class="my-1">
+            <label for="ra">Voting Share</label>
+            <InputNumber @bind-Value=NewClaimsAndSharesEntry.VotingShare class="form-control" type="text"/>
+        </div>
+        <div class="d-flex justify-content-center my-2">
+            <a class="btn btn-danger mx-1" @onclick=CancelClaimsAndShare>Cancel</a>
+            <a class="btn btn-secondary mx-1" @onclick=ClearClaimsAndShare>Clear</a>
+            <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
+        </div>
+    </EditForm>
+</Modal>
 
 <p class="fw-bold text-button-heading mb-2">Nclt Net</p>
 
@@ -16,7 +95,7 @@
 
         <MultiErrorView Errors="_errors"/>
 
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-3">
                 <label for="caseName">Case Name</label>
                 <InputText @bind-Value=NewEntry.case_name id="case_name" class="form-control" type="text"/>
@@ -35,7 +114,7 @@
                 <ValidationMessage For="@(() => NewEntry.Applicant_name)"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-3">
                 <label for="insolveryDate">Insolvery Commitment Date</label>
                 <input type="date" @bind-value=NewEntry.insolvery_commencement_date id="insolveryDate" class="form-control"/>
@@ -52,7 +131,7 @@
                 <InputText @bind-Value=NewEntry.RP id="rp" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-3">
                 <label for="IPE">IPE</label>
                 <InputText @bind-Value=NewEntry.IPE id="IPE" class="form-control" type="text"/>
@@ -70,7 +149,7 @@
                 <InputNumber @bind-Value=NewEntry.Liquidation_Value id="liquidationValue" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-3">
                 <label for="PRA">PRA</label>
                 <InputText @bind-Value=NewEntry.PRA id="PRA" class="form-control" type="text"/>
@@ -87,178 +166,99 @@
                 <InputText @bind-Value=NewEntry.current_stage id="currentStage" class="form-control" type="text"/>
             </div>
         </div>
-        <label for="assetDetails">Asset Details</label>
-        <InputTextArea @bind-Value=NewEntry.Asset_Details class="form-control" id="assetDetails"></InputTextArea>
-
-        <!--RA Details-->
-        <div class="row my-2">
-
-            <Modal Title="RA Details Form" ShowModal=RADetailsFormShown>
-                <EditForm Model="NewRADetailsEntry" OnValidSubmit="SaveRADetails" Context="RADetails">
-                    <div class="my-1">
-                        <label for="PRA">Name</label>
-                        <InputText @bind-Value=NewRADetailsEntry.Name class="form-control" type="text"/>
-                    </div>
-                    <div class="my-1">
-                        <label for="ra">Plan Value</label>
-                        <InputNumber @bind-Value=NewRADetailsEntry.PlanValue class="form-control" type="text"/>
-                    </div>
-                    <div class="my-1">
-                        <label for="currentStage">Our Share</label>
-                        <InputNumber @bind-Value=NewRADetailsEntry.OurShare class="form-control" type="text"/>
-                    </div>
-                    <div class="my-1">
-                        <label for="PRA">Payment Timeline</label>
-                        <InputText @bind-Value=NewRADetailsEntry.PaymentTimeline class="form-control" type="text"/>
-                    </div>
-                    <div class="my-1">
-                        <label for="ra">Plan Details</label>
-                        <InputText @bind-Value=NewRADetailsEntry.PlanDetails class="form-control" type="text"/>
-                    </div>
-                    <div class="my-1">
-                        <label for="currentStage">Scoring</label>
-                        <InputNumber @bind-Value=NewRADetailsEntry.Scoring class="form-control" type="text"/>
-                    </div>
-                    <div class="d-flex justify-content-center my-2">
-                        <a class="btn btn-danger mx-1" @onclick=CancelRADetails>Cancel</a>
-                        <a class="btn btn-secondary mx-1" @onclick=ClearRADetails>Clear</a>
-                        <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
-                    </div>
-                </EditForm>
-            </Modal>
-
-
-            <div class="row mt-3 mx-0 px-0 align-items-center">
-                <div class="col-8 d-flex justify-content-start">
-                    <h4>RA Details</h4>
-                </div>
-                <div class="col-4 d-flex justify-content-end">
-                    <a class="btn btn-primary" @onclick=AddRADetials>
-                        <i class="fa fa-plus me-2"></i>
-                        Add
-                    </a>
-                </div>
+        
+        <div class="row mt-3">
+            <div class="col-11">
+                <label for="assetDetails">Asset Details</label>
+                <InputTextArea @bind-Value=NewEntry.Asset_Details class="form-control" id="assetDetails"></InputTextArea>
             </div>
-            <Table T="RADetailsModel" T2="int" Headers="RADetailsHeaders" Items="RADetailsEnteries" GetId="GetRADetailsId" IsSearchable=false OnDelete="DeleteRADetails" OnEdit="EditRADetails"/>
         </div>
 
-        <div class="row">
-            <div class="col-md-9">
+        <div class="row mt-3">
+            <div class="col-md-7">
                 <label for="plan">Plan</label>
                 <InputTextArea @bind-Value=NewEntry.Plan id="plan" class="form-control" type="text"/>
             </div>
             <!--Timeline data-->
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="row my-2">
 
-                    <Modal Title="Timeline Form" ShowModal=TimelineFormShown>
-                        <EditForm Model="NewTimelineEntry" OnValidSubmit="SaveTimeline" Context="Timelines">
-                            <div class="my-1">
-                                <label for="PRA">Name</label>
-                                <input type="date" @bind-value=NewTimelineEntry.Date class="form-control"/>
-                            </div>
-                            <div class="my-1">
-                                <label for="ra">Plan Value</label>
-                                <InputText @bind-Value=NewTimelineEntry.Particulars class="form-control" type="text"/>
-                            </div>
-                            <div class="d-flex justify-content-center my-2">
-                                <a class="btn btn-danger mx-1" @onclick=CancelTimeline>Cancel</a>
-                                <a class="btn btn-secondary mx-1" @onclick=ClearTimeline>Clear</a>
-                                <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
-                            </div>
-                        </EditForm>
-                    </Modal>
-
-
                     <div class="row mt-3 mx-0 px-0 align-items-center">
-                        <div class="col-8 d-flex justify-content-start">
+                        <div class="col-6 d-flex justify-content-start">
                             <h4>Timeline</h4>
                         </div>
-                        <div class="col-4 d-flex justify-content-end">
+                        <div class="col-6 d-flex justify-content-end">
                             <a class="btn btn-primary" @onclick=AddTimeline>
                                 <i class="fa fa-plus me-2"></i>
                                 Add
                             </a>
                         </div>
                     </div>
-                    <Table T="TimelineModel" T2="int" Headers="TimelineHeaders" Items="TimelineEnteries" GetId="GetTimeLineId" IsSearchable=false OnDelete="DeleteTimeline" OnEdit="EditTimeline"/>
+                    <div style="max-height: 250px; overflow-y: scroll;" class="mt-2">
+                        <Table ShowPaging=false T="TimelineModel" T2="int" Headers="TimelineHeaders" Items="TimelineEnteries" GetId="GetTimeLineId" IsSearchable=false OnDelete="DeleteTimeline" OnEdit="EditTimeline"/>
+                    </div>
                 </div>
             </div>
         </div>
 
         @if (ShouldAdd)
         {
-            <p class="text-danger">** The below data will not autosave until an entry is saved first manually. **</p>
+                <p class="text-danger mt-3">** The below data will not autosave until an entry is saved first manually. **</p>
         }
 
-        <div class="row">
-            <div class="col-md-9">
+        <div class="row mt-3">
+            <div class="col-md-11">
                 <label for="liquidationDetails">Liquidation Details</label>
                 <InputTextArea Value="@NewEntry.LiquidationDetails" ValueExpression=@(() => NewEntry.LiquidationDetails) ValueChanged=LiquidationValueChanged id="liquidationDetails" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-9">
+        <div class="row mt-3">
+            <div class="col-md-11">
                 <label for="scheme">IBC-Scheme 230-Companies Act</label>
                 <InputText Value=@NewEntry.CompaniesAct ValueExpression=@(() => NewEntry.CompaniesAct) ValueChanged="CompaniesActValueChanged" id="scheme" class="form-control" type="text"/>
             </div>
         </div>
-        <div class="my-2 d-flex justify-content-center">
+
+        <div class="row mt-3">
+            <div class="col-11">
+                <div class="row mt-3 mx-0 px-0 align-items-center">
+                    <div class="col-8 d-flex justify-content-start">
+                        <h4>Claims & Share</h4>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end">
+                        <a class="btn btn-primary" @onclick=AddClaimsAndShare>
+                            <i class="fa fa-plus me-2"></i>
+                            Add
+                        </a>
+                    </div>
+                </div>
+                <Table T="ClaimsAndShareModel" T2="int" ShowPaging=false ShowSerialNumber=true ShowTotal=true GetTotal="GetClaimsAndShareTotal" Headers="ClaimsAndShareHeaders" Items="ClaimsAndShareEnteries" GetId="GetClaimsAndShareId" IsSearchable=false OnDelete="DeleteClaimsAndShare" OnEdit="EditClaimsAndShare"/>
+            </div>
+        </div>
+
+        <!--RA Details-->
+        <div class="row  mt-3">
+
+            <div class="col-11">
+                <div class="row mt-3 mx-0 px-0 align-items-center">
+                    <div class="col-8 d-flex justify-content-start">
+                        <h4>RA Details</h4>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end px-0">
+                        <a class="btn btn-primary" @onclick=AddRADetials>
+                            <i class="fa fa-plus me-2"></i>
+                            Add
+                        </a>
+                    </div>
+                </div>
+                <Table ShowPaging=false T="RADetailsModel" T2="int" Headers="RADetailsHeaders" Items="RADetailsEnteries" GetId="GetRADetailsId" IsSearchable=false OnDelete="DeleteRADetails" OnEdit="EditRADetails"/>
+            </div>
+        </div>
+        <div class="mt-3 d-flex justify-content-center">
             <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
             <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
         </div>
     </EditForm>
-
-    <!--Claims and Share-->
-    <div class="row my-2">
-
-        <Modal Title="Claims & Share Form" ShowModal=ClaimsAndShareFormShown>
-            <EditForm Model="NewClaimsAndSharesEntry" OnValidSubmit="SaveClaimsAndShare" Context="ClaimsAndShares">
-                <div class="my-1">
-                    <label for="PRA">Lender Name</label>
-                    <InputText @bind-Value=NewClaimsAndSharesEntry.LenderName class="form-control"/>
-                </div>
-                <div class="my-1">
-                    <label for="ra">Claim Submitted</label>
-                    <InputNumber @bind-Value=NewClaimsAndSharesEntry.ClaimSubmitted class="form-control" type="text"/>
-                </div>
-                <div class="my-1">
-                    <label for="ra">Admitted</label>
-                    <InputNumber @bind-Value=NewClaimsAndSharesEntry.Admitted class="form-control" type="text"/>
-                </div>
-                <div class="my-1">
-                    <label for="ra">Share</label>
-                    <InputNumber @bind-Value=NewClaimsAndSharesEntry.Share class="form-control" type="text"/>
-                </div>
-                <div class="my-1">
-                    <label for="ra">Voting Share</label>
-                    <InputNumber @bind-Value=NewClaimsAndSharesEntry.VotingShare class="form-control" type="text"/>
-                </div>
-                <div class="d-flex justify-content-center my-2">
-                    <a class="btn btn-danger mx-1" @onclick=CancelClaimsAndShare>Cancel</a>
-                    <a class="btn btn-secondary mx-1" @onclick=ClearClaimsAndShare>Clear</a>
-                    <input type="submit" class="btn btn-primary mx-1" value="Save"/> 
-                </div>
-            </EditForm>
-        </Modal>
-
-
-        <CollapsibleContainer Title="Claims & Share">
-            <div class="row mt-3 mx-0 px-0 align-items-center">
-                <div class="col-8 d-flex justify-content-start">
-                    <h4>Claims & Share</h4>
-                </div>
-                <div class="col-4 d-flex justify-content-end">
-                    <a class="btn btn-primary" @onclick=AddClaimsAndShare>
-                        <i class="fa fa-plus me-2"></i>
-                        Add
-                    </a>
-                </div>
-            </div>
-            <Table T="ClaimsAndShareModel" T2="int" ShowSerialNumber=true ShowTotal=true GetTotal="GetClaimsAndShareTotal" Headers="ClaimsAndShareHeaders" Items="ClaimsAndShareEnteries" GetId="GetClaimsAndShareId" IsSearchable=false OnDelete="DeleteClaimsAndShare" OnEdit="EditClaimsAndShare"/>
-        </CollapsibleContainer>
-
-    </div>
 
 </div>
 

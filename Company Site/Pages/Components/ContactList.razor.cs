@@ -16,6 +16,9 @@ namespace Company_Site.Pages.Components
         [Parameter]
         public Func<T, string> GetContactId { get; set; }
 
+        [Parameter]
+        public bool ShouldRenderFragment { get; set; } = false;
+
         /// <summary>
         /// Fires when a contact is deleted
         /// </summary>

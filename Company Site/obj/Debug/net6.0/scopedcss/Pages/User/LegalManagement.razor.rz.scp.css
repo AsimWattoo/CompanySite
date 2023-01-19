@@ -1,0 +1,18 @@
+.nav-item[b-r9mw6damfn] {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+    .nav-item:hover[b-r9mw6damfn] {
+        background-color: #DDE9FE;
+    }
+
+.active[b-r9mw6damfn] {
+    background-color: #DDE9FE;
+}
+
+    .active a[b-r9mw6damfn] {
+        color: #0157FF !important;
+    }

@@ -1,4 +1,5 @@
 ﻿using Company_Site.Data;
+using Company_Site.Data;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.CodeAnalysis;
@@ -81,8 +82,6 @@ namespace Company_Site.DB
 		public DbSet<ApprovalsAndMemoModel> ApprovalsAndMemoModels { get; set; }
 
 		public DbSet<NoticeAutomationModel> NoticeAutomations { get; set; }
-
-		public DbSet<DraftModel> SavedDrafts { get; set; }
 
 		public DbSet<AssetDetailsModel> AssetDetails { get; set; }
 

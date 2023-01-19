@@ -1,5 +1,6 @@
 ﻿using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Enum;
 using Company_Site.Helpers;
 
 using Microsoft.AspNetCore.Components;
@@ -10,16 +11,7 @@ namespace Company_Site.Pages.User
     {
         #region Private Members
 
-        private Dictionary<string, Func<AccountNetModel, string>> Headers { get; set; } = new Dictionary<string, Func<AccountNetModel, string>>()
-        {
-            ["CaseTitle"] = p => p.CaseTitle,
-            ["Forum"] = p => p.Forum,
-            ["Status"] = p => p.Status,
-            ["Next Date"] = p => p.NextDate.ToString("dd-MMM-yyyy"),
-            ["Order/Outcome"] = p => p.FinalOrder,
-        };
-
-        private List<AccountNetModel> _accountNets = new List<AccountNetModel>();
+        private LegalTypes CurrentType = LegalTypes.CaseManagement;
 
         #endregion
 
@@ -37,7 +29,6 @@ namespace Company_Site.Pages.User
 
         protected override void OnInitialized()
         {
-            _accountNets = _dbContext.AccountNets.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
         }
 
         #endregion
@@ -45,11 +36,13 @@ namespace Company_Site.Pages.User
         #region Private Methods
 
         /// <summary>
-        /// Returns the id of the account net model
+        /// Changes the current tab of the application
         /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        private string GetId(AccountNetModel model) => model.Id;
+        /// <param name="legalTypes"></param>
+        private void _changePage(LegalTypes legalTypes)
+        {
+            CurrentType = legalTypes;
+        }
 
         #endregion
     }

@@ -89,7 +89,7 @@ namespace Company_Site.Base
 
         protected virtual async Task<bool> SaveSetup(T entry)
         {
-            return true;
+            return false;
         }
 
         protected virtual bool SaveSetup()
