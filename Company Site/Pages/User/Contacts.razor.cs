@@ -172,6 +172,20 @@ namespace Company_Site.Pages.User
 
         #endregion
 
+        #region Pirvate Methods
+
+        /// <summary>
+        /// Searches contacts based on text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private List<ContactsModel> SearchContacts(string text)
+        {
+            return Enteries.Where(f => f.FirstName.Contains(text) || f.LastName.Contains(text) || f.Email.Contains(text)).ToList();
+        }
+
+        #endregion
+
         #region Contacts Access Grants Methods
 
         public void AddAccessGrant()

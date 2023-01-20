@@ -26,11 +26,11 @@
                         <div class="page container-fluid">
                             @if(IsLoggedIn){
                                 <div class="container-fluid overflow-hidden">
-                                    <div class="row @(IsCollapsed ? "col-collapsed": "")">
+                                    <div class="row bg-white @(IsCollapsed ? "col-collapsed": "")">
                                         <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 user-info col-panel d-flex justify-content-center overflow-hidden">
                                             <div class="user-info-panel d-flex align-items-center justify-content-center m-0 @(IsCollapsed ? "collapsed" : "")">
                                                 <div class="img">
-                                                    <img src="./img/profile.jpg"/>
+                                                    <img src="./img/profile.jpeg"/>
                                                 </div>
                                                 <div class="info">
                                                     <p class="mb-0 fs-4 fw-bold title-text">@user.UserName</p>

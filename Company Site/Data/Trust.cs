@@ -120,5 +120,7 @@ namespace Company_Site.Data
         public string? SRInvestor { get; set; }
 
         public double InvestorShare { get; set; }
+
+        public string? TrustDeedLink { get; set; }
     }
 }

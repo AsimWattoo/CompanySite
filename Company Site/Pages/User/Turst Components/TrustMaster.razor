@@ -157,6 +157,11 @@
                         <option value="compound">Compound</option>
                     </InputSelect>
                 </div>
+                <div class="col-md-1"/>
+                <div class="col-md-3">
+                    <label for="trustDeed">Trust Deed Link</label>
+                    <InputText class="form-control mx-1" @bind-Value=NewEntry.TrustDeedLink />
+                </div>
             </div>
 
             <!--Trusteeship Fee Section-->
@@ -280,16 +285,16 @@
             <div class="row mt-5">
                 <div class="col-md-3 shadow-box">
                     <label for="createdBy">Created By</label>
-                    <label id="createdBy" class="form-control" type="text">@NewEntry.CreatorName</label>
+                    <label id="createdBy" class="form-control empty-label disabled" type="text">@NewEntry.CreatorName</label>
                     <label for="createdDate">Created Date</label>
-                    <label id="createdDate" class="form-control">@NewEntry.CreationDate.ToString("dd-MMM-yyyy")</label>
+                    <label id="createdDate" class="form-control empty-label disabled">@NewEntry.CreationDate.ToString("dd-MMM-yyyy")</label>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-5"></div>
                 <div class="col-md-3 shadow-box">
                     <label for="modifiedBy">Modified By</label>
-                    <label id="modifiedBy" class="form-control" type="text">@NewEntry.Modifier</label>
+                    <label id="modifiedBy" class="form-control empty-label disabled" type="text">@NewEntry.Modifier</label>
                     <label for="modifiedBy">Modification Date</label>
-                    <label class="form-control" type="text">@NewEntry.ModificationDate.ToString("dd-MMM-yyyy")</label>
+                    <label class="form-control empty-label disabled" type="text">@NewEntry.ModificationDate.ToString("dd-MMM-yyyy")</label>
                 </div>
             </div>
 
@@ -366,11 +371,12 @@
             </EditForm>
         </Modal>
 
-        <div class="d-flex justify-content-end mx-5 mt-3">
+        <div class="d-flex justify-content-end mx-4 mt-3">
             <a class="btn btn-primary me-2" @onclick="ShowExistingAccounts">Link Existing Account</a>
             <a class="btn btn-primary" @onclick="AddAccount">Assign Account</a>
         </div>
         <Table T="AccountViewModel" T2="int" ShowSerialNumber=true Items="TrustAccounts" Headers="AccountHeaders" GetId="GetAccountId" IsSearchable=false OnEdit="OnAccountEdit" OnDelete="OnAccountDelete"/>
+
     </div>
 
 </CollapsibleContainer>

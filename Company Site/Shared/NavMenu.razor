@@ -1,9 +1,6 @@
 ﻿@using Company_Site.Data
 @using Company_Site.Enum
 
-<div class="flex-column px-3 mt-2">
-    <p class="lead color-gray">MENU</p>
-</div>
 <div class="@(IsCollapsed? "collapsed" : "") navbar">
     <nav class="d-flex justify-content-center flex-column px-3">
         <a class="@((SelectedOption == "Dashboard" || SelectedOption == string.Empty ? "active" : "")) nav-item my-2 text-start" href="" @onclick='(() => {SelectedOption = "Dashboard";})'>

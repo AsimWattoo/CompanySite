@@ -16,11 +16,13 @@ main[b-cddauckdx4] {
 .user-info-panel[b-cddauckdx4] {
     display: flex;
     transition: all 0.2s ease-in-out;
+    cursor:pointer;
 }
 
 .user-info-panel .img[b-cddauckdx4]{
     overflow: hidden;
     border-radius: 100%;
+    margin-left: 1rem;
     height: 50px;
     width: 50px;
     display:flex;
@@ -34,6 +36,7 @@ main[b-cddauckdx4] {
     border-top: 1px solid lightgray;
     background-color: white;
     transition: all 0.2s ease-in-out;
+    min-height: 89.5vh;
 }
 
 .top-row[b-cddauckdx4] {
@@ -147,6 +150,7 @@ main[b-cddauckdx4] {
 
 .title-text[b-cddauckdx4]{
     width: 200px;
+    font-size: 0.7rem;
     transition: all 0.2s ease-in-out;
 }
 
@@ -165,7 +169,7 @@ div.col-panel[b-cddauckdx4]{
 }
 
 .email[b-cddauckdx4] {
-    font-size: 1rem !important;
+    font-size: 0.65rem !important;
 }
 
 .collapsed.user-info-panel[b-cddauckdx4]{
