@@ -22,6 +22,12 @@
           <li class="nav-item @(CurrentType == FinanceTypes.Collection ? "active" : "")">
             <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Collection))">Collection </a>
           </li>
+          <li class="nav-item @(CurrentType == FinanceTypes.Disbursement ? "active" : "")">
+            <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Disbursement))">Disbursement</a>
+          </li>
+          <li class="nav-item @(CurrentType == FinanceTypes.InterestRate ? "active" : "")">
+            <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.InterestRate))">Interest Rate</a>
+          </li>
           <li class="nav-item @(CurrentType == FinanceTypes.Distribution ? "active" : "")">
             <a class="nav-link" @onclick="@(() => _changePage(FinanceTypes.Distribution))">Distribution </a>
           </li>
@@ -115,6 +121,14 @@
         <div class="mt-4 px-2">
             <DistributionManager />
         </div>
+    }
+    else if(CurrentType == FinanceTypes.Disbursement)
+    {
+        <DisbursementManager />
+    }
+    else if(CurrentType == FinanceTypes.InterestRate)
+    {
+        <InterestRateManager />
     }
 
 

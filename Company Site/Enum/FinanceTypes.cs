@@ -5,6 +5,8 @@
         Expenses,
         Collection,
         Distribution,
+        Disbursement,
+        InterestRate,
         None
     }
 }
