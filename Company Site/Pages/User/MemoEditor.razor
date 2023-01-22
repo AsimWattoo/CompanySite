@@ -8,6 +8,7 @@
 @using Microsoft.AspNetCore.WebUtilities
 @using Microsoft.Extensions.Primitives
 @using Radzen.Blazor
+@using Radzen;
 @inject ApplicationDbContext dbContext
 @inject AuthenticationStateProvider authStateProvider
 @inject NavigationManager navManager
@@ -28,9 +29,55 @@
 
 				<h4>Memo Information</h4>
 
-				<fieldset>
+				<fieldset class="card border-0">
 
-					<legend>Personal Information</legend>
+					<legend class="">Memo Details</legend>
+
+					<div class="row">
+						<div class="col-6 d-flex align-items-center">
+							<div class="form-floating mb-3 mx-1 w-100">
+								<RadzenDropDown class="ms-1 form-select" 
+									AllowFiltering="true" 
+									TValue="int" 
+									Value=NewMemo.BorrowerCode 
+									Data="Accounts" 
+									TextProperty="Company" 
+									ValueProperty="BorrowerCode"
+									id="borrower"
+									Change="OnBorrowerAccountChanged"/>
+								<label for="borrower">Select Borrower: </label>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-floating mb-3 mx-1 w-100">
+								<label id="borrowerCode" class="form-control empty-label disabled">@NewMemo.BorrowerCode</label>
+								<label for="borrowerCode">Borrower Code: </label>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-6 d-flex align-items-center">
+							<div class="form-floating mb-3 mx-1 w-100">
+								<RadzenDropDown class="ms-1 form-select" 
+									AllowFiltering="true" 
+									TValue="int" 
+									Value=NewMemo.TrustCode 
+									Data="Trusts" 
+									TextProperty="Trust_Name" 
+									ValueProperty="TrustCode"
+									id="trust"
+									Change="OnTrustCodeChanged"/>
+								<label for="trust">Select Trust: </label>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-floating mb-3 mx-1 w-100">
+								<label id="trustCode" class="form-control empty-label disabled">@NewMemo.TrustCode</label>
+								<label for="trustCode">Trust Code: </label>
+							</div>
+						</div>
+					</div>
 
 					<div class="row">
 						<div class="col-6">
@@ -60,11 +107,30 @@
 						</div>
 					</div>
 
+					<div class="row">
+						<div class="col-6">
+							<div class="form-floating mb-3 d-flex align-items-center">
+								<InputSelect @bind-Value="NewMemo.Type" id="type" class="form-select">
+									<option selected>--- Select Type ---</option>
+									<option value="bill">Bill</option>
+									<option value="note">Note</option>
+									<option value="caseUpdate">Case Update</option>
+									<option value="empanelment">Empanelment</option>
+									<option value="trustClose">Trust Close</option>
+									<option value="accountClose">Account Close</option>
+									<option value="resolutionStrategy">Resolution Strategy</option>
+									<option value="approval">Approval</option>
+								</InputSelect>
+								<label for="type" class="me-1">Type</label>
+							</div>
+						</div>
+					</div>
+
 				</fieldset>
 
-				<fieldset class="my-2">
+				<fieldset class="my-2 card border-0">
 
-					<legend>Memo Financial</legend>
+					<legend class="">Financial</legend>
 
 					<div class="row">
 						<div class="col-6">
@@ -75,20 +141,7 @@
 							</div>
 						</div>
 						<div class="col-6">
-							<div class="input-group mb-3 d-flex align-items-center">
-								<label for="type" class="me-1">Type</label>
-								<InputSelect @bind-Value="NewMemo.Type"  id="type" class="form-select">
-									<option selected>--- Select Type ---</option>
-									<option>Bill</option>
-									<option>Note</option>
-									<option>Update</option>
-									<option>Empanelment</option>
-								</InputSelect>
-							</div>
-						</div>
-						<div class="col-6">
-							<div class="input-group mb-3 d-flex align-items-center">
-								<label for="frequency" class="me-1">Frequency</label>
+							<div class="form-floating mb-3 d-flex align-items-center">
 								<InputSelect @bind-Value="NewMemo.Frequency" disabled="@(!NewMemo.Financial)" id="frequency" class="form-select">
 									<option selected>--- Select Frequency ---</option>
 									<option>OneTime</option>
@@ -96,37 +149,21 @@
 									<option>Quaterly</option>
 									<option>Anually</option>
 								</InputSelect>
+								<label for="frequency" class="me-1">Frequency</label>
 							</div>
 						</div>
 						<div class="col-6">
-							<div class="input-group mb-3 d-flex align-items-center">
-								<label for="vendor" class="me-1">Vendor</label>
+							<div class="form-floating mb-3 d-flex align-items-center">
 								<InputSelect @bind-Value="NewMemo.Vendor"  id="vendor" class="form-select">
 									<option selected>--- Select Vendor ---</option>
 									@foreach(Vendor vendor in Vendors){
 										<option value="@vendor.VendorName">@vendor.VendorName</option>
 									}
 								</InputSelect>
+								<label for="vendor" class="me-1">Vendor</label>
 							</div>
 						</div>
 					</div>
-
-				</fieldset>
-
-				<fieldset>
-
-					<div class="row">
-						<div class="col-6 d-flex align-items-center">
-							<label>Case Name: </label>
-							<div class="form-floating mb-3 mx-1">
-								<RadzenDropDown class="ms-1" AllowFiltering="true" TValue="int" Value=NewMemo.BorrowerCode Data="Accounts" TextProperty="Company" ValueProperty="BorrowerCode" Change="OnBorrowerAccountChanged"/>
-							</div>
-						</div>
-					</div>
-
-				</fieldset>
-
-				<fieldset>
 
 					<div class="row">
 						<div class="col-6">
@@ -137,14 +174,14 @@
 						</div>
 
 						<div class="col-6">
-							<div class="input-group mb-3 d-flex align-items-center">
-								<label for="periodicity" class="me-1">Periodicity</label>
+							<div class="form-floating mb-3 d-flex align-items-center">
 								<InputSelect @bind-Value="NewMemo.Periodicity"  id="periodicity" class="form-select">
 									<option selected>--- Select Periodicity ---</option>
 									<option>Daily</option>
 									<option>Weekly</option>
 									<option>Monthly</option>
 								</InputSelect>
+								<label for="periodicity" class="me-1">Periodicity</label>
 							</div>
 
 						</div>
@@ -157,17 +194,17 @@
 
 						<div class="col-6">
 							<div class="form-floating mb-3 mx-1">
-							  <InputText type="text" class="form-control" id="casename" placeholder="Case Name" @bind-Value="NewMemo.CaseName"/>
-							  <label for="casename">Case Name</label>
+							  <InputText type="text" class="form-control" id="service" placeholder="Case Name" @bind-Value="NewMemo.Service"/>
+							  <label for="service">Service</label>
 							</div>
 						</div>
 					</div>
 
 				</fieldset>
 
-				<fieldset>
+				<fieldset class="card border-0">
 
-					<legend>Approval Authority</legend>
+					<legend class="">Approval Authority</legend>
 
 					<div class="row">
 						<div class="col-12">
@@ -176,7 +213,17 @@
 									<label class="me-1">Memo To:</label>
 								</div>
 								<div class="col">
-									<MultiSelect Options="@Users" @bind-SelectedOptions="NewMemo.To"/>
+									<RadzenDropDown Multiple="true" 
+										Chips="true" 
+										MaxSelectedLabels="Users.Count" 
+										AllowClear="true" 
+										AllowFiltering="true" 
+										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+										Data=@Users
+										@bind-Value=@NewMemo.To
+										TextProperty="UserName" 
+										ValueProperty="Id" 
+										Class="w-100" />
 								</div>
 							</div>
 						</div>
@@ -203,7 +250,9 @@
 					</div>
 				</fieldset>
 
-				<fieldset>
+				<fieldset class="card border-0">
+
+					<legend class="">Memo Description or Attach Word File</legend>
 
 					<div class="row">
 						<div class="col-12">
@@ -214,12 +263,6 @@
 							</div>
 						</div>
 					</div>
-
-				</fieldset>
-
-				<fieldset>
-
-					<legend>Memo Description or Attach Word File</legend>
 
 					<div class="row">
 						<div class="col-12">
@@ -258,21 +301,27 @@
 
 				</fieldset>
 
-				<div class="input-group d-flex justify-content-end mb-3">
-					@if(PageMode == PageMode.Add){
-						<div>
-							<a class="btn btn-outline-primary" @onclick="SaveDraft">Save as draft</a>
-							<input type="submit" value="Send" class="btn btn-outline-success ms-1"/>
+				<fieldset class="card border-0">
+					<div class="py-2">
+						<div class="input-group d-flex justify-content-center">
+							@if (PageMode == PageMode.Add)
+							{
+								<div>
+									<a class="btn btn-outline-primary" @onclick="SaveDraft">Save as draft</a>
+									<input type="submit" value="Send" class="btn btn-outline-success ms-1"/>
+								</div>
+							}
+							else
+							{
+								<div>
+									<a class="btn btn-outline-danger" @onclick="Discard">Discard</a>
+									<a class="btn btn-outline-primary" @onclick="SaveDraft">Save as draft</a>
+									<input type="submit" value="Send" class="btn btn-outline-success ms-1"/>
+								</div>
+							}
 						</div>
-					}
-					else{
-						<div>
-							<a class="btn btn-outline-danger" @onclick="Discard">Discard</a>
-							<a class="btn btn-outline-primary" @onclick="SaveDraft">Save as draft</a>
-							<input type="submit" value="Send" class="btn btn-outline-success ms-1"/>
-						</div>
-					}
-				</div>
+					</div>
+				</fieldset>
 
 			</EditForm>
 		</div>
@@ -308,6 +357,11 @@
 	/// </summary>
 	private List<Account> Accounts { get; set; } = new List<Account>();
 
+	/// <summary>
+	/// The list of trusts for the selected borrower account
+	/// </summary>
+	private List<Trust> Trusts { get; set; } = new List<Trust>();
+
 	private PageMode PageMode = PageMode.Add;
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
@@ -319,6 +373,24 @@
 		if (account is int borrowerCode)
 		{
 			NewMemo.BorrowerCode = borrowerCode;
+			List<string> trustIds = dbContext.TrustRelations
+				.Where(f => f.BorrowerCode == borrowerCode)
+				.Select(f => f.TrustCode)
+				.Distinct()
+				.ToList();
+			Trusts = dbContext.Trusts.Where(f => trustIds.Contains(f.TrustCode)).ToList();
+		}
+	}
+
+	/// <summary>
+	/// Fires when the trust code changes
+	/// </summary>
+	/// <param name="trustCode">The new trust code</param>
+	private void OnTrustCodeChanged(object trustCode)
+	{
+		if(trustCode is string trust)
+		{
+			NewMemo.TrustCode = trust;
 		}
 	}
 
@@ -363,7 +435,7 @@
 			{
 				Amount = memo.Amount,
 				Branch = memo.Branch,
-				CaseName = memo.CaseName,
+				Service = memo.Service,
 				Date = memo.Date,
 				Department = memo.Department,
 				MemoNumber = memo.MemoNumber,
@@ -377,7 +449,8 @@
 				Text = memo.Text,
 				Periodicity = memo.Periodicity,
 				Type = memo.Type,
-				BorrowerCode = memo.BorrowerCode
+				BorrowerCode = memo.BorrowerCode,
+				TrustCode = memo.TrustCode,
 			};
 			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
@@ -389,6 +462,12 @@
 			NewMemo.Through.AddRange(dbContext.Users.Where(func => throughIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
 			NewMemo.To.AddRange(dbContext.Users.Where(func => toIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
 			NewMemo.Files = GetFiles(files);
+			List<string> trustIds = dbContext.TrustRelations
+				.Where(f => f.BorrowerCode == NewMemo.BorrowerCode)
+				.Select(f => f.TrustCode)
+				.Distinct()
+				.ToList();
+			Trusts = dbContext.Trusts.Where(f => trustIds.Contains(f.TrustCode)).ToList();
 		}
 
 		AuthenticationState state = await authStateProvider.GetAuthenticationStateAsync();
@@ -441,7 +520,7 @@
 				WriterId = UserId.Value,
 				Amount = NewMemo.Amount,
 				Branch = NewMemo.Branch,
-				CaseName = NewMemo.CaseName,
+				Service = NewMemo.Service,
 				Date = NewMemo.Date,
 				Department = NewMemo.Department,
 				Financial = NewMemo.Financial,
@@ -456,6 +535,7 @@
 				Vendor = NewMemo.Vendor,
 				ValidTill = NewMemo.ValidTill,
 				BorrowerCode = NewMemo.BorrowerCode,
+				TrustCode = NewMemo.TrustCode,
 			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));
@@ -521,7 +601,7 @@
 				WriterId = UserId.Value,
 				Amount = NewMemo.Amount,
 				Branch = NewMemo.Branch,
-				CaseName = NewMemo.CaseName,
+				Service = NewMemo.Service,
 				Date = NewMemo.Date,
 				Department = NewMemo.Department,
 				Financial = NewMemo.Financial,
@@ -536,6 +616,7 @@
 				Vendor = NewMemo.Vendor,
 				ValidTill = NewMemo.ValidTill,
 				BorrowerCode = NewMemo.BorrowerCode,
+				TrustCode = NewMemo.TrustCode
 			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));

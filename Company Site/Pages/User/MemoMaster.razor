@@ -23,29 +23,29 @@
 				<div class="mb-3 col-2 btn-list card">
 
 					<div class="d-flex justify-content-end align-items-center mb-2">
-						<a class="btn btn-primary color-white" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Add New Memo</a>
+						<a class="btn btn-primary color-white normal-text" href="/memoeditor"><i class="me-1 fa fa-plus"></i>Add New Memo</a>
 					</div>
 
 					<hr/>
 
 					<div class="mb-2 mt-2">
-						<h5 class="text-primary lead bar-header">Views</h5>
+						<h5 class="text-primary lead bar-header normal-text">Views</h5>
 					</div>
 
 					<div class="mx-1">
-						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Draft))" class="@(SelectedOption == MemoMasterOption.Draft ? "btn-selected" : "")">Draft</a>
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Draft))" class="@(SelectedOption == MemoMasterOption.Draft ? "btn-selected" : "") normal-text">Draft</a>
 					</div>
 
 					<div class="mx-1">
-						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Pending))" class="@(SelectedOption == MemoMasterOption.Pending ? "btn-selected" : "")">Pending</a>
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Pending))" class="@(SelectedOption == MemoMasterOption.Pending ? "btn-selected" : "") normal-text">Pending</a>
 					</div>
 
 					<div class="mx-1">
-						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Approved))" class="@(SelectedOption == MemoMasterOption.Approved ? "btn-selected" : "")">Approved</a>
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Approved))" class="@(SelectedOption == MemoMasterOption.Approved ? "btn-selected" : "") normal-text">Approved</a>
 					</div>
 
 					<div class="mx-1">
-						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Rejected))" class="@(SelectedOption == MemoMasterOption.Rejected ? "btn-selected" : "")">Rejected</a>
+						<a @onclick="@(() => MemoStatusSelectionChanged(MemoMasterOption.Rejected))" class="@(SelectedOption == MemoMasterOption.Rejected ? "btn-selected" : "") normal-text">Rejected</a>
 					</div>
 
 				</div>
@@ -81,7 +81,7 @@
 	public Dictionary<string, Func<Memo, string>> Headers { get; set; } = new Dictionary<string, Func<Memo, string>>
 	{
 		["Memo Number"] = (Memo memo) => memo.MemoNumber,
-		["Case Name"] = (Memo memo) => memo.CaseName,
+		["Service"] = (Memo memo) => memo.Service,
 		["Subject"] = (Memo memo) => memo.Subject,
 		["Type"] = (Memo memo) => memo.Type,
 		["Department"] = (Memo memo) => memo.Department,
@@ -129,7 +129,7 @@
 		List<string> row = new List<string>()
 		{
 			m.MemoNumber,
-			m.CaseName,
+			m.Service,
 			m.Subject,
 			m.Type,
 			m.Department,

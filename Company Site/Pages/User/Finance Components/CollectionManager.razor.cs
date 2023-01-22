@@ -82,33 +82,36 @@ namespace Company_Site.Pages.User.Finance_Components
         /// Gets and sets the name of the borrower based on id
         /// </summary>
         /// <param name="value"></param>
-        private void BorrowerChanged(int value)
+        private void BorrowerChanged(object code)
         {
-            NewEntry.Borrower = value;
-            List<TrustRelationModel> relationModels = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
-            Account? account = _dbContext.Accounts.Where(f => f.BorrowerCode == NewEntry.Borrower).FirstOrDefault();
+            if(code is int value)
+            {
+                NewEntry.Borrower = value;
+                List<TrustRelationModel> relationModels = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewEntry.Borrower).ToList();
+                Account? account = _dbContext.Accounts.Where(f => f.BorrowerCode == NewEntry.Borrower).FirstOrDefault();
 
-            if(account == null)
-            {
-                return;
-            }
-            NewEntry.BorrowerName = account.Company;
-            DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == value).ToList();
-            TrustRelationModelEnteries.Clear();
-            foreach (TrustRelationModel relationModel in relationModels)
-            {
-                Trust? t = _dbContext.Trusts.Where(f => f.TrustCode == f.TrustCode).FirstOrDefault();
-                if (t == null)
-                    continue;
-                TrustRelationModelEnteries.Add(new CollectionSubEntryViewModel()
+                if (account == null)
                 {
-                    TrustCode = relationModel.TrustCode,
-                    TrustName = t.Trust_Name,
-                    Amount = 0,
-                    Share = 0,
-                    HolderName = t.SRHolder,
-                    BorrowerCode = NewEntry.Borrower,
-                });
+                    return;
+                }
+                NewEntry.BorrowerName = account.Company;
+                DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == value).ToList();
+                TrustRelationModelEnteries.Clear();
+                foreach (TrustRelationModel relationModel in relationModels)
+                {
+                    Trust? t = _dbContext.Trusts.Where(f => f.TrustCode == f.TrustCode).FirstOrDefault();
+                    if (t == null)
+                        continue;
+                    TrustRelationModelEnteries.Add(new CollectionSubEntryViewModel()
+                    {
+                        TrustCode = relationModel.TrustCode,
+                        TrustName = t.Trust_Name,
+                        Amount = 0,
+                        Share = 0,
+                        HolderName = t.SRHolder,
+                        BorrowerCode = NewEntry.Borrower,
+                    });
+                }
             }
         }
 

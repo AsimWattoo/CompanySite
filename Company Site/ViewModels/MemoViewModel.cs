@@ -16,7 +16,7 @@ namespace Company_Site.ViewModels
         public string MemoNumber { get; set; }
 
         [Required]
-        public string CaseName { get; set; }
+        public string Service { get; set; }
 
         [Required]
         public string Subject { get; set; }
@@ -67,6 +67,9 @@ namespace Company_Site.ViewModels
 
         [Required]
         public MemoStatus MemoStatus { get; set; } = MemoStatus.Pending;
+
+        [Required]
+        public string TrustCode { get; set; }
 
         /// <summary>
         /// Indicates whether the memo is saved as draft or not

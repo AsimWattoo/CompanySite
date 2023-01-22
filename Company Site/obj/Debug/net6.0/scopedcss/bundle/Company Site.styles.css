@@ -658,6 +658,13 @@ fieldset[b-5ewobahw9o]{
     padding: 10px;
 }
 
+legend[b-5ewobahw9o],
+input[b-5ewobahw9o],
+label[b-5ewobahw9o],
+p[b-5ewobahw9o]{
+    font-size: 1rem;
+}
+
 .file-box[b-5ewobahw9o] {
     border: 1px solid lightgray;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -686,6 +693,10 @@ fieldset[b-5ewobahw9o]{
 /* _content/Company Site/Pages/User/MemoMaster.razor.rz.scp.css */
 .bg-gray[b-pe2eoguug6] {
     background-color: #C0C0C0;
+}
+
+.normal-text[b-pe2eoguug6]{
+    font-size: 1rem !important;
 }
 
 .color-white[b-pe2eoguug6]{
@@ -726,6 +737,13 @@ fieldset[b-jr6ue2ld43] {
     border-radius: 5px;
     margin: 10px;
     padding: 10px;
+}
+
+legend[b-jr6ue2ld43],
+input[b-jr6ue2ld43],
+label[b-jr6ue2ld43],
+p[b-jr6ue2ld43] {
+    font-size: 1rem;
 }
 
 a[b-jr6ue2ld43]{

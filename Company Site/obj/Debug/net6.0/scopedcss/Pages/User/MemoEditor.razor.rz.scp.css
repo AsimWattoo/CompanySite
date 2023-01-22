@@ -5,6 +5,13 @@ fieldset[b-5ewobahw9o]{
     padding: 10px;
 }
 
+legend[b-5ewobahw9o],
+input[b-5ewobahw9o],
+label[b-5ewobahw9o],
+p[b-5ewobahw9o]{
+    font-size: 1rem;
+}
+
 .file-box[b-5ewobahw9o] {
     border: 1px solid lightgray;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

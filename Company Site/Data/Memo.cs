@@ -15,7 +15,7 @@ namespace Company_Site.Data
         public string MemoNumber { get; set; }
 
         [Required]
-        public string CaseName { get; set; }
+        public string Service { get; set; }
 
         /// <summary>
         /// The id of the user who wrote the memo
@@ -80,6 +80,9 @@ namespace Company_Site.Data
         [Required]
         public int BorrowerCode { get; set; }
 
+        [Required]
+        public string TrustCode { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -96,7 +99,7 @@ namespace Company_Site.Data
             this.Financial = vm.Financial;
             this.Branch = vm.Branch;
             this.Amount = vm.Amount;
-            this.CaseName = vm.CaseName;
+            this.Service = vm.Service;
             this.Date = vm.Date;
             this.Department = vm.Department;
             this.Text = vm.Text;
@@ -104,6 +107,7 @@ namespace Company_Site.Data
             this.ValidTill = vm.ValidTill;
             this.Type = vm.Type;
             this.BorrowerCode = vm.BorrowerCode;
+            this.TrustCode = vm.TrustCode;
         }
 
         /// <summary>
@@ -117,7 +121,7 @@ namespace Company_Site.Data
                 Subject = this.Subject,
                 Amount = Amount,
                 Branch = Branch,
-                CaseName = CaseName,
+				Service = Service,
                 Date = Date,
                 Department = Department ,
                 Financial = Financial ,
@@ -130,7 +134,8 @@ namespace Company_Site.Data
                 Type = Type,
                 ValidTill = ValidTill,
                 Vendor = Vendor,
-                BorrowerCode = BorrowerCode
+                BorrowerCode = BorrowerCode,
+                TrustCode = TrustCode,
             };
 		}
 

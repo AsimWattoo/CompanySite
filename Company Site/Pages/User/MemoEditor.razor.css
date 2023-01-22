@@ -5,6 +5,13 @@
     padding: 10px;
 }
 
+legend,
+input,
+label,
+p{
+    font-size: 1rem;
+}
+
 .file-box {
     border: 1px solid lightgray;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

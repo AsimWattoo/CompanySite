@@ -2,6 +2,10 @@
     background-color: #C0C0C0;
 }
 
+.normal-text{
+    font-size: 1rem !important;
+}
+
 .color-white{
     color: white !important;
 }
