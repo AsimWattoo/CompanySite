@@ -138,18 +138,18 @@
 				<div class="col-12">
 					<div class="form-floating mb-3 mx-1">
 						<p class="d-inline-block fw-bold me-1">Memo To: </p>
-						@foreach(string user in Memo.To)
+						@foreach(int userId in Memo.To)
 						{
-							<p class="d-inline-block me-1">@user,</p>
+							<p class="d-inline-block me-1">@Users[userId].UserName,</p>
 						}
 					</div>
 				</div>
 				<div class="col-12">
 					<div class="form-floating mb-3 mx-1">
 						<p class="d-inline-block fw-bold me-1">Memo Through: </p>
-						@foreach (string user in Memo.Through)
+						@foreach (int userId in Memo.Through)
 						{
-								<p class="d-inline-block me-1">@user,</p>
+									<p class="d-inline-block me-1">@Users[userId].UserName,</p>
 						}
 					</div>
 
@@ -157,9 +157,9 @@
 				<div class="col-12">
 					<div class="form-floating mb-3 mx-1">
 						<p class="d-inline-block fw-bold me-1">Memo From: </p>
-						@foreach (string user in Memo.From)
+						@foreach (int userId in Memo.From)
 						{
-								<p class="d-inline-block me-1">@user,</p>
+									<p class="d-inline-block me-1">@Users[userId].UserName,</p>
 						}
 					</div>
 				</div>
@@ -297,6 +297,8 @@
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
 
+	private Dictionary<int, User> Users { get; set; } = new Dictionary<int, User>();
+
 	/// <summary>
 	/// The comment added by the user
 	/// </summary>
@@ -322,7 +324,7 @@
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
-
+		Users = dbContext.Users.ToDictionary(f => f.Id, f => f);
 		string[] param = navManager.Uri.Split("?");
 		if (param.Count() > 1)
 		{
@@ -340,26 +342,25 @@
 			IsWriter = memo.WriterId == UserId;
 
 			//Loading Users
-			Dictionary<int, string> UsersMapping = dbContext.Users.ToDictionary(k => k.Id, v => $"{v.FirstName} {v.LastName}");
 			List<UserMemoReference> Froms = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).ToList();
 			List<UserMemoReference> Throughs = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).ToList();
 			List<UserMemoReference> Tos = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).ToList();
 
 			foreach (UserMemoReference reference in Froms)
-				Memo.From.Add(UsersMapping[reference.UserId]);
+				Memo.From.Add(reference.UserId);
 
 			foreach (UserMemoReference reference in Throughs)
-				Memo.Through.Add(UsersMapping[reference.UserId]);
+				Memo.Through.Add(reference.UserId);
 
 			foreach (UserMemoReference reference in Tos)
-				Memo.To.Add(UsersMapping[reference.UserId]);
+				Memo.To.Add(reference.UserId);
 			//Getting files
 			List<string> files = dbContext.Files.Where(f => f.MemoId == memo.MemoNumber).Select(f => f.Path).ToList();
 			foreach(string file in files)
 				Memo.Files.Add(new UploadedFile(file));
 
 			//Getting Comments
-			Memo.Comments = dbContext.Comments.Where(c => c.MemoId == memo.MemoNumber).Select<Comment, CommentViewModel>(c => new CommentViewModel(c, UsersMapping[c.UserId])).ToList();
+			Memo.Comments = dbContext.Comments.Where(c => c.MemoId == memo.MemoNumber).Select<Comment, CommentViewModel>(c => new CommentViewModel(c, Users[c.UserId].UserName)).ToList();
 		}
 
 	}

@@ -215,15 +215,14 @@
 								<div class="col">
 									<RadzenDropDown Multiple="true" 
 										Chips="true" 
-										MaxSelectedLabels="Users.Count" 
 										AllowClear="true" 
 										AllowFiltering="true" 
 										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
-										Data=@Users
 										@bind-Value=@NewMemo.To
+										Data=@Users 
 										TextProperty="UserName" 
 										ValueProperty="Id" 
-										Class="w-100" />
+										class="w-100" />
 								</div>
 							</div>
 						</div>
@@ -233,7 +232,16 @@
 									<label class="me-1">Memo Through:</label>
 								</div>
 								<div class="col">
-									<MultiSelect Options="@Users" @bind-SelectedOptions="NewMemo.Through"/>
+									<RadzenDropDown Multiple="true" 
+										Chips="true" 
+										AllowClear="true" 
+										AllowFiltering="true" 
+										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+										@bind-Value=@NewMemo.Through
+										Data=@Users 
+										TextProperty="UserName" 
+										ValueProperty="Id" 
+										class="w-100" />
 								</div>
 							</div>
 						</div>
@@ -243,7 +251,16 @@
 									<label class="me-1">Memo From:</label>
 								</div>
 								<div class="col">
-									<MultiSelect Options="@Users" @bind-SelectedOptions="NewMemo.From"/>
+									<RadzenDropDown Multiple="true" 
+										Chips="true" 
+										AllowClear="true" 
+										AllowFiltering="true" 
+										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+										@bind-Value=@NewMemo.From
+										Data=@Users 
+										TextProperty="UserName" 
+										ValueProperty="Id" 
+										class="w-100" />
 								</div>
 							</div>
 						</div>
@@ -252,7 +269,7 @@
 
 				<fieldset class="card border-0">
 
-					<legend class="">Memo Description or Attach Word File</legend>
+					<legend class="">Enter Content</legend>
 
 					<div class="row">
 						<div class="col-12">
@@ -344,7 +361,7 @@
 
 	private MemoViewModel NewMemo { get; set; } = new MemoViewModel();
 
-	private List<string> Users { get; set; } = new List<string>();
+	private List<User> Users { get; set; } = new List<User>();
 
 	private int MemoNumber = 1;
 
@@ -366,7 +383,9 @@
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
 
-	private List<Vendor> Vendors { get; set; }
+	private List<Vendor> Vendors { get; set; } = new List<Vendor>();
+
+	private List<int> Tos { get; set; } = new List<int>();
 
 	private void OnBorrowerAccountChanged(object account)
 	{
@@ -421,7 +440,7 @@
 		if (id != null)
 			PageMode = PageMode.Edit;
 
-		Users = dbContext.Users.Select(u => $"{u.FirstName} {u.LastName}").ToList();
+		Users = dbContext.Users.ToList();
 		Vendors = dbContext.Vendors.ToList();
 
 		if(PageMode == PageMode.Add){
@@ -458,9 +477,9 @@
 			List<string> files = dbContext.Files.Where(m => m.MemoId == NewMemo.MemoNumber).Select(f => f.Path).ToList();
 
 
-			NewMemo.From.AddRange(dbContext.Users.Where(func => fromIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
-			NewMemo.Through.AddRange(dbContext.Users.Where(func => throughIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
-			NewMemo.To.AddRange(dbContext.Users.Where(func => toIds.Contains(func.Id)).Select(user => $"{user.FirstName} {user.LastName}").ToList());
+			NewMemo.From = fromIds;
+			NewMemo.Through = throughIds;
+			NewMemo.To = toIds;
 			NewMemo.Files = GetFiles(files);
 			List<string> trustIds = dbContext.TrustRelations
 				.Where(f => f.BorrowerCode == NewMemo.BorrowerCode)
@@ -545,22 +564,19 @@
 		if(dbContext.MemoReferences.Any())
 			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id + 1;
 
-		foreach(string user in NewMemo.From){
-			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
+		foreach(int userId in NewMemo.From){
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.FromId = id;
 		id++;
-		foreach (string user in NewMemo.Through)
+		foreach (int userId in NewMemo.Through)
 		{
-			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ThroughId = id;
 		id++;
-		foreach (string user in NewMemo.To)
+		foreach (int userId in NewMemo.To)
 		{
-			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ToId = id;
@@ -626,22 +642,19 @@
 		if(dbContext.MemoReferences.Any())
 			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id + 1;
 
-		foreach(string user in NewMemo.From){
-			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
+		foreach(int userId in NewMemo.From){
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.FromId = id;
 		id++;
-		foreach (string user in NewMemo.Through)
+		foreach (int userId in NewMemo.Through)
 		{
-			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ThroughId = id;
 		id++;
-		foreach (string user in NewMemo.To)
+		foreach (int userId in NewMemo.To)
 		{
-			int userId = dbContext.Users.AsEnumerable().Where(u => $"{u.FirstName} {u.LastName}" == user).First().Id;
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ToId = id;
