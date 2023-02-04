@@ -5,10 +5,20 @@ namespace Company_Site.Pages.Components
 {
     public partial class ContactList<T> : ComponentBase
     {
+        #region private Members
+
+        private List<T> enteries = new List<T>();
+
+        #endregion
+
         #region Parameters
 
         [Parameter]
-        public List<T> Enteries { get; set; }
+        public List<T> Enteries 
+        {
+            get { return enteries; }
+            set { enteries = value; StateHasChanged(); }
+        }
 
         [Parameter]
         public Func<T,string> GetContactName { get; set; }

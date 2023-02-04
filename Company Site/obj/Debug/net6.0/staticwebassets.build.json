@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TtfAnTxlSOTZzrnDzPmFbniCwPRHLN5ZrGkoRi6NpzU=",
+  "Hash": "bMUGrDlM4oKIvthdBXC94twAQqZiaGwbH+hv+s2ENB8=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -38012,12 +38012,12 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Documents\\document.pdf",
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\Documents\\document-04-02-2023-15-53-26.pdf",
       "SourceId": "Company Site",
       "SourceType": "Discovered",
       "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
       "BasePath": "_content/Company Site",
-      "RelativePath": "Documents/document.pdf",
+      "RelativePath": "Documents/document-04-02-2023-15-53-26.pdf",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -38026,7 +38026,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Documents\\document.pdf"
+      "OriginalItemSpec": "wwwroot\\Documents\\document-04-02-2023-15-53-26.pdf"
     },
     {
       "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\favicon.ico",
