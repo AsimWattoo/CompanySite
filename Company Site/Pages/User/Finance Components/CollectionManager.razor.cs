@@ -178,7 +178,6 @@ namespace Company_Site.Pages.User.Finance_Components
                     entry.Distribution_Id = NewEntry.Distribution_Id;
                     entry.NoneSeller = NewEntry.NoneSeller;
                     entry.NoneSellerShare = NewEntry.NoneSellerShare;
-                    entry.Proportionately = NewEntry.Proportionately;
                     entry.TypeOfRecovery = NewEntry.TypeOfRecovery;
                     entry.Adjustment = NewEntry.Adjustment;
                     entry.CreditAmount = (NewEntry.CreditAmount * subEntry.Share) / 100;

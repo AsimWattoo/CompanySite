@@ -154,13 +154,22 @@
 						</div>
 						<div class="col-6">
 							<div class="form-floating mb-3 d-flex align-items-center">
-								<InputSelect @bind-Value="NewMemo.Vendor"  id="vendor" class="form-select">
-									<option selected>--- Select Vendor ---</option>
-									@foreach(Vendor vendor in Vendors){
-										<option value="@vendor.VendorName">@vendor.VendorName</option>
-									}
-								</InputSelect>
+								<RadzenDropDown class="ms-1 form-select" 
+									AllowFiltering="true" 
+									TValue="int" 
+									Value=NewMemo.VendorId 
+									Data="vendors" 
+									TextProperty="AccountNumber" 
+									ValueProperty="Id"
+									Change="OnVendorChanged"
+									id="vendor"/>
 								<label for="vendor" class="me-1">Vendor</label>
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="form-floating mb-3 d-flex align-items-center">
+								<label class="form-control empty-label disabled" disabled id="memoamount">@NewMemo.GSTNumber</label>
+								<label for="memoamount">GST Number</label>
 							</div>
 						</div>
 					</div>
@@ -363,6 +372,8 @@
 
 	private List<User> Users { get; set; } = new List<User>();
 
+	private List<Vendor> vendors { get; set; } = new List<Vendor>();
+
 	private int MemoNumber = 1;
 
 	private Company_Site.Data.User CurrentUser;
@@ -401,6 +412,18 @@
 		}
 	}
 
+	private void OnVendorChanged(object vendor)
+	{
+		if (vendor is int vendorId)
+		{
+			NewMemo.VendorId = vendorId;
+			Vendor v = dbContext.Vendors.Where(f => f.Id == vendorId).First();
+			NewMemo.Vendor = v.VendorName;
+			NewMemo.GSTNumber = v.GSTNumber;
+			StateHasChanged();
+		}
+	}
+
 	/// <summary>
 	/// Fires when the trust code changes
 	/// </summary>
@@ -426,7 +449,7 @@
 
 		if (UserId == null)
 			return;
-
+		vendors = dbContext.Vendors.ToList();
 		Accounts = dbContext.Accounts.ToList();
 		string[] param = navManager.Uri.Split("?");
 		if(param.Count() > 1){
@@ -470,6 +493,8 @@
 				Type = memo.Type,
 				BorrowerCode = memo.BorrowerCode,
 				TrustCode = memo.TrustCode,
+				GSTNumber = memo.GSTNumber,
+				VendorId = memo.VendorId
 			};
 			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
@@ -555,6 +580,8 @@
 				ValidTill = NewMemo.ValidTill,
 				BorrowerCode = NewMemo.BorrowerCode,
 				TrustCode = NewMemo.TrustCode,
+				GSTNumber = NewMemo.GSTNumber,
+				VendorId = NewMemo.VendorId
 			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));
@@ -632,7 +659,9 @@
 				Vendor = NewMemo.Vendor,
 				ValidTill = NewMemo.ValidTill,
 				BorrowerCode = NewMemo.BorrowerCode,
-				TrustCode = NewMemo.TrustCode
+				TrustCode = NewMemo.TrustCode,
+				GSTNumber = NewMemo.GSTNumber,
+				VendorId = NewMemo.VendorId
 			};
 
 		dbContext.MemoReferences.RemoveRange(dbContext.MemoReferences.Where(f => f.MemoId == this.id));

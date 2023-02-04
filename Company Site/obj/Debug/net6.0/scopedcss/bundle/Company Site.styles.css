@@ -584,6 +584,10 @@ body[b-lxaqi24n7x] {
         background-color: #DDE9FE;
     }
 
+.card-title[b-srb9vcox66]{
+    font-size: 0.9rem
+}
+
 .active[b-srb9vcox66] {
     background-color: #DDE9FE;
 }
@@ -592,27 +596,40 @@ body[b-lxaqi24n7x] {
         color: #0157FF !important;
     }
 
+.card[b-srb9vcox66]{
+    border-radius: 0px !important;
+}
+
+.data-container .card[b-srb9vcox66] {
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.data-container .card:hover[b-srb9vcox66]{
+    transform: scale(1.06, 1.06);
+}
+
 .card p[b-srb9vcox66]{
     font-size: 1rem;
 }
 
 .card-red[b-srb9vcox66] {
-    background-color: #E24A2A;
+    box-shadow: rgba(226, 74, 42, 0.3) 0px 10px 15px -3px, rgba(226, 74, 42, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 
 .card-green[b-srb9vcox66] {
-    background-color: #2FB153;
+    box-shadow: rgb(47, 177, 83, 0.3) 0px 10px 15px -3px, rgb(47, 177, 83, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 
 .card-blue[b-srb9vcox66] {
-    background-color: #396DE7;
+    box-shadow: rgb(57, 109, 231, 0.3) 0px 10px 15px -3px, rgba(57, 109, 231, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 
 .card-yellow[b-srb9vcox66] {
-    background-color: #F0B501;
+    box-shadow: rgb(240, 181, 1, 0.3) 0px 10px 15px -3px, rgb(240, 181, 1, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 /* _content/Company Site/Pages/User/Index.razor.rz.scp.css */

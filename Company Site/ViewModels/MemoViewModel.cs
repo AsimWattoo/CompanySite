@@ -45,6 +45,8 @@ namespace Company_Site.ViewModels
         [Required]
         public string Branch { get; set; }
 
+        public int VendorId { get;set; }
+
         [Required]
         public string Vendor { get; set; }
 
@@ -77,6 +79,8 @@ namespace Company_Site.ViewModels
         public bool IsDraft { get; set; } = false;
 
         public int BorrowerCode { get; set; }
+
+        public string GSTNumber { get; set; }
 
         #endregion
     }

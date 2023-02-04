@@ -46,8 +46,6 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Account value is required")]
         public string? Adjustment { get; set; }
 
-        public bool Proportionately { get; set; }
-
         public int? Distribution_Id { get; set; } = null;
 
         public CollectionEntry Clone()
@@ -67,7 +65,6 @@ namespace Company_Site.Data
                 KYC= KYC,
                 NoneSeller = NoneSeller,
                 NoneSellerShare= NoneSellerShare,
-                Proportionately = Proportionately,
                 Source = Source,
                 TypeOfRecovery = TypeOfRecovery,
                 Adjustment = Adjustment,

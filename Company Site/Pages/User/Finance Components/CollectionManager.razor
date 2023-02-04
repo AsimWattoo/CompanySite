@@ -11,8 +11,8 @@
 
         <DataAnnotationsValidator/>
 
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mt-3">
+            <div class="col-md-5">
                 <label for="borrowerSelect">Select Borrower</label>
                 <RadzenDropDown class="ms-1 form-select" 
 									AllowFiltering="true" 
@@ -25,26 +25,26 @@
 									Change="BorrowerChanged"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <label for="borrower">Borrower Code</label>
                 <label id="borrower" class="form-control empty-label disabled">@NewEntry.Borrower</label>
                 <ValidationMessage For="@(() => NewEntry.Borrower)" />
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-md-2">
                 <label for="creditDate">Credit Date</label>
                 <input id="creditDate" type="date" class="form-control" @bind-value="NewEntry.CreditDate">
                 <ValidationMessage For="@(() => NewEntry.CreditDate)"/>
             </div>
             <div class="col-md-1"></div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label for="creditAmount">Credit Amount</label>
                 <InputNumber id="creditAmount" class="form-control" type="number" @bind-Value="NewEntry.CreditAmount"/>
                 <ValidationMessage For="@(() => NewEntry.CreditAmount)"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <label for="kyc">KYC</label>
                 <InputSelect @bind-Value="NewEntry.KYC" id="kyc" class="form-select">
                     <option value="pending">Pending</option>
@@ -53,8 +53,8 @@
                 </InputSelect>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mt-3">
+            <div class="col-md-5">
                 <label for="recovery">Type of Recovery</label>
                 <InputSelect @bind-Value="NewEntry.TypeOfRecovery" id="recovery" class="form-select">
                     <option value="" selected>---- Select Option ----</option>
@@ -64,25 +64,25 @@
                 <ValidationMessage For="@(() => NewEntry.TypeOfRecovery)"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <label for="source">Source</label>
                 <InputText id="source" class="form-control" @bind-Value="NewEntry.Source"/>
                 <ValidationMessage For="@(() => NewEntry.Source)"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mt-3">
+            <div class="col-md-5">
                 <label for="noneSeller">None Seller</label>
                 <InputText id="noneSeller" class="form-control" type="text" @bind-Value="NewEntry.NoneSeller"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <label for="noneSellerShare">None Seller Share</label>
                 <InputNumber TValue="double" id="noneSellerShare" class="form-control" type="number" @bind-Value="NewEntry.NoneSellerShare"/>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
+        <div class="row mt-3">
+            <div class="col-md-5">
                 <label for="adjustTowards">Adjust Towards</label>
                 <InputSelect @bind-Value="NewEntry.AdjustToward" id="adjustTowards" class="form-select">
                     <option selected value="">---- Select Option ----</option>
@@ -94,28 +94,21 @@
                 <ValidationMessage For="@(() => NewEntry.AdjustToward)"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3 pt-4">
-                <InputCheckbox id="Proportionately" type="checkbox" class="form-check-input" @bind-Value="NewEntry.Proportionately"/>
-                <label for="Proportionately">Proportionately</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <label for="adjustTowards">Account</label>
                 <InputSelect @bind-Value="NewEntry.Adjustment" id="adjustment" class="form-select">
                     <option selected value="">---- Select Option ----</option>
                     <option value="prop">Proportionality</option>
-                    @foreach(DebtProfileModel debtProfile in DebtProfiles)
+                    @foreach (DebtProfileModel debtProfile in DebtProfiles)
                     {
-                        <option value="@debtProfile.AccountNumber">@debtProfile.AccountNumber - @debtProfile.Facility</option>
+                            <option value="@debtProfile.AccountNumber">@debtProfile.AccountNumber - @debtProfile.Facility</option>
                     }
                 </InputSelect>
                 <ValidationMessage For="@(() => NewEntry.AdjustToward)"/>
             </div>
         </div>
 
-        <div class="row my-3">
+        <div class="row mt-3">
             <Table T="CollectionSubEntryViewModel" T2="int" 
                 ShowSerialNumber=true 
                 Items=TrustRelationModelEnteries 

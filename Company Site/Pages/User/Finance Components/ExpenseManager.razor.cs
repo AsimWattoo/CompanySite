@@ -84,6 +84,17 @@ namespace Company_Site.Pages.User.Finance_Components
             StateHasChanged();
         }
 
+        private void OnVendorChanged(object vendor)
+        {
+            if(vendor is int vendorId) 
+            {
+                NewEntry.Vendor_Id = vendorId;
+                Vendor v = _dbContext.Vendors.Where(f => f.Id == vendorId).First();
+                NewEntry.Vendor_Name = v.VendorName;
+                NewEntry.GSTNumber = v.GSTNumber;
+            }
+        }
+
         protected override void OnDelete(ExpenseEntry item)
         {
             List<ExpenseAdjustmentModel> adjustments = _dbContext.ExpenseAdjustments.Where(f => f.ExpenseId == item.Id).ToList();

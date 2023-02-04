@@ -1,6 +1,7 @@
 ﻿@using Company_Site.Base;
 @using Company_Site.Data;
 @using Company_Site.Pages.Components;
+@using Radzen.Blazor
 
 @inherits BaseAddPage<ExpenseEntry, int>
 
@@ -23,7 +24,7 @@
                 </InputSelect>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label for="trustCode">Trust Code</label>
                 <label class="form-control disabled empty-label">@NewEntry.TrustCode</label>
             </div>
@@ -40,7 +41,7 @@
                 </InputSelect>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label for="borrowerCode">Borrower Code</label>
                 <label class="form-control disabled">@NewEntry.Borrower_Code</label>
             </div>
@@ -48,16 +49,18 @@
         <div class="row  my-2">
             <div class="col-md-6">
                 <label for="vendor">Vendor</label>
-                <InputSelect Value="@NewEntry.Vendor_Id" ValueExpression=@(() => NewEntry.Vendor_Id) ValueChanged="VendorChanged" TValue="int" class="form-select">
-                    <option value="" selected>------ Select Option ------</option>
-                    @foreach(Vendor v in Vendors)
-                    {
-                        <option value="@v.Id">@v.VendorName</option>
-                    }
-                </InputSelect>
+                <RadzenDropDown class="ms-1 form-select" 
+									AllowFiltering="true" 
+									TValue="int" 
+									Value=NewEntry.Vendor_Id
+									Data="Vendors" 
+									TextProperty="AccountNumber" 
+									ValueProperty="Id"
+									Change="OnVendorChanged"
+									id="vendor"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label for="service">Service</label>
                 <InputText id="service" class="form-control" type="text"  @bind-Value="NewEntry.Service"/>
             </div>
@@ -72,7 +75,7 @@
                 <InputNumber TValue="double" id="billNumber" type="number" class="form-control"  @bind-Value="NewEntry.BillAmount"/>
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label for="paymentMethod">Payment Method</label>
                 <InputText id="paymentMethod" class="form-control" type="text" @bind-Value="NewEntry.PaymentMode"/>
             </div>
@@ -95,9 +98,9 @@
                 <ValidationMessage For="@(() => NewEntry.AdjustTowards)" />
             </div>
             <div class="col-md-2"></div>
-            <div class="col-md-3 pt-4">
-                <InputCheckbox id="proportionality" class="form-check-input" @bind-Value="NewEntry.Proportionately"/>
-                <label for="proportionality">Proportionality</label>
+            <div class="col-md-4">
+                <label for="vendor">GST Number</label>
+                <label class="form-control empty-label disabled">@NewEntry.GSTNumber</label>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-4">

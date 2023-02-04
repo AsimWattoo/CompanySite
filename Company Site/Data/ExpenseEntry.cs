@@ -35,6 +35,6 @@ namespace Company_Site.Data
 
         public double PaymentAmount { get; set; }
 
-        public bool Proportionately { get; set; } = false;
+        public string? GSTNumber { get; set; }
     }
 }

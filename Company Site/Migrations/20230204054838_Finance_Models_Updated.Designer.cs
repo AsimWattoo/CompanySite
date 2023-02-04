@@ -4,6 +4,7 @@ using Company_Site.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Site.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230204054838_Finance_Models_Updated")]
+    partial class Finance_Models_Updated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1716,9 +1718,6 @@ namespace Company_Site.Migrations
                     b.Property<int>("FromId")
                         .HasColumnType("int");
 
-                    b.Property<string>("GSTNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDraft")
                         .HasColumnType("bit");
 
@@ -1760,9 +1759,6 @@ namespace Company_Site.Migrations
                     b.Property<string>("Vendor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VendorId")
-                        .HasColumnType("int");
 
                     b.Property<int>("WriterId")
                         .HasColumnType("int");
@@ -2476,14 +2472,6 @@ namespace Company_Site.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AccountNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GSTNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VendorName")
                         .IsRequired()

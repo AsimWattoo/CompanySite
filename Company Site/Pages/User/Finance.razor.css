@@ -9,6 +9,10 @@
         background-color: #DDE9FE;
     }
 
+.card-title{
+    font-size: 0.9rem
+}
+
 .active {
     background-color: #DDE9FE;
 }
@@ -17,26 +21,39 @@
         color: #0157FF !important;
     }
 
+.card{
+    border-radius: 0px !important;
+}
+
+.data-container .card {
+    cursor: pointer;
+    transition: all 0.2s linear;
+}
+
+.data-container .card:hover{
+    transform: scale(1.06, 1.06);
+}
+
 .card p{
     font-size: 1rem;
 }
 
 .card-red {
-    background-color: #E24A2A;
+    box-shadow: rgba(226, 74, 42, 0.3) 0px 10px 15px -3px, rgba(226, 74, 42, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 
 .card-green {
-    background-color: #2FB153;
+    box-shadow: rgb(47, 177, 83, 0.3) 0px 10px 15px -3px, rgb(47, 177, 83, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 
 .card-blue {
-    background-color: #396DE7;
+    box-shadow: rgb(57, 109, 231, 0.3) 0px 10px 15px -3px, rgba(57, 109, 231, 0.3) 0px 4px 6px -2px;
     color: black;
 }
 
 .card-yellow {
-    background-color: #F0B501;
+    box-shadow: rgb(240, 181, 1, 0.3) 0px 10px 15px -3px, rgb(240, 181, 1, 0.3) 0px 4px 6px -2px;
     color: black;
 }

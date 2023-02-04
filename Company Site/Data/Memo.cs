@@ -47,6 +47,8 @@ namespace Company_Site.Data
         [Required]
         public string Branch { get; set; }
 
+        public int VendorId { get; set; }
+
         [Required]
         public string Vendor { get; set; }
 
@@ -83,6 +85,8 @@ namespace Company_Site.Data
         [Required]
         public string TrustCode { get; set; }
 
+        public string? GSTNumber { get; set; }
+
         #endregion
 
         #region Public Methods
@@ -104,10 +108,12 @@ namespace Company_Site.Data
             this.Department = vm.Department;
             this.Text = vm.Text;
             this.Vendor = vm.Vendor;
+            this.VendorId = vm.VendorId;
             this.ValidTill = vm.ValidTill;
             this.Type = vm.Type;
             this.BorrowerCode = vm.BorrowerCode;
             this.TrustCode = vm.TrustCode;
+            this.GSTNumber = vm.GSTNumber;
         }
 
         /// <summary>
@@ -134,8 +140,10 @@ namespace Company_Site.Data
                 Type = Type,
                 ValidTill = ValidTill,
                 Vendor = Vendor,
+                VendorId = VendorId,
                 BorrowerCode = BorrowerCode,
                 TrustCode = TrustCode,
+                GSTNumber = GSTNumber
             };
 		}
 

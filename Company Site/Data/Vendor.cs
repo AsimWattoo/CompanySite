@@ -13,5 +13,10 @@ namespace Company_Site.Data
         [Required]
         public string VendorName { get; set; }
 
+        [Required]
+        public string AccountNumber { get; set; }
+
+        public string GSTNumber { get; set; }
+
     }
 }

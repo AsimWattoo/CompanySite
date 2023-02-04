@@ -30,6 +30,18 @@
 							<div class="form-floating mb-3 mx-1">
 							  <InputText type="text" class="form-control" id="vendor" placeholder="Vendor Name" @bind-Value="Vendor.VendorName"/>
 							  <label for="vendor">Vendor</label>
+							  <ValidationMessage For="(() => Vendor.VendorName)" />
+							</div>
+
+							<div class="form-floating mb-3 mx-1">
+							  <InputText type="text" class="form-control" id="accountNumber" placeholder="Account Number" @bind-Value="Vendor.AccountNumber"/>
+							  <label for="accountNumber">Account Number</label>
+							  <ValidationMessage For="(() => Vendor.AccountNumber)" />
+							</div>
+
+							<div class="form-floating mb-3 mx-1">
+							  <InputText type="text" class="form-control" id="gstNumber" placeholder="GST Number" @bind-Value="Vendor.GSTNumber"/>
+							  <label for="gstNumber">GST Number</label>
 							</div>
 
 						</div>
