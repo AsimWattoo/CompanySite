@@ -22,10 +22,6 @@ namespace Company_Site.Data
 
         public DateTime Birthday { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "Email for an employee is required")]
-        [EmailAddress]
-        public string Email { get; set; }
-
         [Required(ErrorMessage = "Mobile number is required")]
         public string MobileNumber { get; set; }
 

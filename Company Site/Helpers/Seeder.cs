@@ -60,6 +60,10 @@ namespace Company_Site.Helpers
 						Mobile="-------",
                         Role = "Admin",
 						Id = Guid.NewGuid().ToString(),
+						Address = "",
+						City = "",
+						State = "",
+						MobileNumber = ""
 					};
 
 					IdentityResult res = await userManager.CreateAsync(user, "pass@1234");
@@ -75,6 +79,7 @@ namespace Company_Site.Helpers
 
                     res = await roleManager.CreateAsync(new UserRole()
 					{
+						Id = Guid.NewGuid().ToString(),
 						Name = "Admin"
 					});
 

@@ -8,7 +8,13 @@
 <div class="row">
    
     <div class="col-xl-3 col-lg-5 col-md-6 col-sm-12 px-0 pb-4">
-        <ContactList Enteries="Enteries" Title="" GetContactId="@(e => e.Id)" GetContactName="@(e => $"{e.FirstName} {e.LastName}")" OnClick="EditRecord" OnDelete="DeleteRecord"/>
+        <ContactList Enteries="Enteries" 
+            Title="" 
+            GetContactId="@(e => e.Id)" 
+            GetContactName="@(e => $"{e.FirstName} {e.LastName}")" 
+            OnClick="EditRecord" 
+            OnDelete="DeleteRecord"
+            AutoSearch=true/>
     </div>
 
     <!--Form-->
@@ -26,7 +32,7 @@
 
                         <MultiErrorView Errors="_errors"/>
 
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="firstName">First Name</label>
                                 <InputText @bind-Value=NewEntry.FirstName id="firstName" type="text" class="form-control"/>
@@ -37,7 +43,7 @@
                                 <InputText @bind-Value=NewEntry.LastName id="lastName" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="address">Address</label>
                                 <InputTextArea @bind-Value=NewEntry.Address id="address" style="resize: none; height: 130%;" class="form-control"></InputTextArea>
@@ -48,7 +54,7 @@
                                 <InputText @bind-Value=NewEntry.City id="city" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5"></div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
@@ -56,7 +62,7 @@
                                 <InputText @bind-Value=NewEntry.State id="state" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="joiningDate">Joining Date</label>
                                 <input @bind-value=NewEntry.JoiningDate id="joiningDate" type="date" class="form-control"/>
@@ -67,7 +73,7 @@
                                 <input id="birthday" @bind-value=NewEntry.Birthday class="form-control" type="date"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="mobileNumber">Mobile Number</label>
                                 <InputText @bind-Value=NewEntry.MobileNumber id="mobileNumber" type="tel" class="form-control"/>
@@ -78,7 +84,7 @@
                                 <InputText @bind-Value=NewEntry.Email id="email" class="form-control" type="email"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="aadharCard">Aadharcard</label>
                                 <InputText @bind-Value=NewEntry.AadharCard id="aadharCard" type="text" class="form-control"/>
@@ -89,7 +95,7 @@
                                 <InputText @bind-Value=NewEntry.LandlineNumber id="landlineNumber" class="form-control" type="tel"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="department">Department</label>
                                 <InputText @bind-Value=NewEntry.Department id="department" class="form-control" type="text"/>
@@ -100,7 +106,7 @@
                                 <InputText @bind-Value=NewEntry.PanCard id="role" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="designation">Designation</label>
                                 <InputText @bind-Value=NewEntry.Designation id="designation" class="form-control" type="text"/>
@@ -111,7 +117,7 @@
                                 <InputText @bind-Value=NewEntry.Role id="role" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="officeLocation">Office Location</label>
                                 <InputText @bind-Value=NewEntry.OfficeLocation id="officeLocation" class="form-control" type="text"/>
@@ -122,7 +128,7 @@
                                 <InputText @bind-Value=NewEntry.Position id="position" class="form-control" type="text"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="access">Access</label>
                                 <InputText @bind-Value=NewEntry.Access id="access" class="form-control" type="text"/>
@@ -133,7 +139,7 @@
                                 <input @bind-value=NewEntry.RegistrationDate id="regDate" class="form-control" type="date"/>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="exitDate">Exit Date</label>
                                 <InputText @bind-Value=NewEntry.ExitDate id="exitDate" class="form-control" type="date"/>
