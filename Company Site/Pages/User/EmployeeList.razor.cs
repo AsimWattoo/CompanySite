@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 
+using data = Company_Site.Data;
+
 namespace Company_Site.Pages.User
 {
     public partial class EmployeeList
@@ -26,13 +28,13 @@ namespace Company_Site.Pages.User
 
         #region Protected Properties
 
-        public List<Employee> Enteries { get; set; } = new List<Employee>();
+        public List<data.User> Enteries { get; set; } = new List<data.User>();
 
-        protected Employee NewEntry { get; set; } = new Employee();
+        protected data.User NewEntry { get; set; } = new data.User();
 
         protected List<string> _errors = new List<string>();
 
-        protected DbSet<Employee> _dbSet { get; set; }
+        protected DbSet<data.User> _dbSet { get; set; }
 
         protected bool ShouldAdd { get; set; } = true;
 
@@ -78,7 +80,7 @@ namespace Company_Site.Pages.User
             else
                 _dbSet.Update(NewEntry);
             _dbContext.SaveChanges();
-            NewEntry = new Employee();
+            NewEntry = new data.User();
             Enteries = _dbSet.ToList();
             ShouldAdd = true;
             RenderFile("");
@@ -100,7 +102,7 @@ namespace Company_Site.Pages.User
 
         protected void Clear()
         {
-            NewEntry = new Employee();
+            NewEntry = new data.User();
             ShouldAdd = true;
             StateHasChanged();
             RenderFile("");
@@ -111,13 +113,13 @@ namespace Company_Site.Pages.User
             _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
             _dbContext.SaveChanges();
             Enteries = _dbSet.ToList();
-            NewEntry = new Employee();
+            NewEntry = new data.User();
             StateHasChanged();
         }
 
         protected void Setup()
         {
-            _dbSet = _dbContext.Employees;
+            _dbSet = _dbContext.Users;
         }
 
         #endregion

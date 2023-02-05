@@ -29,7 +29,7 @@ namespace Company_Site.Data
         /// <summary>
         /// The person who created the file
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
     }

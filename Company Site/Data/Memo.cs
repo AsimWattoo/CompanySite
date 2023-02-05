@@ -21,7 +21,7 @@ namespace Company_Site.Data
         /// The id of the user who wrote the memo
         /// </summary>
         [Required]
-        public int WriterId { get; set; }
+        public string WriterId { get; set; }
 
         [Required]
         public string Subject { get; set; }

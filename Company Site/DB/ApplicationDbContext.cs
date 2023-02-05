@@ -9,7 +9,7 @@ using File = Company_Site.Data.File;
 
 namespace Company_Site.DB
 {
-	public class ApplicationDbContext : IdentityDbContext<User, UserRole, int>
+	public class ApplicationDbContext : IdentityDbContext<User, UserRole, string>
 	{
 		#region DbSets
 
@@ -41,8 +41,6 @@ namespace Company_Site.DB
 
 		public DbSet<DebtProfileModel> DebtProfiles { get; set; }
 
-		public DbSet<Employee> Employees { get; set; }
-		
 		public DbSet<FinancialDataModel> FinancialDatas { get; set; }
 
 		public DbSet<CashFlowProjectsModel> CashFlows { get; set; }

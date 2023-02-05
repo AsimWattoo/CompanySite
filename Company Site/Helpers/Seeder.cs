@@ -59,7 +59,7 @@ namespace Company_Site.Helpers
 						Status="Active",
 						Mobile="-------",
                         Role = "Admin",
-						Id = 0
+						Id = Guid.NewGuid().ToString(),
 					};
 
 					IdentityResult res = await userManager.CreateAsync(user, "pass@1234");

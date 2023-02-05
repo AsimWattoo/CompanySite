@@ -14,7 +14,7 @@ namespace Company_Site.Pages.User.Account_Pages
         /// The id of the logged in user
         /// </summary>
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace Company_Site.Pages.User.Account_Pages
                 _dbContext.ResolutionStatusModels.Add(Model);
                 _dbContext.SaveChanges();
             }
-            User = _dbContext.Users.Where(f => f.Id == UserId.Value).First();
+            User = _dbContext.Users.Where(f => f.Id == UserId).First();
         }
 
         #endregion

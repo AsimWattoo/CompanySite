@@ -204,7 +204,7 @@
 			else
 			{
 				Title = "Edit User";
-				int userId = (await sessionStorage.GetAsync<int>("UserId")).Value;
+				string userId = (await sessionStorage.GetAsync<string>("UserId")).Value;
 				newUser = await userManager.FindByIdAsync(userId.ToString());
 				Email = newUser.Email;
 				FirstName = newUser.FirstName;

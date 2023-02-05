@@ -13,7 +13,7 @@ namespace Company_Site.Data
 
         public string MemoId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         public DateTime ApprovalDate { get; set; }

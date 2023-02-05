@@ -72,7 +72,7 @@
 @code {
 
 	[CascadingParameter(Name = "UserId")]
-	public int? UserId { get; set; }
+	public string UserId { get; set; }
 
 	private MemoMasterOption SelectedOption { get; set; } = MemoMasterOption.Draft;
 
@@ -117,7 +117,7 @@
 	private List<string> GetTableRows(Memo m){
 		string users = "";
 		if(m.MemoStatus == MemoStatus.Pending){
-			List<int> ids = dbContext.MemoReferences.Where(f => f.MemoId == m.MemoNumber)
+			List<string> ids = dbContext.MemoReferences.Where(f => f.MemoId == m.MemoNumber)
 			.Select(f => f.UserId).Distinct().ToList();
 			List<string> pendingUsers = dbContext.Users.Where(u => ids.Contains(u.Id)).Select(u => $"{u.FirstName} {u.LastName}").ToList();
 			for (int i = 0; i < pendingUsers.Count; i++)

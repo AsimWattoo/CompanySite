@@ -2,7 +2,7 @@
 
 namespace Company_Site.Data
 {
-	public class UserRole : IdentityRole<int>
+	public class UserRole : IdentityRole<string>
 	{
 	}
 }

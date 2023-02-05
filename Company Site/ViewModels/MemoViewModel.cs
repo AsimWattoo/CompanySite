@@ -53,13 +53,13 @@ namespace Company_Site.ViewModels
         public string? Frequency { get; set; }
 
         [Required]
-        public List<int> To { get; set; } = new List<int>();
+        public List<string> To { get; set; } = new List<string>();
 
         [Required]
-        public List<int> Through { get; set; } = new List<int>();
+        public List<string> Through { get; set; } = new List<string>();
 
         [Required]
-        public List<int> From { get; set; } = new List<int>();
+        public List<string> From { get; set; } = new List<string>();
 
         public string Text { get; set; }
 

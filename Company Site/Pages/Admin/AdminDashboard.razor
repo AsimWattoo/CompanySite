@@ -33,7 +33,7 @@
 		</div>
 
 		<div class="container-fluid mt-4">
-			<Table T="User" T2="int" Items="@Users" Headers="@Headers" GetId="@GetUserId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
+			<Table T="User" T2="string" Items="@Users" Headers="@Headers" GetId="@GetUserId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search"></Table>
 		</div>
 
 	</Authorized>
@@ -77,7 +77,7 @@
 		navigationManager.NavigateTo("/admin/adduser");
 	}
 
-	private List<User> DeleteRecord(int userIdToDelete)
+	private List<User> DeleteRecord(string userIdToDelete)
 	{
 		using (ApplicationDbContext dbContext = contextFactory.CreateDbContext())
 		{
@@ -88,7 +88,7 @@
 		}
 	}
 
-	private void EditRecord(int id)
+	private void EditRecord(string id)
 	{
 		sessionStorage.SetAsync("UserPageMode", "edit");
 		sessionStorage.SetAsync("UserId", id);
@@ -110,7 +110,7 @@
 		};
 	}
 
-	private int GetUserId(User user){
+	private string GetUserId(User user){
 		return user.Id;
 	}
 

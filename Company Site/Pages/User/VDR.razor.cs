@@ -27,7 +27,7 @@ namespace Company_Site.Pages.User
         /// The id of the currently logged in user
         /// </summary>
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
 
@@ -202,7 +202,7 @@ namespace Company_Site.Pages.User
 
         private void LoadData()
         {
-            if (UserId.HasValue)
+            if (UserId != null)
             {
                 //The list of files for the user id
                 _fileItems = _dbContext.FileItems.ToList();
@@ -277,7 +277,7 @@ namespace Company_Site.Pages.User
         private async void SubmitFiles()
         {
             //Getting the User Account
-            if (!UserId.HasValue)
+            if (UserId == null)
                 return;
 
             _errors.Clear();
@@ -307,7 +307,7 @@ namespace Company_Site.Pages.User
                 FileInfo fileInfo = new FileInfo(file.Name);
                 fileItem.FileName = $"{fileInfo.Name.Replace(fileInfo.Extension, "")}$${DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss")}{fileInfo.Extension}";
                 fileItem.CreationDate = DateTime.Now;
-                fileItem.UserId = UserId.Value;
+                fileItem.UserId = UserId;
                 _dbContext.FileItems.Add(fileItem);
 
                 //Uploading File
@@ -418,7 +418,7 @@ namespace Company_Site.Pages.User
             if (UserId == null || SelectedContactId == null)
                 return;
 
-            var user = _dbContext.Users.Where(f => f.Id == UserId.Value).First();
+            var user = _dbContext.Users.Where(f => f.Id == UserId).First();
             NewAccessEntry.AccessGivenBy = user.UserName;
             NewAccessEntry.ContactId = SelectedContactId;
             NewAccessEntry.WaterMarks = "";

@@ -11,7 +11,7 @@ namespace Company_Site.Base
         #region Public Properties
 
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace Company_Site.Base
 
         protected override void BeforeSetup()
         {
-            User = _dbContext.Users.Where(a => a.Id == UserId.Value).FirstOrDefault();
+            User = _dbContext.Users.Where(a => a.Id == UserId).FirstOrDefault();
         }
 
         protected override void SaveResetup()

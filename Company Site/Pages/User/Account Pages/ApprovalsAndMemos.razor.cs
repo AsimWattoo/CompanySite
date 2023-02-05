@@ -183,7 +183,7 @@ namespace Company_Site.Pages.User.Account_Pages
                 case "Date":
                     return item.Date.ToString("dd-MMM-yyyy");
                 case "Committe":
-                    List<int> references = _dbContext.MemoReferences.Where(f => f.Id == item.ToId && f.MemoId == item.MemoNumber).Select(f => f.UserId).ToList();
+                    List<string> references = _dbContext.MemoReferences.Where(f => f.Id == item.ToId && f.MemoId == item.MemoNumber).Select(f => f.UserId).ToList();
                     string users = "";
                     references.ForEach(reference =>
                     {

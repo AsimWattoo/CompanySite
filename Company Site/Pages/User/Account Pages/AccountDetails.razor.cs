@@ -13,7 +13,7 @@ namespace Company_Site.Pages.User.Account_Pages
         #region Public Members
 
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
 
@@ -78,7 +78,7 @@ namespace Company_Site.Pages.User.Account_Pages
         private void CreateNewInstance()
         {
             Details = new AccountDetailsModel();
-            Data.User user = _dbContext.Users.Where(u => u.Id == UserId.Value).First();
+            Data.User user = _dbContext.Users.Where(u => u.Id == UserId).First();
             if (State.BorrowerCode != -1)
             {
                 if (_dbContext.AccountDetails.Any(a => a.BorrowerCode == State.BorrowerCode))

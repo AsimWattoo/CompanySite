@@ -138,7 +138,7 @@
 				<div class="col-12">
 					<div class="form-floating mb-3 mx-1">
 						<p class="d-inline-block fw-bold me-1">Memo To: </p>
-						@foreach(int userId in Memo.To)
+						@foreach(string userId in Memo.To)
 						{
 							<p class="d-inline-block me-1">@Users[userId].UserName,</p>
 						}
@@ -147,7 +147,7 @@
 				<div class="col-12">
 					<div class="form-floating mb-3 mx-1">
 						<p class="d-inline-block fw-bold me-1">Memo Through: </p>
-						@foreach (int userId in Memo.Through)
+						@foreach (string userId in Memo.Through)
 						{
 									<p class="d-inline-block me-1">@Users[userId].UserName,</p>
 						}
@@ -157,7 +157,7 @@
 				<div class="col-12">
 					<div class="form-floating mb-3 mx-1">
 						<p class="d-inline-block fw-bold me-1">Memo From: </p>
-						@foreach (int userId in Memo.From)
+						@foreach (string userId in Memo.From)
 						{
 									<p class="d-inline-block me-1">@Users[userId].UserName,</p>
 						}
@@ -293,11 +293,11 @@
 @code {
 
 	[CascadingParameter(Name = "UserId")]
-	private int? UserId { get; set; }
+	private string UserId { get; set; }
 
 	private const long MAX_FILE_SIZE = 1024000 * 5;
 
-	private Dictionary<int, User> Users { get; set; } = new Dictionary<int, User>();
+	private Dictionary<string, User> Users { get; set; } = new Dictionary<string, User>();
 
 	/// <summary>
 	/// The comment added by the user
@@ -393,7 +393,7 @@
 			CommentId = id,
 			CommentText = content,
 			MemoId = memoNumber,
-			UserId = UserId.Value
+			UserId = UserId
 		});
 
 		UserMemoReference memoRef = dbContext.MemoReferences.Where(m => m.UserId == UserId && m.MemoId == memoNumber && m.MemoStatus == MemoStatus.Pending).First();
@@ -430,7 +430,7 @@
 				CommentId = id,
 				CommentText = content,
 				MemoId = memoNumber,
-				UserId = UserId.Value
+				UserId = UserId
 			});
 
 		UserMemoReference memoRef = dbContext.MemoReferences.Where(m => m.UserId == UserId && m.MemoId == memoNumber && m.MemoStatus == MemoStatus.Pending).First();
@@ -443,7 +443,7 @@
 		dbContext.SaveChanges();
 
 		//Sending mail to all the users who approved the memo
-		List<int> ids = dbContext.MemoReferences.Where(memo => memo.MemoId == m.MemoNumber && memo.MemoStatus == MemoStatus.Approved).Select(f => f.UserId).ToList();
+		List<string> ids = dbContext.MemoReferences.Where(memo => memo.MemoId == m.MemoNumber && memo.MemoStatus == MemoStatus.Approved).Select(f => f.UserId).ToList();
 		ids.Add(m.WriterId);
 		ids = ids.Distinct().ToList();
 

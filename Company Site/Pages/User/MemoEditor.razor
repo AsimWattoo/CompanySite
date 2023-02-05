@@ -363,7 +363,7 @@
 @code {
 
 	[CascadingParameter(Name = "UserId")]
-	public int? UserId { get; set; }
+	public string UserId { get; set; }
 
 	//The error which is being displayed
 	private string Error { get; set; }
@@ -496,9 +496,9 @@
 				GSTNumber = memo.GSTNumber,
 				VendorId = memo.VendorId
 			};
-			List<int> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
-			List<int> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
-			List<int> toIds = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
+			List<string> fromIds = dbContext.MemoReferences.Where(m => m.Id == memo.FromId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
+			List<string> throughIds = dbContext.MemoReferences.Where(m => m.Id == memo.ThroughId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
+			List<string> toIds = dbContext.MemoReferences.Where(m => m.Id == memo.ToId && m.MemoId == memo.MemoNumber).Select(m => m.UserId).ToList();
 			List<string> files = dbContext.Files.Where(m => m.MemoId == NewMemo.MemoNumber).Select(f => f.Path).ToList();
 
 
@@ -561,7 +561,7 @@
 		//string text = await textEditor.GetHTML();
 		Memo memo = new Memo()
 			{
-				WriterId = UserId.Value,
+				WriterId = UserId,
 				Amount = NewMemo.Amount,
 				Branch = NewMemo.Branch,
 				Service = NewMemo.Service,
@@ -591,18 +591,18 @@
 		if(dbContext.MemoReferences.Any())
 			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id + 1;
 
-		foreach(int userId in NewMemo.From){
+		foreach(string userId in NewMemo.From){
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.FromId = id;
 		id++;
-		foreach (int userId in NewMemo.Through)
+		foreach (string userId in NewMemo.Through)
 		{
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ThroughId = id;
 		id++;
-		foreach (int userId in NewMemo.To)
+		foreach (string userId in NewMemo.To)
 		{
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
@@ -641,7 +641,7 @@
 	private async void AddMemo(){
 		Memo memo = new Memo()
 			{
-				WriterId = UserId.Value,
+				WriterId = UserId,
 				Amount = NewMemo.Amount,
 				Branch = NewMemo.Branch,
 				Service = NewMemo.Service,
@@ -671,18 +671,18 @@
 		if(dbContext.MemoReferences.Any())
 			id = dbContext.MemoReferences.OrderBy(o => o.MemoId).Last().Id + 1;
 
-		foreach(int userId in NewMemo.From){
+		foreach(string userId in NewMemo.From){
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.FromId = id;
 		id++;
-		foreach (int userId in NewMemo.Through)
+		foreach (string userId in NewMemo.Through)
 		{
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}
 		memo.ThroughId = id;
 		id++;
-		foreach (int userId in NewMemo.To)
+		foreach (string userId in NewMemo.To)
 		{
 			dbContext.MemoReferences.Add(new UserMemoReference() { Id = id, MemoId = NewMemo.MemoNumber, UserId = userId, MemoStatus = MemoStatus.Pending });
 		}

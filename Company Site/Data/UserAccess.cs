@@ -10,7 +10,7 @@ namespace Company_Site.Data
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// The page to which access is given
