@@ -46,11 +46,7 @@ namespace Company_Site.Data
 
         public string? Access { get; set; }
 
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
-
         public string? ExitDate { get; set; }
-
-        public string? Status { get; set; }
 
         public string? ProfileImage { get; set; }
 
@@ -71,5 +67,8 @@ namespace Company_Site.Data
 
         [Required]
         public string? Mobile { get; set; }
+
+        [Required]
+        public string EmployeeCode { get; set; }
     }
 }

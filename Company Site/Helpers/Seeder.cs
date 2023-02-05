@@ -56,14 +56,14 @@ namespace Company_Site.Helpers
 						OfficeLocation = "Office",
 						FirstName = "Paras",
 						LastName="Gandhi",
-						Status="Active",
 						Mobile="-------",
                         Role = "Admin",
 						Id = Guid.NewGuid().ToString(),
 						Address = "",
 						City = "",
 						State = "",
-						MobileNumber = ""
+						MobileNumber = "",
+						EmployeeCode = ""
 					};
 
 					IdentityResult res = await userManager.CreateAsync(user, "pass@1234");

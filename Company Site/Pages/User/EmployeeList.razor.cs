@@ -22,7 +22,10 @@ namespace Company_Site.Pages.User
         #region Public Members
 
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
+
+        [CascadingParameter(Name = "IsAdmin")]
+        public bool IsAdmin { get; set; }
 
         #endregion
 
@@ -39,6 +42,8 @@ namespace Company_Site.Pages.User
         protected bool ShouldAdd { get; set; } = true;
 
         private IBrowserFile File { get; set; }
+
+        private string Password { get; set; }
 
         #endregion
 

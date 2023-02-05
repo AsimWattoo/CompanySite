@@ -14,6 +14,7 @@
             GetContactName="@(e => $"{e.FirstName} {e.LastName}")" 
             OnClick="EditRecord" 
             OnDelete="DeleteRecord"
+            ShowDeleteButton=IsAdmin
             AutoSearch=true/>
     </div>
 
@@ -46,7 +47,7 @@
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="address">Address</label>
-                                <InputTextArea @bind-Value=NewEntry.Address id="address" style="resize: none; height: 130%;" class="form-control"></InputTextArea>
+                                <InputText @bind-Value=NewEntry.Address id="address" class="form-control"></InputText>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
@@ -55,7 +56,10 @@
                             </div>
                         </div>
                         <div class="row mt-3">
-                            <div class="col-md-5"></div>
+                            <div class="col-md-5">
+                                <label for="employeeCode">Employee Code</label>
+                                <InputText @bind-Value=NewEntry.EmployeeCode id="employeeCode" class="form-control" type="text"/>
+                            </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="state">State</label>
@@ -86,7 +90,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
-                                <label for="aadharCard">Aadharcard</label>
+                                <label for="aadharCard">Aadhar Card</label>
                                 <InputText @bind-Value=NewEntry.AadharCard id="aadharCard" type="text" class="form-control"/>
                             </div>
                             <div class="col-md-2"></div>
@@ -114,7 +118,13 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="role">Role</label>
-                                <InputText @bind-Value=NewEntry.Role id="role" class="form-control" type="text"/>
+                                <InputSelect @bind-Value=NewEntry.Role class="form-select">
+                                    <option selected>---- Select Role</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Officer">Officer</option>
+                                    <option value="Supervisor">Supervisor</option>
+                                    <option value="DepartmentHead">Department Head</option>
+                                </InputSelect>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -135,8 +145,8 @@
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
-                                <label for="regDate">Registration Date</label>
-                                <input @bind-value=NewEntry.RegistrationDate id="regDate" class="form-control" type="date"/>
+                                <label for="access">Access</label>
+                                <InputText @bind-Value=Password id="access" class="form-control" type="password"/>
                             </div>
                         </div>
                         <div class="row mt-3">
@@ -146,14 +156,14 @@
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
-                                <label for="status">Status</label>
-                                <InputText @bind-Value=NewEntry.Status id="status" class="form-control" type="text"/>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-danger me-3" @onclick=Clear>Clear</a>
-                            <button class="btn btn-primary">@(ShouldAdd ? "Add" : "Edit")</button>
+                            @if(IsAdmin){
+                                <button class="btn btn-primary">@(ShouldAdd ? "Add" : "Edit")</button>                                
+                            }
                         </div>
                     </EditForm>
                 </div>
