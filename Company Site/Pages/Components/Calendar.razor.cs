@@ -16,7 +16,7 @@ namespace Company_Site.Pages.Components
         /// The id of the currently logged in user
         /// </summary>
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
 

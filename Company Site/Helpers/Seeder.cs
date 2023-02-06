@@ -74,32 +74,6 @@ namespace Company_Site.Helpers
 						Console.WriteLine($"--> Failed to create a user: {res.Errors.First().Description}");
 						return;
 					}
-
-
-                    res = await roleManager.CreateAsync(new UserRole()
-					{
-						Id = Guid.NewGuid().ToString(),
-						Name = "Admin"
-					});
-
-                    if (res.Succeeded)
-                        Console.WriteLine("--> Successfully created admin role");
-                    else
-                    {
-                        Console.WriteLine($"--> Failed to create admin role: {res.Errors.First().Description}");
-                        return;
-                    }
-
-                    res = await userManager.AddToRoleAsync(user, "Admin");
-
-					if (res.Succeeded)
-						Console.WriteLine("--> Successfully added initial user to admin role");
-					else
-					{
-						Console.WriteLine($"--> Failed to add initial user to admin role: {res.Errors.First().Description}");
-						return;
-					}
-
 				}
 			}
 

@@ -2,21 +2,7 @@
 @using Company_Site.Enum
 @using Company_Site.Pages.Components
 
-<AuthorizeView>
-
-	<Authorized>
-		
-		<AccessChecker Page="UserPages.NewAcquisition" ReturnUrl="/newacquisition">
-			<h3>New Acquisition</h3>
-		</AccessChecker>
-
-	</Authorized>
-
-	<NotAuthorized>
-		<LoginRedirect ReturnUrl="/newacquisition"/>
-	</NotAuthorized>
-
-</AuthorizeView>
+<h3>New Acquisition</h3>
 
 @code {
 

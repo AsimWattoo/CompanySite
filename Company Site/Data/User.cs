@@ -67,5 +67,7 @@ namespace Company_Site.Data
 
         [Required]
         public string EmployeeCode { get; set; }
+
+        public string PageAccess { get; set; }
     }
 }

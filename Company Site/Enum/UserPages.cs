@@ -2,9 +2,9 @@
 {
     public enum UserPages
     {
-
-        Dashboard,
-        NewAcquisition,
-
+        TrustData,
+        Finance,
+        Account,
+        Legal,
     }
 }

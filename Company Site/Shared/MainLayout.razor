@@ -80,9 +80,20 @@
                                             </div>
                                         </div>
                                         <main class="col-xl-10 col-lg-9 col-md-8 col-sm-6 col-12 border-top-light px-2">
-                                            <article class="content px-2 overflow-hidden">
-                                                @Body
-                                            </article>
+                                            @if (HasAccess)
+                                            {
+                                                <article class="content px-2 overflow-hidden">
+                                                    @Body
+                                                </article>
+                                            }
+                                            else
+                                            {
+                                                <div class="content px-2 overflow-hidden">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h4>You do not have access to the page.</h4>
+                                                    </div>
+                                                </div>
+                                            }
                                         </main>
                                     </div>
                                 </div>
@@ -124,6 +135,8 @@
 
     public User user;
 
+    public bool HasAccess { get; set; } = true;
+
     /// <summary>
     /// The selected account
     /// </summary>
@@ -138,6 +151,8 @@
     /// The list of filtered accounts
     /// </summary>
     private List<Account> FilteredAccounts { get; set; } = new List<Account>();
+
+    private List<string> PageAccesses = new List<string>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -156,15 +171,14 @@
         else
         {
             user = dbContext.Users.Where(user => user.UserName == state.User.Identity.Name).First();
-            Pages = dbContext.AccessList.Where(func => func.UserId == user.Id).Select(func => func.Page).ToList();
-            IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
+            IsAdmin = user.Role == "Admin";
             UserId = user.Id;
             IsLoggedIn = true;
             if(IsAdmin)
                 Accounts = dbContext.Accounts.ToList();
             else
             {
-                if(user.Access != null)
+                if(!string.IsNullOrEmpty(user.Access))
                 {
                     string[] parts = user.Access.Split(':');
                     List<int> borrowerCodes = new List<int>();
@@ -174,10 +188,57 @@
                     }
                     Accounts = dbContext.Accounts.Where(f => borrowerCodes.Contains(f.BorrowerCode)).ToList();
                 }
+
+                if (!string.IsNullOrEmpty(user.PageAccess))
+                {
+                    string[] parts = user.PageAccess.Split(':');
+                    PageAccesses = new List<string>();
+                    foreach(string part in parts)
+                    {
+                        UserPages page;
+                        if(Enum.TryParse(part, out page))
+                        {
+                            PageAccesses.Add(MapPageAccess(page));
+                        }
+                    }
+                }
             }
             FilteredAccounts = Accounts;
         }
+        navigationManager.LocationChanged += LocationChanged;
         base.OnInitialized();
+    }
+
+    private void LocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        string newUri = navigationManager.ToBaseRelativePath(navigationManager.Uri);
+        if (IsAdmin)
+        {
+            HasAccess = true;
+            return;
+        }
+
+        if (newUri == "trustmaster" || newUri == "finance" || newUri == "legalmanagement" || newUri == "accounts")
+        {
+            HasAccess = PageAccesses.Contains(newUri);
+        }
+        else
+            HasAccess = true;
+        StateHasChanged();
+    }
+
+    private string MapPageAccess(UserPages page)
+    {
+        if (page == UserPages.TrustData)
+            return "trustmaster";
+        else if (page == UserPages.Account)
+            return "accounts";
+        else if (page == UserPages.Finance)
+            return "finance";
+        else if (page == UserPages.Legal)
+            return "legalmanagement";
+        else
+            return "";
     }
 
     /// <summary>

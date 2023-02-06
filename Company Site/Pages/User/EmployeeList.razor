@@ -38,89 +38,89 @@
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="firstName">First Name</label>
-                                <InputText @bind-Value=NewEntry.FirstName id="firstName" type="text" class="form-control"/>
+                                <InputText @bind-Value=NewEntry.FirstName disabled="@(!IsAdmin)" id="firstName" type="text" class="form-control "/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="lastName">Last Name</label>
-                                <InputText @bind-Value=NewEntry.LastName id="lastName" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.LastName disabled="@(!IsAdmin)" id="lastName" class="form-control " type="text"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="address">Address</label>
-                                <InputText @bind-Value=NewEntry.Address id="address" class="form-control"></InputText>
+                                <InputText @bind-Value=NewEntry.Address disabled="@(!IsAdmin)" id="address" class="form-control "></InputText>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="city">City</label>
-                                <InputText @bind-Value=NewEntry.City id="city" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.City disabled="@(!IsAdmin)" id="city" class="form-control " type="text"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="employeeCode">Employee Code</label>
-                                <InputText @bind-Value=NewEntry.EmployeeCode id="employeeCode" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.EmployeeCode disabled="@(!IsAdmin)" id="employeeCode" class="form-control " type="text"/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="state">State</label>
-                                <InputText @bind-Value=NewEntry.State id="state" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.State disabled="@(!IsAdmin)" id="state" class="form-control " type="text"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="joiningDate">Joining Date</label>
-                                <input @bind-value=NewEntry.JoiningDate id="joiningDate" type="date" class="form-control"/>
+                                <input @bind-value=NewEntry.JoiningDate disabled="@(!IsAdmin)" id="joiningDate" type="date" class="form-control "/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="birthday">Birthday</label>
-                                <input id="birthday" @bind-value=NewEntry.Birthday class="form-control" type="date"/>
+                                <input id="birthday" @bind-value=NewEntry.Birthday disabled="@(!IsAdmin)" class="form-control " type="date"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="mobileNumber">Mobile Number</label>
-                                <InputText @bind-Value=NewEntry.MobileNumber id="mobileNumber" type="tel" class="form-control"/>
+                                <InputText @bind-Value=NewEntry.MobileNumber disabled="@(!IsAdmin)" id="mobileNumber" type="tel" class="form-control "/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="email">Email</label>
-                                <InputText @bind-Value=NewEntry.Email id="email" class="form-control" type="email"/>
+                                <InputText @bind-Value=NewEntry.Email disabled="@(!IsAdmin)" id="email" class="form-control " type="email"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="aadharCard">Aadhar Card</label>
-                                <InputText @bind-Value=NewEntry.AadharCard id="aadharCard" type="text" class="form-control"/>
+                                <InputText @bind-Value=NewEntry.AadharCard disabled="@(!IsAdmin)" id="aadharCard" type="text" class="form-control "/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="landlineNumber">Landline Number</label>
-                                <InputText @bind-Value=NewEntry.LandlineNumber id="landlineNumber" class="form-control" type="tel"/>
+                                <InputText @bind-Value=NewEntry.LandlineNumber disabled="@(!IsAdmin)" id="landlineNumber" class="form-control " type="tel"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="department">Department</label>
-                                <InputText @bind-Value=NewEntry.Department id="department" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.Department disabled="@(!IsAdmin)" id="department" class="form-control " type="text"/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="role">Pan Card</label>
-                                <InputText @bind-Value=NewEntry.PanCard id="role" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.PanCard disabled="@(!IsAdmin)" id="role" class="form-control " type="text"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="designation">Designation</label>
-                                <InputText @bind-Value=NewEntry.Designation id="designation" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.Designation id="designation" class="form-control " disabled="@(!IsAdmin)" type="text"/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="role">Role</label>
-                                <InputSelect @bind-Value=NewEntry.Role class="form-select">
+                                <InputSelect @bind-Value=NewEntry.Role disabled="@(!IsAdmin)" class="form-select">
                                     <option selected>---- Select Role</option>
                                     <option value="Admin">Admin</option>
                                     <option value="Officer">Officer</option>
@@ -132,19 +132,19 @@
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="officeLocation">Office Location</label>
-                                <InputText @bind-Value=NewEntry.OfficeLocation id="officeLocation" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.OfficeLocation disabled="@(!IsAdmin)" id="officeLocation" class="form-control " type="text"/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="position">Position</label>
-                                <InputText @bind-Value=NewEntry.Position id="position" class="form-control" type="text"/>
+                                <InputText @bind-Value=NewEntry.Position disabled="@(!IsAdmin)" id="position" class="form-control " type="text"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="access">Access</label>
                                 <RadzenDropDown Multiple="true" 
-										Chips="true" 
+										Chips="true"  disabled="@(!IsAdmin)"
 										AllowClear="true" 
 										AllowFiltering="true" 
 										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
@@ -158,16 +158,28 @@
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
                                 <label for="access">Password</label>
-                                <InputText @bind-Value=Password id="access" class="form-control" type="password"/>
+                                <InputText @bind-Value=Password disabled="@(!IsAdmin)" id="access" class="form-control " type="password"/>
                             </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="exitDate">Exit Date</label>
-                                <InputText @bind-Value=NewEntry.ExitDate id="exitDate" class="form-control" type="date"/>
+                                <InputText @bind-Value=NewEntry.ExitDate disabled="@(!IsAdmin)" id="exitDate" class="form-control " type="date"/>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
+                                <label for="access">Pages</label>
+                                <RadzenDropDown Multiple="true" 
+										Chips="true" 
+										AllowClear="true" 
+										AllowFiltering="true" 
+										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+										@bind-Value=@selectedPages
+										Data=@PageAccesses  disabled="@(!IsAdmin)"
+										TextProperty="Page" 
+										ValueProperty="Page" 
+                                        Change="PageAccessChanged"
+										class="w-100" />
                             </div>
                         </div>
 

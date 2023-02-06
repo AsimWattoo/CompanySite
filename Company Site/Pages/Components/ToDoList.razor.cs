@@ -37,7 +37,7 @@ namespace Company_Site.Pages.Components
         /// <summary>
         /// The list of selected users
         /// </summary>
-        private List<int> SelectedUsers = new List<int>();
+        private List<string> SelectedUsers = new List<string>();
 
         /// <summary>
         /// Indicates the state of finish all check box
@@ -49,7 +49,7 @@ namespace Company_Site.Pages.Components
         #region Public Properties
 
         [CascadingParameter(Name = "UserId")]
-        public int? UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// Refreshes the state
@@ -74,7 +74,7 @@ namespace Company_Site.Pages.Components
             {
                 LoadData();
                 users = _dbContext.Users.ToList();
-                SelectedUsers.Add(UserId.Value);
+                SelectedUsers.Add(UserId);
             }
         }
 
@@ -86,7 +86,7 @@ namespace Company_Site.Pages.Components
         {
             if (UserId != null)
             {
-                List<int> userTasks = _dbContext.TaskAssignments.Where(f => f.UserId == UserId.Value).Select(f => f.TaskId).Distinct().ToList();
+                List<int> userTasks = _dbContext.TaskAssignments.Where(f => f.UserId == UserId).Select(f => f.TaskId).Distinct().ToList();
                 tasks = _dbContext.Tasks.Where(f => userTasks.Contains(f.Id)).ToList();
                 //Checking if all the task have been selected or not
                 if (!tasks.Any(f => !f.Completed))
@@ -111,7 +111,7 @@ namespace Company_Site.Pages.Components
 
             _dbContext.Tasks.Add(NewTask);
             _dbContext.SaveChanges();
-            foreach(int userId in SelectedUsers)
+            foreach(string userId in SelectedUsers)
             {
                 _dbContext.TaskAssignments.Add(new TaskAssignment()
                 {
@@ -121,10 +121,10 @@ namespace Company_Site.Pages.Components
             }
             _dbContext.SaveChanges();
             NewTask = new WorkTask();
-            SelectedUsers = new List<int>();
+            SelectedUsers = new List<string>();
             if(UserId != null)
             {
-                SelectedUsers.Add(UserId.Value);
+                SelectedUsers.Add(UserId);
             }
             LoadData();
             IsTaskFormShown = false;
@@ -141,24 +141,24 @@ namespace Company_Site.Pages.Components
             IsTaskFormShown = true;
             if(UserId != null)
             {
-                SelectedUsers.Add(UserId.Value);
+                SelectedUsers.Add(UserId);
             }
         }
 
         private void Clear()
         {
             NewTask = new WorkTask();
-            SelectedUsers = new List<int>();
+            SelectedUsers = new List<string>();
             _errors = new List<string>();
             if (UserId != null)
             {
-                SelectedUsers.Add(UserId.Value);
+                SelectedUsers.Add(UserId);
             }
         }
 
         private void OnChange(object args)
         {
-            List<int>? sUsers = args as List<int>;
+            List<string>? sUsers = args as List<string>;
             if(sUsers != null)
             {
                 SelectedUsers = sUsers;
@@ -190,7 +190,7 @@ namespace Company_Site.Pages.Components
         /// <param name="value"></param>
         private void ToggleFinishAll(bool value)
         {
-            List<int> userTasks = _dbContext.TaskAssignments.Where(f => f.UserId == UserId.Value).Select(f => f.TaskId).Distinct().ToList();
+            List<int> userTasks = _dbContext.TaskAssignments.Where(f => f.UserId == UserId).Select(f => f.TaskId).Distinct().ToList();
             List<WorkTask> tasksToUpdate = _dbContext.Tasks.Where(f => userTasks.Contains(f.Id)).ToList();
             tasksToUpdate.ForEach(f => f.Completed = value);
             _dbContext.UpdateRange(tasksToUpdate);

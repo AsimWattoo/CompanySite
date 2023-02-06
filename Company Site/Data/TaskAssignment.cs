@@ -14,7 +14,7 @@ namespace Company_Site.Data
         /// <summary>
         /// The id of the user id
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         #endregion
     }

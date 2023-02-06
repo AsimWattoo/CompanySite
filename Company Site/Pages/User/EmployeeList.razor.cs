@@ -1,5 +1,6 @@
 ﻿using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Enum;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -27,6 +28,22 @@ namespace Company_Site.Pages.User
         /// The list of borrowers for the employee
         /// </summary>
         private List<int> selectedBorrowers = new List<int>();
+
+        /// <summary>
+        /// The list of pages for access
+        /// </summary>
+        private List<PageAccess> PageAccesses = new List<PageAccess>()
+        {
+            new PageAccess(){ Page = UserPages.Finance },
+            new PageAccess(){ Page = UserPages.Account },
+            new PageAccess(){ Page = UserPages.TrustData },
+            new PageAccess(){ Page = UserPages.Legal },
+        };
+
+        /// <summary>
+        /// The list of selected pages
+        /// </summary>
+        private List<UserPages> selectedPages = new List<UserPages>();
 
         #endregion
 
@@ -101,11 +118,21 @@ namespace Company_Site.Pages.User
             _errors.Clear();
             if (ShouldAdd)
             {
+                if(Password == null)
+                {
+                    _errors.Add("Please enter a valid password");
+                    return;
+                }
+                NewEntry.UserName = NewEntry.FirstName + NewEntry.LastName;
                 NewEntry.Id = Guid.NewGuid().ToString();
                 NewEntry.Access = "";
                 foreach (int access in selectedBorrowers)
                     NewEntry.Access += $"{access}:";
                 NewEntry.Access = NewEntry.Access.Trim(':');
+                NewEntry.PageAccess = "";
+                foreach (UserPages page in selectedPages)
+                    NewEntry.PageAccess += $"{page}:";
+                NewEntry.PageAccess = NewEntry.PageAccess.Trim(':');
                 IdentityResult res = await _userManager.CreateAsync(NewEntry, Password);
                 if (!res.Succeeded)
                 {
@@ -121,10 +148,15 @@ namespace Company_Site.Pages.User
                 {
                     NewEntry.PasswordHash = _passwordHasher.HashPassword(NewEntry, Password);
                 }
+                NewEntry.UserName = NewEntry.FirstName + NewEntry.LastName;
                 NewEntry.Access = "";
                 foreach (int access in selectedBorrowers)
                     NewEntry.Access += $"{access}:";
                 NewEntry.Access = NewEntry.Access.Trim(':');
+                NewEntry.PageAccess = "";
+                foreach (UserPages page in selectedPages)
+                    NewEntry.PageAccess += $"{page}:";
+                NewEntry.PageAccess = NewEntry.PageAccess.Trim(':');
                 _dbSet.Update(NewEntry);
             }
             _dbContext.SaveChanges();
@@ -132,6 +164,7 @@ namespace Company_Site.Pages.User
             ShouldAdd = true;
             RenderFile("");
             StateHasChanged();
+            _navigationManager.NavigateTo(_navigationManager.Uri, true);
         }
 
         public void EditRecord(string id)
@@ -139,7 +172,7 @@ namespace Company_Site.Pages.User
             ShouldAdd = false;
             NewEntry = _dbSet.Where(t => t.Id.Equals(id)).First();
             selectedBorrowers = new List<int>();
-            if(NewEntry.Access != null)
+            if(!string.IsNullOrEmpty(NewEntry.Access))
             {
                 string[] parts = NewEntry.Access.Split(':');
                 foreach (string part in parts)
@@ -147,8 +180,21 @@ namespace Company_Site.Pages.User
                     selectedBorrowers.Add(int.Parse(part));
                 }
             }
+            selectedPages = new List<UserPages>();
+            if (!string.IsNullOrEmpty(NewEntry.PageAccess))
+            {
+                string[] parts = NewEntry.PageAccess.Split(':');
+                foreach (string part in parts)
+                {
+                    UserPages page;
+                    if (System.Enum.TryParse(part, out page))
+                    {
+                        selectedPages.Add(page);
+                    }
+                }
+            }
             //Rendering Existing Image
-            if(NewEntry.ProfileImage != null)
+            if (NewEntry.ProfileImage != null)
             {
                 FileInfo info = new FileInfo(NewEntry.ProfileImage);
                 RenderFile($"{BASE_URL}{info.Name}");
@@ -159,6 +205,7 @@ namespace Company_Site.Pages.User
         protected void Clear()
         {
             Setup();
+            ShouldAdd = true;
             StateHasChanged();
             RenderFile("");
         }
@@ -167,16 +214,18 @@ namespace Company_Site.Pages.User
         {
             _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
             _dbContext.SaveChanges();
-            Enteries = _dbSet.ToList();
             Setup();
             StateHasChanged();
+            _navigationManager.NavigateTo(_navigationManager.Uri, true);
         }
 
         protected void Setup()
         {
             _dbSet = _dbContext.Users;
             Password = null;
+            Enteries = _dbSet.ToList();
             selectedBorrowers.Clear();
+            selectedPages.Clear();
             NewEntry = new data.User();
             NewEntry.Id = Guid.NewGuid().ToString();
         }
@@ -221,6 +270,14 @@ namespace Company_Site.Pages.User
             if(accessList is IEnumerable<Int32> list)
             {
                 selectedBorrowers = list.ToList();
+            }
+        }
+
+        private void PageAccessChanged(object accessList)
+        {
+            if (accessList is IEnumerable<UserPages> list)
+            {
+                selectedPages = list.ToList();
             }
         }
 
