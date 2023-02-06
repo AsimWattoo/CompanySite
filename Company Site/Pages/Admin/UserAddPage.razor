@@ -133,11 +133,6 @@
 					<label for="status" class="me-1">Status</label>
 				</div>
 
-				<div class="form-floating mb-3">
-				  <InputText type="text" class="form-control" id="mobile" placeholder="Mobile" @bind-Value="newUser.Mobile"/>
-				  <label for="mobile">Mobile</label>
-				</div>
-
 				<div class="input-group d-flex justify-content-end">
 					<div>
 						@if(PageMode == "add"){
@@ -284,7 +279,6 @@
 	<p>Designation: {newUser.Designation}</p>
 	<p>Department: {newUser.Department}</p>
 	<p>Office Location: {newUser.OfficeLocation}</p>
-	<p>Mobile: {newUser.Mobile}</p>
 <div>");
 
 			navManager.NavigateTo("/admin");

@@ -14,7 +14,7 @@
         <div class="row mt-3">
             <div class="col-md-2">
                 <label for="trustCode">Trust Code</label>
-                <InputSelect @bind-Value=Details class="form-select">
+                <InputSelect @bind-Value=Details.TrustCode class="form-select">
                     <option value="" selected>------ Select Option ------</option>
                         @foreach (Trust t in Trusts)
                         {

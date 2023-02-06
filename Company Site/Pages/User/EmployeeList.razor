@@ -2,6 +2,8 @@
 @using Company_Site.Base;
 @using Company_Site.Data;
 @using Company_Site.Pages.Components
+@using Radzen.Blazor;
+@using Radzen;
 
 <p class="fw-bold text-button-heading mb-2">Employee List</p>
 
@@ -141,11 +143,21 @@
                         <div class="row mt-3">
                             <div class="col-md-5">
                                 <label for="access">Access</label>
-                                <InputText @bind-Value=NewEntry.Access id="access" class="form-control" type="text"/>
+                                <RadzenDropDown Multiple="true" 
+										Chips="true" 
+										AllowClear="true" 
+										AllowFiltering="true" 
+										FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+										@bind-Value=@selectedBorrowers
+										Data=@Borrowers 
+										TextProperty="Company" 
+										ValueProperty="BorrowerCode" 
+                                        Change="AccessListChanged"
+										class="w-100" />
                             </div>
                             <div class="col-md-2"></div>
                             <div class="col-md-5">
-                                <label for="access">Access</label>
+                                <label for="access">Password</label>
                                 <InputText @bind-Value=Password id="access" class="form-control" type="password"/>
                             </div>
                         </div>

@@ -135,7 +135,7 @@ namespace Company_Site.Pages.User.Turst_Components
 
         private void SaveAccount()
         {
-            if (ShouldAdd)
+            if (AccountAddMode)
             {
                 Account account = new Account()
                 {

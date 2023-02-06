@@ -160,7 +160,21 @@
             IsAdmin = dbContext.UserRoles.Where(role => role.UserId == user.Id).Count() > 0;
             UserId = user.Id;
             IsLoggedIn = true;
-            Accounts = dbContext.Accounts.ToList();
+            if(IsAdmin)
+                Accounts = dbContext.Accounts.ToList();
+            else
+            {
+                if(user.Access != null)
+                {
+                    string[] parts = user.Access.Split(':');
+                    List<int> borrowerCodes = new List<int>();
+                    foreach(string part in parts)
+                    {
+                        borrowerCodes.Add(int.Parse(part));
+                    }
+                    Accounts = dbContext.Accounts.Where(f => borrowerCodes.Contains(f.BorrowerCode)).ToList();
+                }
+            }
             FilteredAccounts = Accounts;
         }
         base.OnInitialized();

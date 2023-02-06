@@ -4,6 +4,7 @@ using Company_Site.DB;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.JSInterop;
 
@@ -16,6 +17,16 @@ namespace Company_Site.Pages.User
         #region Private Members
 
         private const string BASE_URL = "/img/Profile/";
+
+        /// <summary>
+        /// The list of borrowers
+        /// </summary>
+        private List<Account> Borrowers = new List<Account>();
+
+        /// <summary>
+        /// The list of borrowers for the employee
+        /// </summary>
+        private List<int> selectedBorrowers = new List<int>();
 
         #endregion
 
@@ -64,6 +75,12 @@ namespace Company_Site.Pages.User
         [Inject]
         protected IJSRuntime JS { get; set; }
 
+        [Inject]
+        private UserManager<data.User> _userManager { get; set; }
+
+        [Inject]
+        private IPasswordHasher<data.User> _passwordHasher { get; set; }
+
         #endregion
 
         #region Overriden Methods
@@ -72,21 +89,46 @@ namespace Company_Site.Pages.User
         {
             Setup();
             Enteries = _dbSet.ToList();
+            Borrowers = _dbContext.Accounts.ToList();
         }
 
         #endregion
 
         #region Protected Methods
 
-        protected virtual void Save()
+        protected virtual async void Save()
         {
+            _errors.Clear();
             if (ShouldAdd)
-                _dbSet.Add(NewEntry);
+            {
+                NewEntry.Id = Guid.NewGuid().ToString();
+                NewEntry.Access = "";
+                foreach (int access in selectedBorrowers)
+                    NewEntry.Access += $"{access}:";
+                NewEntry.Access = NewEntry.Access.Trim(':');
+                IdentityResult res = await _userManager.CreateAsync(NewEntry, Password);
+                if (!res.Succeeded)
+                {
+                    foreach(IdentityError error in res.Errors) 
+                    {
+                        _errors.Add(error.Description);
+                    }
+                }
+            }
             else
+            {
+                if (!string.IsNullOrEmpty(Password))
+                {
+                    NewEntry.PasswordHash = _passwordHasher.HashPassword(NewEntry, Password);
+                }
+                NewEntry.Access = "";
+                foreach (int access in selectedBorrowers)
+                    NewEntry.Access += $"{access}:";
+                NewEntry.Access = NewEntry.Access.Trim(':');
                 _dbSet.Update(NewEntry);
+            }
             _dbContext.SaveChanges();
-            NewEntry = new data.User();
-            Enteries = _dbSet.ToList();
+            Setup();
             ShouldAdd = true;
             RenderFile("");
             StateHasChanged();
@@ -96,6 +138,15 @@ namespace Company_Site.Pages.User
         {
             ShouldAdd = false;
             NewEntry = _dbSet.Where(t => t.Id.Equals(id)).First();
+            selectedBorrowers = new List<int>();
+            if(NewEntry.Access != null)
+            {
+                string[] parts = NewEntry.Access.Split(':');
+                foreach (string part in parts)
+                {
+                    selectedBorrowers.Add(int.Parse(part));
+                }
+            }
             //Rendering Existing Image
             if(NewEntry.ProfileImage != null)
             {
@@ -107,8 +158,7 @@ namespace Company_Site.Pages.User
 
         protected void Clear()
         {
-            NewEntry = new data.User();
-            ShouldAdd = true;
+            Setup();
             StateHasChanged();
             RenderFile("");
         }
@@ -118,13 +168,17 @@ namespace Company_Site.Pages.User
             _dbSet.Remove(_dbSet.Where(f => f.Id == id).First());
             _dbContext.SaveChanges();
             Enteries = _dbSet.ToList();
-            NewEntry = new data.User();
+            Setup();
             StateHasChanged();
         }
 
         protected void Setup()
         {
             _dbSet = _dbContext.Users;
+            Password = null;
+            selectedBorrowers.Clear();
+            NewEntry = new data.User();
+            NewEntry.Id = Guid.NewGuid().ToString();
         }
 
         #endregion
@@ -160,6 +214,14 @@ namespace Company_Site.Pages.User
         private async void RenderFile(string path)
         {
             await JS.InvokeVoidAsync("LoadImage", "#imageContainer", path);
+        }
+
+        private void AccessListChanged(object accessList)
+        {
+            if(accessList is IEnumerable<Int32> list)
+            {
+                selectedBorrowers = list.ToList();
+            }
         }
 
         #endregion

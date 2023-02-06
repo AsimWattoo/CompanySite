@@ -66,9 +66,6 @@ namespace Company_Site.Data
         public DateTime LastLogin { get; set; }
 
         [Required]
-        public string? Mobile { get; set; }
-
-        [Required]
         public string EmployeeCode { get; set; }
     }
 }

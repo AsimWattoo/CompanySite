@@ -56,7 +56,6 @@ namespace Company_Site.Helpers
 						OfficeLocation = "Office",
 						FirstName = "Paras",
 						LastName="Gandhi",
-						Mobile="-------",
                         Role = "Admin",
 						Id = Guid.NewGuid().ToString(),
 						Address = "",

@@ -36,8 +36,11 @@ namespace Company_Site.Pages.User.Account_Pages
 		protected override void SaveResetup()
 		{
             NewEntry = new BorrowerDetail();
+            List<BorrowerDetail> details = _dbContext.BorrowerDetails.ToList();
             NewEntry.BorrowerCode = _applicationState.BorrowerCode == -1 ? null : _applicationState.BorrowerCode;
-		}
+            if(_applicationState.BorrowerCode == -1)
+                _errors.Add("Please select a borrower");
+        }
 
 		#endregion
 
