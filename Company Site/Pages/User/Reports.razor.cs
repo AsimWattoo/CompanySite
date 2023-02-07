@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Radzen;
 
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace Company_Site.Pages.User
 {
@@ -62,7 +63,33 @@ namespace Company_Site.Pages.User
             Tables = new Dictionary<string, Type>()
             {
                 ["Trust Master"] = typeof(Trust),
-                ["Borrower Details"] = typeof(BorrowerDetail)
+                ["Borrower Details"] = typeof(BorrowerDetail),
+                ["Account"] = typeof(Account),
+                ["Account Net"] = typeof(AccountNetModel),
+                ["Asset Details"] = typeof(AssetDetailsModel),
+                ["Auctional Details"] = typeof(AuctionDetails),
+                ["Borrower Details"] = typeof(BorrowerDetail),
+                ["Cash Flow Projects"] = typeof(CashFlowProjectsModel),
+                ["Claims and Shares"] = typeof(ClaimsAndShareModel),
+                ["Collection"] = typeof(CollectionEntry),
+                ["Company Policy"] = typeof(CompanyPolicy),
+                ["Contacts"] = typeof(ContactsModel),
+                ["Debt Profile"] = typeof(DebtProfileModel),
+                ["Disbursment"] = typeof(DisburmentModel),
+                ["Distribution"] = typeof(DistributionEntry),
+                ["Document List"] = typeof(DocumentsListsModel),
+                ["Event Timeline"] = typeof(EventTimelineModel),
+                ["Expense"] = typeof(ExpenseEntry),
+                ["Financial Data"] = typeof(FinancialDataModel),
+                ["Interest Rate Change"] = typeof(InterestRateChangeModel),
+                ["Memo"] = typeof(Memo),
+                ["NCLt Net"] = typeof(NcltNetModel),
+                ["Notice Automation"] = typeof(NoticeAutomationModel),
+                ["RAD Details"] = typeof(RADetailsModel),
+                ["Resolution Status"] = typeof(ResolutionStatusModel),
+                ["Trust"] = typeof(Trust),
+                ["Valudation Details"] = typeof(ValuationDetails),
+                ["Vendor"] = typeof(Vendor),
             };
         }
 
@@ -91,7 +118,7 @@ namespace Company_Site.Pages.User
 							return value.ToString("dd-MMM-yyyy");
 
 						else
-							return value.ToString();
+                            return value.ToString();
 					}
 					else
 						return "";

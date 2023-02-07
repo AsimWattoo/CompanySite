@@ -785,7 +785,9 @@ fieldset legend[b-jr6ue2ld43]{
 .table-wrapper[b-fjmvypqe4d] {
     display: block;
     overflow-x: auto;
+    overflow-y: scroll;
     white-space: nowrap;
+    max-height: 70vh;
 }
 
 table[b-fjmvypqe4d] {
