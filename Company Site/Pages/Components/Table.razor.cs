@@ -25,6 +25,12 @@ namespace Company_Site.Pages.Components
         public Func<string, string> GetTotal { get; set; }
 
         /// <summary>
+        /// Indicates whether the rows are collapsible or not
+        /// </summary>
+        [Parameter]
+        public bool AreRowsCollapsible { get; set; } = false;
+
+        /// <summary>
         /// Fires when a row is clicked
         /// </summary>
         [Parameter]
@@ -236,7 +242,6 @@ namespace Company_Site.Pages.Components
 
                 Sortings.Add(header, Sorting.None);
             }
-
         }
 
         //Fires when selected rows to show changes

@@ -116,6 +116,15 @@
 
 <div class="px-3">
     <div class="card py-2">
-        <Table T="BorrowerDetail" T2="int" ShowPaging=false ShowSerialNumber=true Items="@Enteries" Headers="@Headers" GetId="@GetId" OnDelete="DeleteRecord" OnEdit="EditRecord" OnSearch="Search" ></Table>
+        <Table T="BorrowerDetail" T2="int" 
+            ShowPaging=false 
+            ShowSerialNumber=true 
+            Items="@Enteries" 
+            Headers="@Headers" 
+            GetId="@GetId" 
+            OnDelete="DeleteRecord" 
+            OnEdit="EditRecord" 
+            OnSearch="Search"
+            AreRowsCollapsible=true></Table>
     </div>
 </div>
