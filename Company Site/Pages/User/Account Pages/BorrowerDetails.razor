@@ -125,6 +125,10 @@
             OnDelete="DeleteRecord" 
             OnEdit="EditRecord" 
             OnSearch="Search"
-            AreRowsCollapsible=true></Table>
+            AreRowsCollapsible=true>
+            <CollapsibleContainerValue>
+                <BorrowerDetailsComponent Instance="@context"/>
+            </CollapsibleContainerValue>
+        </Table>
     </div>
 </div>

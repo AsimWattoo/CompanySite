@@ -6,12 +6,13 @@ namespace Company_Site.Pages.Components
         where T : class, new()
     {
 
-        #region Protected Members
+        #region Public Properties
 
         /// <summary>
         /// The instance of the item
         /// </summary>
-        protected T Instance = new T();
+        [Parameter]
+        public T Instance { get; set; } = new T();
 
         #endregion
 

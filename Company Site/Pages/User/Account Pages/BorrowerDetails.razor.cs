@@ -2,6 +2,7 @@
 using Company_Site.Data;
 using Company_Site.DB;
 using Company_Site.Interfaces;
+using Company_Site.Pages.Components;
 
 namespace Company_Site.Pages.User.Account_Pages
 {

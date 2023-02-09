@@ -82,56 +82,54 @@
 			</tr>
 			@foreach (T item in DisplayedItems)
 			{
-				<tr @onclick="@(() => OnRowClick?.Invoke(item))">
-					@if (ShowSerialNumber)
-					{
-						<td class="text-start fs-5 normal-text">@SR</td>
-					}
-					@foreach (string header in Headers.Keys)
-					{
-						@if (CheckInput(header))
+				<tr @onclick="@(() => RowClicked(item))">
+						@if (ShowSerialNumber)
 						{
-							<td class="align-middle">
-								<input class="form-control normal-text" 
-									value="@(GetHeaderValue(header, item))" 
-									@oninput="@(t => SetInputValue(header, t, item))"
-								/>
-							</td>
+							<td class="text-start fs-5 normal-text">@SR</td>
 						}
-						else
+						@foreach (string header in Headers.Keys)
 						{
-							<td class="text-start normal-text fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
-						}
-					}
-					<td>
-						@if (IsSaveable && OnSave != null)
-						{
-							<a @onclick='@(() => OnSave(item))' class="my-1 normal-text"><i class="fa fa-save btn btn-outline-primary"></i></a>
-						}
-						else
-						{
-							@if (IsViewable(item))
+							@if (CheckInput(header))
 							{
-								<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1 normal-text"><i class="fa fa-eye btn btn-outline-primary"></i></a>
+								<td class="align-middle">
+									<input class="form-control normal-text" 
+										value="@(GetHeaderValue(header, item))" 
+										@oninput="@(t => SetInputValue(header, t, item))"
+										/>
+								</td>
 							}
-							@if (IsEditable(item))
+							else
 							{
-								<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1 normal-text"><i class="fa fa-edit btn btn-outline-primary"></i></a>
-							}
-							@if (IsDeleteable(item))
-							{
-								<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1 normal-text"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+								<td class="text-start normal-text fs-5">@(ValueCallback == null ? GetHeaderValue(header, item) : ValueCallback(header, item))</td>
 							}
 						}
-					</td>
+						<td>
+							@if (IsSaveable && OnSave != null)
+							{
+								<a @onclick='@(() => OnSave(item))' class="my-1 normal-text"><i class="fa fa-save btn btn-outline-primary"></i></a>
+							}
+							else
+							{
+								@if (IsViewable(item))
+								{
+									<a @onclick='@(() => ViewRecord(GetId(item)))' class="my-1 normal-text"><i class="fa fa-eye btn btn-outline-primary"></i></a>
+								}
+								@if (IsEditable(item))
+								{
+									<a @onclick='@(() => EditRecord(GetId(item)))' class="my-1 normal-text"><i class="fa fa-edit btn btn-outline-primary"></i></a>
+								}
+								@if (IsDeleteable(item))
+								{
+									<a @onclick='@(() => DeleteRecordId(GetId(item)))' class="my-1 normal-text"><i class="fa fa-trash btn btn-outline-danger"></i></a>
+								}
+							}
+						</td>
 				</tr>
-				@if (AreRowsCollapsible)
+				@if (AreRowsCollapsible && CollapsedValues[GetId(item)])
 				{
 					<tr>
-						<td colspan="@Headers.Count + 4">
-							<CollapsibleContainer Id="SR">
-								<div style="height: 500px;"></div>
-							</CollapsibleContainer>
+						<td colspan="20">
+							@CollapsibleContainerValue(item)
 						</td>
 					</tr>
 				}

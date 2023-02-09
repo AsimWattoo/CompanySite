@@ -10,10 +10,16 @@ using System.Reflection;
 namespace Company_Site.Pages.Components
 {
     public partial class Table<T, T2> : ComponentBase
-        where T: new()
+        where T: class, new()
     {
 
         #region Parameters
+
+        /// <summary>
+        /// The inner value for the collapsed container
+        /// </summary>
+        [Parameter]
+        public RenderFragment<T> CollapsibleContainerValue { get; set; }
 
         [Parameter]
         public Func<T, T2> GetId { get; set; }
@@ -160,6 +166,8 @@ namespace Company_Site.Pages.Components
 
         private bool IsDeleteConfirmationVisible { get; set; } = false;
 
+        private Dictionary<T2, bool> CollapsedValues { get; set; } = new Dictionary<T2, bool>();
+
         #endregion
 
         #region Overriden Methods
@@ -172,6 +180,17 @@ namespace Company_Site.Pages.Components
         #endregion
 
         #region Private Methods
+
+        private void RowClicked(T item)
+        {
+			OnRowClick?.Invoke(item);
+            if (AreRowsCollapsible)
+            {
+                T2 id = GetId(item);
+                CollapsedValues[id] ^= true;
+                StateHasChanged();
+            }
+		}
 
         private void SetInputValue(string header, ChangeEventArgs e, T record)
         {
@@ -242,7 +261,13 @@ namespace Company_Site.Pages.Components
 
                 Sortings.Add(header, Sorting.None);
             }
-        }
+			CollapsedValues.Clear();
+			foreach (T row in Items)
+			{
+				T2 id = GetId(row);
+				CollapsedValues.Add(id, false);
+			}
+		}
 
         //Fires when selected rows to show changes
         private void RowsToShowChange(ChangeEventArgs e)
