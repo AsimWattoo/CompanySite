@@ -1,5 +1,82 @@
 ﻿@using Company_Site.Data;
 @inherits BaseCollapsibleContainer<BorrowerDetail>
 
-<h3>Borrower Details</h3>
-<p>@Instance.Id</p>
+<div>
+    <div class="row">
+        <div class="col-md-5">
+            <label for="name">Name</label>
+            <label id="name" class="form-control empty-label disabled" type="text">
+                @Instance.Name
+            </label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <label for="position">Position</label>
+            <label for="position" class="form-control empty-label disabled">@Instance.Position</label>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="mobNum">Mobile</label>
+            <label for="mobNum" class="form-control empty-label disabled">@Instance.Mobile</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="email">Email</label>
+            <label class="form-control empty-label disabled">@Instance.Email</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="dob">Date of Birth</label>
+            <label class="form-control empty-label disabled">@Instance.DOB</label>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="pan">PAN</label>
+            <label class="form-control empty-label disabled">@Instance.PAN</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="cin">CIN</label>
+            <label class="form-control empty-label disabled">@Instance.CIN</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="aadhar">Aadhar</label>
+            <label class="form-control empty-label disabled">@Instance.Aadhar</label>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="wilfulDefaultor">Wilfull Defaultor</label>
+            <label class="form-control empty-label disabled">@Instance.Wilful_Defaulter</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="netWorth">Net Worth</label>
+            <label class="form-control empty-label disabled">@Instance.Net_Worth</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="sharesHeld">No. of Shares held</label>
+            <label class="form-control empty-label disabled">@Instance.NumberOfShares</label>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <label for="asOn1">As On</label>
+            <label class="form-control empty-label disabled">@Instance.WillFullAsOn</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="asOn2">As On</label>
+            <label class="form-control empty-label disabled">@Instance.NetWorthAsOn</label>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-3">
+            <label for="percentShares">Percent of shares held</label>
+            <label class="form-control empty-label disabled">@Instance.PercentOfShareHeld</label>
+        </div>
+    </div>
+</div>

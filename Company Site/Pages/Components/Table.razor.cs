@@ -11,6 +11,7 @@ namespace Company_Site.Pages.Components
 {
     public partial class Table<T, T2> : ComponentBase
         where T: class, new()
+        where T2: IComparable<T2>
     {
 
         #region Parameters
@@ -168,6 +169,8 @@ namespace Company_Site.Pages.Components
 
         private Dictionary<T2, bool> CollapsedValues { get; set; } = new Dictionary<T2, bool>();
 
+        private T2? previousId = default(T2);
+
         #endregion
 
         #region Overriden Methods
@@ -186,9 +189,14 @@ namespace Company_Site.Pages.Components
 			OnRowClick?.Invoke(item);
             if (AreRowsCollapsible)
             {
-                T2 id = GetId(item);
+				T2 id = GetId(item);
+
+				if (previousId != null && previousId.CompareTo(id) != 0)
+                    CollapsedValues[previousId] = false;
+
                 CollapsedValues[id] ^= true;
-                StateHasChanged();
+                previousId = id;
+				StateHasChanged();
             }
 		}
 
