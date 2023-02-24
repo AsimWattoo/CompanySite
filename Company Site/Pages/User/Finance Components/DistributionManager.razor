@@ -11,13 +11,13 @@
                 <div class="col-md-4">
                     <EditForm Model=Model class="form form-theme">
                         <label for="turstCode">Trust Code</label>
-                        <label class="form-control mb-2 disabled">@Model.TrustCode</label>
+                        <label class="form-control mb-2 disabled empty-label">@Model.TrustCode</label>
                         <label for="turstName">Trust Name</label>
-                        <label class="form-control mb-2 disabled">@Model.TrustName</label>
+                        <label class="form-control mb-2 disabled empty-label">@Model.TrustName</label>
                         <label for="turstSetupDate">Trust Setup Date</label>
-                        <label class="form-control mb-2 disabled">@Model.TrustSetupDate</label>
+                        <label class="form-control mb-2 disabled empty-label">@Model.TrustSetupDate</label>
                         <label for="turstAge">Trust Age</label>
-                        <label id="turstAge" class="form-control mb-2 disabled">@Model.TrustAge</label>
+                        <label id="turstAge" class="form-control mb-2 disabled empty-label">@Model.TrustAge</label>
                         <br>
                         <hr />
                         <br>
@@ -64,9 +64,9 @@
                         <label id="closingBalance" class="form-control mb-2 disabled" type="number">@Model.ClosingBalance</label>
 
                         <label for="trustDesc">Trust description</label>
-                        <label id="trustDesc" class="form-control mb-2 disabled">@Model.TrustDescription</label>
+                        <label id="trustDesc" class="form-control mb-2 disabled empty-label">@Model.TrustDescription</label>
                         <label for="t&c">Terms & Condition</label>
-                        <label id="t&c" class="form-control mb-2 disabled">@Model.TermsAndConditions</label>
+                        <label id="t&c" class="form-control mb-2 disabled empty-label">@Model.TermsAndConditions</label>
 
                         <div class="d-flex">
                             <button class="btn btn-primary clear me-1" @onclick=Clear>Clear All</button>

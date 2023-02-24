@@ -1,6 +1,8 @@
 ﻿using Company_Site.Data;
 using Company_Site.Enum;
 
+using Microsoft.AspNetCore.Routing.Constraints;
+
 namespace Company_Site.ViewModels
 {
     public class StatementOfAccountDataViewModel
@@ -15,7 +17,11 @@ namespace Company_Site.ViewModels
 
         public bool IsInterestRateChanged { get; set; }
 
-        public double ChangeInInterestRate { get; set; }
+        public double BaseInterestRate { get; set; }
+
+        public double Spread { get; set; }
+
+        public double RevisedInterestRate => BaseInterestRate + Spread;
 
         public string? Note { get; set; }
 
@@ -65,7 +71,8 @@ namespace Company_Site.ViewModels
         public static StatementOfAccountDataViewModel FromInterestRate(InterestRateChangeModel i)
         {
             StatementOfAccountDataViewModel model = new StatementOfAccountDataViewModel();
-            model.ChangeInInterestRate = i.RevisedInterestRate;
+            model.BaseInterestRate = i.BaseInterestRate;
+            model.Spread = i.Spread;
             model.Date = i.Date;
             model.Mode = StatementOfAccountMode.Interest;
             model.BorrowerCode = i.BorrowerCode;

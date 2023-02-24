@@ -549,7 +549,8 @@ namespace Company_Site.Pages.User
                         BorrowerCode = Model.Borrower_Code,
                         Date = NewEntry.Date,
                         Note = NewEntry.Note,
-                        RevisedInterestRate = NewEntry.ChangeInInterestRate,
+                        Spread = NewEntry.Spread,
+                        BaseInterestRate = NewEntry.BaseInterestRate
                     };
                     _dbContext.InterestRateChangeEntries.Add(interestRate);
                 }
@@ -557,8 +558,9 @@ namespace Company_Site.Pages.User
                 {
                     InterestRateChangeModel interestRate = _dbContext.InterestRateChangeEntries.Where(f => f.Id == NewEntry.Id).First();
                     interestRate.Date = NewEntry.Date;
-                    interestRate.RevisedInterestRate = NewEntry.ChangeInInterestRate;
                     interestRate.Note = NewEntry.Note;
+                    interestRate.Spread = NewEntry.Spread;
+                    interestRate.BaseInterestRate = NewEntry.BaseInterestRate;
                     _dbContext.InterestRateChangeEntries.Update(interestRate);
                 }
             }
