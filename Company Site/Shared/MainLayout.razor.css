@@ -185,6 +185,10 @@ div.col-panel{
     width: 6%;
 }
 
+.col-collapsed .img{
+    margin: 0px;
+}
+
 .info{
     height: 4rem;
 }

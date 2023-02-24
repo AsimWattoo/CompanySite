@@ -1,8 +1,8 @@
 ﻿@using Company_Site.Data
 @using Company_Site.Enum
 
-<div class="@(IsCollapsed? "collapsed" : "") navbar">
-    <nav class="d-flex justify-content-center flex-column px-3">
+<div class="@(IsCollapsed? "collapsed" : "") navbar justify-content-center">
+    <div class="@(IsCollapsed ? "px-1" : "px-3") d-flex justify-content-center flex-column">
         <a class="@((SelectedOption == "Dashboard" || SelectedOption == string.Empty ? "active" : "")) nav-item my-2 text-start" href="" @onclick='(() => {SelectedOption = "Dashboard";})'>
             <div class='nav-link d-flex align-items-center'>
                 <span class="fa fa-th-large me-2" aria-hidden="true"></span> <p class="m-0">Dashboard</p>
@@ -70,7 +70,7 @@
                 <span class="fa fa-lock me-2"></span> <p class="m-0">Logout</p>
             </div>
         </a>
-    </nav>
+    </div>
 </div>
 
 @code {

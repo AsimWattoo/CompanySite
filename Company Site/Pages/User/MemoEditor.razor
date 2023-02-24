@@ -110,7 +110,8 @@
 					<div class="row">
 						<div class="col-6">
 							<div class="form-floating mb-3 d-flex align-items-center">
-								<InputSelect @bind-Value="NewMemo.Type" id="type" class="form-select">
+								<InputSelect TValue=string Value=NewMemo.Type ValueExpression="@(() => NewMemo.Type)"
+									ValueChanged="@MemoTypeChanged" id="type" class="form-select">
 									<option selected>--- Select Type ---</option>
 									<option value="bill">Bill</option>
 									<option value="note">Note</option>
@@ -133,13 +134,6 @@
 					<legend class="">Financial</legend>
 
 					<div class="row">
-						<div class="col-6">
-
-							<div class="input-group mb-3 mx-1 d-flex align-items-center">
-							  <label for="memoamount" class="me-1">Financial</label>
-							  <InputCheckbox  id="financial" class="form-check" @bind-Value="@NewMemo.Financial"/>
-							</div>
-						</div>
 						<div class="col-6">
 							<div class="form-floating mb-3 d-flex align-items-center">
 								<InputSelect @bind-Value="NewMemo.Frequency" disabled="@(!NewMemo.Financial)" id="frequency" class="form-select">
@@ -172,9 +166,7 @@
 								<label for="memoamount">GST Number</label>
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
 						<div class="col-6">
 							<div class="form-floating mb-3 mx-1">
 							  <input type="number" min="0" class="form-control" disabled="@(!NewMemo.Financial)" id="memoamount" placeholder="Total Memo Amount" @bind-value="@NewMemo.Amount"/>
@@ -397,6 +389,18 @@
 	private List<Vendor> Vendors { get; set; } = new List<Vendor>();
 
 	private List<int> Tos { get; set; } = new List<int>();
+
+	/// <summary>
+	/// Fires when the memo type changes
+	/// </summary>
+	/// <param name="memoType"></param>
+	private void MemoTypeChanged(object memoType){
+		NewMemo.Type = memoType.ToString();
+		if(NewMemo.Type == "bill")
+			NewMemo.Financial = true;
+		else
+			NewMemo.Financial = false;
+	}
 
 	private void OnBorrowerAccountChanged(object account)
 	{

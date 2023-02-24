@@ -185,6 +185,10 @@ div.col-panel[b-cddauckdx4]{
     width: 6%;
 }
 
+.col-collapsed .img[b-cddauckdx4]{
+    margin: 0px;
+}
+
 .info[b-cddauckdx4]{
     height: 4rem;
 }

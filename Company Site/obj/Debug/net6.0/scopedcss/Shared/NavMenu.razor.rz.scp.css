@@ -31,7 +31,7 @@ a p[b-madu8pitlo]{
 }
 
 .nav-item[b-madu8pitlo] {
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: flex;
     border-radius: 5px;
     padding-left: 5px;
@@ -54,7 +54,7 @@ a p[b-madu8pitlo]{
 .nav-item p[b-madu8pitlo] {
     transition: all 0.2s ease-in-out;
     overflow: hidden;
-    width: 150px;
+    width: 100%;
 }
 
 .nav-item span[b-madu8pitlo] {
@@ -71,6 +71,10 @@ a p[b-madu8pitlo]{
 .collapsed[b-madu8pitlo]{
     /*width: 5rem;*/
     overflow: hidden;
+}
+
+.collapsed .nav-item[b-madu8pitlo]{
+    width: 90%;
 }
 
 .collapsed a div p[b-madu8pitlo]{
