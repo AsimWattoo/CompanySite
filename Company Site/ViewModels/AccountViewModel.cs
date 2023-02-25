@@ -37,16 +37,16 @@ namespace Company_Site.ViewModels
 
         }
 
-        public AccountViewModel(Account ac, Trust t)
+        public AccountViewModel(Account ac, Trust t, TrustRelationModel trustRelation)
         {
             TrustCode = t.TrustCode;
             TrustName = t.Trust_Name;
-            Assignor = ac.Assignor;
+            Assignor = trustRelation.Assignor;
             BorrowerCode = ac.BorrowerCode;
             Company = ac.Company;
-            AcquisitonPrice = ac.AcquisitonPrice;
-            AcquistionDate = ac.AcquistionDate;
-            SRIssued = ac.SRIssued;
+            AcquisitonPrice = trustRelation.AcquisitonPrice;
+            AcquistionDate = trustRelation.AcquistionDate;
+            SRIssued = trustRelation.SRIssued;
         }
 
         #endregion

@@ -8,28 +8,18 @@ namespace Company_Site.Data
 {
     public class TrustRelationModel : BaseModel<int>
     {
-        [NotMapped]
-        public Trust? Trust { get; set; }
-
         [Required(ErrorMessage = "Trust code is required")]
         public string TrustCode { get; set; }
 
-        [NotMapped]
-        public Account? Account { get; set; }
-
         public int BorrowerCode { get; set; }
 
-        #region Public Methods
+        public DateTime AcquistionDate { get; set; } = DateTime.Now;
 
-        /// <summary>
-        /// Populates the table
-        /// </summary>
-        public void Populate(ApplicationDbContext dbContext)
-        {
-            Trust = dbContext.Trusts.Where(f => f.TrustCode == TrustCode).FirstOrDefault();
-            Account = dbContext.Accounts.Where(f => f.BorrowerCode == BorrowerCode).FirstOrDefault();
-        }
+        public double AcquisitonPrice { get; set; }
 
-        #endregion
+        public int SRIssued { get; set; }
+
+        [Required(ErrorMessage = "Assignor is required")]
+        public string Assignor { get; set; }
     }
 }

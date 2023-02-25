@@ -83,10 +83,11 @@ namespace Company_Site.Pages.User.Turst_Components
 
         public void LinkExistingAccount()
         {
-            TrustRelationModel model = new TrustRelationModel() { BorrowerCode = SelectedExistingAccount.BorrowerCode, TrustCode = NewEntry.TrustCode };
+            TrustRelationModel model = new TrustRelationModel() { BorrowerCode = SelectedExistingAccount.BorrowerCode, TrustCode = NewEntry.TrustCode, AcquisitonPrice = NewAccount.AcquisitonPrice, AcquistionDate = NewAccount.AcquistionDate, Assignor = NewAccount.Assignor, SRIssued = NewAccount.SRIssued };
             _dbContext.TrustRelations.Add(model);
             _dbContext.SaveChanges();
-            TrustAccounts.Add(new AccountViewModel(SelectedExistingAccount, NewEntry));
+            TrustAccounts.Add(new AccountViewModel(SelectedExistingAccount, NewEntry, model));
+            NewAccount = new AccountViewModel();
             CancelExistingAccountForm();
             StateHasChanged();
         }
@@ -100,6 +101,7 @@ namespace Company_Site.Pages.User.Turst_Components
             AccountAddMode = false;
             ShowAccountForm = true;
             NewAccount = TrustAccounts.Where(a => a.BorrowerCode == borrowerCode).FirstOrDefault() ?? new AccountViewModel();
+            StateHasChanged();
         }
 
         private List<AccountViewModel> OnAccountDelete(int borrowerCode)
@@ -140,16 +142,16 @@ namespace Company_Site.Pages.User.Turst_Components
                 Account account = new Account()
                 {
                     BorrowerCode = NewAccount.BorrowerCode,
-                    AcquisitonPrice = NewAccount.AcquisitonPrice,
-                    AcquistionDate = NewAccount.AcquistionDate,
-                    Assignor = NewAccount.Assignor,
                     Company = NewAccount.Company,
-                    SRIssued = NewAccount.SRIssued,
                 };
                 TrustRelationModel relation = new TrustRelationModel()
                 {
                     BorrowerCode = account.BorrowerCode,
+                    AcquisitonPrice = NewAccount.AcquisitonPrice,
+                    AcquistionDate = NewAccount.AcquistionDate,
+                    Assignor = NewAccount.Assignor,
                     TrustCode = NewAccount.TrustCode,
+                    SRIssued = NewAccount.SRIssued,
                 };
                 _dbContext.Accounts.Add(account);
                 _dbContext.TrustRelations.Add(relation);
@@ -157,12 +159,14 @@ namespace Company_Site.Pages.User.Turst_Components
             else
             {
                 Account acc = _dbContext.Accounts.Where(f => f.BorrowerCode == NewAccount.BorrowerCode).First();
-                acc.AcquisitonPrice = NewAccount.AcquisitonPrice;
-                acc.Assignor = NewAccount.Assignor;
                 acc.Company = NewAccount.Company;
-                acc.AcquistionDate = NewAccount.AcquistionDate;
-                acc.SRIssued = NewAccount.SRIssued;
                 _dbContext.Accounts.Update(acc);
+                TrustRelationModel trustRelation = _dbContext.TrustRelations.Where(f => f.BorrowerCode == NewAccount.BorrowerCode && f.TrustCode == NewAccount.TrustCode).First();
+                trustRelation.Assignor = NewAccount.Assignor;
+                trustRelation.AcquisitonPrice = NewAccount.AcquisitonPrice;
+                trustRelation.AcquistionDate = NewAccount.AcquistionDate;
+                trustRelation.SRIssued = NewAccount.SRIssued;
+                _dbContext.TrustRelations.Update(trustRelation);
             }
             _dbContext.SaveChanges();
             LoadTrustAccounts();
@@ -190,8 +194,10 @@ namespace Company_Site.Pages.User.Turst_Components
             TrustAccounts = new List<AccountViewModel>();
             relations.ForEach(e =>
             {
-                AccountViewModel acc = new AccountViewModel(accounts.Where(f => f.BorrowerCode == e.BorrowerCode).First(), NewEntry);
-                TrustAccounts.Add(acc);
+                Account acc = accounts.Where(f => f.BorrowerCode == e.BorrowerCode).First();
+                TrustRelationModel rel = _dbContext.TrustRelations.Where(f => f.BorrowerCode == e.BorrowerCode && f.TrustCode == NewEntry.TrustCode).First();
+                AccountViewModel accountViewModel = new AccountViewModel(acc, NewEntry, rel);
+                TrustAccounts.Add(accountViewModel);
             });
         }
 

@@ -2,11 +2,12 @@
 @using Company_Site.Base;
 @using Company_Site.Data;
 @using Company_Site.Pages.Components;
+@using Company_Site.ViewModels;
 @using Radzen.Blazor
 @using Company_Site.Enum;
 @using Company_Site.Pages.User.Account_Pages;
 
-@inherits BaseAddPage<TrustRelationModel, int>
+@inherits BaseAddPage<TrustRelationViewModel, int>
 
 <p class="fw-bold text-button-heading mb-2">Account Management</p>
 
@@ -101,7 +102,7 @@
                             <!--Modal to enter new record-->
                             <div class="mt-4">
                                 <div>
-                                    <Table T="TrustRelationModel" T2="int" ShowPaging=false Items="Enteries" GetId="GetId" Headers=Headers IsEditable="@(e => false)" IsDeleteable=@(e => false) IsSearchable=false></Table>
+                                    <Table T="TrustRelationViewModel" T2="int" ShowPaging=false Items="Enteries" GetId="GetId" Headers=Headers IsEditable="@(e => false)" IsDeleteable=@(e => false) IsSearchable=false></Table>
                                 </div>
                             </div>
                         </div>

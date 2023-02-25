@@ -237,7 +237,7 @@ namespace Company_Site.Pages.User
 
                 if (t == null || debt == null)
                     continue;
-
+                TrustRelationModel realtion = _dbContext.TrustRelations.Where(f => f.BorrowerCode == acc.BorrowerCode && f.TrustCode == t.TrustCode).First();
                 double opening = trustDis == null ? 0 : trustDis.ClosingBalance;
 
                 Statements.Add(new StatementOfAccountViewModel()
@@ -245,7 +245,7 @@ namespace Company_Site.Pages.User
                     Account_Number = debt.AccountNumber,
                     Borrower_Code = acc.BorrowerCode,
                     Account_Name = acc.Company,
-                    Bank_Name = acc.Assignor,
+                    Bank_Name = relation.Assignor,
                     Trust_Code = t.TrustCode,
                     Trust_Name = t.Trust_Name,
                     Calculation = debt.Calculation,

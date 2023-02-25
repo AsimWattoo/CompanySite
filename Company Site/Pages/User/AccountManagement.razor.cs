@@ -3,6 +3,7 @@ using Company_Site.Data;
 using Company_Site.DB;
 using Company_Site.Enum;
 using Company_Site.Helpers;
+using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ using Radzen;
 
 namespace Company_Site.Pages.User
 {
-    public partial class AccountManagement : BaseAddPage<TrustRelationModel, int>
+    public partial class AccountManagement : BaseAddPage<TrustRelationViewModel, int>
     {
 
         #region Public Properties
@@ -31,10 +32,19 @@ namespace Company_Site.Pages.User
         /// </summary>
         private AccountTypes CurrentType { get; set; } = AccountTypes.Home;
 
-        private Dictionary<string, Func<TrustRelationModel, string>> Headers { get; set; } = new Dictionary<string, Func<TrustRelationModel, string>>()
+        private Dictionary<string, Func<TrustRelationViewModel, string>> Headers { get; set; } = new Dictionary<string, Func<TrustRelationViewModel, string>>()
         {
-            ["Trust"] = t => t.Trust.Trust_Name,
-            ["Total SR Issued"] = t => t.Trust.SRIssued.ToString(),
+            ["Trust"] = t => t.Trust,
+            ["Acquisition Date"] = t => t.AcquisitionDate.ToString("dd-MMM-yyyy"),
+            ["Assignor Name"] = t => t.Assignor,
+            ["ARC Shares"] = t => t.ARCShares.ToString(),
+            ["Issuer Shares"] = t => Math.Round(t.IssuerShares, 2).ToString(),
+            ["Total Sr Issued"] = t => Math.Round(t.TotalSrIssued, 2).ToString(),
+            ["SR O/S"] = t => t.SR_O_S,
+            ["Account Age"] = t => t.AccountAge.ToString(),
+            ["NPA Date"] = t => t.NPADate.ToString("dd-MMM-yyyy"),
+            ["POS"] = t => t.POS,
+            ["TOS"] = t => t.TOS,
         };
 
         #endregion
@@ -46,23 +56,30 @@ namespace Company_Site.Pages.User
         /// </summary>
         protected override void Setup()
         {
-            _dbSet = _dbContext.TrustRelations;
+            
         }
 
         #endregion
 
         #region Private Methods
 
-        private int GetId(TrustRelationModel model) => model.Id;
+        private int GetId(TrustRelationViewModel model) => model.Id;
 
         protected override void LoadData()
         {
-            Enteries = _dbContext.TrustRelations.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
-            Enteries.ForEach(e =>
+            List<TrustRelationModel> trustRelations = _dbContext.TrustRelations.Where(f => f.BorrowerCode == _applicationState.BorrowerCode).ToList();
+            Enteries = new List<TrustRelationViewModel>();
+            foreach(TrustRelationModel model in trustRelations)
             {
-                e.Account = _dbContext.Accounts.Where(a => a.BorrowerCode == e.BorrowerCode).FirstOrDefault();
-                e.Trust = _dbContext.Trusts.Where(t => t.TrustCode == e.TrustCode).FirstOrDefault();
-            });
+                Enteries.Add(new TrustRelationViewModel()
+                {
+                    Id = model.Id,
+                    AcquisitionDate = model.AcquistionDate,
+                    Assignor = model.Assignor,
+                    Trust = model.TrustCode,
+                    TotalSrIssued = model.SRIssued,
+                });
+            }
         }
 
         /// <summary>
