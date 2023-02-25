@@ -9,54 +9,52 @@
 <div class="page-body">
     <div class="container-fluid">
         <div class="card">
-            <div class="card">
-                <div class="card-body">
-                    <!-- Navbar -->
-                    <div class="mt-3 text-center card">
-                        <div class="card-body">
-                            <nav class="navbar navbar-expand-sm navbar-light mb-2 pb-0">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                            </button>
+            <div class="card-body">
+                <!-- Navbar -->
+                <div class="mt-3 text-center card">
+                    <div class="">
+                        <nav class="navbar navbar-expand-sm navbar-light mb-2 pb-0">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
 
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item @(CurrentType == LegalTypes.CaseManagement ? "active" : "")">
-                                    <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.CaseManagement))"> Case Management </a>
-                                </li>
-                                <li class="nav-item @(CurrentType == LegalTypes.NCLT ? "active" : "")">
-                                    <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.NCLT))"> NCLT </a>
-                                </li>
-                                <li class="nav-item @(CurrentType == LegalTypes.EventTimeline ? "active" : "")">
-                                    <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.EventTimeline))">Event Timeline</a>
-                                </li>
-                                <li class="nav-item @(CurrentType == LegalTypes.NoticeAgreement ? "active" : "")">
-                                    <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.NoticeAgreement))">Notice Agreement</a>
-                                </li>
-                            </ul>
-                            </div>
-                        </nav>
-
-                        <hr />
-
-                        <!--Rendering data-->
-                            @if (CurrentType == LegalTypes.CaseManagement)
-                            {
-                                <AccountNet />
-                            }
-                            else if (CurrentType == LegalTypes.NCLT)
-                            {
-                                <NcltNet />
-                            }
-                            else if (CurrentType == LegalTypes.NoticeAgreement)
-                            {
-                                <NoticeAutomation />
-                            }
-                            else if(CurrentType == LegalTypes.EventTimeline)
-                            {
-                                <EventTimeline />
-                            }
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item @(CurrentType == LegalTypes.CaseManagement ? "active" : "")">
+                                <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.CaseManagement))"> Case Management </a>
+                            </li>
+                            <li class="nav-item @(CurrentType == LegalTypes.NCLT ? "active" : "")">
+                                <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.NCLT))"> NCLT </a>
+                            </li>
+                            <li class="nav-item @(CurrentType == LegalTypes.EventTimeline ? "active" : "")">
+                                <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.EventTimeline))">Event Timeline</a>
+                            </li>
+                            <li class="nav-item @(CurrentType == LegalTypes.NoticeAgreement ? "active" : "")">
+                                <a class="nav-link" @onclick="@(() => _changePage(LegalTypes.NoticeAgreement))">Notice Agreement</a>
+                            </li>
+                        </ul>
                         </div>
+                    </nav>
+
+                    <hr />
+
+                    <!--Rendering data-->
+                        @if (CurrentType == LegalTypes.CaseManagement)
+                        {
+                            <AccountNet />
+                        }
+                        else if (CurrentType == LegalTypes.NCLT)
+                        {
+                            <NcltNet />
+                        }
+                        else if (CurrentType == LegalTypes.NoticeAgreement)
+                        {
+                            <NoticeAutomation />
+                        }
+                        else if(CurrentType == LegalTypes.EventTimeline)
+                        {
+                            <EventTimeline />
+                        }
                     </div>
                 </div>
             </div>
