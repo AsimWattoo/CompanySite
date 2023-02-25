@@ -196,28 +196,38 @@
                             <label for="date" class="me-2">Date</label>
                             <input @bind-value=NewEntry.Date class="form-control" type="date" id="date"/>
                         </div>
-                                @if (NewEntry.Mode == StatementOfAccountMode.Interest)
-                                {
-                                    <div class="col-6 d-flex align-items-center">
-                                        <label for="note" class="me-2">Base Interest Rate</label>
-                                        <InputNumber @bind-Value=NewEntry.BaseInterestRate class="form-control"/>
-                                    </div>
-                                    <div class="col-6 mt-3 d-flex align-items-center">
-                                        <label for="note" class="me-2">Spread</label>
-                                        <InputNumber @bind-Value=NewEntry.Spread class="form-control"/>
-                                    </div>
-                                    <div class="col-6 mt-3 d-flex align-items-center">
-                                        <label for="note" class="me-2">Revised Interest Rate</label>
-                                        <label class="form-control empty-label disabled">@NewEntry.RevisedInterestRate</label>
-                                    </div>
-                                }
-                                else
-                                {
-                                   <div class="col-6 d-flex align-items-center">
-                                        <label for="amount" class="me-2">Amount (Rs.)</label>
-                                        <InputNumber @bind-Value=NewEntry.Amount class="form-control" type="number" id="amount"/>
-                                    </div>
-                                }
+                        @if (NewEntry.Mode == StatementOfAccountMode.Interest)
+                        {
+                            <div class="col-6 d-flex align-items-center">
+                                <label class="me-2">Base Interest Rate</label>
+                                <InputNumber @bind-Value=NewEntry.BaseInterestRate class="form-control"/>
+                            </div>
+                            <div class="col-6 mt-3 d-flex align-items-center">
+                                <label class="me-2">Spread</label>
+                                <InputNumber @bind-Value=NewEntry.Spread class="form-control"/>
+                            </div>
+                            <div class="col-6 mt-3 d-flex align-items-center">
+                                <label class="me-2">Revised Interest Rate</label>
+                                <label class="form-control empty-label disabled">@NewEntry.RevisedInterestRate</label>
+                            </div>
+                            <div class="col-6 mt-3 d-flex align-items-center">
+                                <label class="me-2">Facility</label>
+                                <InputSelect @bind-Value=NewEntry.Facility class="form-select">
+                                    <option value="">--- Select Facility ---</option>
+                                    @foreach(string facility in _facilities)
+                                    {
+                                        <option value="@facility">@facility</option>
+                                    }
+                                </InputSelect>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-6 d-flex align-items-center">
+                                <label for="amount" class="me-2">Amount (Rs.)</label>
+                                <InputNumber @bind-Value=NewEntry.Amount class="form-control" type="number" id="amount"/>
+                            </div>
+                        }
                     </div>
 
                     <div class="row my-2">

@@ -53,6 +53,11 @@ namespace Company_Site.Pages.User.Finance_Components
             }
         }
 
+        /// <summary>
+        /// The list of facilities for the borrower
+        /// </summary>
+        private List<string> _facilities = new List<string>();
+
         #endregion
 
         #region Overriden Methods
@@ -94,7 +99,17 @@ namespace Company_Site.Pages.User.Finance_Components
         private void BorrowerCodeChanged(int code)
         {
             NewEntry.BorrowerCode = code;
-            StateHasChanged();
+            _facilities = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == code).Select(f => f.Facility).ToList();
+			StateHasChanged();
+        }
+
+        /// <summary>
+        /// Fires when the facility changes
+        /// </summary>
+        /// <param name="facility"></param>
+        private void FacilityChanged(string facility)
+        {
+            NewEntry.Facility = facility;
         }
 
         #endregion

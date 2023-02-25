@@ -12,5 +12,6 @@ namespace Company_Site.Data
 		public string? Note { get; set; }
 		public double BaseInterestRate { get; set; }
 		public double Spread { get; set; }
+		public string? Facility { get; set; }
 	}
 }

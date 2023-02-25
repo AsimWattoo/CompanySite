@@ -186,6 +186,11 @@ namespace Company_Site.Pages.User
 
         private List<string> _errors = new List<string>();
 
+        /// <summary>
+        /// The facilities for the borrower
+        /// </summary>
+        private List<string> _facilities = new List<string>();
+
         private bool DeleteConfirmationModalShown { get; set; } = false;
 
         /// <summary>
@@ -285,6 +290,7 @@ namespace Company_Site.Pages.User
         {
             Model = model;
             DebtProfiles = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == Model.Borrower_Code).ToList();
+            _facilities = _dbContext.DebtProfiles.Where(f => f.BorrowerCode == Model.Borrower_Code).Select(f => f.Facility).ToList();
             ClearEntries();
             UpdateEntries(model, StatementOfAccountMode.Collections);
             UpdateEntries(model, StatementOfAccountMode.Expenses);
@@ -550,7 +556,8 @@ namespace Company_Site.Pages.User
                         Date = NewEntry.Date,
                         Note = NewEntry.Note,
                         Spread = NewEntry.Spread,
-                        BaseInterestRate = NewEntry.BaseInterestRate
+                        BaseInterestRate = NewEntry.BaseInterestRate,
+                        Facility = NewEntry.Facility,
                     };
                     _dbContext.InterestRateChangeEntries.Add(interestRate);
                 }
@@ -561,6 +568,7 @@ namespace Company_Site.Pages.User
                     interestRate.Note = NewEntry.Note;
                     interestRate.Spread = NewEntry.Spread;
                     interestRate.BaseInterestRate = NewEntry.BaseInterestRate;
+                    interestRate.Facility = NewEntry.Facility;
                     _dbContext.InterestRateChangeEntries.Update(interestRate);
                 }
             }

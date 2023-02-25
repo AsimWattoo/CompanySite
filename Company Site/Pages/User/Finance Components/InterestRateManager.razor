@@ -12,7 +12,7 @@
 
         <div class="row  my-2">
             <div class="col-md-6">
-                <label for="borrowerSelect">Select Borrower</label>
+                <label for="borrowerSelect">Borrower</label>
                 <InputSelect ValueChanged="@BorrowerCodeChanged" TValue="int" Value=@NewEntry.BorrowerCode ValueExpression="@(() => NewEntry.BorrowerCode)" class="form-select">
                     <option value="-1" selected>--------- Select Option -------</option>
                     @foreach (Account acc in Borrowers)
@@ -28,11 +28,22 @@
             </div>
         </div>
         <div class="row  my-2">
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <label for="note">Note</label>
                 <InputText id="note" class="form-control" @bind-Value="NewEntry.Note"/>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                <label for="acility">Facility</label>
+                <InputSelect ValueChanged="@FacilityChanged" TValue="string" Value=@NewEntry.Facility ValueExpression="@(() => NewEntry.Facility)" class="form-select">
+                    <option value="" selected>--------- Select Option -------</option>
+                    @foreach (string facility in _facilities)
+                    {
+                        <option value="@facility">@facility</option>
+                    }
+                </InputSelect>
+            </div>
+            <div class="col-md-1"></div>
             <div class="col-md-3">
                 <label for="date">Date</label>
                 <input type="date" @bind-value=NewEntry.Date class="form-control"/>

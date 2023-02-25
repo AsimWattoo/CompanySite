@@ -1,8 +1,6 @@
 ﻿using Company_Site.Data;
 using Company_Site.Enum;
 
-using Microsoft.AspNetCore.Routing.Constraints;
-
 namespace Company_Site.ViewModels
 {
     public class StatementOfAccountDataViewModel
@@ -22,6 +20,8 @@ namespace Company_Site.ViewModels
         public double Spread { get; set; }
 
         public double RevisedInterestRate => BaseInterestRate + Spread;
+
+        public string? Facility { get; set; }
 
         public string? Note { get; set; }
 
@@ -78,6 +78,7 @@ namespace Company_Site.ViewModels
             model.BorrowerCode = i.BorrowerCode;
             model.Note = i.Note;
             model.Id = i.Id;
+            model.Facility = i.Facility;
             return model;
         }
 
