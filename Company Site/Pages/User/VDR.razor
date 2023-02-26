@@ -1,5 +1,6 @@
 ﻿@page "/vdr"
 @using Company_Site.Data;
+@using Company_Site.Enum;
 @using Company_Site.Pages.Components
 @using Radzen.Blazor
 @using Radzen;
@@ -130,13 +131,49 @@
     </div>
 </Modal>
 
+<Modal ShowModal=isFolderDialogShown Title="Folder Dialog">
+    <EditForm Model="this">
+
+        <MultiErrorView Errors="_folderErrors"/>
+
+        <div class="d-flex my-1 align-items-center">
+            <label class="mx-1 my-0 no-wrap">Folder Name</label>
+            <InputText class="form-control" @bind-Value=folderName/>
+        </div>
+
+        <div class="d-flex mt-3 align-items-center justify-content-center">
+            <a class="btn btn-outline-primary mx-1" @onclick=CreateFolder>
+                Create
+            </a>
+            <a class="btn btn-outline-danger mx-1" @onclick=CancelFolderDialog>
+                Cancel
+            </a>
+        </div>
+    </EditForm>
+</Modal>
+
 <div class="card py-3 px-4">
     <div class="row align-items-center">
         <div class="col-6">
-            <h5 class="mb-0">All Files</h5>
+            @if(string.IsNullOrEmpty(_displayedPath))
+            {
+                <h5 class="mb-0">All Files</h5>
+            }
+            else
+            {
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-secondary mx-1" @onclick=NavigateFolderBack>
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <h5 class="mb-0 ms-3">\@_displayedPath</h5>
+                </div>
+            }
         </div>
         <div class="col-6 d-flex justify-content-end">
-            <a class="btn btn-outline-primary" @onclick=ShowUploadForm>
+            <a class="btn btn-outline-primary mx-1" @onclick=ShowFolderDialog>
+                Create Folder
+            </a>
+            <a class="btn btn-outline-primary mx-1" @onclick=ShowUploadForm>
                 Upload File
             </a>
         </div>
@@ -151,7 +188,12 @@
                 </th>
                 <th>
                     <div>
-                        Folder Name
+                        Name
+                    </div>
+                </th>
+                <th>
+                    <div>
+                        Type
                     </div>
                 </th>
                 <th>
@@ -186,9 +228,23 @@
                             </div>
                         </td>
                         <td>
+                            @if(item.Type == FileType.File)
+                            {
+                                <div>
+                                    <a class="mb-0 file-name" download="@item.FileName" href="@($"/{FOLDER_NAME}/{item.FileName}")">@item.FileName.Split("$$")[0]</a>
+                                    <p class="mb-0 file-extension">@(new System.IO.FileInfo(item.FileName).Extension)</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <a @onclick=@(() => FolderClicked(item.FileName)) class="mb-0 file-name">@item.FileName.Split("$$")[0]</a>
+                                </div>
+                            }
+                        </td>
+                        <td>
                             <div>
-                                <a class="mb-0 file-name" download="@item.FileName" href="@($"/{FOLDER_NAME}/{item.FileName}")">@item.FileName.Split("$$")[0]</a>
-                                <p class="mb-0 file-extension">@(new System.IO.FileInfo(item.FileName).Extension)</p>
+                                <p class="mb-0 file-name">@item.Type.ToString()</p>
                             </div>
                         </td>
                         <td>
@@ -202,9 +258,18 @@
                             </div>
                         </td>
                         <td>
-                            <div>
-                                @ToMb(item.File.Size) Mb
-                            </div>
+                            @if(item.Type == FileType.File)
+                            {
+                                <div>
+                                    @ToMb(item.File.Size)Mb
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    ---
+                                </div>
+                            }
                         </td>
                         <td>
                             <div class="btn-row">

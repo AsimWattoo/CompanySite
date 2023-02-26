@@ -1,4 +1,5 @@
 ﻿using Company_Site.Base;
+using Company_Site.Enum;
 
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -22,6 +23,11 @@ namespace Company_Site.Data
         public IBrowserFile? File { get; set; }
 
         /// <summary>
+        /// The type of the file
+        /// </summary>
+        public FileType Type { get; set; } = FileType.File;
+
+        /// <summary>
         /// The date and time when the file is created
         /// </summary>
         public DateTime CreationDate { get; set; } = DateTime.Now;
@@ -30,6 +36,11 @@ namespace Company_Site.Data
         /// The person who created the file
         /// </summary>
         public string UserId { get; set; }
+        
+        /// <summary>
+        /// The path of the folder for the file
+        /// </summary>
+        public string? FolderPath { get; set; }
 
         #endregion
     }

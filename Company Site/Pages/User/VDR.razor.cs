@@ -1,15 +1,13 @@
 ﻿using Company_Site.Data;
 using Company_Site.DB;
+using Company_Site.Enum;
 using Company_Site.Helpers;
 using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Build.Evaluation;
 using Microsoft.JSInterop;
-
-using System.Security.Principal;
 
 namespace Company_Site.Pages.User
 {
@@ -18,6 +16,146 @@ namespace Company_Site.Pages.User
         #region Constant Members
 
         private const string FOLDER_NAME = "VDR-Files";
+
+        #endregion
+
+        #region Folder Properties
+
+        /// <summary>
+        /// The actual path to obtain the files
+        /// </summary>
+        private string? _opennedFolderPath = "";
+
+        /// <summary>
+        /// The path to show to the user
+        /// </summary>
+        private string? _displayedPath = "";
+
+        /// <summary>
+        /// Indicates whether the folder dialog box has been displayed or not
+        /// </summary>
+        private bool isFolderDialogShown = false;
+
+        /// <summary>
+        /// The list of errors for the folder dialog
+        /// </summary>
+        private List<string> _folderErrors = new List<string>();
+
+        /// <summary>
+        /// The name of the folder
+        /// </summary>
+        private string folderName { get; set; }
+
+        /// <summary>
+        /// Shows the dialog box to create a folder
+        /// </summary>
+        private void ShowFolderDialog()
+        {
+            isFolderDialogShown = true;
+            _folderErrors.Clear();
+        }
+
+        /// <summary>
+        /// Confirms the creation of the folder
+        /// </summary>
+        private void CreateFolder()
+        {
+            _folderErrors.Clear();
+
+            if (string.IsNullOrEmpty(folderName))
+            {
+                _folderErrors.Add("Folder name must not be empty");
+                return;
+            }
+            try
+            {
+                string newName = $"{folderName}$${DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss")}";
+                string folderPath = "";
+
+                if(string.IsNullOrEmpty(_opennedFolderPath))
+                    folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, newName);
+                else
+                    folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, _opennedFolderPath, newName);
+
+                Directory.CreateDirectory(folderPath);
+                _dbContext.FileItems.Add(new FileItem()
+                {
+                    FileName = newName,
+                    CreationDate = DateTime.Now,
+                    Type = FileType.Folder,
+                    UserId = UserId,
+                    FolderPath = _opennedFolderPath
+                });
+                _dbContext.SaveChanges();
+                folderName = null;
+                isFolderDialogShown = false;
+                LoadData();
+            }
+            catch(Exception exc)
+            {
+                _folderErrors.Add(exc.Message);
+            }
+        }
+
+        /// <summary>
+        /// Cancels the creation of the folder
+        /// </summary>
+        private void CancelFolderDialog()
+        {
+            _folderErrors.Clear();
+            isFolderDialogShown = false;
+        }
+
+        /// <summary>
+        /// Fires when the folder is clicked
+        /// </summary>
+        /// <param name="name">The name of the folder being clicked</param>
+        private void FolderClicked(string name)
+        {
+            if (string.IsNullOrEmpty(_opennedFolderPath))
+            {
+                _displayedPath = name.Split("$$").First();
+                _opennedFolderPath = name;
+            }
+            else
+            {
+                _displayedPath += $"\\{name.Split("$$").First()}";
+                _opennedFolderPath += $"\\{name}";
+            }
+            LoadData();
+        }
+
+        /// <summary>
+        /// Navigates the path in backwardly
+        /// </summary>
+        private void NavigateFolderBack()
+        {
+            if (_opennedFolderPath == null)
+                return;
+
+            string[] path = _opennedFolderPath.Split("\\");
+            if(path.Length > 2)
+            {
+                _opennedFolderPath = path[0];
+                _displayedPath = path[0].Split("$$").First();
+                for (int i = 1; i < path.Length - 1; i++)
+                {
+                    _opennedFolderPath += $"\\{path[i]}";
+                    _displayedPath += $"\\{path[i].Split("$$").First()}";
+                }
+            }
+            else if(path.Length == 2)
+            {
+                _opennedFolderPath = path[0];
+                _displayedPath = path[0].Split("$$").First();
+            }
+            else
+            {
+                _displayedPath = null;
+                _opennedFolderPath = null;
+            }
+            LoadData();
+        }
 
         #endregion
 
@@ -205,11 +343,32 @@ namespace Company_Site.Pages.User
             if (UserId != null)
             {
                 //The list of files for the user id
-                _fileItems = _dbContext.FileItems.ToList();
+                List<FileItem> items = _dbContext.FileItems.ToList();
+
+                if (!string.IsNullOrEmpty(_opennedFolderPath))
+                {
+                    items = items.Where(f => f.FolderPath == _opennedFolderPath).ToList();
+                }
+                else
+                {
+                    items = items.Where(f => string.IsNullOrEmpty(f.FolderPath)).ToList();
+                }
+
+                _fileItems = items;
                 foreach (FileItem fileItem in _fileItems)
                 {
-                    string folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME);
-                    fileItem.File = new UploadedFile(Path.Join(folderPath, fileItem.FileName));
+                    //Only Load files. Leave the folders
+                    if(fileItem.Type == FileType.File)
+                    {
+                        string folderPath = "";
+
+                        if (string.IsNullOrEmpty(fileItem.FolderPath))
+                            folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME);
+                        else
+                            folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, fileItem.FolderPath);
+
+                        fileItem.File = new UploadedFile(Path.Join(folderPath, fileItem.FileName));
+                    }
                 }
             }
         }
@@ -282,7 +441,16 @@ namespace Company_Site.Pages.User
 
             _errors.Clear();
             isUploading = true;
-            string folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME);
+            string folderPath = "";
+
+            if (string.IsNullOrEmpty(_opennedFolderPath))
+            {
+                folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME);
+            }
+            else
+            {
+                folderPath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, _opennedFolderPath);
+            }
 
             if (!Directory.Exists(folderPath))
                 Directory.CreateDirectory(folderPath);
@@ -308,6 +476,7 @@ namespace Company_Site.Pages.User
                 fileItem.FileName = $"{fileInfo.Name.Replace(fileInfo.Extension, "")}$${DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss")}{fileInfo.Extension}";
                 fileItem.CreationDate = DateTime.Now;
                 fileItem.UserId = UserId;
+                fileItem.FolderPath = _opennedFolderPath;
                 _dbContext.FileItems.Add(fileItem);
 
                 //Uploading File
@@ -368,8 +537,17 @@ namespace Company_Site.Pages.User
         private void DeleteRecord()
         {
             FileItem item = _dbContext.FileItems.Where(f => f.Id == _fileId).First();
-            string filePath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, item.FileName);
-            System.IO.File.Delete(filePath);
+            string filePath = "";
+
+            if(string.IsNullOrEmpty(item.FolderPath))
+                filePath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, item.FileName);
+            else
+                filePath = Path.Join(_webHostEnvironment.WebRootPath, FOLDER_NAME, item.FolderPath, item.FileName);
+
+            if (item.Type == FileType.File)
+                System.IO.File.Delete(filePath);
+            else
+                Directory.Delete(filePath, true);
             _dbContext.FileItems.Remove(item);
             _dbContext.SaveChanges();
             SettingsFormShown = false;

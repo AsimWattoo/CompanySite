@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1QdTrLaYk0BfuaCkf7M6Grv8MWU9pXZHXT0cLR9wxbg=",
+  "Hash": "95SVxfHdPxqwFPnBw9DZc52qMIQE2IuuIJkrT90Zj14=",
   "Source": "Company Site",
   "BasePath": "_content/Company Site",
   "Mode": "Default",
@@ -38777,6 +38777,23 @@
       "OriginalItemSpec": "wwwroot\\VDR-Files\\algorithms-15-00438$$14-01-2023-03-01-27.pdf"
     },
     {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\Demo$$26-02-2023-03-23-58\\CDF$$26-02-2023-03-43-31\\FGS$$26-02-2023-03-43-37\\cloud (6)$$26-02-2023-03-43-45.xlsx",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "VDR-Files/Demo$$26-02-2023-03-23-58/CDF$$26-02-2023-03-43-31/FGS$$26-02-2023-03-43-37/cloud (6)$$26-02-2023-03-43-45.xlsx",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\VDR-Files\\Demo$$26-02-2023-03-23-58\\CDF$$26-02-2023-03-43-31\\FGS$$26-02-2023-03-43-37\\cloud (6)$$26-02-2023-03-43-45.xlsx"
+    },
+    {
       "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\Final Project$$14-01-2023-03-01-27.ipynb",
       "SourceId": "Company Site",
       "SourceType": "Discovered",
@@ -38792,6 +38809,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\VDR-Files\\Final Project$$14-01-2023-03-01-27.ipynb"
+    },
+    {
+      "Identity": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\VDR-Files\\Screenshot_20230225_191529$$26-02-2023-02-40-48.jpg",
+      "SourceId": "Company Site",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Work\\Programming\\Visual Studio 2022\\C#\\.Net Core\\Blazor\\Company Site\\Company Site\\wwwroot\\",
+      "BasePath": "_content/Company Site",
+      "RelativePath": "VDR-Files/Screenshot_20230225_191529$$26-02-2023-02-40-48.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\VDR-Files\\Screenshot_20230225_191529$$26-02-2023-02-40-48.jpg"
     }
   ]
 }
