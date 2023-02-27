@@ -13,7 +13,7 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Quarter is required!")]
         public string? quarter { get; set; }
 
-        [Required(ErrorMessage = "Amount is required!")]
+        [Range(1, long.MaxValue, ErrorMessage = "Amount is required!")]
         public long amount { get; set; }
 
         [Required(ErrorMessage = "Facility is required!")]

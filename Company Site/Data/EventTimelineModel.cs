@@ -8,7 +8,7 @@ namespace Company_Site.Data
     public class EventTimelineModel : BaseModel<int>
     {
         [Required(ErrorMessage = "Event Date is required")]
-        public DateTime EventDate { get; set; } = DateTime.Now;
+        public DateTime? EventDate { get; set; }
 
         [Required(ErrorMessage = "Event is required")]
         public string Event { get; set; }

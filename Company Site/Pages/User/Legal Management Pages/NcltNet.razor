@@ -6,13 +6,23 @@
 
 <Modal Title="RA Details Form" ShowModal=RADetailsFormShown>
     <EditForm Model="NewRADetailsEntry" OnValidSubmit="SaveRADetails" Context="RADetails">
+
+        <DataAnnotationsValidator />
+
         <div class="my-1">
             <label for="PRA">Name</label>
             <InputText @bind-Value=NewRADetailsEntry.Name class="form-control" type="text"/>
+            <ValidationMessage For="@(() => NewRADetailsEntry.Name)" />
         </div>
         <div class="my-1">
             <label for="ra">Plan Value</label>
             <InputNumber @bind-Value=NewRADetailsEntry.PlanValue class="form-control" type="text"/>
+            <ValidationMessage For="@(() => NewRADetailsEntry.PlanValue)" />
+        </div>
+        <div class="my-1">
+            <label for="ra">Financial Creditor Share</label>
+            <InputNumber @bind-Value=NewRADetailsEntry.FinancialCreditorShare class="form-control" type="text"/>
+            <ValidationMessage For="@(() => NewRADetailsEntry.FinancialCreditorShare)" />
         </div>
         <div class="my-1">
             <label for="currentStage">Our Share</label>
@@ -21,6 +31,7 @@
         <div class="my-1">
             <label for="PRA">Payment Timeline</label>
             <InputText @bind-Value=NewRADetailsEntry.PaymentTimeline class="form-control" type="text"/>
+            <ValidationMessage For="@(() => NewRADetailsEntry.PaymentTimeline)" />
         </div>
         <div class="my-1">
             <label for="ra">Plan Details</label>
@@ -41,11 +52,11 @@
 <Modal Title="Timeline Form" ShowModal=TimelineFormShown>
     <EditForm Model="NewTimelineEntry" OnValidSubmit="SaveTimeline" Context="Timelines">
         <div class="my-1">
-            <label for="PRA">Name</label>
+            <label for="PRA">Date</label>
             <input type="date" @bind-value=NewTimelineEntry.Date class="form-control"/>
         </div>
         <div class="my-1">
-            <label for="ra">Plan Value</label>
+            <label for="ra">Particulars</label>
             <InputText @bind-Value=NewTimelineEntry.Particulars class="form-control" type="text"/>
         </div>
         <div class="d-flex justify-content-center my-2">
@@ -58,9 +69,12 @@
 
 <Modal Title="Claims & Share Form" ShowModal=ClaimsAndShareFormShown>
     <EditForm Model="NewClaimsAndSharesEntry" OnValidSubmit="SaveClaimsAndShare" Context="ClaimsAndShares">
+        <DataAnnotationsValidator />
+
         <div class="my-1">
             <label for="PRA">Lender Name</label>
             <InputText @bind-Value=NewClaimsAndSharesEntry.LenderName class="form-control"/>
+            <ValidationMessage For="@(() => NewClaimsAndSharesEntry.LenderName)" />
         </div>
         <div class="my-1">
             <label for="ra">Claim Submitted</label>
@@ -77,6 +91,7 @@
         <div class="my-1">
             <label for="ra">Voting Share</label>
             <InputNumber @bind-Value=NewClaimsAndSharesEntry.VotingShare class="form-control" type="text"/>
+            <ValidationMessage For="@(() => NewClaimsAndSharesEntry.VotingShare)" />
         </div>
         <div class="d-flex justify-content-center my-2">
             <a class="btn btn-danger mx-1" @onclick=CancelClaimsAndShare>Cancel</a>

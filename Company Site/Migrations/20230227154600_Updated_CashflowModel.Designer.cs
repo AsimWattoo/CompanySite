@@ -4,6 +4,7 @@ using Company_Site.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Site.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227154600_Updated_CashflowModel")]
+    partial class Updated_CashflowModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -328,8 +330,7 @@ namespace Company_Site.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<DateTime?>("Approval_Date")
-                        .IsRequired()
+                    b.Property<DateTime>("Approval_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("BorrowerCode")
@@ -1373,8 +1374,7 @@ namespace Company_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("EventDate")
-                        .IsRequired()
+                    b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("ReminderDate")
@@ -1731,6 +1731,7 @@ namespace Company_Site.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IPE")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IPR")
@@ -1765,8 +1766,7 @@ namespace Company_Site.Migrations
                     b.Property<string>("current_stage")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("insolvery_commencement_date")
-                        .IsRequired()
+                    b.Property<DateTime>("insolvery_commencement_date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("liquidator")
@@ -1814,18 +1814,13 @@ namespace Company_Site.Migrations
                     b.Property<int>("BorrowerCode")
                         .HasColumnType("int");
 
-                    b.Property<double>("FinancialCreditorShare")
-                        .HasColumnType("float");
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OurShare")
                         .HasColumnType("int");
 
                     b.Property<string>("PaymentTimeline")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PlanDetails")

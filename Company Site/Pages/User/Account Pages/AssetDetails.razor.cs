@@ -92,7 +92,7 @@ namespace Company_Site.Pages.User.Account_Pages
         public Dictionary<string, Func<ValuationDetails, string>> ValuationDetailsHeaders { get; set; } = new Dictionary<string, Func<ValuationDetails, string>>()
         {
             ["Valuer"] = p => p.Valuer,
-            ["Valuation Date"] = p => p.ValuationDate.ToString("dd-MMM-yyyy"),
+            ["Valuation Date"] = p => p.ValuationDate != null ? p.ValuationDate.Value.ToString("dd-MMM-yyyy") : "",
             ["Property"] = p => p.Property,
             ["FMV"] = p => p.FMV.ToString(),
             ["RSV"] = p => p.RSV.ToString(),

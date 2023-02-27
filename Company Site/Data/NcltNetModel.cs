@@ -13,10 +13,9 @@ namespace Company_Site.Data
         public int BorrowerCode { get; set; }
 
         [Required(ErrorMessage = "Insolvery commencement date is required")]
-        public DateTime insolvery_commencement_date { get; set; } = DateTime.Now;
+        public DateTime? insolvery_commencement_date { get; set; }
 
-        [Required(ErrorMessage = "IPE is required")]
-        public string IPE  { get; set; }
+        public string? IPE  { get; set; }
 
         [Required(ErrorMessage = "Applicant_name is required")]
         public string Applicant_name { get; set; }

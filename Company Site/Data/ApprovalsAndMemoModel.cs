@@ -13,7 +13,7 @@ namespace Company_Site.Data
         public int BorrowerCode { get; set; }
 
         [Required(ErrorMessage = "Approval Date  is required")]
-        public DateTime Approval_Date   { get; set; } = DateTime.Now;
+        public DateTime? Approval_Date { get; set; }
 
         [Required(ErrorMessage = "Type is required")]
         public string Type    { get; set; }

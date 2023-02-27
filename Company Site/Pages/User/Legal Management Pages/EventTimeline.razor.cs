@@ -10,7 +10,7 @@ public partial class EventTimeline: BaseAddPage<EventTimelineModel, int>, ITable
 
     public Dictionary<string, Func<EventTimelineModel, string>> Headers { get; set; } = new Dictionary<string, Func<EventTimelineModel, string>>()
     {
-        ["Event Date"] = p => p.EventDate.ToString("dd-MMM-yyyy"),
+        ["Event Date"] = p => p.EventDate.Value.ToString("dd-MMM-yyyy"),
         ["Event"] = p => p.Event,
         ["Description"] = p => p.Details,
         ["Next Date"] = p => p.ReminderDate.ToString("dd-MMM-yyyy"),

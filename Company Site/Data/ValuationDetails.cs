@@ -11,10 +11,12 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Valuer is required")]
         public string Valuer { get; set; }
 
-        public DateTime ValuationDate { get; set; } = DateTime.Now;
+        [Required(ErrorMessage = "Valudation Date is required")]
+        public DateTime? ValuationDate { get; set; }
 
         public string? Property { get; set; }
 
+        [Range(1, double.MaxValue, ErrorMessage = "FMV is required")]
         public double FMV { get; set; }
 
         public double RSV { get; set; }
