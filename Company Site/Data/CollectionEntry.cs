@@ -14,15 +14,15 @@ namespace Company_Site.Data
 
         public string? TrustCode { get; set; }
 
-        [Required(ErrorMessage ="Borrower is required")]
-        public int Borrower { get; set; }
+        [Range(0, int.MaxValue, ErrorMessage = "Borrower is required")]
+        public int Borrower { get; set; } = -1;
 
         public string? Trust_Name { get; set; }
 
         [Required(ErrorMessage = "Borrower is required")]
         public string BorrowerName { get; set; }
 
-        [Required(ErrorMessage ="Credit Amount is required")]
+        [Range(1, double.MaxValue, ErrorMessage ="Credit Amount is required")]
         public double CreditAmount { get; set; }
 
         [Required(ErrorMessage = "Credit date is required")]

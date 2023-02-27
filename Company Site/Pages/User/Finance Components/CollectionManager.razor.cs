@@ -121,6 +121,7 @@ namespace Company_Site.Pages.User.Finance_Components
         /// <returns></returns>-
         protected override bool SaveSetup()
         {
+
             if (!ShouldAdd)
             {
                 List<CollectionAdjustmentModel> collectionAdjustments = _dbContext.CollectionAdjustments.Where(f => f.CombinedCollectionId == NewEntry.CollectionId).ToList();

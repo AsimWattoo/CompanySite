@@ -20,6 +20,7 @@
                             <option value="@acc.BorrowerCode">@acc.Company</option>
                     }
                 </InputSelect>
+                <ValidationMessage For="@(() => NewEntry.BorrowerCode)" />
             </div>
             <div class="col-md-2"></div>
             <div class="col-md-3">
@@ -42,6 +43,7 @@
                         <option value="@facility">@facility</option>
                     }
                 </InputSelect>
+                <ValidationMessage For="@(() => NewEntry.Facility)" />
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-3">
@@ -53,6 +55,7 @@
             <div class="col-md-3">
                 <label for="date">Base Interest Rate</label>
                 <InputNumber @bind-Value=NewEntry.BaseInterestRate class="form-control"/>
+                <ValidationMessage For="@(() => NewEntry.BaseInterestRate)" />
             </div>
             <div class="col-1"/>
             <div class="col-md-3">

@@ -86,6 +86,7 @@
                 <div class="col-md-2">
                     <label for="penalAmount">Penal Amount</label>
                     <InputNumber @bind-Value=NewEntry.PenalAmount TValue="double" id="penalAmount" class="form-control" type="number"/>
+                    <ValidationMessage For="@(() => NewEntry.PenalAmount)" />
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-2">

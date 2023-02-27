@@ -84,6 +84,7 @@
             <div class="col-md-3">
                 <label for="paymentAmount">Payment Amount</label>
                 <InputNumber TValue="double" id="paymentAmount" type="number" class="form-control" @bind-Value="NewEntry.PaymentAmount"/>
+                <ValidationMessage For="@(() => NewEntry.PaymentAmount)" />
             </div>
             <div class="col-md-3">
                 <label for="accountSelect">Select Account</label>

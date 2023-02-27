@@ -34944,22 +34944,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\VDR-Files\algorithms-15-00438$$14-01-2023-03-01-27.pdf))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\VDR-Files\Demo$$26-02-2023-03-23-58\CDF$$26-02-2023-03-43-31\FGS$$26-02-2023-03-43-37\cloud (6)$$26-02-2023-03-43-45.xlsx))">
-      <SourceType>Package</SourceType>
-      <SourceId>Company Site</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/Company Site</BasePath>
-      <RelativePath>VDR-Files/Demo$$26-02-2023-03-23-58/CDF$$26-02-2023-03-43-31/FGS$$26-02-2023-03-43-37/cloud (6)$$26-02-2023-03-43-45.xlsx</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\VDR-Files\Demo$$26-02-2023-03-23-58\CDF$$26-02-2023-03-43-31\FGS$$26-02-2023-03-43-37\cloud (6)$$26-02-2023-03-43-45.xlsx))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\VDR-Files\Final Project$$14-01-2023-03-01-27.ipynb))">
       <SourceType>Package</SourceType>
       <SourceId>Company Site</SourceId>

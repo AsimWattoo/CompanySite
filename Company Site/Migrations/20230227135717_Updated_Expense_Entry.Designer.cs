@@ -4,6 +4,7 @@ using Company_Site.DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company_Site.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230227135717_Updated_Expense_Entry")]
+    partial class Updated_Expense_Entry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -533,17 +535,8 @@ namespace Company_Site.Migrations
                     b.Property<DateTime>("AuctionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("BidDocumentDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<double>("BuyPrice")
                         .HasColumnType("float");
-
-                    b.Property<string>("ContactNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("LetterOfConformationDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("NumberOfBidder")
                         .HasColumnType("int");
@@ -551,20 +544,11 @@ namespace Company_Site.Migrations
                     b.Property<string>("Outcome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PastingDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("ReservePrice")
                         .HasColumnType("float");
-
-                    b.Property<DateTime>("SaleIntimationNoticeDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SuccessBidder")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1605,7 +1589,6 @@ namespace Company_Site.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Facility")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Note")

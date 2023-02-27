@@ -25,12 +25,12 @@ namespace Company_Site.Data
 
         public DateTime NPA_Date { get; set; } = DateTime.Now;
 
-        [Required(ErrorMessage = "POS is required")]
+        [Range(1, double.MaxValue, ErrorMessage = "POS is required")]
         public double POS { get; set; }
 
         public double OS_Interest { get; set; }
 
-        [Required(ErrorMessage = "Base Interest Rate is required")]
+        [Range(1, double.MaxValue, ErrorMessage = "Base Interest Rate is required")]
         public double BaseInterestRate { get; set; }
 
         [Required(ErrorMessage = "Spread is required")]
@@ -42,6 +42,7 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Frequency is required")]
         public string? Frequency { get; set; }
 
+        [Range(1, double.MaxValue, ErrorMessage = "Amount is required")]
         public double PenalAmount { get; set; }
 
         public double PenalInterest { get; set; }

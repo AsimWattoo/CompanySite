@@ -15,39 +15,69 @@
 
 <Modal Title="Auction Details" ShowModal=AuctionDetailsFormShown>
     <EditForm Model="NewAuctionDetailsEntry" OnValidSubmit="SaveAuctionDetails" Context="AuctionDetails">
-        <div class="my-1">
-            <label for="PRA">Publication Date</label>
-            <input @bind-value=NewAuctionDetailsEntry.PublicationDate class="form-control" type="date"/>
-        </div>
-        <div class="my-1">
-            <label for="ra">Auction Date</label>
-            <input @bind-value=NewAuctionDetailsEntry.AuctionDate class="form-control" type="date"/>
-        </div>
-        <div class="my-1">
-            <label for="currentStage">Reserve Price</label>
-            <InputNumber @bind-Value=NewAuctionDetailsEntry.ReservePrice class="form-control" type="text"/>
-        </div>
-        <div class="my-1">
-            <label for="PRA">Outcome</label>
-            <InputSelect @bind-Value=NewAuctionDetailsEntry.Outcome class="form-select">
-                <option selected option="">---- Select Option ----</option>
-                <option value="Sold">Sold</option>
-                <option value="Failed">Failed</option>
-                <option value="Withdrawn">Withdrawn</option>
-            </InputSelect>
-        </div>
-        <div class="my-1">
-            <label for="ra">Number of Bidders</label>
-            <InputNumber @bind-Value=NewAuctionDetailsEntry.NumberOfBidder class="form-control" type="text"/>
-        </div>
-        <div class="my-1">
-            <label for="currentStage">Buy Price</label>
-            <InputNumber @bind-Value=NewAuctionDetailsEntry.BuyPrice class="form-control" type="text"/>
-        </div>
-        <div class="d-flex justify-content-center my-2">
-            <a class="btn btn-danger mx-1" @onclick=CancelAuctionDetails>Cancel</a>
-            <a class="btn btn-secondary mx-1" @onclick=ClearAuctionDetails>Clear</a>
-            <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAddAuctionDetails ? "Add" : "Edit")"/> 
+
+        <DataAnnotationsValidator />
+
+        <div style="overflow-y: scroll; height: 600px;">
+            <div class="my-2">
+                <label for="PRA">Publication Date</label>
+                <input @bind-value=NewAuctionDetailsEntry.PublicationDate class="form-control" type="date"/>
+            </div>
+            <div class="my-2">
+                <label for="ra">Auction Date</label>
+                <input @bind-value=NewAuctionDetailsEntry.AuctionDate class="form-control" type="date"/>
+            </div>
+            <div class="my-2">
+                <label for="currentStage">Reserve Price</label>
+                <InputNumber @bind-Value=NewAuctionDetailsEntry.ReservePrice class="form-control" type="text"/>
+                <ValidationMessage For="@(() => NewAuctionDetailsEntry.ReservePrice)" />
+            </div>
+            <div class="my-2">
+                <label for="PRA">Outcome</label>
+                <InputSelect @bind-Value=NewAuctionDetailsEntry.Outcome class="form-select">
+                    <option selected option="">---- Select Option ----</option>
+                    <option value="Sold">Sold</option>
+                    <option value="Failed">Failed</option>
+                    <option value="Withdrawn">Withdrawn</option>
+                </InputSelect>
+            </div>
+            <div class="my-2">
+                <label for="ra">Number of Bidders</label>
+                <InputNumber @bind-Value=NewAuctionDetailsEntry.NumberOfBidder class="form-control" type="text"/>
+            </div>
+            <div class="my-2">
+                <label for="currentStage">Buy Price</label>
+                <InputNumber @bind-Value=NewAuctionDetailsEntry.BuyPrice class="form-control" type="text"/>
+            </div>
+            <div class="my-2">
+                <label for="ra">Sale Intimation Notice DAte</label>
+                <input @bind-value=NewAuctionDetailsEntry.SaleIntimationNoticeDate class="form-control" type="date"/>
+            </div>
+            <div class="my-2">
+                <label for="ra">Pasting Date</label>
+                <input @bind-value=NewAuctionDetailsEntry.PastingDate class="form-control" type="date"/>
+            </div>
+            <div class="my-2">
+                <label for="ra">Bid Document Date</label>
+                <input @bind-value=NewAuctionDetailsEntry.BidDocumentDate class="form-control" type="date"/>
+            </div>
+            <div class="my-2">
+                <label for="ra">Letter Of Conformation Date</label>
+                <input @bind-value=NewAuctionDetailsEntry.LetterOfConformationDate class="form-control" type="date"/>
+            </div>
+            <div class="my-2">
+                <label for="ra">Successfull Bidder</label>
+                <InputText @bind-Value=NewAuctionDetailsEntry.SuccessBidder class="form-control" />
+            </div>
+            <div class="my-2">
+                <label for="ra">Contact Number</label>
+                <InputText @bind-Value=NewAuctionDetailsEntry.ContactNumber class="form-control" />
+            </div>
+            <div class="d-flex justify-content-center my-2">
+                <a class="btn btn-danger mx-1" @onclick=CancelAuctionDetails>Cancel</a>
+                <a class="btn btn-secondary mx-1" @onclick=ClearAuctionDetails>Clear</a>
+                <input type="submit" class="btn btn-primary mx-1" value="@(ShouldAddAuctionDetails ? "Add" : "Edit")"/> 
+            </div>
         </div>
     </EditForm>
 </Modal>

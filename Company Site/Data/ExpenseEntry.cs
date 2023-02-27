@@ -33,6 +33,7 @@ namespace Company_Site.Data
 
         public string? PaymentMode { get; set; }
 
+        [Range(1, double.MaxValue, ErrorMessage = "Payment must not be empty")]
         public double PaymentAmount { get; set; }
 
         public string? GSTNumber { get; set; }
