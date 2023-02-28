@@ -1217,6 +1217,12 @@
     <None Include="wwwroot\assets\js\vector-map\map\jquery-jvectormap-us-aea-en.js" />
     <None Include="wwwroot\assets\js\vector-map\map\jquery-jvectormap-world-mill-en.js" />
     <None Include="wwwroot\assets\js\vertical-menu.js" />
+    <None Include="wwwroot\assets\vendor\js\bootstrap.js" />
+    <None Include="wwwroot\assets\vendor\js\config.js" />
+    <None Include="wwwroot\assets\vendor\js\dashboards-analytics.js" />
+    <None Include="wwwroot\assets\vendor\js\main.js" />
+    <None Include="wwwroot\assets\vendor\libs\apex-charts\apexcharts.js" />
+    <None Include="wwwroot\assets\vendor\libs\popper\popper.js" />
     <None Include="wwwroot\js\SaveFile.js" />
     <None Include="wwwroot\theme-font\AmandaSignatureRegular.woff2" />
     <None Include="wwwroot\theme-font\SFProText-Bold.woff2" />

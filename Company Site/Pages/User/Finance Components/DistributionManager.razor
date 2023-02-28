@@ -1,210 +1,720 @@
 ﻿@using Company_Site.Data;
 @using Company_Site.Pages.Components
 @using Company_Site.ViewModels;
-<div class="card">
-    <div class="card-header pb-0 my-2">
-        <h5>Distribution</h5>
-    </div>
-    <div class="card">
-        <div class="card-body">
+<EditForm class="layout-container" Model="Model">
+      <div class="layout-page">
+        <div class="content-wrapper">
+          <!-- Content -->
+
+          <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
-                <div class="col-md-4">
-                    <EditForm Model=Model class="form form-theme">
-                        <label for="turstCode">Trust Code</label>
-                        <label class="form-control mb-2 disabled empty-label">@Model.TrustCode</label>
-                        <label for="turstName">Trust Name</label>
-                        <label class="form-control mb-2 disabled empty-label">@Model.TrustName</label>
-                        <label for="turstSetupDate">Trust Setup Date</label>
-                        <label class="form-control mb-2 disabled empty-label">@Model.TrustSetupDate</label>
-                        <label for="turstAge">Trust Age</label>
-                        <label id="turstAge" class="form-control mb-2 disabled empty-label">@Model.TrustAge</label>
-                        <br>
-                        <hr />
-                        <br>
-                        <h4 for="particulars">Particulars</h4>
-                        <label for="openingBalance">Opening Balance</label>
-                        <label id="openingBalance" class="form-control mb-2 disabled">@Model.OpeningBalance</label>
-                        <label for="totalPayment">Total Collection</label>
-                        <label id="totalPayment" class="form-control mb-2 disabled">@Model.TotalCollection</label>
-                        <label for="totalBalance">Total Balance</label>
-                        <label id="totalBalance" class="form-control mb-2 disabled">@Model.TotalBalance</label>
-                        <br>
-                        <hr />
-                        <br>
-                        <h4 for="expenses">Expenses</h4>
-                        <label for="trusteeshipFees">Trusteeship Fees</label>
-                        <label id="trusteeshipFees" class="form-control mb-2 disabled">@Model.TrusteeshipFee</label>
-                        <label for="resFees">Resolution Fees</label>
-                        <label id="resFees" class="form-control mb-2 disabled">@Model.ResolutionFee</label>
-                        <label for="collectionFees">Collection Fees</label>
-                        <label id="collectionFees" class="form-control mb-2 disabled">@Model.CollectionFee</label>
-                        <label for="totalOtherExpenses">Total Other Expenses</label>
-                        <label id="totalOtherExpenses" class="form-control mb-2 disabled" type="number">@Model.TotalOtherExpenses</label>
-                        <label for="otherAdjustments">Adjustments</label>
-                        <InputNumber @bind-Value=Model.OtherAdjustments id="otherAdjustments" class="form-control mb-2" type="number"/>
-                        <label for="totalExpenses">Total Expenses</label>
-                        <label id="totalExpenses" class="form-control mb-2 disabled">@Model.TotalExpenses</label>
-                        <label for="balance">Balance Amount</label>
-                        <label id="balance" class="form-control mb-2 disabled">@Model.Balance</label>
-                        <label for="gst">GST:30%</label>
-                        <InputNumber @bind-Value=Model.GST_Rate id="gst" class="form-control mb-2" type="number"/>
-                        <label for="lessAdvanceTDS">Less: Advance TDS 10%</label>
-                        <InputNumber @bind-Value=@Model.LessAdvancedTDS id="lessAdvanceTDS" class="form-control mb-2" type="number"/>
-                        <label for="amountAvailable">Amount Available</label>
-                        <label id="amountAvailable" class="form-control mb-2 disabled">@Model.AmountAvailable</label>
-                        <label for="normalDistribution">Normal Distribution</label>
-                        <InputNumber @bind-Value=Model.TotalSRValue id="normalDistribution" class="form-control mb-2"/>
-                        <label for="surplusDistribution">Surplus Distribution</label>
-                        <InputNumber @bind-Value=Model.TotalUpsideSRValue id="surplusDistribution" class="form-control mb-2"/>
-                        <label for="newSRvalue">New SR value</label>
-                        <label id="newSRvalue" class="form-control mb-2 disabled">@Model.NewSRValue</label>
-                        <label for="lessProvision">Less: Provision</label>
-                        <InputNumber @bind-Value=Model.LessProvision id="lessProvision" class="form-control mb-2" type="number"/>
-                        <label for="closingBalance">Closing Balance</label>
-                        <label id="closingBalance" class="form-control mb-2 disabled" type="number">@Model.ClosingBalance</label>
 
-                        <label for="trustDesc">Trust description</label>
-                        <label id="trustDesc" class="form-control mb-2 disabled empty-label">@Model.TrustDescription</label>
-                        <label for="t&c">Terms & Condition</label>
-                        <label id="t&c" class="form-control mb-2 disabled empty-label">@Model.TermsAndConditions</label>
+              <!-- Transactions 1 -->
+              <div class="row">
 
-                        <div class="d-flex">
-                            <button class="btn btn-primary clear me-1" @onclick=Clear>Clear All</button>
-                            <button class="btn btn-primary" @onclick=Process>Process</button>
+                <div class="col-md-12 col-lg-8 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Select Collection</h5>
+                      <small class="text-muted d-block mb-1">Reset</small>
+                    </div>
+                    <div class="card-body">
+                      <ul class="nav nav-pills mb-3" role="tablist">
+                        <li class="nav-item">
+                          <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-home" aria-controls="navs-pills-top-home"
+                            aria-selected="true">
+                            Combined Collections
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-profile" aria-controls="navs-pills-top-profile"
+                            aria-selected="false">
+                            Collections
+                          </button>
+                        </li>
+                        <li class="nav-item">
+                          <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-top-messages" aria-controls="navs-pills-top-messages"
+                            aria-selected="false">
+                            Expenses
+                          </button>
+                        </li>
+                      </ul>
+                      <div class="tab-content">
+                        <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
+                          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                              <Table T="CombinedTrustCollection" T2="int" OnRowClick=TotalCollectionRowSelected ShowSerialNumber=true Headers="CombinedCollectionHeaders" Items=CombinedCollections GetId=GetCombinedCollectionId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
+                          </div>
                         </div>
-                    </EditForm>
+                        <div class="tab-pane fade" id="navs-pills-top-profile" role="tabpanel">
+                          <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                              <Table T="CollectionEntry" T2="int" ShowSerialNumber=true Items="Collections" GetId="GetCollectionId" Headers="CollectionHeaders" IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => true)" OnDelete="CollectionDeleted" ShowDeleteConfirmation=false/>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="navs-pills-top-messages" role="tabpanel">
+                          <div class="tab-pane fade show active" id="navs-pills-top-home" role="tabpanel">
+                            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                <Table T="ExpenseEntry" T2="int" Headers="ExpenseHeaders" Items=ExpenseEntries GetId=GetExpenseId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-8">
-                    <h5>SR Details</h5>
-                    <table class="table">
-                        <thead>
-                            <th>SR Holder</th>
-                            <th>Normal</th>
-                            <th>SR Share</th>
-                            <th>Surplus</th>
-                            <th>SR Share</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>@Model.IssuerName</td>
-                                <td>@Model.IssuerSharePercentage%</td>
-                                <td>@Math.Round(Model.IssuerShare, 2)</td>
-                                <td>@Model.IssuerUpsideSharePercentage%</td>
-                                <td>@Math.Round(Model.IssuerUpsideShares)</td>
-                            </tr>
-                            <tr>
-                                <td>@Model.HolderName</td>
-                                <td>@Model.HolderSharePercentage%</td>
-                                <td>@Math.Round(Model.HolderShare)</td>
-                                <td>@Model.HolderUpsideSharePercentage%</td>
-                                <td>@Math.Round(Model.HolderUpsideShares)</td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td>@Model.TotalSharePercentage%</td>
-                                <td>@Math.Round(Model.SRIssued)</td>
-                                <td>@Model.TotalUpsideSharePercentage%</td>
-                                <td>@Math.Round(Model.SRIssued)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <table class="table text-center">
-                        <thead>
-                            <th>Distribution</th>
-                            <th colspan="2">Normal Gross Distribution</th>
-                            <th colspan="2">Surplus Gross Distribution</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SR Holder</td>
-                                <td>SR Value</td>
-                                <td>Amount in Rs.</td>
-                                <td>SR value</td>
-                                <td>Amount in Rs.</td>
-                            </tr>
-                            <tr>
-                                <td>@Model.IssuerName</td>
-                                <td>@Math.Round(Model.IssuerSRValue, 2)</td>
-                                <td>@Math.Round(Model.IssuerAmount, 2)</td>
-                                <td>@Math.Round(Model.IssuerUpsideSRValue, 2)</td>
-                                <td>@Math.Round(Model.IssuerUpsideAmount, 2)</td>
-                            </tr>
-                            <tr>
-                                <td>@Model.HolderName</td>
-                                <td>@Math.Round(Model.HolderSRValue, 2)</td>
-                                <td>@Math.Round(Model.HolderAmount, 2)</td>
-                                <td>@Math.Round(Model.HolderUpsideSRValue, 2)</td>
-                                <td>@Math.Round(Model.HolderUpsideAmount, 2)</td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td>@Math.Round(Model.TotalSRValue, 2)</td>
-                                <td>@Math.Round(Model.TotalAmount, 2)</td>
-                                <td>@Math.Round(Model.TotalUpsideSRValue, 2)</td>
-                                <td>@Math.Round(Model.TotalUpsideAmount, 2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    <table class="table text-center">
-                        <thead>
-                            <th></th>
-                            <th colspan="2">Opening</th>
-                            <th colspan="2">Closing</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>SR Holder</td>
-                                <td>FV SR Value</td>
-                                <td>Distribution Value</td>
-                                <td>FV SR value</td>
-                                <td>Distribution Value</td>
-                            </tr>
-                            <tr>
-                                <td>@Model.IssuerName</td>
-                                <td>@Math.Round(Model.IssuerOpeningFVSRValue, 2)</td>
-                                <td>@Math.Round(Model.IssuerOpeningDistributionValue, 2)</td>
-                                <td>@Math.Round(Model.IssuerClosingFVSRValue, 2)</td>
-                                <td>@Math.Round(Model.IssuerClosingDistributionValue, 2)</td>
-                            </tr>
-                            <tr>
-                                <td>@Model.HolderName</td>
-                                <td>@Math.Round(Model.HolderOpeningFVSRValue, 2)</td>
-                                <td>@Math.Round(Model.HolderClosingDistributionValue, 2)</td>
-                                <td>@Math.Round(Model.HolderClosingFVSRValue, 2)</td>
-                                <td>@Math.Round(Model.HolderUpsideAmount, 2)</td>
-                            </tr>
-                            <tr>
-                                <td>Total</td>
-                                <td>@Math.Round(Model.TotalOpeningFVSRValue, 2)</td>
-                                <td>@Math.Round(Model.TotalOpeningDistributionValue, 2)</td>
-                                <td>@Math.Round(Model.TotalClosingFVSRValue, 2)</td>
-                                <td>@Math.Round(Model.TotalClosingDistributionValue, 2)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-
-                    <div class="my-2">
-                        <CollapsibleContainer Id="3" Title="Total Collections">
-                            <Table T="CombinedTrustCollection" T2="int" OnRowClick=TotalCollectionRowSelected ShowSerialNumber=true Headers="CombinedCollectionHeaders" Items=CombinedCollections GetId=GetCombinedCollectionId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
-                        </CollapsibleContainer>
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">@(string.IsNullOrEmpty(Model.TrustName) ? "Trust Name" : Model.TrustName)</h5>
+                      <small class="text-muted d-block mb-1">@(string.IsNullOrEmpty(Model.TrustCode) ? "Trust Code" : Model.TrustCode )</small>
                     </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Issure</small>
+                              <h6 class="mb-0">@Model.IssuerName</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <div class="me-2">
+                                <h6 class="mb-0">@Model.IssuerSharePercentage%</h6>
+                                <span class="text-muted">Normal</span>
+                                <h6 class="mb-0">@Model.IssuerUpsideSharePercentage%</h6>
+                                <span class="text-muted">Up side</span>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">SR Holder</small>
+                              <h6 class="mb-0">@Model.HolderName</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <div class="me-2">
+                                <h6 class="mb-0">@Model.HolderSharePercentage%</h6>
+                                <span class="text-muted">Normal</span>
+                                <h6 class="mb-0">@Model.HolderUpsideSharePercentage%</h6>
+                                <span class="text-muted">Up side</span>
 
-                    <div class="my-2">
-                        <CollapsibleContainer Id="1" Title="Expenses">
-                            <Table T="ExpenseEntry" T2="int" Headers="ExpenseHeaders" Items=ExpenseEntries GetId=GetExpenseId IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => false)"/>
-                        </CollapsibleContainer>
-                    </div>
+                              </div>
+                            </div>
+                            </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Total SR Issued</small>
+                              <h6 class="mb-0">@Model.SRIssued</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">1000</h6>
+                              <span class="text-muted">Face value</span>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Trust Setup Date</small>
+                              <h6 class="mb-0">@Model.TrustSetupDate</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">@Model.TrustAge</h6>
+                              <span class="text-muted">years</span>
+                            </div>
+                          </div>
+                        </li>
 
-                    <div class="my-2">
-                        <CollapsibleContainer Id="2" Title="Collections">
-                            <Table T="CollectionEntry" T2="int" ShowSerialNumber=true Items="Collections" GetId="GetCollectionId" Headers="CollectionHeaders" IsSearchable="false" IsEditable="@(p => false)" IsDeleteable="@(p => true)" OnDelete="CollectionDeleted" ShowDeleteConfirmation=false/>
-                        </CollapsibleContainer>
+                        <li class="d-flex mb-4 pb-1">
+                          <h5 class="card-title m-0 me-2">Trust Terms</h5>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Trusteeship fee basis</small>
+                              <h6 class="mb-0">SR Outstanding</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">3</h6>-->
+                              <span class="text-muted">Begning of the year</span>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Trusteeship fee limit</small>
+                              <h6 class="mb-0">10,000</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!-- <h6 class="mb-0">3</h6>
+      <span class="text-muted">years</span> -->
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Resolution fee Basis</small>
+                              <h6 class="mb-0">SR Outstanding</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!-- <h6 class="mb-0">3</h6>
+      <span class="text-muted">years</span> -->
+                            </div>
+                          </div>
+                        </li>
+
+                      </ul>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Cash Flow Details</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Opening Balance</small>
+                              <h6 class="mb-0">@Model.OpeningBalance</h6>
+                            </div>
+
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Total Collection</small>
+                              <h6 class="mb-0">@Model.TotalCollection</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+270.69</h6>
+                              <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Total Cash Flow</small>
+                              <h6 class="mb-0">@Model.TotalBalance</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+637.91</h6>
+                                                      <span class="text-muted">USD</span> -->
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <h5 class="card-title m-0 me-2">Expenses</h5>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Trusteeship Fee</small>
+                              <h6 class="mb-0">@Model.TrusteeshipFee</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">@Model.TrusteeshipFeePercentage</h6>
+                              <span class="text-muted">%</span>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Resolution Fees</small>
+                              <h6 class="mb-0">@Model.ResolutionFee</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">@Model.ResolutionFeePercentage</h6>
+                              <span class="text-muted">%</span>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Collection Fee`</small>
+                              <h6 class="mb-0">@Model.CollectionFee</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">@Model.CollectionFeePercentage</h6>
+                              <span class="text-muted">%</span>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Interest on Expenses</small>
+                              <h6 class="mb-0">@Model.InterestOnExpenses</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">18</h6>
+                              <span class="text-muted">%</span>
+                            </div>
+                          </div>
+                        </li>
+
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Total Expenses</small>
+                              <h6 class="mb-0">@Model.TotalExpenses</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!-- <h6 class="mb-0">18</h6>
+                              <span class="text-muted">%</span>-->
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Adjustment and Distribution</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Cash Adjustment</small>
+
+                              <InputNumber @bind-Value="Model.OtherAdjustments" id="smallInput" class="form-control form-control-sm" type="number"
+                                placeholder="10,00,000.00" />
+
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+82.6</h6>
+                              <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">TDS</small>
+                              <h6 class="mb-0">@Model.TDS</h6>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <h6 class="mb-0">@Model.LessAdvancedTDS</h6>
+                              <span class="text-muted">%</span>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Adjust TDS</small>
+                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                                placeholder="10,00,000.00" />
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+637.91</h6>
+                              <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/cc-success.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Amount Available for Distribution</small>
+                              <InputNumber @bind-Value=Model.OpeningBalance id="smallInput" class="form-control form-control-sm" type="number"
+                                placeholder="10,00,000.00" />
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!-- <h6 class="mb-0">Total SR</h6>
+                              <span class="text-muted"></span>-->
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Normal Distribution</small>
+                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                                placeholder="10,00,000.00" />
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+203.33</h6>
+                              <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Surplus Distribution</small>
+                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                                placeholder="10,00,000.00" />
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+203.33</h6>
+                                                      <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Provision</small>
+                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                                placeholder="10,00,000.00" />
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+203.33</h6>
+                                                      <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="avatar flex-shrink-0 me-3">
+                            <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                          </div>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="me-2">
+                              <small class="text-muted d-block mb-1">Closing Balance</small>
+                              <label id="smallInput" class="form-control form-control-sm empty-label disabled">@Model.ClosingBalance</label>
+                            </div>
+                            <div class="user-progress d-flex align-items-center gap-1">
+                              <!--<h6 class="mb-0">+203.33</h6>
+                                                      <span class="text-muted">USD</span>-->
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--<div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Distribution Working</h5>
+                    </div>
+
+                    <div>
+                      <div class="card-body">
+                        <h6 class="b-b-light d-flex align-items-center">Normal Distribution</h6>
+                        <div class="row">
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Total</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="card-body">
+                        <h6 class="b-b-light d-flex align-items-center">Surplus Distribution</h6>
+                        <div class="row">
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Total</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="card-body">
+                        <h6 class="b-b-light d-flex align-items-center">Opening SR Value</h6>
+                        <div class="row">
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Total</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div class="card-body ">
+                        <h6 class="b-b-light d-flex align-items-center">Closing SR Value</h6>
+                        <div class="row">
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Issuer</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                          <div class="col text-center b-r-light">
+                            <span>Total</span>
+                            <h4 class="counter mb-0">6589</h4>
+                            <span>12,01,023</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center"> 
+                      <button type="submit" class="btn btn-primary mb-4 col-md-2">Save</button>
+                    </div>
+
+                  </div>
+
+                </div> -->
+                <!--<div class="col-md-6 col-lg-4 order-2 mb-4">
+  <div class="card h-100">
+    <div class="card-header d-flex align-items-center justify-content-between">
+      <h5 class="card-title m-0 me-2">Graph</h5>
     </div>
-</div>
+    <div class="card-body">
+     
+    </div>
+  </div>
+</div>-->
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="card-title m-0 me-2">Cash Flow Details</h5>
+                    </div>
+                    <div class="card-body">
+                      <ul class="p-0 m-0">
+                        <li class="d-flex mb-4 pb-1">
+                          <h7 class="card-title m-0 me-2">Normal Distribution</h7>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="d-flex  align-items-center">
+                              <div class="d-flex flex-column align-items-center gap-1">
+                                <h2 class="mb-2">8</h2>
+                                <span>12,00,000</span>
+                              </div>
+                              <div id="orderStatisticsChart"></div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <h7 class="card-title m-0 me-2">Surplus Distribution</h7>
+                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+
+                            <div class="d-flex  align-items-center">
+                              <div class="d-flex flex-column align-items-center gap-1">
+                                <h2 class="mb-2">8</h2>
+                                <span>90,000</span>
+                              </div>
+                              <div id="orderStatisticsChart"></div>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="d-flex mb-4 pb-1">
+                          <div class="card social-widget-card">
+                            <div class="card-body">
+                              <div class="redial-social-widget radial-bar-70" data-label="50%"><i
+                                  class="fa fa-facebook font-primary"></i></div>
+                              <h5 class="b-b-light">Face value</h5>
+                              <div class="row">
+                                <div class="col text-center b-r-light"><span>Opening</span>
+                                  <h6 class="counter mb-0">1000</h6>
+                                </div>
+                                <div class="col text-center"><span>Closing</span>
+                                  <h6 class="counter mb-0">900</h6>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </li>
+                        <div class="row justify-content-center align-items-center"> <!-- <-- here -->
+                          <button type="submit" class="btn btn-primary mb-12 col-md-8">Save</button>
+                        </div>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 order-2 mb-4">
+                <li class="d-flex mb-4 pb-1">
+
+                  <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                    <div class="col-md mb-4 mb-md-0">
+
+                      <div class="accordion mt-3" id="accordionExample">
+
+                        <div class="card accordion-item">
+                          <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                              data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
+                              Trust description
+                            </button>
+                          </h2>
+                          <div id="accordionOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw
+                              dragée oat cake
+                              dragée ice cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut
+                              gummies.
+                              Jelly beans candy canes carrot cake. Fruitcake chocolate chupa chups.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card accordion-item">
+                          <h2 class="accordion-header" id="headingTwo">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                              data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
+                              Terms and Condition
+                            </button>
+                          </h2>
+                          <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw
+                              dragée oat cake
+                              dragée ice cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut
+                              gummies.
+                              Jelly beans candy canes carrot cake. Fruitcake chocolate chupa chups.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card accordion-item">
+                          <h2 class="accordion-header" id="headingThree">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
+                              data-bs-target="#accordionThree" aria-expanded="false" aria-controls="accordionThree">
+                              Note
+                            </button>
+                          </h2>
+                          <div id="accordionThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              Oat cake toffee chocolate bar jujubes. Marshmallow brownie lemon drops cheesecake.
+                              Bonbon
+                              gingerbread marshmallow sweet jelly beans muffin. Sweet roll bear claw candy canes
+                              oat cake
+                              dragée caramels. Ice cream wafer danish cookie caramels muffin.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            </div> <!--Row Div-->
+          </div>
+          <!-- / Content -->
+        </div>
+        <!-- Content wrapper -->
+      </div>
+      <!-- / Layout page -->
+</EditForm>

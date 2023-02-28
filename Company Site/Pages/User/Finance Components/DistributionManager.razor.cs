@@ -1,11 +1,8 @@
-﻿using Company_Site.Areas.Identity.Pages.Shared;
-using Company_Site.Data;
+﻿using Company_Site.Data;
 using Company_Site.DB;
 using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
-
-using MimeKit.Cryptography;
 
 namespace Company_Site.Pages.User.Finance_Components
 {
