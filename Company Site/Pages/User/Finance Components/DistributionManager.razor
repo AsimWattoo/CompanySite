@@ -1,7 +1,7 @@
 ﻿@using Company_Site.Data;
 @using Company_Site.Pages.Components
 @using Company_Site.ViewModels;
-<EditForm class="layout-container" Model="Model">
+<EditForm class="layout-container" Model="Model" OnValidSubmit="Process">
       <div class="layout-page">
         <div class="content-wrapper">
           <!-- Content -->
@@ -122,7 +122,7 @@
                               <h6 class="mb-0">@Model.SRIssued</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">1000</h6>
+                              <h6 class="mb-0">@Model.FaceValue</h6>
                               <span class="text-muted">Face value</span>
                             </div>
                           </div>
@@ -153,7 +153,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Trusteeship fee basis</small>
-                              <h6 class="mb-0">SR Outstanding</h6>
+                              <h6 class="mb-0">@Model.TrusteeshipFeeBasis</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                               <!--<h6 class="mb-0">3</h6>-->
@@ -169,7 +169,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Trusteeship fee limit</small>
-                              <h6 class="mb-0">10,000</h6>
+                              <h6 class="mb-0">@Model.TrusteeshipFeeLimit</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                               <!-- <h6 class="mb-0">3</h6>
@@ -185,7 +185,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Resolution fee Basis</small>
-                              <h6 class="mb-0">SR Outstanding</h6>
+                              <h6 class="mb-0">@Model.ResolutionFeeBasis</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                               <!-- <h6 class="mb-0">3</h6>
@@ -310,7 +310,10 @@
                               <h6 class="mb-0">@Model.InterestOnExpenses</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">18</h6>
+                              <h6 class="mb-0 w-50">
+                                  <InputNumber @bind-Value="Model.InterestRate" id="smallInput" class="form-control form-control-sm" type="number"
+                                        placeholder="10,00,000.00" />
+                              </h6>
                               <span class="text-muted">%</span>
                             </div>
                           </div>
@@ -370,7 +373,7 @@
                               <h6 class="mb-0">@Model.TDS</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
-                              <h6 class="mb-0">@Model.LessAdvancedTDS</h6>
+                              <h6 class="mb-0">0</h6>
                               <span class="text-muted">%</span>
                             </div>
                           </div>
@@ -382,7 +385,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Adjust TDS</small>
-                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                              <InputNumber @bind-Value=Model.LessAdvancedTDS id="smallInput" class="form-control form-control-sm" type="number"
                                 placeholder="10,00,000.00" />
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
@@ -398,8 +401,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Amount Available for Distribution</small>
-                              <InputNumber @bind-Value=Model.OpeningBalance id="smallInput" class="form-control form-control-sm" type="number"
-                                placeholder="10,00,000.00" />
+                              <h6>@Model.AmountAvailable</h6>
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
                               <!-- <h6 class="mb-0">Total SR</h6>
@@ -414,7 +416,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Normal Distribution</small>
-                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                              <InputNumber @bind-Value=Model.TotalSRValue id="smallInput" class="form-control form-control-sm" type="number"
                                 placeholder="10,00,000.00" />
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
@@ -430,7 +432,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Surplus Distribution</small>
-                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                              <InputNumber @bind-Value=Model.TotalUpsideSRValue id="smallInput" class="form-control form-control-sm" type="number"
                                 placeholder="10,00,000.00" />
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
@@ -446,7 +448,7 @@
                           <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                             <div class="me-2">
                               <small class="text-muted d-block mb-1">Provision</small>
-                              <input id="smallInput" class="form-control form-control-sm" type="number"
+                              <InputNumber @bind-Value=Model.LessProvision id="smallInput" class="form-control form-control-sm" type="number"
                                 placeholder="10,00,000.00" />
                             </div>
                             <div class="user-progress d-flex align-items-center gap-1">
@@ -599,7 +601,7 @@
                             <div class="d-flex  align-items-center">
                               <div class="d-flex flex-column align-items-center gap-1">
                                 <h2 class="mb-2">8</h2>
-                                <span>12,00,000</span>
+                                <span>@Model.TotalAmount</span>
                               </div>
                               <div id="orderStatisticsChart"></div>
                             </div>
@@ -612,7 +614,7 @@
                             <div class="d-flex  align-items-center">
                               <div class="d-flex flex-column align-items-center gap-1">
                                 <h2 class="mb-2">8</h2>
-                                <span>90,000</span>
+                                <span>@Model.TotalUpsideAmount</span>
                               </div>
                               <div id="orderStatisticsChart"></div>
                             </div>
@@ -626,17 +628,18 @@
                               <h5 class="b-b-light">Face value</h5>
                               <div class="row">
                                 <div class="col text-center b-r-light"><span>Opening</span>
-                                  <h6 class="counter mb-0">1000</h6>
+                                  <h6 class="counter mb-0">@Model.IssuerOpeningDistributionValue</h6>
                                 </div>
                                 <div class="col text-center"><span>Closing</span>
-                                  <h6 class="counter mb-0">900</h6>
+                                  <h6 class="counter mb-0">@Model.IssuerClosingDistributionValue</h6>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </li>
-                        <div class="row justify-content-center align-items-center"> <!-- <-- here -->
-                          <button type="submit" class="btn btn-primary mb-12 col-md-8">Save</button>
+                        <div class="d-flex justify-content-center align-items-center"> <!-- <-- here -->
+                            <button type="submit" class="btn btn-primary mx-1">Save</button>
+                            <a class="btn btn-danger mx-1" @onclick=Clear>Clear</a>
                         </div>
                       </ul>
                     </div>
@@ -661,11 +664,7 @@
                           <div id="accordionOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                              Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw
-                              dragée oat cake
-                              dragée ice cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut
-                              gummies.
-                              Jelly beans candy canes carrot cake. Fruitcake chocolate chupa chups.
+                             @Model.TrustDescription
                             </div>
                           </div>
                         </div>
@@ -679,29 +678,7 @@
                           <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                              Dessert ice cream donut oat cake jelly-o pie sugar plum cheesecake. Bear claw
-                              dragée oat cake
-                              dragée ice cream halvah tootsie roll. Danish cake oat cake pie macaroon tart donut
-                              gummies.
-                              Jelly beans candy canes carrot cake. Fruitcake chocolate chupa chups.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card accordion-item">
-                          <h2 class="accordion-header" id="headingThree">
-                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse"
-                              data-bs-target="#accordionThree" aria-expanded="false" aria-controls="accordionThree">
-                              Note
-                            </button>
-                          </h2>
-                          <div id="accordionThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                              Oat cake toffee chocolate bar jujubes. Marshmallow brownie lemon drops cheesecake.
-                              Bonbon
-                              gingerbread marshmallow sweet jelly beans muffin. Sweet roll bear claw candy canes
-                              oat cake
-                              dragée caramels. Ice cream wafer danish cookie caramels muffin.
+                              @Model.TermsAndConditions
                             </div>
                           </div>
                         </div>

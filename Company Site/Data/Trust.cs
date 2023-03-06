@@ -22,9 +22,9 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "SR Holder is required")]
         public string SRHolder { get; set; }
 
-        public string? Payable { get; set; }
+        public double Payable { get; set; }
 
-        public string? TrusteeshipBasis { get; set; }
+        public double TrusteeshipBasis { get; set; }
 
         [Required(ErrorMessage = "Face Value is required")]
         public int Face_Value { get; set; }
@@ -35,9 +35,9 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Holder Share is required")]
         public double HolderShare { get; set; }
 
-        public string? TrusteeshipLimit { get; set; }
+        public double TrusteeshipLimit { get; set; }
         
-        public string? ResolutionFeeBasis { get; set; }
+        public double ResolutionFeeBasis { get; set; }
 
         [Required(ErrorMessage = "Trust Setup Date is required")]
         public DateTime TrustSetupDate { get; set; } = DateTime.Now;
@@ -51,7 +51,7 @@ namespace Company_Site.Data
         [Required(ErrorMessage = "Holder Upside Share is required")]
         public double HolderUpsideShare { get; set; }
 
-        public string? TrusteeshipCollection { get; set; }
+        public double TrusteeshipCollection { get; set; }
 
         public double CollectionFee { get; set; }
 

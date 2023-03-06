@@ -51,5 +51,7 @@ namespace Company_Site.Data
         public double OPFV { get; set; }
 
         public double CLFV { get; set; }
+
+        public double FaceValue { get; set; }
     }
 }

@@ -129,7 +129,8 @@ namespace Company_Site.Pages.User.Finance_Components
                 //SROutStanding =
                 Surplus = Model.TotalUpsideSharePercentage,
                 TDS_Decimal = Model.TDS,
-                TSFee = Model.TrusteeshipFee
+                TSFee = Model.TrusteeshipFee,
+                FaceValue = Model.FaceValue,
             };
             _dbContext.DistributionEnteries.Add(e);
             _dbContext.SaveChanges();
@@ -144,6 +145,7 @@ namespace Company_Site.Pages.User.Finance_Components
                 _dbContext.Expenses.Update(c);
 			});
             _dbContext.SaveChanges();
+            Clear();
         }
 
         /// <summary>
@@ -159,8 +161,11 @@ namespace Company_Site.Pages.User.Finance_Components
                 Model.TrustSetupDate = t.TrustSetupDate.ToString("dd-MMM-yyyy");
                 Model.Trust = t;
             }
+            Model.TrusteeshipFeeLimit = t.TrusteeshipLimit;
             Model.TrustCode = collection.TrustCode;
             Model.TrustName = collection.Trust_Name;
+            Model.TrusteeshipFeeBasis = t.TrusteeshipBasis;
+            Model.ResolutionFeeBasis = t.ResolutionFeeBasis;
             Collections = _dbContext.Collections.Where(f => f.TrustCode == collection.TrustCode && f.Distribution_Id == null).ToList();
             //Getting expense enteries for the trust
             ExpenseEntries = _dbContext.Expenses.Where(e => e.TrustCode == collection.TrustCode && e.Distribution_Id == null).ToList();

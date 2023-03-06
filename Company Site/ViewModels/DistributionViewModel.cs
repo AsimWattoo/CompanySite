@@ -187,7 +187,9 @@ namespace Company_Site.ViewModels
 
         public double TotalOtherExpenses { get; set; }
 
-        public double InterestOnExpenses { get; set; }
+        public double InterestOnExpenses => (InterestRate / 100) * TotalOtherExpenses;
+
+        public double InterestRate { get; set; }
 
         public double OtherAdjustments { get; set; }
 
@@ -217,5 +219,13 @@ namespace Company_Site.ViewModels
         public string? TrustDescription => Trust.TrustDescription;
 
         public string? TermsAndConditions => Trust.TermsAndConditions;
+
+        public double FaceValue { get; set; }
+
+        public double TrusteeshipFeeLimit { get; set; }
+
+        public double TrusteeshipFeeBasis { get; set; }
+
+        public double ResolutionFeeBasis { get; set; }
     }
 }

@@ -3,7 +3,6 @@ using Company_Site.Enum;
 using Company_Site.ViewModels;
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore.Internal;
 
 using System.Reflection;
 
@@ -269,13 +268,9 @@ namespace Company_Site.Pages.Components
 
                 Sortings.Add(header, Sorting.None);
             }
-			CollapsedValues.Clear();
-			foreach (T row in Items)
-			{
-				T2 id = GetId(row);
-				CollapsedValues.Add(id, false);
-			}
-		}
+            SetCollapsedValues();
+
+        }
 
         //Fires when selected rows to show changes
         private void RowsToShowChange(ChangeEventArgs e)
@@ -308,8 +303,23 @@ namespace Company_Site.Pages.Components
             UpdateRows();
         }
 
+        private void SetCollapsedValues()
+        {
+            if (GetId == null)
+                return;
+
+            //Assigning collapsed values
+            CollapsedValues.Clear();
+            foreach (T row in Items)
+            {
+                T2 id = GetId(row);
+                CollapsedValues.Add(id, false);
+            }
+        }
+
         private void UpdateRows()
         {
+            SetCollapsedValues();
             SR = 1;
             if (ShowPaging)
             {
